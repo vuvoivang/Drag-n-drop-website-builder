@@ -21,15 +21,17 @@ import Checkmark from "../../../public/icons/check.svg";
 import Customize from "../../../public/icons/customize.svg";
 import RedoSvg from "../../../public/icons/toolbox/redo.svg";
 import UndoSvg from "../../../public/icons/toolbox/undo.svg";
+import Logo from "../../../public/images/logo.png";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { LightTooltip } from "display/shared/components/Tooltip";
 import lz from "lzutf8";
 import copy from "copy-to-clipboard";
+import Image from "next/image";
 
 const HeaderDiv = styled.div`
   width: 100%;
-  height: 45px;
+  height: 60px;
   z-index: 99999;
   position: relative;
   padding: 0px 10px;
@@ -178,6 +180,9 @@ export const Header = () => {
   return (
     <HeaderDiv id="header" className="header text-white transition w-full">
       <div className="items-center flex w-full px-4 justify-end">
+        <div className="logo-container">
+          <Image className="header-logo" src={Logo} alt="Our Logo" height={45} width={60}/>
+        </div>
         {/* Form add new page  */}
         <PageFormControl className="pt-4">
           <LightTooltip

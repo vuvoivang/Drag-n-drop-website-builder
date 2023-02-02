@@ -1,3 +1,19 @@
-.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover{
-    background-color: #35ed78!important;
+.MuiListItem-root.Mui-selected,
+.MuiListItem-root.Mui-selected:hover {
+  background-color: #35ed78 !important;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #38a05e;
+  border-radius: 0px 0px 5px 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #41d577;
+}
+html {
+  scroll-behavior: smooth;
 }

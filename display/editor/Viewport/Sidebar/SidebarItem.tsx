@@ -11,6 +11,7 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
   flex: ${(props) =>
     props.visible && props.height && props.height === "full" ? `1` : "unset"};
   color: #fff;
+  overflow: auto;
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`

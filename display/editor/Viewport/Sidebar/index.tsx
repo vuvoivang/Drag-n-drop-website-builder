@@ -11,12 +11,11 @@ import LayerIcon from "../../../../public/icons/layers.svg";
 import { Toolbar } from "../../Toolbar";
 
 export const SidebarDiv = styled.div<{ enabled: boolean }>`
-  width: 280px;
+  min-width: 320px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
   background: #2c2c2c;
   margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
 `;
-
 // const CarbonAdsContainer = styled.div`
 //   width: 100%;
 //   margin-top: auto;

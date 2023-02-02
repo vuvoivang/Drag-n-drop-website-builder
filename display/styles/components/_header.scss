@@ -1,4 +1,13 @@
 #header {
+    .logo-container{
+        & > span{
+            display: block!important;
+        }
+    }
+    .header-logo{
+        object-fit: cover;
+        border-radius: 10px;
+    }
     .label-page {
         font-size: 14px;
     }
