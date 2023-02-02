@@ -9,6 +9,7 @@ import {
   CallbacksFor,
   Delete,
   ERROR_NOT_IN_RESOLVER,
+  ROOT_PATH
 } from 'libs/utils/src';
 import invariant from 'tiny-invariant';
 
@@ -26,6 +27,8 @@ import {
   SerializedNodes,
   NodeSelector,
   NodeSelectorType,
+  PageData,
+  SerializedData,
 } from '../interfaces';
 import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
@@ -189,6 +192,7 @@ const Methods = (
         });
         nodes = nodeToAdd;
       }
+      // @ts-ignore
       nodes.forEach((node: Node) => {
         addNodeTreeToParent(
           {
@@ -233,10 +237,11 @@ const Methods = (
       });
     },
 
-    deserialize(input: SerializedNodes | string) {
-      const dehydratedNodes =
+    deserialize(input: SerializedData | string) {
+      const dehydratedData =
         typeof input == 'string' ? JSON.parse(input) : input;
-
+      const dehydratedNodes = dehydratedData.nodes;
+      const dehydratedPages = dehydratedData.pages;
       const nodePairs = Object.keys(dehydratedNodes).map((id) => {
         let nodeId = id;
 
@@ -253,6 +258,7 @@ const Methods = (
       });
 
       this.replaceNodes(fromEntries(nodePairs));
+      this.replacePageOptions(dehydratedPages, ROOT_PATH);
     },
 
     /**
@@ -428,6 +434,62 @@ const Methods = (
       }
 
       this.setNodeEvent('hovered', null);
+    },
+    /**
+     * Replace page options
+     * @param id
+     * @param page
+     */
+     replacePageOptions(pages: PageData[], currentPage: string) {
+      state.pageOptions = {
+        pages,
+        currentPage,
+      }
+    },
+    /**
+     * Set page of a Node
+     * @param id
+     * @param page
+     */
+    setNodePage(id: NodeId, page: string) {
+      state.nodes[id].data.page = page;
+    },
+    /**
+     * Set current page for state
+     * @param page
+     */
+    setCurrentPage(page: string) {
+      state.pageOptions.currentPage = page;
+    },
+    /**
+     * Set new list pages in pageOptions
+     * @param pages
+     */
+    setListPage(pages: PageData[]) {
+      state.pageOptions.pages = pages;
+    },
+    /**
+     * Add new page includes path and name
+     * @param page
+     */
+    addNewPage(page: PageData) {
+      state.pageOptions.pages.push(page);
+    },
+     /**
+     * Delete a page and all nodes in that page
+     * @param removedPage: path of page to be deleted
+     */
+    deletePage(removedPage: string) {
+      state.pageOptions.pages = state.pageOptions.pages.filter(pageData => pageData.path !== removedPage);
+      // change to new page if current page is deleted
+      if(state.pageOptions.currentPage === removedPage) {
+        state.pageOptions.currentPage = state.pageOptions.pages[0]?.path;
+      }
+      Object.entries(state.nodes).forEach(([key, value]) => {
+        if(value.data.page === removedPage) {
+          deleteNode(key);
+        }
+      });
     },
   };
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import '../styles/app.css';
+import '../display/styles/app.scss';
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

@@ -1,6 +1,7 @@
 import { ERROR_DESERIALIZE_COMPONENT_NOT_IN_RESOLVER } from '@libs/utils';
 import React from 'react';
 import invariant from 'tiny-invariant';
+import { ROOT_PATH } from 'libs/utils/src';
 
 import { resolveComponent } from './resolveComponent';
 
@@ -96,7 +97,7 @@ export const deserializeNode = (
     resolver
   ) as unknown) as NodeData;
 
-  const { parent, custom, displayName, isCanvas, nodes, hidden } = nodeData;
+  const { parent, custom, displayName, isCanvas, nodes, hidden, page } = nodeData;
 
   const linkedNodes = nodeData.linkedNodes || nodeData._childCanvas;
 
@@ -111,5 +112,6 @@ export const deserializeNode = (
     parent,
     linkedNodes: linkedNodes || {},
     nodes: nodes || [],
+    page: page || ROOT_PATH,
   };
 };

@@ -31,7 +31,9 @@ export type StateFor<M extends MethodsOrOptions> = M extends MethodsOrOptions<
 >
   ? S
   : never;
-
+/**
+  Use to get the callbacks return of methods or options 
+*/
 export type CallbacksFor<
   M extends MethodsOrOptions
 > = M extends MethodsOrOptions<any, infer R>

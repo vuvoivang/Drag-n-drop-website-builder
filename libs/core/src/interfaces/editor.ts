@@ -48,6 +48,16 @@ export type EditorState = {
   options: Options;
   handlers: CoreEventHandlers;
   indicator: Indicator;
+  pageOptions: PageOptions;
 };
 
 export type ConnectedEditor<S = null> = useInternalEditorReturnType<S>;
+
+export interface PageOptions {
+  pages: PageData[];
+  currentPage: string;
+}
+export type PageData = {
+  path: string;
+  name: string;
+}

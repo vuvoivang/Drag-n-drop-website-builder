@@ -2,6 +2,7 @@ import {
   useMethods,
   SubscriberAndCallbacksFor,
   PatchListener,
+  ROOT_PATH,
 } from 'libs/utils/src';
 
 import { ActionMethods } from './actions';
@@ -35,6 +36,13 @@ export const editorInitialState: EditorState = {
       }),
     normalizeNodes: () => {},
   },
+  pageOptions: {
+    currentPage: ROOT_PATH,
+    pages: [{
+      path: ROOT_PATH,
+      name: "Home",
+    }],
+  }
 };
 
 export const ActionMethodsWithConfig = {

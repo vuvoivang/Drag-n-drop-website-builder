@@ -1,4 +1,4 @@
-import { getRandomId as getRandomNodeId } from 'libs/utils/src';
+import { getRandomId as getRandomNodeId, ROOT_PATH } from 'libs/utils/src';
 import React from 'react';
 
 import { Node, FreshNode, UserComponentConfig } from '../interfaces';
@@ -35,6 +35,7 @@ export function createNode(
       hidden: false,
       nodes: [],
       linkedNodes: {},
+      page: ROOT_PATH,
       ...newNode.data,
     },
     related: {},

@@ -16,7 +16,7 @@ export const renderToolbarSection = (configSetting: ConfigSetting) => {
             key={section.title}
           >
             {section.items.map((item) => {
-              return <ToolbarItem {...item} />;
+              return <ToolbarItem {...item} key={item.type} />;
             })}
           </ToolbarSection>
         ))}

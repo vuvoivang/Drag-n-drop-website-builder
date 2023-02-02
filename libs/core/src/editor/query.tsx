@@ -156,7 +156,10 @@ export function QueryMethods(state: EditorState) {
      * Retrieve the JSON representation of the editor's Nodes
      */
     serialize(): string {
-      return JSON.stringify(this.getSerializedNodes());
+      return JSON.stringify({
+        nodes: this.getSerializedNodes(),
+        pages: state.pageOptions.pages,
+      });
     },
 
     parseReactElement: (reactElement: React.ReactElement) => ({
@@ -168,7 +171,7 @@ export function QueryMethods(state: EditorState) {
 
           node.data.displayName = node.data.displayName || name;
           node.data.name = name;
-
+          node.data.page = state.pageOptions.currentPage;
           if (normalize) {
             normalize(node, jsx);
           }

@@ -1,0 +1,69 @@
+#header {
+    .label-page {
+        font-size: 14px;
+    }
+
+    .MuiInput-underline {
+        &:before {
+            border-bottom: 1px solid $color-secondary;
+        }
+
+        &:after {
+            border-bottom: 1px solid $color-secondary;
+        }
+
+        &:hover:not(.Mui-disabled):before {
+            border-bottom: 1px solid $color-secondary;
+        }
+    }
+
+    .MuiSelect-icon {
+        color: $color-secondary;
+    }
+
+    .add-page-container {
+        &:hover {
+            .MuiInputBase-inputSelect {
+                color: $color-primary;
+            }
+
+            .MuiSelect-icon {
+                color: $color-primary;
+            }
+        }
+
+    }
+}
+
+.custom-menu-item {
+    justify-content: space-between !important;
+
+    .rm-icon {
+
+        background-color: rgb(213, 43, 43);
+        color: white;
+        border-radius: 20px;
+
+        &:hover {
+            background-color: #d90606;
+        }
+    }
+}
+
+.MuiListItem-gutters {
+    padding-right: 8px !important;
+}
+
+.dialog-new-page {
+    list-style: initial;
+    padding-left: 15px;
+
+    li {
+        color: rgba(0, 0, 0, 0.54) !important;
+        font-size: 14px !important;
+    }
+}
+
+.MuiPaper-root.MuiMenu-paper {
+    top: 32px !important;
+}

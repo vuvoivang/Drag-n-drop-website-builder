@@ -2,6 +2,7 @@ import { QueryCallbacksFor } from '@libs/utils';
 import React from 'react';
 
 import { QueryMethods } from '../editor/query';
+import { PageData } from './editor';
 
 export type UserComponentConfig<T> = {
   displayName: string;
@@ -52,6 +53,7 @@ export type NodeData = {
   linkedNodes: Record<string, NodeId>;
   nodes: NodeId[];
   hidden: boolean;
+  page: string;
   custom?: any;
   _childCanvas?: Record<string, NodeId>; // TODO: Deprecate in favour of linkedNodes
 };
@@ -81,6 +83,10 @@ export type SerializedNode = Omit<
 
 export type SerializedNodes = Record<NodeId, SerializedNode>;
 
+export type SerializedData = {
+  nodes: SerializedNodes;
+  pages: PageData[];
+}
 // TODO: Deprecate in favor of SerializedNode
 export type SerializedNodeData = SerializedNode;
 
