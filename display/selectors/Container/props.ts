@@ -11,6 +11,7 @@ export const defaultProps = {
     radius: 0,
     width: '100%',
     height: 'auto',
+    styledClassNames: {},
   };
 
 export type ContainerProps = {
@@ -31,4 +32,5 @@ export type ContainerProps = {
     shadow: number;
     children: React.ReactNode;
     radius: number;
+    styledClassNames?: Record<string, string>;
   };
