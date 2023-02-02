@@ -1,6 +1,5 @@
 import React from "react";
 
-import { ToolbarRadio } from "../../editor/Toolbar/ToolbarRadio";
 import { ConfigSetting, renderToolbarSection } from "../RenderSetting";
 
 const configSetting: ConfigSetting = {
@@ -74,27 +73,59 @@ const configSetting: ConfigSetting = {
       items: [
         {
           propKey: "margin",
-          type: "slider",
+          type: ["slider", "text"],
           label: "Top",
           index: 0,
+          full: true,
+          styledCustomOptions: [{
+            value: "mt-2",
+            label: "Tiny",
+          },{
+            value: "mt-4",
+            label: "Medium",
+          }],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Right",
           index: 1,
+          full: true,
+          styledCustomOptions: [{
+            value: "mr-2",
+            label: "Tiny",
+          },{
+            value: "mr-4",
+            label: "Medium",
+          }],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Bottom",
           index: 2,
+          full: true,
+          styledCustomOptions: [{
+            value: "mb-2",
+            label: "Tiny",
+          },{
+            value: "mb-4",
+            label: "Medium",
+          }],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Left",
           index: 3,
+          full: true,
+          styledCustomOptions: [{
+            value: "ml-2",
+            label: "Tiny",
+          },{
+            value: "ml-4",
+            label: "Medium",
+          }],
         },
       ],
     },
@@ -158,35 +189,50 @@ const configSetting: ConfigSetting = {
           propKey: "flexDirection",
           type: "radio",
           label: "Flex Direction",
-          children: (
-            <>
-              <ToolbarRadio value="row" label="Row" />
-              <ToolbarRadio value="column" label="Column" />
-            </>
-          ),
+          radioChildren: [
+            {
+              value: "row",
+              label: "Row",
+            },
+            {
+              value: "column",
+              label: "Column",
+            },
+          ],
         },
         {
           propKey: "fillSpace",
           type: "radio",
           label: "Fill space",
-          children: (
-            <>
-              <ToolbarRadio value="yes" label="Yes" />
-              <ToolbarRadio value="no" label="No" />
-            </>
-          ),
+          radioChildren: [
+            {
+              value: "yes",
+              label: "Yes",
+            },
+            {
+              value: "no",
+              label: "No",
+            },
+          ],
         },
         {
           propKey: "alignItems",
           type: "radio",
           label: "Align Items",
-          children: (
-            <>
-              <ToolbarRadio value="flex-start" label="Flex start" />
-              <ToolbarRadio value="center" label="Center" />
-              <ToolbarRadio value="flex-end" label="Flex end" />
-            </>
-          ),
+          radioChildren: [
+            {
+              value: "flex-start",
+              label: "Flex start",
+            },
+            {
+              value: "center",
+              label: "Center",
+            },
+            {
+              value: "flex-end",
+              label: "Flex end",
+            },
+          ],
         },
       ],
     },

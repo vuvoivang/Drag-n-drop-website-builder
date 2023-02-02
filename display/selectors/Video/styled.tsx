@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const YoutubeDiv = styled.div<any>`
-width: 100%;
-height: 100%;
+width: ${(props) => (props.width)};
+height: ${(props) => (props.height)};
 > div {
   height: 100%;
 }

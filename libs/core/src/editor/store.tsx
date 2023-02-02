@@ -35,6 +35,7 @@ export const editorInitialState: EditorState = {
         isMultiSelectEnabled: (e: MouseEvent) => !!e.metaKey,
       }),
     normalizeNodes: () => {},
+    isShownAllIndicator: false,
   },
   pageOptions: {
     currentPage: ROOT_PATH,

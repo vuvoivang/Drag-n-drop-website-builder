@@ -17,3 +17,8 @@
 html {
   scroll-behavior: smooth;
 }
+.viewport {
+  .MuiFormControlLabel-label.Mui-disabled {
+    color: #ffffff;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../styles/app.css';
 import '../display/styles/app.scss';
+import '../display/styles/custom-setting.scss';
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

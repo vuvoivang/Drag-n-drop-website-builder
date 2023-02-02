@@ -61,7 +61,7 @@ export const ToolbarSection = ({ title, props, summary, children }: any) => {
         <div className="px-6 w-full">
           <Grid container direction="row" alignItems="center" spacing={3}>
             <Grid item xs={4}>
-              <h5 className="text-sm text-white text-left font-medium text-dark-gray">
+              <h5 className="text-md text-white text-left font-medium text-dark-gray">
                 {title}
               </h5>
             </Grid>

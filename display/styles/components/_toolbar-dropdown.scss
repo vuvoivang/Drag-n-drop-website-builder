@@ -1,0 +1,25 @@
+.toolbar-dropdown{
+    &_container{
+        margin-top: 16px !important;
+        .MuiInput-underline {
+            &:before {
+                border-bottom: 1px solid $color-secondary;
+            }
+    
+            &:after {
+                border-bottom: 1px solid $color-secondary;
+            }
+    
+            &:hover:not(.Mui-disabled):before {
+                border-bottom: 1px solid $color-secondary;
+            }
+        }
+        .MuiSelect-icon {
+            color: $color-secondary;
+        }
+        .MuiPaper-root.MuiMenu-paper {
+            top: 120px !important;
+        }
+    }
+    
+}

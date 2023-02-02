@@ -1,8 +1,9 @@
 // global
 @import "./common/var";
 @import "./common/global";
-
+@import "./common/text";
 
 // components
 @import "./components/header";
-
+@import "./components/toolbar-item";
+@import "./components/toolbar-dropdown";

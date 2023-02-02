@@ -10,7 +10,6 @@ body {
   color: rgb(75, 75, 75);
   background: #e0e0e0;
 }
-/* purgecss end ignore */
 
 @tailwind utilities;
 

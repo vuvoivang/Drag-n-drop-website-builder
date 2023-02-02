@@ -1,0 +1,1 @@
+export const STYLED_CLASSNAMES_KEY = 'styledClassNames';

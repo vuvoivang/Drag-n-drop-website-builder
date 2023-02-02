@@ -1,7 +1,6 @@
 import React from "react";
 import { capitalize, weightDescription } from "utils/text";
 
-import { ToolbarRadio } from "../../editor/Toolbar/ToolbarRadio";
 import { ConfigSetting, renderToolbarSection } from "../RenderSetting";
 
 const configSetting: ConfigSetting = {
@@ -17,33 +16,61 @@ const configSetting: ConfigSetting = {
       items: [
         {
           propKey: "fontSize",
-          type: "slider",
+          type: ["slider", "text", "select"],
           label: "Font Size",
           full: true,
+          selectChildren: [
+            {
+              value: "14",
+              label: "14px",
+            },
+            {
+              value: "16",
+              label: "16px",
+            },
+            {
+              value: "18",
+              label: "18px",
+            },
+          ],
         },
         {
           propKey: "textAlign",
           type: "radio",
           label: "Align",
-          children: (
-            <>
-              <ToolbarRadio value="left" label="Left" />
-              <ToolbarRadio value="center" label="Center" />
-              <ToolbarRadio value="right" label="Right" />
-            </>
-          ),
+          radioChildren: [
+            {
+              value: "left",
+              label: "Left",
+            },
+            {
+              value: "center",
+              label: "Center",
+            },
+            {
+              value: "right",
+              label: "Right",
+            },
+          ],
         },
         {
           propKey: "fontWeight",
           type: "radio",
           label: "Weight",
-          children: (
-            <>
-              <ToolbarRadio value="400" label="Regular" />
-              <ToolbarRadio value="500" label="Medium" />
-              <ToolbarRadio value="700" label="Bold" />
-            </>
-          ),
+          radioChildren: [
+            {
+              value: "400",
+              label: "Regular",
+            },
+            {
+              value: "500",
+              label: "Medium",
+            },
+            {
+              value: "700",
+              label: "Bold",
+            },
+          ],
         },
       ],
     },
@@ -58,27 +85,71 @@ const configSetting: ConfigSetting = {
       items: [
         {
           propKey: "margin",
-          type: "slider",
+          type: ["slider", "text"],
           label: "Top",
           index: 0,
+          full: true,
+          styledCustomOptions: [
+            {
+              value: "mt-2",
+              label: "Tiny",
+            },
+            {
+              value: "mt-4",
+              label: "Medium",
+            },
+          ],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Right",
           index: 1,
+          full: true,
+          styledCustomOptions: [
+            {
+              value: "mr-2",
+              label: "Tiny",
+            },
+            {
+              value: "mr-4",
+              label: "Medium",
+            },
+          ],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Bottom",
           index: 2,
+          full: true,
+          styledCustomOptions: [
+            {
+              value: "mb-2",
+              label: "Tiny",
+            },
+            {
+              value: "mb-4",
+              label: "Medium",
+            },
+          ],
         },
         {
           propKey: "margin",
           type: "slider",
           label: "Left",
           index: 3,
+          full: true,
+          styledCustomOptions: [
+            {
+              value: "ml-2",
+              label: "Tiny",
+            },
+            {
+              value: "ml-4",
+              label: "Medium",
+            },
+          ],
         },
       ],
     },

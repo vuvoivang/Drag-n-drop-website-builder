@@ -47,11 +47,14 @@ function StyledRadio(props) {
 
 const useLabelStyles = makeStyles({
   label: {
-    fontSize: '15px',
+    fontSize: '14px',
   },
+  disabled: {
+    color: "#ffffff",
+  }
 });
 
-export const ToolbarRadio = ({ value, label }: any) => {
+export const ToolbarRadio = ({ value, label, disabled }: any) => {
   const classes = useLabelStyles({});
   return (
     <FormControlLabel
@@ -60,6 +63,7 @@ export const ToolbarRadio = ({ value, label }: any) => {
       control={<StyledRadio />}
       label={label}
       style={{ color: '#fff' }}
+      disabled={disabled}
     />
   );
 };

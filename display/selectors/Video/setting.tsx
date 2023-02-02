@@ -15,6 +15,25 @@ const configSetting: ConfigSetting = {
         },
       ],
     },
+    {
+      title: "Dimensions",
+      props: ["width", "height"],
+      summary: ({ width, height }: any) => {
+        return `${width || 0} x ${height || 0}`;
+      },
+      items: [
+        {
+          propKey: "width",
+          type: "text",
+          label: "Width",
+        },
+        {
+          propKey: "height",
+          type: "text",
+          label: "Height",
+        },
+      ],
+    },
   ],
 };
 

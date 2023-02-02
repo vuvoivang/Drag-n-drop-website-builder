@@ -48,6 +48,7 @@ export type ToolbarTextInputProps = {
   prefix?: string;
   label?: string;
   type: string;
+  disabled: boolean;
   onChange?: (value: any) => void;
   value?: any;
 };
@@ -55,8 +56,9 @@ export const ToolbarTextInput = ({
   onChange,
   value,
   prefix,
-  label,
   type,
+  disabled,
+  label,
   ...props
 }: ToolbarTextInputProps) => {
   const [internalValue, setInternalValue] = useState(value);
@@ -74,6 +76,7 @@ export const ToolbarTextInput = ({
     <div
       style={{ width: '100%', position: 'relative' }}
       onClick={() => {
+        if(disabled) return;
         setActive(true);
       }}
     >
@@ -103,7 +106,6 @@ export const ToolbarTextInput = ({
         </div>
       ) : null}
       <TextField
-        label={label}
         style={{ margin: 0, width: '100%' }}
         value={internalValue || ''}
         onKeyDown={(e) => {

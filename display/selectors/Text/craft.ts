@@ -10,6 +10,7 @@ export const craftConfig = {
     margin: [0, 0, 0, 0],
     shadow: 0,
     text: 'Text',
+    styledClassNames: {},
   },
   related: {
     toolbar: TextSettings,

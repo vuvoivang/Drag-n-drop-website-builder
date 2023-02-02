@@ -6,4 +6,5 @@ export type TextProps = {
     shadow: number;
     text: string;
     margin: [string, string, string, string];
+    styledClassNames: Record<string, any>;
   };

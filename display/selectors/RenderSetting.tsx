@@ -1,25 +1,34 @@
-import { ToolbarItem, ToolbarSection, ToolbarSectionProps } from "display/editor";
+import {
+  ToolbarItem,
+  ToolbarSection,
+  ToolbarSectionProps,
+} from "display/editor";
 
 export type ConfigSetting = {
-    sections: ToolbarSectionProps[];
+  sections: ToolbarSectionProps[];
 };
 
 export const renderToolbarSection = (configSetting: ConfigSetting) => {
-    const { sections } = configSetting;
-    return (
-      <>
-        {sections?.map((section) => (
-          <ToolbarSection
-            title={section.title}
-            props={section.props}
-            summary={section.summary}
-            key={section.title}
-          >
-            {section.items.map((item) => {
-              return <ToolbarItem {...item} key={item.type} />;
-            })}
-          </ToolbarSection>
-        ))}
-      </>
-    );
-  };
+  const { sections } = configSetting;
+  return (
+    <>
+      {sections?.map((section) => (
+        <ToolbarSection
+          title={section.title}
+          props={section.props}
+          summary={section.summary}
+          key={section.title}
+        >
+          {section.items.map((item) => {
+            return (
+              <ToolbarItem
+                {...item}
+                key={Array.isArray(item.type) ? item.type[0] : item.type}
+              />
+            );
+          })}
+        </ToolbarSection>
+      ))}
+    </>
+  );
+};
