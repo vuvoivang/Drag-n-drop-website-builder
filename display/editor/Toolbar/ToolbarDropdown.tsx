@@ -11,6 +11,7 @@ const PageFormControl = styled(FormControl)`
 const PageSelect = styled(Select)`
   min-width: 120px;
   color: white !important;
+  font-size: 14px!important;
 `;
 export const ToolbarDropdown = ({ value, onChange, children, disabled, renderValue }: any) => {
   return (

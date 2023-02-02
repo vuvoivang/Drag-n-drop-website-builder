@@ -3,13 +3,14 @@ import {
   ToolbarSection,
   ToolbarSectionProps,
 } from "display/editor";
+import { generateConfigSections } from "./helper";
 
 export type ConfigSetting = {
-  sections: ToolbarSectionProps[];
+  sections: Array<ToolbarSectionProps | string>;
 };
 
 export const renderToolbarSection = (configSetting: ConfigSetting) => {
-  const { sections } = configSetting;
+  const { sections } = generateConfigSections(configSetting);
   return (
     <>
       {sections?.map((section) => (

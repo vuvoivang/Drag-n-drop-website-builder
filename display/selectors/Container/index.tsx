@@ -45,7 +45,7 @@ export const Container = (props: Partial<ContainerProps>) => {
   return (
     <Resizer
       propKey={{ width: "width", height: "height" }}
-      className={cx(["custom-container", styledClassNamesValues])}
+      className={cx(["flex custom-container", styledClassNamesValues])}
       style={{
         justifyContent,
         flexDirection,

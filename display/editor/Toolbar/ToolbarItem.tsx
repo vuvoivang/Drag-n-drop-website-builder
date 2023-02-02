@@ -8,6 +8,7 @@ import { ToolbarTextInput } from "./ToolbarTextInput";
 import { ToolbarRadio } from "./ToolbarRadio";
 import { STYLED_CLASSNAMES_KEY } from "display/constants";
 import { LightTooltip } from "display/shared/components/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
 
 const iOSBoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
@@ -71,10 +72,10 @@ export type ToolbarItemProps = {
   prefix?: string;
   label?: string;
   full?: boolean;
-  propKey?: string;
+  propKey: string;
   index?: number;
   children?: React.ReactNode;
-  type: string | string[];
+  type?: string | string[];
   styledCustomOptions?: Option | Array<Option>;
   radioChildren?: Array<Option>;
   selectChildren?: Array<Option>;
@@ -84,6 +85,13 @@ enum CUSTOM_STYLE {
   DEFAULT = "DEFAULT",
   STYLED_SUGGESTION = "SUGGESTION",
 }
+
+const useMenuItemStyles = makeStyles({
+  root: {
+    fontSize: "14px",
+  },
+});
+
 export const ToolbarItem = ({
   full = false,
   propKey,
@@ -93,6 +101,7 @@ export const ToolbarItem = ({
   index,
   ...props
 }: ToolbarItemProps) => {
+  const menuItemClasses = useMenuItemStyles({});
   const {
     actions: { setProp },
     propValue,
@@ -236,6 +245,7 @@ export const ToolbarItem = ({
                 key={option.value}
                 value={option.value}
                 disabled={isDisabledDefault}
+                classes={menuItemClasses}
               >
                 {option.label}
               </MenuItem>

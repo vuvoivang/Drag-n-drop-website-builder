@@ -39,10 +39,11 @@ const useSummaryStyles = makeStyles((_) => ({
   },
 }));
 export type ToolbarSectionProps = {
-  title: string;
+  section: string;
+  title?: string;
   props?: string[];
   summary?: (props: any) => React.ReactNode;
-  items?: ToolbarItemProps[];
+  items?: Array<ToolbarItemProps | string>; // if define, just contains defined items (with overwrite values from default)
 }
 export const ToolbarSection = ({ title, props, summary, children }: any) => {
   const panelClasses = usePanelStyles({});
