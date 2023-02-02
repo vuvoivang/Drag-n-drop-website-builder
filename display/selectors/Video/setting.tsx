@@ -1,20 +1,11 @@
 import React from "react";
 
-import { ConfigSetting, renderToolbarSection } from "../RenderSetting";
+import { ConfigSetting, renderToolbarSection } from "../../setting/RenderSetting";
 
 const configSetting: ConfigSetting = {
   sections: [
-    {
-      title: "Youtube",
-      items: [
-        {
-          propKey: "videoId",
-          type: "text",
-          label: "Video ID",
-          full: true,
-        },
-      ],
-    },
+    'youtube',
+    'dimensions',
   ],
 };
 

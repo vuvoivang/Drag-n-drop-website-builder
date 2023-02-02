@@ -54,7 +54,7 @@ export const Viewport: React.FC = ({ children }) => {
             ])}
             ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
           >
-            <div className="relative flex-col flex items-center pt-8">
+            <div className="relative flex-col flex items-center pt-8" id="app-container">
               {children}
             </div>
             <div

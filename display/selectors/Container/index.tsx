@@ -3,6 +3,7 @@ import React from "react";
 import { Resizer } from "../Resizer";
 import { ContainerProps } from "./props";
 import { craftConfig } from "./craft";
+import cx from "classnames";
 
 const defaultProps = {
   flexDirection: "column",
@@ -36,10 +37,15 @@ export const Container = (props: Partial<ContainerProps>) => {
     shadow,
     radius,
     children,
+    styledClassNames,
   } = props;
+  const styledClassNamesValues = (
+    Object.values(styledClassNames) as string[]
+  ).flat();
   return (
     <Resizer
       propKey={{ width: "width", height: "height" }}
+      className={cx(["flex custom-container", styledClassNamesValues])}
       style={{
         justifyContent,
         flexDirection,

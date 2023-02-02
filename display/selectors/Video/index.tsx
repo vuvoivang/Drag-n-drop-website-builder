@@ -14,10 +14,10 @@ export const Video = (props: any) => {
     selected: node.events.selected,
   }));
 
-  const { videoId } = props;
+  const { videoId, width, height } = props;
 
   return (
-    <YoutubeDiv ref={connect} enabled={enabled}>
+    <YoutubeDiv ref={connect} enabled={enabled} width={width} height={height}>
       <YouTube
         videoId={videoId}
         opts={{

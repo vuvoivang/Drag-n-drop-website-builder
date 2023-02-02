@@ -63,8 +63,8 @@ function App() {
                   flexDirection="column"
                   width="100%"
                   height="auto"
-                  padding={["40", "40", "40", "40"]}
-                  margin={["0", "0", "40", "0"]}
+                  padding={["20", "20", "20", "20"]}
+                  margin={["0", "0", "20", "0"]}
                   alignItems="center"
                   custom={{ displayName: "Introduction" }}
                 >
