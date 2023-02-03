@@ -1,11 +1,19 @@
 import { useNode } from "libs/core/src";
-import { Grid, Slider, RadioGroup, MenuItem } from "@material-ui/core";
+import {
+  Grid,
+  Slider,
+  RadioGroup,
+  MenuItem,
+  FormGroup,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 
 import { ToolbarDropdown } from "./ToolbarDropdown";
 import { ToolbarTextInput } from "./ToolbarTextInput";
 import { ToolbarRadio } from "./ToolbarRadio";
+import { ToolbarCheckbox } from "./ToolbarCheckbox";
+
 import { STYLED_CLASSNAMES_KEY } from "display/constants";
 import { LightTooltip } from "display/shared/components/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
@@ -77,6 +85,7 @@ export type ToolbarItemProps = {
   children?: React.ReactNode;
   type?: string | string[];
   styledCustomOptions?: Option | Array<Option>;
+  checkboxChildren: Array<Option>;
   radioChildren?: Array<Option>;
   selectChildren?: Array<Option>;
   onChange?: (value: any) => any;
@@ -173,6 +182,13 @@ export const ToolbarItem = ({
       props[propKey] = onChange ? onChange(value) : value;
     });
   };
+  const setPropKeyValueWithPropertyName = (propName: string, value: any) => {
+    setProp((props: any) => {
+      if (typeof props[propKey] === "object") {
+        props[propKey][propName] = onChange ? onChange(value) : value;
+      }
+    });
+  };
   const handleSetPropValue = (newValue: any, type: string) => {
     if (["text", "color", "bg", "number"].includes(type)) {
       setPropKeyValueWithIndexAndTimeOut(newValue, 500);
@@ -180,6 +196,8 @@ export const ToolbarItem = ({
       setPropKeyValueWithIndexAndTimeOut(newValue, 1000);
     } else if (["radio", "select"].includes(type)) {
       setPropKeyValueWithoutIndex(newValue);
+    } else if (type === "checkbox") {
+      setPropKeyValueWithPropertyName(newValue.name, newValue.checked);
     }
   };
 
@@ -226,6 +244,28 @@ export const ToolbarItem = ({
                 />
               ))}
             </RadioGroup>
+          </>
+        ) : type === "checkbox" ? (
+          <>
+            <FormGroup>
+              {props.checkboxChildren?.map((option) => (
+                <ToolbarCheckbox
+                  key={option.value}
+                  value={option.value}
+                  name={option.value}
+                  label={option.label}
+                  disabled={isDisabledDefault}
+                  checked={!!value[option.value]}
+                  onChange={(e) => {
+                    const newValue = {
+                      name: e.target.value,
+                      checked: e.target.checked,
+                    };
+                    handleSetPropValue(newValue, type);
+                  }}
+                />
+              ))}
+            </FormGroup>
           </>
         ) : type === "select" ? (
           <ToolbarDropdown
@@ -280,7 +320,7 @@ export const ToolbarItem = ({
               >
                 {listType.map((type, keyIndex) => {
                   return (
-                    <div key={keyIndex}>{handleRenderInputSetting(type)}</div>
+                    <div className="mb-3" key={keyIndex}>{handleRenderInputSetting(type)}</div>
                   );
                 })}
               </div>
@@ -338,7 +378,7 @@ export const ToolbarItem = ({
             >
               {listType.map((type, keyIndex) => {
                 return (
-                  <div key={keyIndex}>{handleRenderInputSetting(type)}</div>
+                  <div className="mb-3" key={keyIndex}>{handleRenderInputSetting(type)}</div>
                 );
               })}
             </div>
