@@ -1,12 +1,23 @@
 import { useNode } from "libs/core/src";
-import { Grid, Slider, RadioGroup, MenuItem } from "@material-ui/core";
+import {
+  Grid,
+  Slider,
+  RadioGroup,
+  MenuItem,
+  FormGroup,
+} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import UpdateIcon from "@material-ui/icons/Update";
 import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import { ToolbarDropdown } from "./ToolbarDropdown";
 import { ToolbarTextInput } from "./ToolbarTextInput";
 import { ToolbarRadio } from "./ToolbarRadio";
-import { STYLED_CLASSNAMES_KEY } from "display/constants";
+import { ToolbarCheckbox } from "./ToolbarCheckbox";
+
+import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from "display/constants";
 import { LightTooltip } from "display/shared/components/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -77,6 +88,7 @@ export type ToolbarItemProps = {
   children?: React.ReactNode;
   type?: string | string[];
   styledCustomOptions?: Option | Array<Option>;
+  checkboxChildren: Array<Option>;
   radioChildren?: Array<Option>;
   selectChildren?: Array<Option>;
   onChange?: (value: any) => any;
@@ -173,13 +185,22 @@ export const ToolbarItem = ({
       props[propKey] = onChange ? onChange(value) : value;
     });
   };
+  const setPropKeyValueWithPropertyName = (propName: string, value: any) => {
+    setProp((props: any) => {
+      if (typeof props[propKey] === "object") {
+        props[propKey][propName] = onChange ? onChange(value) : value;
+      }
+    });
+  };
   const handleSetPropValue = (newValue: any, type: string) => {
-    if (["text", "color", "bg", "number"].includes(type)) {
+    if (["text", "color", "bg", "number", "imageUpload"].includes(type)) {
       setPropKeyValueWithIndexAndTimeOut(newValue, 500);
     } else if (type === "slider") {
       setPropKeyValueWithIndexAndTimeOut(newValue, 1000);
     } else if (["radio", "select"].includes(type)) {
       setPropKeyValueWithoutIndex(newValue);
+    } else if (type === "checkbox") {
+      setPropKeyValueWithPropertyName(newValue.name, newValue.checked);
     }
   };
 
@@ -227,6 +248,28 @@ export const ToolbarItem = ({
               ))}
             </RadioGroup>
           </>
+        ) : type === "checkbox" ? (
+          <>
+            <FormGroup>
+              {props.checkboxChildren?.map((option) => (
+                <ToolbarCheckbox
+                  key={option.value}
+                  value={option.value}
+                  name={option.value}
+                  label={option.label}
+                  disabled={isDisabledDefault}
+                  checked={!!value[option.value]}
+                  onChange={(e) => {
+                    const newValue = {
+                      name: e.target.value,
+                      checked: e.target.checked,
+                    };
+                    handleSetPropValue(newValue, type);
+                  }}
+                />
+              ))}
+            </FormGroup>
+          </>
         ) : type === "select" ? (
           <ToolbarDropdown
             value={value || ""}
@@ -251,6 +294,57 @@ export const ToolbarItem = ({
               </MenuItem>
             ))}
           </ToolbarDropdown>
+        ) : type === "imageUpload" ? (
+          <ImageUploading
+            value={[value] || [""]}
+            onChange={(imageList: ImageListType) => {
+              // call api upload image
+              // set image url to value
+              handleSetPropValue(imageList[0]?.dataURL, type);
+            }}
+            acceptType={["jpg", "gif", "png"]}
+          >
+            {({
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              <div className="upload__image-wrapper">
+                {value && value !== PLACEHOLDER_IMAGE_URL ? (
+                  <>
+                    <div className="image-item">
+                      <img src={value} alt="uploaded" width="180" />
+                      <div className="image-item__btn-wrapper mt-4">
+                        <button
+                          onClick={() => onImageUpdate(0)}
+                          className="text-sm py-2 px-3 rounded-full text-white bg-green-600	focus:outline-none mr-2"
+                        >
+                          <UpdateIcon /> Update
+                        </button>
+                        <button
+                          onClick={() => onImageRemove(0)}
+                          className="text-sm py-2 px-3 rounded-full text-white bg-rose-600	 focus:outline-none"
+                        >
+                          <DeleteIcon /> Remove
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <button
+                    style={isDragging ? { color: "red" } : undefined}
+                    onClick={onImageUpload}
+                    className="text-sm py-2 px-3 rounded-full text-white bg-green-600	focus:outline-none"
+                    {...dragProps}
+                  >
+                    Choose image (click or drop)
+                  </button>
+                )}
+              </div>
+            )}
+          </ImageUploading>
         ) : null}
       </>
     );
@@ -280,7 +374,9 @@ export const ToolbarItem = ({
               >
                 {listType.map((type, keyIndex) => {
                   return (
-                    <div key={keyIndex}>{handleRenderInputSetting(type)}</div>
+                    <div className="mb-3" key={keyIndex}>
+                      {handleRenderInputSetting(type)}
+                    </div>
                   );
                 })}
               </div>
@@ -338,7 +434,9 @@ export const ToolbarItem = ({
             >
               {listType.map((type, keyIndex) => {
                 return (
-                  <div key={keyIndex}>{handleRenderInputSetting(type)}</div>
+                  <div className="mb-3" key={keyIndex}>
+                    {handleRenderInputSetting(type)}
+                  </div>
                 );
               })}
             </div>

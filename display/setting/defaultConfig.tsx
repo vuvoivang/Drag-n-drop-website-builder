@@ -103,6 +103,10 @@ export const DEFAULT_SECTIONS = {
     title: "Decoration",
     items: ["buttonStyle"],
   },
+  inputDecoration: {
+    title: "Decoration",
+    items: ["inputStyle"],
+  },
   containerDecoration: {
     title: "Decoration",
     props: ["radius", "shadow"],
@@ -134,8 +138,69 @@ export const DEFAULT_SECTIONS = {
   },
   youtube: {
     title: "Youtube",
-    items: ['videoId'],
-  }
+    items: ["videoId"],
+  },
+  inputColors: {
+    title: "Colors",
+    props: ["background", "color", "borderColor"],
+    summary: ({ background, color, borderColor }: any) => {
+      return (
+        <div className="flex flex-row-reverse">
+          <div
+            style={{
+              color: color && `rgba(${Object.values(color)})`,
+              background: background && `rgba(${Object.values(background)})`,
+              borderColor: borderColor && `rgba(${Object.values(borderColor)})`,
+              borderWidth: "1px",
+              borderStyle: "solid",
+            }}
+            className="text-white w-full text-center"
+          >
+            T
+          </div>
+        </div>
+      );
+    },
+    items: ["background", "color", "borderColor", "borderColorFocus"],
+  },
+  type: {
+    title: "Type",
+    props: ["type"],
+    summary: ({ type }: any) => {
+      return type;
+    },
+    items: ["type"],
+  },
+  placeholder: {
+    title: "Placeholder",
+    items: ["type"],
+  },
+  inputOptions: {
+    title: "Options",
+    items: ["inputOptions"],
+  },
+  radius: {
+    title: "Decoration",
+    props: ["radius"],
+    items: ["radius"],
+  },
+  src: {
+    title: "Source",
+    items: ["src"],
+  },
+  alt: {
+    title: "Alternative",
+    props: ["alt"],
+    items: ["alt"],
+  },
+  objectFit: {
+    title: "Object fit",
+    props: ["objectFit"],
+    summary: ({ objectFit }: any) => {
+      return objectFit;
+    },
+    items: ["objectFit"],
+  },
 };
 
 export const DEFAULT_PROP_KEYS = {
@@ -465,6 +530,126 @@ export const DEFAULT_PROP_KEYS = {
     propKey: "videoId",
     type: "text",
     label: "Video ID",
-
-  }
+  },
+  inputStyle: {
+    propKey: "inputStyle",
+    type: "radio",
+    label: "Style",
+    radioChildren: [
+      {
+        value: "full",
+        label: "Full",
+      },
+      {
+        value: "outline",
+        label: "Outline",
+      },
+    ],
+  },
+  borderColor: {
+    propKey: "borderColor",
+    type: "color",
+    label: "Border",
+  },
+  borderColorFocus: {
+    propKey: "borderColorFocus",
+    type: "color",
+    label: "Border focus",
+  },
+  type: {
+    propKey: "type",
+    type: ["text", "select"],
+    label: "Type",
+    selectChildren: [
+      {
+        value: "text",
+        label: "Text",
+      },
+      {
+        value: "number",
+        label: "Number",
+      },
+      {
+        value: "file",
+        label: "File",
+      },
+      {
+        value: "phone",
+        label: "Phone",
+      },
+      {
+        value: "password",
+        label: "Password",
+      },
+      {
+        value: "email",
+        label: "Email",
+      },
+      {
+        value: "date",
+        label: "Date",
+      },
+      {
+        value: "color",
+        label: "Color",
+      },
+    ],
+  },
+  placeholder: {
+    propKey: "placeholder",
+    type: "text",
+    label: "Placeholder",
+  },
+  inputOptions: {
+    propKey: "inputOptions",
+    type: ["checkbox"],
+    label: "Other options",
+    checkboxChildren: [
+      {
+        value: "required",
+        label: "Require field",
+      },
+      {
+        value: "readonly",
+        label: "Read only",
+      },
+    ],
+  },
+  src: {
+    propKey: "src",
+    type: ["imageUpload", "text"],
+    label: "Source (URL)",
+  },
+  alt: {
+    propKey: "alt",
+    type: "text",
+    label: "Alternative text",
+  },
+  objectFit: {
+    propKey: "objectFit",
+    type: ["text", "radio"],
+    label: "Fit image with size:",
+    radioChildren: [
+      {
+        value: "fill",
+        label: "Fill",
+      },
+      {
+        value: "contain",
+        label: "Contain",
+      },
+      {
+        value: "cover",
+        label: "Cover",
+      },
+      {
+        value: "none",
+        label: "Not resize",
+      },
+      {
+        value: "scale-down",
+        label: "Scale down",
+      },
+    ],
+  },
 };
