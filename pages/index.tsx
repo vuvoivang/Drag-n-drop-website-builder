@@ -10,6 +10,9 @@ import { Custom1, OnlyButtons } from "../display/selectors/Custom1";
 import { Custom2, Custom2VideoDrop } from "../display/selectors/Custom2";
 import { Custom3, Custom3BtnDrop } from "../display/selectors/Custom3";
 import { Video } from "../display/selectors/Video";
+import { Input } from "../display/selectors/Input";
+import { Image } from "../display/selectors/Image";
+
 
 const theme = createMuiTheme({
   typography: {
@@ -39,6 +42,8 @@ function App() {
             OnlyButtons,
             Button,
             Video,
+            Input,
+            Image,
           }}
           enabled={false}
           onRender={RenderNode}

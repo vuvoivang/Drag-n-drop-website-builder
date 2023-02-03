@@ -199,9 +199,7 @@ export const DEFAULT_SECTIONS = {
     summary: ({ objectFit }: any) => {
       return objectFit;
     },
-    items: [
-      "objectFit",
-    ],
+    items: ["objectFit"],
   },
 };
 
@@ -619,7 +617,7 @@ export const DEFAULT_PROP_KEYS = {
   },
   src: {
     propKey: "src",
-    type: "text",
+    type: ["imageUpload", "text"],
     label: "Source (URL)",
   },
   alt: {
