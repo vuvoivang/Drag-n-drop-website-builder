@@ -12,6 +12,7 @@ import { Custom3, Custom3BtnDrop } from "../display/selectors/Custom3";
 import { Video } from "../display/selectors/Video";
 import { Input } from "../display/selectors/Input";
 import { Image } from "../display/selectors/Image";
+import { HigherOrderButton } from 'display/materials/components/Button/high';
 
 
 const theme = createMuiTheme({
@@ -44,6 +45,7 @@ function App() {
             Video,
             Input,
             Image,
+            HigherOrderButton,
           }}
           enabled={false}
           onRender={RenderNode}

@@ -1,19 +1,11 @@
-import { UserComponent, useNode } from "libs/core/src";
 import cx from "classnames";
 import React from "react";
-import { Text } from "../Text";
-import { craftConfig } from "./craft";
+import { defaultProps } from "./craft";
 
-import { ButtonProps } from "./props";
 import { StyledButton } from "./styled";
 
-export const Button: UserComponent<ButtonProps> = (props: any) => {
-  const {
-    connectors: { connect },
-  } = useNode((node) => ({
-    selected: node.events.selected,
-  }));
-
+export const RawButton =  React.forwardRef((props: any, ref) => {
+  
   const {
     text,
     textComponent,
@@ -22,7 +14,7 @@ export const Button: UserComponent<ButtonProps> = (props: any) => {
     fontSize,
     fontWeight,
     textAlign,
-    variantClassNames = [],
+    // variantClassNames = [],
     ...otherProps
   } = props;
   const styledClassNamesValues = (
@@ -30,27 +22,28 @@ export const Button: UserComponent<ButtonProps> = (props: any) => {
   ).flat();
   return (
     <StyledButton
-      ref={connect}
+      ref={ref}
       className={cx([
         "rounded w-full px-4 py-2 mt-4",
         {
           "shadow-lg": props.buttonStyle === "full",
         },
         styledClassNamesValues,
-        variantClassNames,
+        // variantClassNames,
       ])}
       {...otherProps}
     >
-      <Text
+      {/* <Text
         {...textComponent}
         text={text}
         color={color}
         fontSize={fontSize}
         fontWeight={fontWeight}
         textAlign={textAlign}
-      />
+      /> */}
+      {text}
     </StyledButton>
   );
-};
+});
 
-Button.craft = craftConfig;
+RawButton.defaultProps = defaultProps;

@@ -1,4 +1,4 @@
-import { ButtonSettings } from "./setting";
+import { ButtonSettings } from "../../materials/components/Button/setting";
 import { Text } from '../Text';
 
 export const craftConfig = {

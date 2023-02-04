@@ -16,6 +16,8 @@ import { Text } from '../../selectors/Text';
 import { Video } from '../../selectors/Video';
 import { Input } from 'display/selectors/Input';
 import { Image } from 'display/selectors/Image';
+import { RawButton } from 'display/materials/components/Button';
+import { HigherOrderButton } from 'display/materials/components/Button/high';
 
 const ToolboxDiv = styled.div<{ enabled: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -42,6 +44,10 @@ const Item = styled.a<{ move?: boolean }>`
   `}
 `;
 
+
+const newProps = {
+  background: { r: 22, g: 163, b: 74, a: 0.5 },
+}
 export const Toolbox = () => {
   const {
     enabled,
@@ -123,6 +129,14 @@ export const Toolbox = () => {
             </Item>
           </Tooltip>
         </div>
+        
+
+        <RawButton className="cursor-move" ref={(ref) => create(ref, <Button variantClassNames="m-2 pb-2"/>)}>
+        </RawButton>
+
+        <RawButton {...newProps} className="cursor-move" ref={(ref) => create(ref, <HigherOrderButton {...newProps}/>)}>
+        </RawButton>
+
       </div>
     </ToolboxDiv>
   );
