@@ -7,6 +7,7 @@ import { Viewport, RenderNode } from "../display/editor";
 import { Custom1, OnlyButtons } from "../display/selectors/Custom1";
 import { Custom2, Custom2VideoDrop } from "../display/selectors/Custom2";
 import { Custom3, Custom3BtnDrop } from "../display/selectors/Custom3";
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 import {
   CraftButton,
@@ -41,6 +42,7 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <ProSidebarProvider>
       <div className="h-full h-screen">
         <Editor
           resolver={{
@@ -397,6 +399,7 @@ function App() {
           </Viewport>
         </Editor>
       </div>
+      </ProSidebarProvider>;
     </ThemeProvider>
   );
 }
