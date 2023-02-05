@@ -1,10 +1,19 @@
-import { useNode, useEditor } from 'libs/core/src';
-import React from 'react';
-import YouTube from 'react-youtube';
-import { craftConfig } from './craft';
-import { YoutubeDiv } from './styled';
+import { useNode, useEditor, UserComponent } from "libs/core/src";
+import React from "react";
+import YouTube from "react-youtube";
+import { YoutubeDiv } from "../../raw-components/Video/styled";
 
-export const Video = (props: any) => {
+import { VideoSettings } from "./setting";
+import { defaultProps, VideoProps } from "display/raw-components/Video/props";
+
+export const craftConfig = {
+  displayName: "Video",
+  props: defaultProps,
+  related: {
+    toolbar: VideoSettings,
+  },
+};
+export const CraftVideo: UserComponent<VideoProps> = (props: any) => {
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
@@ -21,12 +30,12 @@ export const Video = (props: any) => {
       <YouTube
         videoId={videoId}
         opts={{
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
         }}
       />
     </YoutubeDiv>
   );
 };
 
-Video.craft = craftConfig;
+CraftVideo.craft = craftConfig;

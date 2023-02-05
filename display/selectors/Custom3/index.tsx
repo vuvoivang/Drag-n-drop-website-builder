@@ -1,8 +1,8 @@
 import { Element, useNode } from 'libs/core/src';
 import React from 'react';
 
-import { Button } from '../Button';
-import { Container } from '../Container';
+import { CraftButton } from '../Button';
+import { CraftContainer } from '../Container';
 
 export const Custom3BtnDrop = ({ children }) => {
   const {
@@ -22,11 +22,11 @@ Custom3BtnDrop.craft = {
         data: { nodes },
       } = self;
       const btnNodes = nodes.filter(
-        (id) => helpers(id).get().data.type === Button
+        (id) => helpers(id).get().data.type === CraftButton
       );
 
       const outgoingButtonNodes = outgoingNodes.filter(
-        (node) => node.data.type === Button
+        (node) => node.data.type === CraftButton
       );
 
       if (outgoingButtonNodes.length < btnNodes.length) {
@@ -39,20 +39,20 @@ Custom3BtnDrop.craft = {
 };
 export const Custom3 = (props: any) => {
   return (
-    <Container {...props} className="overflow-hidden">
+    <CraftContainer {...props} className="overflow-hidden">
       <div className="w-full mb-4">
         <h2 className="text-center text-xs text-white">
           I must have at least 1 button
         </h2>
       </div>
       <Element canvas is={Custom3BtnDrop} id="wow">
-        <Button background={{ r: 184, g: 247, b: 247, a: 1 }} />
+        <CraftButton background={{ r: 184, g: 247, b: 247, a: 1 }} />
       </Element>
-    </Container>
+    </CraftContainer>
   );
 };
 
 Custom3.craft = {
-  ...Container.craft,
+  ...CraftContainer.craft,
   displayName: 'Custom 3',
 };

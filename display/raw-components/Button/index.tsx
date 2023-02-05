@@ -1,11 +1,11 @@
 import cx from "classnames";
 import React from "react";
-import { defaultProps } from "./craft";
+import { Text } from "../Text";
+import { ButtonProps, defaultProps } from "./props";
 
 import { StyledButton } from "./styled";
 
-export const RawButton =  React.forwardRef((props: any, ref) => {
-  
+export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
   const {
     text,
     textComponent,
@@ -14,7 +14,7 @@ export const RawButton =  React.forwardRef((props: any, ref) => {
     fontSize,
     fontWeight,
     textAlign,
-    // variantClassNames = [],
+    className,
     ...otherProps
   } = props;
   const styledClassNamesValues = (
@@ -24,26 +24,25 @@ export const RawButton =  React.forwardRef((props: any, ref) => {
     <StyledButton
       ref={ref}
       className={cx([
-        "rounded w-full px-4 py-2 mt-4",
+        className,
+        "button rounded w-full px-4 py-2 mt-4",
         {
           "shadow-lg": props.buttonStyle === "full",
         },
         styledClassNamesValues,
-        // variantClassNames,
       ])}
       {...otherProps}
     >
-      {/* <Text
+      <Text
         {...textComponent}
         text={text}
         color={color}
         fontSize={fontSize}
         fontWeight={fontWeight}
         textAlign={textAlign}
-      /> */}
-      {text}
+      />
     </StyledButton>
   );
 });
 
-RawButton.defaultProps = defaultProps;
+Button.defaultProps = defaultProps;

@@ -1,13 +1,22 @@
-import { UserComponent, useNode } from "libs/core/src";
-import cx from "classnames";
+import { useNode } from "@libs/hooks";
+import { UserComponent } from "@libs/interfaces";
+import { StyledButton } from "display/raw-components/Button/styled";
 import React from "react";
-import { Text } from "../Text";
-import { craftConfig } from "./craft";
+import { ButtonProps } from "../../raw-components/Button/props";
+import { defaultProps } from "../../raw-components/Button/props";
+import { ButtonSettings } from "./setting";
+import cx from "classnames";
+import { CraftText } from "../Text";
 
-import { ButtonProps } from "./props";
-import { StyledButton } from "./styled";
+export const craftConfig = {
+  displayName: "Button",
+  props: defaultProps,
+  related: {
+    toolbar: ButtonSettings,
+  },
+};
 
-export const Button: UserComponent<ButtonProps> = (props: any) => {
+export const CraftButton: UserComponent<ButtonProps> = (props: any) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
@@ -22,7 +31,6 @@ export const Button: UserComponent<ButtonProps> = (props: any) => {
     fontSize,
     fontWeight,
     textAlign,
-    variantClassNames = [],
     ...otherProps
   } = props;
   const styledClassNamesValues = (
@@ -37,11 +45,10 @@ export const Button: UserComponent<ButtonProps> = (props: any) => {
           "shadow-lg": props.buttonStyle === "full",
         },
         styledClassNamesValues,
-        variantClassNames,
       ])}
       {...otherProps}
     >
-      <Text
+      <CraftText
         {...textComponent}
         text={text}
         color={color}
@@ -53,4 +60,4 @@ export const Button: UserComponent<ButtonProps> = (props: any) => {
   );
 };
 
-Button.craft = craftConfig;
+CraftButton.craft = craftConfig;

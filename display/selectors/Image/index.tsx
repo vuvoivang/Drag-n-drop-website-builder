@@ -1,23 +1,27 @@
-import { useNode } from "libs/core/src";
+import { defaultProps, ImageProps } from "display/raw-components/Image/props";
 import React from "react";
-import { craftConfig } from "./craft";
-import { StyledImage } from "./styled";
+import { StyledImage } from "../../raw-components/Image/styled";
 import { Resizer } from "../Resizer";
+import cx from "classnames";
 
-export const Image = (props: any) => {
-  const {
-    connectors: { connect },
-  } = useNode((node) => ({
-    selected: node.events.selected,
-  }));
+import { ImageSettings } from "./setting";
+import { UserComponent } from "@libs/interfaces";
 
-  const { width, height, src, alt, ...otherProps } = props;
+export const craftConfig = {
+  displayName: "Image",
+  props: defaultProps,
+  related: {
+    toolbar: ImageSettings,
+  },
+};
+
+export const CraftImage: UserComponent<ImageProps> = (props: any) => {
+  const { width, height, src, alt, className, ...otherProps } = props;
 
   return (
     <Resizer propKey={{ width: "width", height: "height" }}>
       <StyledImage
-        className="cursor-pointer"
-        ref={connect}
+        className={cx([className, "image cursor-pointer"])}
         src={src}
         alt={alt}
         width={"100%"}
@@ -28,4 +32,4 @@ export const Image = (props: any) => {
   );
 };
 
-Image.craft = craftConfig;
+CraftImage.craft = craftConfig;

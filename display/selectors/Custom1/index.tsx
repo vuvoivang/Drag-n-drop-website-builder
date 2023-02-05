@@ -1,8 +1,8 @@
 import { Element, useNode } from 'libs/core/src';
 import React from 'react';
 
-import { Button } from '../Button';
-import { Container } from '../Container';
+import { CraftButton } from '../Button';
+import { CraftContainer } from '../Container';
 
 export const OnlyButtons = ({ children, ...props }) => {
   const {
@@ -17,29 +17,29 @@ export const OnlyButtons = ({ children, ...props }) => {
 
 OnlyButtons.craft = {
   rules: {
-    canMoveIn: (nodes) => nodes.every((node) => node.data.type === Button),
+    canMoveIn: (nodes) => nodes.every((node) => node.data.type === CraftButton),
   },
 };
 
 export const Custom1 = (props: any) => {
   return (
-    <Container {...props}>
+    <CraftContainer {...props}>
       <h2 className="text-lg px-10 py-5 text-white">
         I'm a component that only accepts
         <br /> buttons.
       </h2>
       <Element canvas id="wow" is={OnlyButtons}>
-        <Button />
-        <Button
+        <CraftButton />
+        <CraftButton
           buttonStyle="outline"
           color={{ r: 255, g: 255, b: 255, a: 1 }}
         />
       </Element>
-    </Container>
+    </CraftContainer>
   );
 };
 
 Custom1.craft = {
-  ...Container.craft,
+  ...CraftContainer.craft,
   displayName: 'Custom 1',
 };

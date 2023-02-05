@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ButtonProps } from "./props";
 
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled.button<Partial<ButtonProps>>`
   background: ${(props) =>
     props.buttonStyle === "full"
       ? `rgba(${Object.values(props.background)})`

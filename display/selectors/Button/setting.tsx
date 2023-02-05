@@ -3,7 +3,7 @@ import React from "react";
 import {
   ConfigSetting,
   renderToolbarSection,
-} from "../../../setting/RenderSetting";
+} from "../../setting/RenderSetting";
 
 const configSetting: ConfigSetting = {
   sections: [
