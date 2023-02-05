@@ -1,11 +1,19 @@
-import { useNode, useEditor } from "libs/core/src";
+import { useNode, useEditor, UserComponent } from "libs/core/src";
 import React from "react";
 import ContentEditable from "react-contenteditable";
-import { craftConfig } from "./craft";
-import { TextProps } from "./props";
+import { TextProps } from "../../raw-components/Text/props";
 import cx from "classnames";
+import { TextSettings } from "./setting";
+import { defaultProps } from "display/raw-components/Text/props";
 
-export const Text = ({
+export const craftConfig = {
+  displayName: 'Text',
+  props: defaultProps,
+  related: {
+    toolbar: TextSettings,
+  },
+}
+export const CraftText: UserComponent<TextProps> = ({
   fontSize,
   textAlign,
   fontWeight,
@@ -14,6 +22,7 @@ export const Text = ({
   text,
   margin,
   styledClassNames,
+  tagName,
 }: Partial<TextProps>) => {
   const {
     connectors: { connect },
@@ -33,7 +42,7 @@ export const Text = ({
       onChange={(e) => {
         setProp((prop) => (prop.text = e.target.value), 500);
       }} // use true to disable editing
-      tagName="h2" // Use a custom HTML tag (uses a div by default)
+      tagName={tagName} // Use a custom HTML tag (uses a div by default)
       className={cx(styledClassNamesValues)}
       style={{
         width: "100%",
@@ -48,4 +57,4 @@ export const Text = ({
   );
 };
 
-Text.craft = craftConfig;
+CraftText.craft = craftConfig;

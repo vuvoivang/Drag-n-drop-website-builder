@@ -28,11 +28,14 @@ import { LightTooltip } from "display/shared/components/Tooltip";
 import lz from "lzutf8";
 import copy from "copy-to-clipboard";
 import Image from "next/image";
+import { useProSidebar } from "react-pro-sidebar";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import MenuIcon from "@material-ui/icons/Menu";
 
-const HeaderDiv = styled.div`
+const HeaderDiv = styled.div<any>`
   width: 100%;
   height: 60px;
-  z-index: 99999;
+  z-index: 0;
   position: relative;
   padding: 0px 10px;
   background: #2c2c2c;
@@ -148,7 +151,7 @@ export const Header = () => {
   const handleAddPage = () => {
     handleCloseDialogNewPage();
     actions.addNewPage(addPage);
-    // go to new page 
+    // go to new page
     setTimeout(() => {
       actions.setCurrentPage(addPage.path);
     }, 500);
@@ -176,12 +179,31 @@ export const Header = () => {
     actions.deletePage(deletingPagePath);
     handleCloseDialogConfirmDelete();
   };
+  const { collapseSidebar, collapsed } = useProSidebar();
 
   return (
-    <HeaderDiv id="header" className="header text-white transition w-full">
+    <HeaderDiv
+      collapsed={collapsed}
+      id="header"
+      className="header text-white transition w-full"
+    >
       <div className="items-center flex w-full px-4 justify-end">
-        <div className="logo-container">
-          <Image className="header-logo" src={Logo} alt="Our Logo" height={45} width={60}/>
+        <button onClick={() => collapseSidebar()}>
+          {collapsed ? (
+            <MenuOpenIcon fontSize="large" />
+          ) : (
+            <MenuIcon fontSize="large" />
+          )}
+        </button>
+
+        <div className="logo-container" style={{ marginLeft: 90 }}>
+          <Image
+            className="header-logo"
+            src={Logo}
+            alt="Our Logo"
+            height={45}
+            width={60}
+          />
         </div>
         {/* Form add new page  */}
         <PageFormControl className="pt-4">

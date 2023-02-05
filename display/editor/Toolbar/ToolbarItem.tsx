@@ -79,20 +79,20 @@ type Option = {
   value: string;
   label: string;
 };
-export type ToolbarItemProps = {
-  prefix?: string;
-  label?: string;
-  full?: boolean;
+export type ToolbarItemProps = Partial<{
+  prefix: string;
+  label: string;
+  full: boolean;
   propKey: string;
-  index?: number;
-  children?: React.ReactNode;
-  type?: string | string[];
-  styledCustomOptions?: Option | Array<Option>;
+  index: number;
+  children: React.ReactNode;
+  type: string | string[];
+  styledCustomOptions: Option | Array<Option>;
   checkboxChildren: Array<Option>;
-  radioChildren?: Array<Option>;
-  selectChildren?: Array<Option>;
-  onChange?: (value: any) => any;
-};
+  radioChildren: Array<Option>;
+  selectChildren: Array<Option>;
+  onChange: (value: any) => any;
+}>;
 enum CUSTOM_STYLE {
   DEFAULT = "DEFAULT",
   STYLED_SUGGESTION = "SUGGESTION",

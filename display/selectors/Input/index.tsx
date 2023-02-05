@@ -1,20 +1,36 @@
 import { UserComponent, useNode } from "libs/core/src";
 import cx from "classnames";
 import React from "react";
-import { craftConfig } from "./craft";
 
-import { InputProps } from "./props";
-import { StyledInput } from "./styled";
+import { StyledInput } from "../../raw-components/Input/styled";
 
-export const Input: UserComponent<InputProps> = (props: any) => {
+import { InputProps } from "../../raw-components/Input/props";
+import { InputSetting } from "./setting";
+import { defaultProps } from "display/raw-components/Input/props";
+
+export const craftConfig = {
+  displayName: "Input",
+  props: defaultProps,
+  related: {
+    toolbar: InputSetting,
+  },
+};
+
+export const CraftInput: UserComponent<InputProps> = (props: any) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
     selected: node.events.selected,
   }));
 
-  const { styledClassNames, type, placeholder, inputOptions, ...otherProps } =
-    props;
+  const {
+    styledClassNames,
+    type,
+    placeholder,
+    inputOptions,
+    className,
+    ...otherProps
+  } = props;
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
@@ -23,6 +39,7 @@ export const Input: UserComponent<InputProps> = (props: any) => {
     <StyledInput
       ref={connect}
       className={cx([
+        className,
         "rounded w-full px-4 py-2 mt-4",
         {
           "shadow-lg": props.inputStyle === "full",
@@ -38,4 +55,4 @@ export const Input: UserComponent<InputProps> = (props: any) => {
   );
 };
 
-Input.craft = craftConfig;
+CraftInput.craft = craftConfig;

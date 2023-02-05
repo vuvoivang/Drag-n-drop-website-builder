@@ -3,13 +3,13 @@ import { capitalize, weightDescription } from "utils/text";
 export const DEFAULT_SECTIONS = {
   typography: {
     title: "Typography",
-    props: ["fontSize", "fontWeight", "textAlign"],
-    summary: ({ fontSize, fontWeight, textAlign }: any) => {
-      return `${fontSize || ""}, ${weightDescription(fontWeight)}, ${capitalize(
+    props: ["fontSize", "fontWeight", "textAlign", "tagName"],
+    summary: ({ fontSize, fontWeight, textAlign, tagName }: any) => {
+      return `${tagName || ""}, ${fontSize || ""}, ${weightDescription(fontWeight)}, ${capitalize(
         textAlign
       )}`;
     },
-    items: ["fontSize", "textAlign", "fontWeight"],
+    items: ["tagName", "fontSize", "textAlign", "fontWeight"],
   },
   margin: {
     title: "Margin",
@@ -649,6 +649,57 @@ export const DEFAULT_PROP_KEYS = {
       {
         value: "scale-down",
         label: "Scale down",
+      },
+    ],
+  },
+  tagName: {
+    propKey: "tagName",
+    type: ["text", "select"],
+    label: "Tag name",
+    selectChildren: [
+      {
+        value: "h1",
+        label: "Heading 1",
+      },
+      {
+        value: "h2",
+        label: "Heading 2",
+      },
+      {
+        value: "h3",
+        label: "Heading 3",
+      },
+      {
+        value: "h4",
+        label: "Heading 4",
+      },
+      {
+        value: "h5",
+        label: "Heading 5",
+      },
+      {
+        value: "h6",
+        label: "Heading 6",
+      },
+      {
+        value: "p",
+        label: "Paragraph",
+      },
+      {
+        value: "b",
+        label: "Bold text",
+      },
+      {
+        value: "strong",
+        label: "Important text",
+      },
+      {
+        value: "sub",
+        label: "Subscript text",
+      },
+      {
+        value: "sup",
+        label: "Superscript text",
       },
     ],
   },

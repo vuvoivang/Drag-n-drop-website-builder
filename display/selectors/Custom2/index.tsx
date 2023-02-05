@@ -1,8 +1,8 @@
 import { Element, useNode } from 'libs/core/src';
 import React from 'react';
 
-import { Container } from '../Container';
-import { Video } from '../Video';
+import { CraftContainer } from '../Container';
+import { CraftVideo } from '../Video';
 
 export const Custom2VideoDrop = ({ children }) => {
   const {
@@ -18,7 +18,7 @@ Custom2VideoDrop.craft = {
   rules: {
     canMoveIn: (nodes, self, helper) => {
       return (
-        nodes.every((node) => node.data.type === Video) &&
+        nodes.every((node) => node.data.type === CraftVideo) &&
         helper(self.id).decendants().length === 0
       );
     },
@@ -26,7 +26,7 @@ Custom2VideoDrop.craft = {
 };
 export const Custom2 = (props: any) => {
   return (
-    <Container {...props} className="overflow-hidden">
+    <CraftContainer {...props} className="overflow-hidden">
       <div className="w-24">
         <h2 className="text-xs text-white">
           You can only drop
@@ -35,13 +35,13 @@ export const Custom2 = (props: any) => {
         </h2>
       </div>
       <Element canvas is={Custom2VideoDrop} id="wow">
-        <Video />
+        <CraftVideo />
       </Element>
-    </Container>
+    </CraftContainer>
   );
 };
 
 Custom2.craft = {
-  ...Container.craft,
+  ...CraftContainer.craft,
   displayName: 'Custom 2',
 };

@@ -4,15 +4,28 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 
 import { Viewport, RenderNode } from "../display/editor";
-import { Container, Text } from "../display/selectors";
-import { Button } from "../display/selectors/Button";
 import { Custom1, OnlyButtons } from "../display/selectors/Custom1";
 import { Custom2, Custom2VideoDrop } from "../display/selectors/Custom2";
 import { Custom3, Custom3BtnDrop } from "../display/selectors/Custom3";
-import { Video } from "../display/selectors/Video";
-import { Input } from "../display/selectors/Input";
-import { Image } from "../display/selectors/Image";
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
+import {
+  CraftButton,
+  CraftContainer,
+  CraftText,
+  CraftVideo,
+  CraftInput,
+  CraftImage,
+} from "display/selectors";
+
+import {
+  Container,
+  Button,
+  Text,
+  Image,
+  Video,
+  Input,
+} from "display/raw-components";
 
 const theme = createMuiTheme({
   typography: {
@@ -29,21 +42,22 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <ProSidebarProvider>
       <div className="h-full h-screen">
         <Editor
           resolver={{
-            Container,
-            Text,
+            CraftContainer,
+            CraftText,
+            CraftVideo,
+            CraftInput,
+            CraftImage,
+            CraftButton,
             Custom1,
             Custom2,
             Custom2VideoDrop,
             Custom3,
             Custom3BtnDrop,
             OnlyButtons,
-            Button,
-            Video,
-            Input,
-            Image,
           }}
           enabled={false}
           onRender={RenderNode}
@@ -52,7 +66,7 @@ function App() {
             <Frame>
               <Element
                 canvas
-                is={Container}
+                is={CraftContainer}
                 width="800px" // editor container
                 height="auto"
                 background={{ r: 255, g: 255, b: 255, a: 1 }}
@@ -64,7 +78,7 @@ function App() {
                 {/* First container */}
                 <Element
                   canvas
-                  is={Container}
+                  is={CraftContainer}
                   flexDirection="column"
                   width="100%"
                   height="auto"
@@ -75,39 +89,39 @@ function App() {
                 >
                   <Element
                     canvas
-                    is={Container}
+                    is={CraftContainer}
                     width="100%"
                     height="100%"
                     padding={["0", "20", "0", "20"]}
                     margin={["0", "0", "20", "0"]}
                     custom={{ displayName: "Heading" }}
                   >
-                    <Text
+                    <CraftText
                       textAlign="center"
                       fontSize="46"
                       fontWeight="500"
                       text="Welcome to Website Builder"
-                    ></Text>
+                    ></CraftText>
                   </Element>
                   <Element
                     canvas
-                    is={Container}
+                    is={CraftContainer}
                     width="80%"
                     height="100%"
                     padding={["0", "20", "0", "20"]}
                     custom={{ displayName: "Description" }}
                   >
-                    <Text
+                    <CraftText
                       fontSize="14"
                       fontWeight="400"
                       text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies dignissim ullamcorper. Suspendisse faucibus vitae mi a dictum. Nam ut mollis est, rhoncus varius orci. Cras malesuada viverra mauris, ac place."
-                    ></Text>
+                    ></CraftText>
                   </Element>
                 </Element>
 
                 <Element
                   canvas
-                  is={Container}
+                  is={CraftContainer}
                   background={{ r: 39, g: 41, b: 41, a: 1 }}
                   flexDirection="column"
                   width="100%"
@@ -124,7 +138,7 @@ function App() {
                       b: 78,
                       a: 0,
                     }}
-                    is={Container}
+                    is={CraftContainer}
                     flexDirection="row"
                     margin={["0", "0", "0", "0"]}
                     width="100%"
@@ -140,7 +154,7 @@ function App() {
                         b: 0,
                         a: 0,
                       }}
-                      is={Container}
+                      is={CraftContainer}
                       alignItems="center"
                       padding={["0", "0", "0", "0"]}
                       flexDirection="row"
@@ -150,7 +164,7 @@ function App() {
                     >
                       <Element
                         canvas
-                        is={Container}
+                        is={CraftContainer}
                         justifyContent="center"
                         alignItems="center"
                         background={{
@@ -167,7 +181,7 @@ function App() {
                       >
                         <Element
                           canvas
-                          is={Container}
+                          is={CraftContainer}
                           justifyContent="center"
                           alignItems="center"
                           background={{
@@ -184,7 +198,7 @@ function App() {
                         >
                           <Element
                             canvas
-                            is={Container}
+                            is={CraftContainer}
                             justifyContent="center"
                             alignItems="center"
                             background={{
@@ -210,7 +224,7 @@ function App() {
                         b: 0,
                         a: 0,
                       }}
-                      is={Container}
+                      is={CraftContainer}
                       padding={["0", "0", "0", "20"]}
                       flexDirection="column"
                       width="55%"
@@ -218,7 +232,7 @@ function App() {
                       fillSpace="yes"
                       custom={{ displayName: "Content" }}
                     >
-                      <Text
+                      <CraftText
                         color={{
                           r: "255",
                           g: "255",
@@ -228,8 +242,8 @@ function App() {
                         margin={["0", "0", "18", "0"]}
                         fontSize="20"
                         text="Design complex components"
-                      ></Text>
-                      <Text
+                      ></CraftText>
+                      <CraftText
                         color={{
                           r: "255",
                           g: "255",
@@ -239,14 +253,14 @@ function App() {
                         fontSize="14"
                         fontWeight="400"
                         text="You can define areas within your React component which users can drop other components into. <br/><br />You can even design how the component should be edited — content editable, drag to resize, have inputs on toolbars — anything really."
-                      ></Text>
+                      ></CraftText>
                     </Element>
                   </Element>
                 </Element>
 
                 <Element
                   canvas
-                  is={Container}
+                  is={CraftContainer}
                   background={{
                     r: 234,
                     g: 245,
@@ -268,14 +282,14 @@ function App() {
                       b: 78,
                       a: 0,
                     }}
-                    is={Container}
+                    is={CraftContainer}
                     flexDirection="column"
                     margin={["0,", "0", "20", "0"]}
                     width="100%"
                     height="auto"
                     custom={{ displayName: "Heading" }}
                   >
-                    <Text
+                    <CraftText
                       color={{
                         r: "46",
                         g: "47",
@@ -284,12 +298,12 @@ function App() {
                       }}
                       fontSize="23"
                       text="Programmatic drag &amp; drop"
-                    ></Text>
-                    <Text
+                    ></CraftText>
+                    <CraftText
                       fontSize="14"
                       fontWeight="400"
                       text="Govern what goes in and out of your components"
-                    ></Text>
+                    ></CraftText>
                   </Element>
                   <Element
                     canvas
@@ -299,7 +313,7 @@ function App() {
                       b: 78,
                       a: 0,
                     }}
-                    is={Container}
+                    is={CraftContainer}
                     flexDirection="row"
                     margin={["30", "0", "0", "0"]}
                     width="100%"
@@ -314,7 +328,7 @@ function App() {
                         b: 0,
                         a: 0,
                       }}
-                      is={Container}
+                      is={CraftContainer}
                       padding={["0", "20", "0", "0"]}
                       flexDirection="row"
                       width="45%"
@@ -342,7 +356,7 @@ function App() {
                         b: 0,
                         a: 0,
                       }}
-                      is={Container}
+                      is={CraftContainer}
                       padding={["0", "0", "0", "20"]}
                       flexDirection="column"
                       width="55%"
@@ -385,6 +399,7 @@ function App() {
           </Viewport>
         </Editor>
       </div>
+      </ProSidebarProvider>;
     </ThemeProvider>
   );
 }

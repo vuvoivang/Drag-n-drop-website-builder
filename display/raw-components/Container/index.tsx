@@ -1,25 +1,11 @@
 import React from "react";
-
-import { Resizer } from "../Resizer";
-import { ContainerProps } from "../../raw-components/Container/props";
 import cx from "classnames";
 
-import { defaultProps } from "../../raw-components/Container/props";
-import { ContainerSettings } from "./setting";
-import { UserComponent } from "@libs/interfaces";
+import { ContainerProps } from "../../raw-components/Container/props";
+import { defaultProps } from "./props";
 
-export const craftConfig = {
-  displayName: "Container",
-  props: defaultProps,
-  rules: {
-    canDrag: () => true,
-  },
-  related: {
-    toolbar: ContainerSettings,
-  },
-};
 
-export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<ContainerProps>) => {
+export const Container = (props: Partial<ContainerProps>) => {
   props = {
     ...defaultProps,
     ...props,
@@ -37,17 +23,22 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
     radius,
     children,
     styledClassNames,
+    width,
+    height,
+    className,
   } = props;
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
   return (
-    <Resizer
-      propKey={{ width: "width", height: "height" }}
-      className={cx(["flex container", styledClassNamesValues])}
+    <div
+      className={cx([className, "flex container", styledClassNamesValues])}
       style={{
         justifyContent,
+        // @ts-ignore
         flexDirection,
+        width,
+        height,
         alignItems,
         background: `rgba(${Object.values(background)})`,
         color: `rgba(${Object.values(color)})`,
@@ -62,8 +53,8 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
       }}
     >
       {children}
-    </Resizer>
+    </div>
   );
 };
 
-CraftContainer.craft = craftConfig;
+Container.defaultProps = defaultProps;

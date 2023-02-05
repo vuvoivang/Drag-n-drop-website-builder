@@ -12,8 +12,7 @@ export type Options = {
   onRender: React.ComponentType<{ render: React.ReactElement }>;
   onNodesChange: (query: QueryCallbacksFor<typeof QueryMethods>) => void;
   resolver: Resolver;
-  /** for what? */
-  enabled: boolean;
+  enabled: boolean;  // block editor??
   isShownAllIndicator: boolean;
   indicator: Partial<{
     success: string;
