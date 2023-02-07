@@ -23,10 +23,10 @@ export const CraftVideo: UserComponent<VideoProps> = (props: any) => {
     selected: node.events.selected,
   }));
 
-  const { videoId, width, height } = props;
+  const { videoId, width, height, className } = props;
 
   return (
-    <YoutubeDiv ref={connect} enabled={enabled} width={width} height={height}>
+    <YoutubeDiv className={className} ref={connect} enabled={enabled} width={width} height={height}>
       <YouTube
         videoId={videoId}
         opts={{

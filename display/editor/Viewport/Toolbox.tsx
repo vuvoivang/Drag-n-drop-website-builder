@@ -1,43 +1,9 @@
-import { Element, useEditor } from "libs/core/src";
-import { Tooltip } from "@material-ui/core";
+import { useEditor } from "libs/core/src";
 import React from "react";
-import styled from "styled-components";
 
-import ButtonSvg from "../../../public/icons/toolbox/button.svg";
-import SquareSvg from "../../../public/icons/toolbox/rectangle.svg";
-import TypeSvg from "../../../public/icons/toolbox/text.svg";
-import YoutubeSvg from "../../../public/icons/toolbox/video-line.svg";
-import ImageSvg from "../../../public/icons/toolbox/image.svg";
-import InputSvg from "../../../public/icons/toolbox/input.svg";
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  useProSidebar,
-} from "react-pro-sidebar";
-
-import {
-  CraftButton,
-  CraftContainer,
-  CraftText,
-  CraftVideo,
-  CraftInput,
-  CraftImage,
-} from "display/selectors";
-
-import {
-  Container,
-  Button,
-  Text,
-  Image,
-  Video,
-  Input,
-} from "display/raw-components";
-
-const newProps = {
-  background: { r: 22, g: 163, b: 74, a: 0.5 },
-};
+import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
+import { DEFAULT_VARIANTS } from "display/selectors/defaultVariant";
+import { renderMenuItems } from "display/selectors/renderVariant";
 
 type Theme = "light" | "dark";
 
@@ -120,6 +86,7 @@ export const Toolbox = () => {
     root: {
       fontSize: "13px",
       fontWeight: 400,
+      margin: "10px 0px",
     },
     icon: {
       color: themes[theme].menu.icon,
@@ -128,37 +95,49 @@ export const Toolbox = () => {
         color: themes[theme].menu.disabled.color,
       },
       marginRight: 7,
-      "svg": {
+      svg: {
         width: "100%",
         height: "100%",
         fill: "currentColor",
-      }
+      },
     },
-    SubMenuExpandIcon: {
-      color: "#b6b7b9",
-    },
+    SubMenuExpandIcon: ({ open }) => ({
+      color: open ? "#079512" : "#b6b7b9",
+      "& > span": { width: 7, height: 7 },
+    }),
     subMenuContent: ({ level }) => ({
       backgroundColor:
         level === 0
           ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.4 : 1)
           : "transparent",
+      overflow: "visible!important",
     }),
     button: ({ level }) => {
       // @ts-ignore
-      if (level === 0) {
-        return {
-          [`&.${menuClasses.disabled}`]: {
-            color: themes[theme].menu.disabled.color,
-          },
-          "&:hover": {
-            backgroundColor: hexToRgba(
-              themes[theme].menu.hover.backgroundColor,
-              1
-            ),
-            color: themes[theme].menu.hover.color,
-          },
-        }
-      } else return {
+      // if (level === 0) {
+      //   return {
+      //     [`&.${menuClasses.disabled}`]: {
+      //       color: themes[theme].menu.disabled.color,
+      //     },
+      //     "&:hover": {
+      //       backgroundColor: hexToRgba(
+      //         themes[theme].menu.hover.backgroundColor,
+      //         1
+      //       ),
+      //       color: themes[theme].menu.hover.color,
+      //     },
+      //   };
+      // } else
+      //   return {
+      //     [`&.${menuClasses.disabled}`]: {
+      //       color: themes[theme].menu.disabled.color,
+      //     },
+      //     "&:hover": {
+      //       backgroundColor: "transparent",
+      //       color: themes[theme].menu.hover.color,
+      //     },
+      //   };
+      return {
         [`&.${menuClasses.disabled}`]: {
           color: themes[theme].menu.disabled.color,
         },
@@ -166,173 +145,24 @@ export const Toolbox = () => {
           backgroundColor: "transparent",
           color: themes[theme].menu.hover.color,
         },
-      }
+        minHeight: 50,
+        height: "auto",
+        margin: "5px 0",
+      };
     },
     label: ({ open }) => ({
-      fontWeight: open ? 600 : undefined,
+      fontWeight: open ? 700 : undefined,
+      color: open ? "#079512" : undefined,
+      overflow: open ?"visible": undefined,
+      whiteSpace: open ? "normal" : undefined,
     }),
   };
 
   return (
-    // <ToolboxDiv
-    //   enabled={enabled && enabled}
-    //   className="toolbox transition w-32 h-full flex flex-col bg-dark"
-    // >
-    //   <div className="flex flex-1 flex-col pt-3">
-    //     <div
-    //       ref={(ref) =>
-    //         create(
-    //           ref,
-    //           <Element
-    //             canvas
-    //             is={CraftContainer}
-    //             background={{ r: 78, g: 78, b: 78, a: 1 }}
-    //             color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //             height="300px"
-    //             width="300px"
-    //           ></Element>
-    //         )
-    //       }
-    //     >
-    //       <div className="p-2 my-5 text-white fs-md letter-spacing-1 fw-large">
-    //         Components
-    //       </div>
-    //       <Tooltip title="Container" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <SquareSvg />
-    //           <p>Container</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-    //     <div
-    //       ref={(ref) =>
-    //         create(
-    //           ref,
-    //           <CraftText fontSize="12" textAlign="left" text="Hi there" />
-    //         )
-    //       }
-    //     >
-    //       <Tooltip title="Text" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <TypeSvg />
-    //           <p>Text</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-    //     <div ref={(ref) => create(ref, <CraftButton />)}>
-    //       <Tooltip title="Button" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <ButtonSvg />
-    //           <p>Button</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-    //     <div ref={(ref) => create(ref, <CraftImage />)}>
-    //       <Tooltip title="Image" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <ImageSvg />
-    //           <p>Image</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-    //     <div ref={(ref) => create(ref, <CraftInput />)}>
-    //       <Tooltip title="Image" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <InputSvg />
-    //           <p>Input</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-    //     <div ref={(ref) => create(ref, <CraftVideo />)}>
-    //       <Tooltip title="Video" placement="right">
-    //         <Item className="m-2 pb-2 cursor-pointer block" move>
-    //           <YoutubeSvg />
-    //           <p>Video</p>
-    //         </Item>
-    //       </Tooltip>
-    //     </div>
-
-    //     {/* <div ref={(ref) => create(ref, <CraftButton />)}>
-    //       <Button className="cursor-move"></Button>
-    //     </div>
-
-    //     <div ref={(ref) => create(ref, <CraftButton {...newProps} />)}>
-    //       <Button {...newProps} className="cursor-move"></Button>
-    //     </div>
-
-    //     <div
-    //       ref={(ref) =>
-    //         create(
-    //           ref,
-    //           <Element
-    //             canvas
-    //             is={CraftContainer}
-    //             background={{ r: 78, g: 78, b: 78, a: 1 }}
-    //             color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //             height="300px"
-    //             width="300px"
-    //           ></Element>
-    //         )
-    //       }
-    //     >
-    //       <Container
-    //         className="cursor-move"
-    //         background={{ r: 78, g: 78, b: 78, a: 1 }}
-    //         color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //         width="100px"
-    //         height="50px"
-    //       ></Container>
-    //     </div>
-
-    //     <div ref={(ref) => create(ref, <CraftText />)}>
-    //       <Text className="cursor-move"></Text>
-    //     </div>
-
-    //     <div ref={(ref) => create(ref, <CraftImage />)}>
-    //       <Image className="cursor-move"></Image>
-    //     </div> */}
-
-    //     <div
-    //       ref={(ref) =>
-    //         create(
-    //           ref,
-    //           <Element
-    //             canvas
-    //             is={CraftContainer}
-    //             background={{ r: 78, g: 78, b: 78, a: 1 }}
-    //             color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //             height="300px"
-    //             width="300px"
-    //           ></Element>
-    //         )
-    //       }
-    //     >
-    //       <Container
-    //         className="cursor-move"
-    //         background={{ r: 78, g: 78, b: 78, a: 1 }}
-    //         color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //         width="100px"
-    //         height="50px"
-    //       ></Container>
-    //     </div>
-    //     <div className="cursor-move" ref={(ref) => create(ref, <CraftVideo />)}>
-    //       <Video className="cursor-move" enabled={true} />
-    //     </div>
-
-    // <div ref={(ref) => create(ref, <CraftInput />)}>
-    //   <Input
-    //     className="cursor-move"
-    //     width="100px"
-    //     color={{ r: 0, g: 0, b: 0, a: 1 }}
-    //     inputOptions={{ readonly: true }}
-    //   />
-    // </div>
-    //   </div>
-    // </ToolboxDiv>
     <div
       style={{
         display: "flex",
-        height: "100%",
+        height: "calc(100% - 65px)",
         direction: "ltr",
       }}
     >
@@ -341,39 +171,12 @@ export const Toolbox = () => {
         backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
         rootStyles={{
           color: themes[theme].sidebar.color,
+          width: collapsed ? undefined : "400px",
         }}
       >
         {/* @ts-ignore  */}
         <Menu menuItemStyles={menuItemStyles}>
-          <SubMenu label="Text" icon={<TypeSvg style={{fill: "currentColor", width: "100%", height: "100%"}} />}>
-            <MenuItem> Pie charts</MenuItem>
-            <MenuItem> Line charts</MenuItem>
-            <MenuItem> Bar charts</MenuItem>
-          </SubMenu>
-          <SubMenu label="Button" icon={<ButtonSvg />}>
-            <MenuItem> Google maps</MenuItem>
-            <MenuItem> Open street maps</MenuItem>
-          </SubMenu>
-          <SubMenu label="Container" icon={<SquareSvg />}>
-            <MenuItem> Dark</MenuItem>
-            <MenuItem> Light</MenuItem>
-          </SubMenu>
-          <SubMenu label="Image" icon={<ImageSvg />}></SubMenu>
-          <SubMenu label="Input" icon={<YoutubeSvg />}>
-            <MenuItem>
-              {" "}
-              <div ref={(ref) => create(ref, <CraftInput />)}>
-                <Input
-                  className="cursor-move"
-                  width="100px"
-                  color={{ r: 0, g: 0, b: 0, a: 1 }}
-                  inputOptions={{ readonly: true }}
-                />
-              </div>
-            </MenuItem>
-            <MenuItem> Orders</MenuItem>
-            <MenuItem> Credit card</MenuItem>
-          </SubMenu>
+          {renderMenuItems(DEFAULT_VARIANTS, create)}
         </Menu>
       </Sidebar>
     </div>
