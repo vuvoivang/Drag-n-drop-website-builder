@@ -8,9 +8,13 @@ export const Video = (props: VideoProps) => {
   const { className, videoId, width, height, enabled } = props;
 
   return (
-    <YoutubeDiv width={width} height={height} enabled={enabled}>
+    <YoutubeDiv
+      className={className}
+      width={width}
+      height={height}
+      enabled={enabled}
+    >
       <YouTube
-        className={className}
         videoId={videoId}
         opts={{
           width: "100%",

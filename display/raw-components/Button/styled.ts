@@ -6,7 +6,8 @@ export const StyledButton = styled.button<Partial<ButtonProps>>`
     props.buttonStyle === "full"
       ? `rgba(${Object.values(props.background)})`
       : "transparent"};
-  border: 2px solid transparent;
+  border-width: 1px;
+  border-style: solid;
   border-color: ${(props) =>
     props.buttonStyle === "outline"
       ? `rgba(${Object.values(props.background)})`
