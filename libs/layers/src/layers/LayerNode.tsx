@@ -42,7 +42,7 @@ export const LayerNode: React.FC = () => {
   expandedRef.current = expanded;
 
   const shouldBeExpandedOnLoad = useRef<boolean>(
-    expandRootOnLoad && id === ROOT_NODE
+    expandRootOnLoad && id.startsWith(ROOT_NODE)
   );
 
   useEffect(() => {

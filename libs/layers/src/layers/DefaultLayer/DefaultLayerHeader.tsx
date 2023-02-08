@@ -114,7 +114,7 @@ export const DefaultLayerHeader: React.FC = () => {
         selected,
         topLevel: query.node(id).isTopLevelCanvas(),
         isHiddenInCurrentPage:
-          id !== ROOT_NODE &&
+          !id.startsWith(ROOT_NODE) &&
           state.pageOptions.currentPage !== state.nodes[id].data.page,
       };
     });

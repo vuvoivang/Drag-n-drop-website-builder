@@ -30,7 +30,7 @@ export function NodeHelpers(state: EditorState, id: NodeId) {
       return !!node.data.isCanvas;
     },
     isRoot() {
-      return node.id === ROOT_NODE;
+      return node.id.startsWith(ROOT_NODE);
     },
     isLinkedNode() {
       return (

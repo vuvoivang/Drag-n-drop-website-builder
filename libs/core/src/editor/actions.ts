@@ -29,6 +29,7 @@ import {
   NodeSelectorType,
   PageData,
   SerializedData,
+  SerializedNode,
 } from '../interfaces';
 import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
@@ -260,6 +261,22 @@ const Methods = (
       this.replaceNodes(fromEntries(nodePairs));
       this.replacePageOptions(dehydratedPages, ROOT_PATH);
     },
+
+
+    addNewNodeWithSerializedData(input: SerializedNode | string, id) {
+      const dehydratedNode =
+        typeof input == 'string' ? JSON.parse(input) : input;
+
+      const generatedNode =  query
+      .parseSerializedNode(dehydratedNode)
+      .toNode((node) => (node.id = id));
+
+      this.replaceNodes({
+        ...state.nodes,
+        [id]: generatedNode,
+      });
+    },
+
 
     /**
      * Move a target Node to a new Parent at a given index

@@ -1,3 +1,5 @@
+import { SerializedNode } from "@libs/interfaces";
+
 export const ROOT_NODE = 'ROOT';
 export const DEPRECATED_ROOT_NODE = 'canvas-ROOT';
 
@@ -52,3 +54,45 @@ Please only use useEditor in components that are children of the <Editor /> comp
 export const ERROR_USE_NODE_OUTSIDE_OF_EDITOR_CONTEXT = `You can only use useNode in the context of <Editor />. 
 
 Please only use useNode in components that are children of the <Editor /> component.`;
+
+
+export const serializedContainerRootNodeForPage: SerializedNode = {
+  type: {
+    resolvedName: "CraftContainer",
+  },
+  isCanvas: true,
+  props: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    fillSpace: "no",
+    padding: ["40", "40", "40", "40"],
+    margin: ["0", "0", "0", "0"],
+    background: {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1,
+    },
+    color: {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1,
+    },
+    shadow: 0,
+    radius: 0,
+    width: "800px",
+    height: "auto",
+    styledClassNames: {},
+  },
+  displayName: "Container",
+  custom: {
+    displayName: "App",
+  },
+  hidden: false,
+  nodes: [],
+  parent: undefined,
+  linkedNodes: {},
+  page: "/",
+}

@@ -120,7 +120,7 @@ export const RenderNode = ({ render }) => {
                   <Move />
                 </Btn>
               ) : null}
-              {id !== ROOT_NODE && (
+              {!id.startsWith(ROOT_NODE) && (
                 <Btn
                   className="mr-2 cursor-pointer"
                   onClick={() => {

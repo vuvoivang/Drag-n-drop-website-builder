@@ -15,7 +15,7 @@ import {
 import cx from "classnames";
 import React, { useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-import { ROOT_PATH } from "libs/utils/src";
+import { ROOT_PATH, serializedContainerRootNodeForPage } from "libs/utils/src";
 
 import Checkmark from "../../../public/icons/check.svg";
 import Customize from "../../../public/icons/customize.svg";
@@ -151,7 +151,16 @@ export const Header = () => {
   const handleAddPage = () => {
     handleCloseDialogNewPage();
     actions.addNewPage(addPage);
-    // go to new page
+    
+    // add new container root node for new page
+    const newContainerRootNodeInNewPage = {
+      ...serializedContainerRootNodeForPage,
+      page: addPage.path,
+    };
+    const rootNodeIdInNewPage = `ROOT_${addPage.path.slice(1)}`;
+    actions.addNewNodeWithSerializedData(newContainerRootNodeInNewPage, rootNodeIdInNewPage);
+
+
     setTimeout(() => {
       actions.setCurrentPage(addPage.path);
     }, 500);

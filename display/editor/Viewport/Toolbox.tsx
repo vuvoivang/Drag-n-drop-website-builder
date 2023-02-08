@@ -171,7 +171,7 @@ export const Toolbox = () => {
         backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
         rootStyles={{
           color: themes[theme].sidebar.color,
-          width: collapsed ? undefined : "400px",
+          width: collapsed ? undefined : "300px",
         }}
       >
         {/* @ts-ignore  */}

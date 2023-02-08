@@ -23,7 +23,7 @@ export const RenderNodeToElement: React.FC<RenderNodeToElementType> = ({
     currentPage: state.pageOptions.currentPage
   }));
   // don't display the node since it's hidden
-  if (id !== ROOT_NODE && (hidden || page !== currentPage)) {
+  if (!id.startsWith(ROOT_NODE) && (hidden || page !== currentPage)) {
     return null;
   }
 
