@@ -84,12 +84,20 @@ export function createNode(
     }
   }
 
+
+  // generate best meaningful prefixId
+  const userComponentConfig = actualType.craft as UserComponentConfig<any>;
+
+  const bestDisplayName = userComponentConfig?.displayName ||
+  userComponentConfig?.name ||
+  node.data.displayName;
+  const prefixIdWithDisplayName = bestDisplayName.trim().replace(" ", '').replace('Craft', '');
+  node.id = newNode.id || `${prefixIdWithDisplayName}_${getRandomNodeId()}`;
   if (normalize) {
     normalize(node);
   }
 
   // TODO: use UserComponentConfig type
-  const userComponentConfig = actualType.craft as UserComponentConfig<any>;
 
   if (userComponentConfig) {
     node.data.displayName =
