@@ -111,6 +111,8 @@ export const Toolbox = () => {
           ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.4 : 1)
           : "transparent",
       overflow: "visible!important",
+      width: collapsed ? "min-content": undefined,
+      minWidth: "200px",
     }),
     button: ({ level }) => {
       // @ts-ignore
@@ -153,8 +155,10 @@ export const Toolbox = () => {
     label: ({ open }) => ({
       fontWeight: open ? 700 : undefined,
       color: open ? "#079512" : undefined,
-      overflow: open ?"visible": undefined,
-      whiteSpace: open ? "normal" : undefined,
+      overflow: !collapsed ? "visible": undefined,
+      // whiteSpace: !collapsed ? "normal" : undefined,
+      // overflow: "visible",
+      whiteSpace:  "normal",
     }),
   };
 
@@ -171,7 +175,7 @@ export const Toolbox = () => {
         backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
         rootStyles={{
           color: themes[theme].sidebar.color,
-          width: collapsed ? undefined : "300px",
+          width: collapsed ? undefined : "280px",
         }}
       >
         {/* @ts-ignore  */}

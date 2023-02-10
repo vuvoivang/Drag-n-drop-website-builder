@@ -38,7 +38,7 @@ export const Viewport: React.FC = ({ children }) => {
   }, [setOptions]);
 
   return (
-    <div className="viewport">
+    <div className="viewport w-full fixed">
       <Header />
       <div
         className={cx(['flex h-full overflow-hidden flex-row w-full fixed'])}

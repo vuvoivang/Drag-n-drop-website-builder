@@ -43,7 +43,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <ProSidebarProvider>
-      <div className="h-full h-screen">
+      <div className="h-full">
         <Editor
           resolver={{
             CraftContainer,
