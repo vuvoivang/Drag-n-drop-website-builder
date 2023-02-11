@@ -7,7 +7,7 @@ export type VideoProps = Partial<{
 }>;
 
 export const defaultProps: VideoProps = {
-  videoId: "IwzUs1IMdyQ",
+  videoId: "MFn3n2cLUFA",
   width: "100%",
   height: "auto",
   enabled: false,

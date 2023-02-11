@@ -312,6 +312,7 @@ export const Header = () => {
                 Object.keys(query.getSerializedNodes()).length
               );
               console.log("State", query.getState());
+              console.log("Serialized data", query.serialize());
             }}
           >
             Debug

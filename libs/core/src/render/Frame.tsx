@@ -1,4 +1,5 @@
 import { deprecationWarning, ROOT_NODE } from '@libs/utils';
+import { getCurrentRootNodeId } from '@libs/core';
 import React, { useEffect, useRef } from 'react';
 
 import { useInternalEditor } from '../editor/useInternalEditor';
@@ -11,16 +12,17 @@ export type Frame = {
 };
 
 const RenderRootNode = () => {
-  const { timestamp } = useInternalEditor((state) => ({
+  const { currentPageRootNodeId, timestamp } = useInternalEditor((state) => ({
+    currentPageRootNodeId: getCurrentRootNodeId(state.pageOptions.currentPage),
     timestamp:
-      state.nodes[ROOT_NODE] && state.nodes[ROOT_NODE]._hydrationTimestamp,
+      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)] && state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)]._hydrationTimestamp,
   }));
 
   if (!timestamp) {
     return null;
   }
 
-  return <NodeElement id={ROOT_NODE} key={timestamp} />;
+  return <NodeElement id={currentPageRootNodeId} key={timestamp} />;
 };
 
 /**

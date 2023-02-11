@@ -6,3 +6,5 @@ export * from './editor';
 export * from './events';
 export * from './utils/testHelpers';
 export { ROOT_NODE } from 'libs/utils/src';
+export * from './utils/getCurrentPageRootNodeId';
+

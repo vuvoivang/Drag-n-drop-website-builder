@@ -67,7 +67,7 @@ function App() {
               <Element
                 canvas
                 is={CraftContainer}
-                width="800px" // editor container
+                width="100%" // editor container
                 height="auto"
                 background={{ r: 255, g: 255, b: 255, a: 1 }}
                 padding={["40", "40", "40", "40"]}
