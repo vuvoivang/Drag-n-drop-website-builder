@@ -15,7 +15,7 @@ export const craftConfig = {
     canDrag: () => true,
   },
   related: {
-    toolbar: ContainerSettings,
+    settings: ContainerSettings,
   },
 };
 

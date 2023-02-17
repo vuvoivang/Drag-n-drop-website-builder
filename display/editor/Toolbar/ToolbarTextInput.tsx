@@ -48,7 +48,7 @@ export type ToolbarTextInputProps = {
   prefix?: string;
   label?: string;
   type: string;
-  disabled: boolean;
+  disabled?: boolean;
   onChange?: (value: any) => void;
   value?: any;
 };
@@ -57,7 +57,7 @@ export const ToolbarTextInput = ({
   value,
   prefix,
   type,
-  disabled,
+  disabled = false,
   label,
   ...props
 }: ToolbarTextInputProps) => {

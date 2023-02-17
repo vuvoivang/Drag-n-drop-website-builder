@@ -7,12 +7,14 @@ import { defaultProps } from "../../raw-components/Button/props";
 import { ButtonSettings } from "./setting";
 import cx from "classnames";
 import { CraftText } from "../Text";
+import { ButtonEvents } from "./event";
 
 export const craftConfig = {
   displayName: "Button",
   props: defaultProps,
   related: {
-    toolbar: ButtonSettings,
+    settings: ButtonSettings,
+    events: ButtonEvents,
   },
 };
 

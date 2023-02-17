@@ -11,7 +11,7 @@ export const craftConfig = {
   displayName: "Image",
   props: defaultProps,
   related: {
-    toolbar: ImageSettings,
+    settings: ImageSettings,
   },
 };
 

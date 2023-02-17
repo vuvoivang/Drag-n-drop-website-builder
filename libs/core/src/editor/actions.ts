@@ -508,6 +508,22 @@ const Methods = (
         }
       });
     },
+    /**
+     * Update the events of a Node
+     * @param id
+     * @param cb
+     */
+     setEvent(
+      selector: NodeSelector<NodeSelectorType.Id>,
+      cb: (events: any) => void
+    ) {
+      const targets = getNodesFromSelector(state.nodes, selector, {
+        idOnly: true,
+        existOnly: true,
+      });
+
+      targets.forEach(({ node }) => cb(state.nodes[node.id].data.events));
+    },
   };
 };
 

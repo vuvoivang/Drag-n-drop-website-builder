@@ -51,6 +51,13 @@ export function useInternalNode<S = null>(collect?: (node: Node) => S) {
         }
       },
       setHidden: (bool: boolean) => EditorActions.setHidden(id, bool),
+      setEvent: (cb: any, throttleRate?: number) => {
+        if (throttleRate) {
+          EditorActions.history.throttle(throttleRate).setEvent(id, cb);
+        } else {
+          EditorActions.setEvent(id, cb);
+        }
+      },
     };
   }, [EditorActions, id]);
 

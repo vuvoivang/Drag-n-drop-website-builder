@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { SidebarItem } from "./SidebarItem";
-import { Tabs, Tab } from "@material-ui/core";
+import { Tabs, Tab, makeStyles } from "@material-ui/core";
 
 import CustomizeIcon from "../../../../public/icons/customize.svg";
 import LayerIcon from "../../../../public/icons/layers.svg";
@@ -103,6 +103,23 @@ function a11yProps(index) {
   };
 }
 
+const useStyleTab = makeStyles(() => ({
+  "&.MuiTab-root": {
+    minWidth: "120px",
+    width: "120px"
+  },
+}));
+const useStyleTabs = makeStyles(() => ({
+  scrollButtons: {
+    "& .MuiTouchRipple-root": {
+      backgroundImage: "linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.25),hsla(0,0%,100%,.55))",
+    },
+    "& svg": {
+      fill : "white",
+      fontSize: "1.5rem"
+    },
+  },
+}));
 export const Sidebar = () => {
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
@@ -113,7 +130,9 @@ export const Sidebar = () => {
   const handleChangeTab = (event, newValue) => {
     setCurrentTab(newValue);
   };
-
+  const tabsStyle = useStyleTabs({});
+  const tabStyle = useStyleTab({});                                             
+                                           
   return (
     <SidebarDiv enabled={enabled} className="sidebar transition bg-dark w-2">
       <div className="flex flex-col h-full">
@@ -121,13 +140,16 @@ export const Sidebar = () => {
           value={currentTab}
           onChange={handleChangeTab}
           aria-label="simple tabs example"
+          scrollButtons="auto"
+          variant="scrollable"
+          classes={tabsStyle}
         >
-          <Tab label="Customize" className="text-white-important" {...a11yProps(0)} />
-          <Tab label="Layers" className="text-white-important" {...a11yProps(1)} />
+          <Tab label="Customize" className="text-white-important" {...a11yProps(0)} classes={tabStyle}/>
+          <Tab label="Layers" className="text-white-important" {...a11yProps(1)} classes={tabStyle}/>
+          <Tab label="Events" className="text-white-important" {...a11yProps(2)} classes={tabStyle}/>
         </Tabs>
         <SidebarItem
           role="tabpanel"
-          hidden={currentTab !== 0}
           id={`simple-tabpanel-${0}`}
           aria-labelledby={`simple-tab-${0}`}
           icon={CustomizeIcon}
@@ -135,11 +157,10 @@ export const Sidebar = () => {
           height="full"
           visible={currentTab === 0}
         >
-          <Toolbar />
+          <Toolbar type="settings"/>
         </SidebarItem>
         <SidebarItem
         role="tabpanel"
-        hidden={currentTab !== 1}
         id={`simple-tabpanel-${1}`}
         aria-labelledby={`simple-tab-${1}`}
           icon={LayerIcon}
@@ -150,6 +171,17 @@ export const Sidebar = () => {
           <div className="">
             <Layers expandRootOnLoad={true} />
           </div>
+        </SidebarItem>
+        <SidebarItem
+          role="tabpanel"
+          id={`simple-tabpanel-${2}`}
+          aria-labelledby={`simple-tab-${2}`}
+          icon={CustomizeIcon}
+          title="Customize"
+          height="full"
+          visible={currentTab === 2}
+        >
+          <Toolbar type="events"/>
         </SidebarItem>
       </div>
     </SidebarDiv>

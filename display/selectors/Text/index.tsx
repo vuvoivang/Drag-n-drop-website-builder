@@ -10,7 +10,7 @@ export const craftConfig = {
   displayName: 'Text',
   props: defaultProps,
   related: {
-    toolbar: TextSettings,
+    settings: TextSettings,
   },
 }
 export const CraftText: UserComponent<TextProps> = ({

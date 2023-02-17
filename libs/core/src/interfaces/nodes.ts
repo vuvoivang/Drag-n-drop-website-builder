@@ -45,6 +45,7 @@ export type NodeRelated = Record<string, React.ElementType>;
 
 export type NodeData = {
   props: Record<string, any>;
+  events: Record<string, any>;
   type: string | React.ElementType;
   name: string;
   displayName: string;

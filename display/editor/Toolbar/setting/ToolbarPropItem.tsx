@@ -12,10 +12,10 @@ import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
-import { ToolbarDropdown } from "./ToolbarDropdown";
-import { ToolbarTextInput } from "./ToolbarTextInput";
-import { ToolbarRadio } from "./ToolbarRadio";
-import { ToolbarCheckbox } from "./ToolbarCheckbox";
+import { ToolbarDropdown } from "../ToolbarDropdown";
+import { ToolbarTextInput } from "../ToolbarTextInput";
+import { ToolbarRadio } from "../ToolbarRadio";
+import { ToolbarCheckbox } from "../ToolbarCheckbox";
 
 import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from "display/constants";
 import { LightTooltip } from "display/shared/components/Tooltip";
@@ -79,7 +79,7 @@ type Option = {
   value: string;
   label: string;
 };
-export type ToolbarItemProps = Partial<{
+export type ToolbarPropItemProps = Partial<{
   prefix: string;
   label: string;
   full: boolean;
@@ -104,7 +104,7 @@ const useMenuItemStyles = makeStyles({
   },
 });
 
-export const ToolbarItem = ({
+export const ToolbarPropItem = ({
   full = false,
   propKey,
   type: inputType,
@@ -112,7 +112,7 @@ export const ToolbarItem = ({
   onChange,
   index,
   ...props
-}: ToolbarItemProps) => {
+}: ToolbarPropItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
   const {
     actions: { setProp },

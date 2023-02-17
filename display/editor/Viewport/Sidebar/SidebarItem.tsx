@@ -23,6 +23,8 @@ const Chevron = styled.a<{ visible: boolean }>`
 `;
 
 export type SidebarItemProps = {
+  id: string;
+  role: string;
   title: string;
   height?: string;
   children: React.ReactNode;

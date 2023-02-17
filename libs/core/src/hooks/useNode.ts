@@ -31,6 +31,12 @@ export function useNode<S = null>(collect?: (node: Node) => S) {
       });
       return actions.setProp(cb, throttleRate);
     },
+    setEvent: (
+      cb: (props: Record<string, any>) => void,
+      throttleRate?: number
+    ) => {
+      return actions.setEvent(cb, throttleRate);
+    },
     inNodeContext,
     connectors,
   };

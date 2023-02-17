@@ -10,7 +10,7 @@ export const craftConfig = {
   displayName: "Video",
   props: defaultProps,
   related: {
-    toolbar: VideoSettings,
+    settings: VideoSettings,
   },
 };
 export const CraftVideo: UserComponent<VideoProps> = (props: any) => {

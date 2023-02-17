@@ -196,7 +196,7 @@ export const Header = () => {
       id="header"
       className="header text-white transition w-full"
     >
-      <div className="items-center flex w-full px-4 justify-end">
+      <div className="items-center flex w-full pl-4 justify-end">
         <button onClick={() => collapseSidebar()}>
           {collapsed ? (
             <MenuOpenIcon fontSize="large" />

@@ -12,7 +12,7 @@ export const craftConfig = {
   displayName: "Input",
   props: defaultProps,
   related: {
-    toolbar: InputSetting,
+    settings: InputSetting,
   },
 };
 

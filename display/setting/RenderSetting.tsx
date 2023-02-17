@@ -1,12 +1,12 @@
 import {
-  ToolbarItem,
-  ToolbarSection,
-  ToolbarSectionProps,
+  ToolbarPropItem,
+  ToolbarPropSection,
+  ToolbarPropSectionProps,
 } from "display/editor";
 import { generateConfigSections } from "./helper";
 
 export type ConfigSetting = {
-  sections: Array<ToolbarSectionProps | string>;
+  sections: Array<ToolbarPropSectionProps | string>;
 };
 
 export const renderToolbarSection = (configSetting: ConfigSetting) => {
@@ -14,7 +14,7 @@ export const renderToolbarSection = (configSetting: ConfigSetting) => {
   return (
     <>
       {sections?.map((section) => (
-        <ToolbarSection
+        <ToolbarPropSection
           title={section.title}
           props={section.props}
           summary={section.summary}
@@ -22,13 +22,13 @@ export const renderToolbarSection = (configSetting: ConfigSetting) => {
         >
           {section.items.map((item) => {
             return (
-              <ToolbarItem
+              <ToolbarPropItem
                 {...item}
                 key={Array.isArray(item.type) ? item.type[0] : item.type}
               />
             );
           })}
-        </ToolbarSection>
+        </ToolbarPropSection>
       ))}
     </>
   );
