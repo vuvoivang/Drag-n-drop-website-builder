@@ -15,6 +15,7 @@ export type ButtonProps = Partial<{
   textComponent: any;
   styledClassNames: Record<string, any>;
   className: string;
+  events: Record<"pageNavigate" | "absoluteUrlNavigate", string>;
 }>;
 
 export const defaultProps: ButtonProps = {
@@ -34,4 +35,8 @@ export const defaultProps: ButtonProps = {
   width: "100%",
   height: "auto",
   styledClassNames: {},
+  events: {
+    pageNavigate: "",
+    absoluteUrlNavigate: "",
+  },
 };

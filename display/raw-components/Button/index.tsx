@@ -4,7 +4,6 @@ import { Text } from "../Text";
 import { ButtonProps, defaultProps } from "./props";
 
 import { StyledButton } from "./styled";
-
 export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
   const {
     text,
@@ -15,11 +14,18 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
     fontWeight,
     textAlign,
     className,
+    events,
     ...otherProps
   } = props;
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
+  const handleNavigate = () => {
+    if(events.pageNavigate || events.absoluteUrlNavigate){
+      const desUrl = events.pageNavigate || events.absoluteUrlNavigate;
+      window.location.href = desUrl;
+    }
+  }
   return (
     <StyledButton
       ref={ref}
@@ -31,6 +37,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
         },
         styledClassNamesValues,
       ])}
+      onClick={handleNavigate}
       {...otherProps}
     >
       <Text

@@ -1,4 +1,4 @@
-import { useNode } from "libs/core/src";
+import { useEditor, useNode } from "libs/core/src";
 import {
   Grid,
   Slider,
@@ -17,7 +17,10 @@ import { ToolbarTextInput } from "../ToolbarTextInput";
 import { ToolbarRadio } from "../ToolbarRadio";
 import { ToolbarCheckbox } from "../ToolbarCheckbox";
 
-import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from "display/constants";
+import {
+  PLACEHOLDER_IMAGE_URL,
+  STYLED_CLASSNAMES_KEY,
+} from "display/constants";
 import { makeStyles } from "@material-ui/core/styles";
 
 const iOSBoxShadow =
@@ -99,6 +102,8 @@ const useMenuItemStyles = makeStyles({
   },
 });
 
+const EVENT_KEYS_WITH_MOUSE_OVER_SELECT = ["href"];
+
 export const ToolbarEventItem = ({
   full = false,
   eventKey,
@@ -109,33 +114,34 @@ export const ToolbarEventItem = ({
   ...props
 }: ToolbarEventItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
+  const { actions } = useEditor();
   const {
     actions: { setEvent },
     eventValue,
   } = useNode((node) => ({
-    eventValue: node.data.events[eventKey],
+    eventValue: node.data.props.events?.[eventKey],
   }));
   const value = Array.isArray(eventValue) ? eventValue[index] : eventValue;
   const listType = Array.isArray(inputType) ? inputType : [inputType];
 
   const setEventKeyValueWithIndexAndTimeOut = (value: any, timeout: number) => {
-    setEvent((props: any) => {
+    setEvent((events: any) => {
       if (Array.isArray(eventValue)) {
-        props[eventKey][index] = onChange ? onChange(value) : value;
+        events[eventKey][index] = onChange ? onChange(value) : value;
       } else {
-        props[eventKey] = onChange ? onChange(value) : value;
+        events[eventKey] = onChange ? onChange(value) : value;
       }
     }, timeout);
   };
   const setEventKeyValueWithoutIndex = (value: any) => {
-    setEvent((props: any) => {
-      props[eventKey] = onChange ? onChange(value) : value;
+    setEvent((events: any) => {
+      events[eventKey] = onChange ? onChange(value) : value;
     });
   };
   const setEventKeyValueWithPropertyName = (propName: string, value: any) => {
-    setEvent((props: any) => {
-      if (typeof props[eventKey] === "object") {
-        props[eventKey][propName] = onChange ? onChange(value) : value;
+    setEvent((events: any) => {
+      if (typeof events[eventKey] === "object") {
+        events[eventKey][propName] = onChange ? onChange(value) : value;
       }
     });
   };
@@ -148,7 +154,7 @@ export const ToolbarEventItem = ({
       setEventKeyValueWithPropertyName(newValue.name, newValue.checked);
     }
   };
-
+  const appliedMouseOverEventSelect = EVENT_KEYS_WITH_MOUSE_OVER_SELECT.includes(eventKey);
   const handleRenderInputSetting = (type) => {
     return (
       <>
@@ -216,6 +222,11 @@ export const ToolbarEventItem = ({
                 key={option.value}
                 value={option.value}
                 classes={menuItemClasses}
+                onMouseOver={
+                  appliedMouseOverEventSelect
+                    ? () => handleOnMouseOver(option.value)
+                    : undefined
+                }
               >
                 {option.label}
               </MenuItem>
@@ -225,25 +236,26 @@ export const ToolbarEventItem = ({
       </>
     );
   };
+  const handleOnMouseOver = (id) => {
+    if (eventKey === "href") {
+      actions.setNodeEvent("hovered", id);
+    }
+  };
   return (
     <Grid item xs={12}>
       <div className="mb-2 toolbar-item-container">
         {props.label && <h4 className="text-sm text-primary">{props.label}</h4>}
 
         <div className="toolbar-item-setting-container p-4 pb-0">
-          
-            <div
-              className="default-setting-container pl-4"
-            >
-              {listType.map((type, keyIndex) => {
-                return (
-                  <div className="mb-3" key={keyIndex}>
-                    {handleRenderInputSetting(type)}
-                  </div>
-                );
-              })}
-            </div>
-          
+          <div className="default-setting-container pl-4">
+            {listType.map((type, keyIndex) => {
+              return (
+                <div className="mb-3" key={keyIndex}>
+                  {handleRenderInputSetting(type)}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </Grid>

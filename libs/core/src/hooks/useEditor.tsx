@@ -9,7 +9,6 @@ import {
 
 type PrivateActions =
   | 'addLinkedNodeFromTree'
-  | 'setNodeEvent'
   | 'setDOM'
   | 'replaceNodes'
   | 'reset';
@@ -18,7 +17,6 @@ const getPublicActions = (actions) => {
   const {
     addLinkedNodeFromTree,
     setDOM,
-    setNodeEvent,
     replaceNodes,
     reset,
     ...EditorActions

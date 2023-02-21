@@ -522,7 +522,12 @@ const Methods = (
         existOnly: true,
       });
 
-      targets.forEach(({ node }) => cb(state.nodes[node.id].data.events));
+      targets.forEach(({ node }) => {
+        if(!state.nodes[node.id].data.props.events) {
+          state.nodes[node.id].data.props.events = {};
+        }
+        cb(state.nodes[node.id].data.props.events);
+      });
     },
   };
 };

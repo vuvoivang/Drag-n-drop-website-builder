@@ -28,8 +28,9 @@ export function createNode(
       type: actualType,
       name: getNodeTypeName(actualType),
       displayName: getNodeTypeName(actualType),
-      props: {},
-      events: {},
+      props: {
+        events: {},
+      },
       custom: {},
       parent: null,
       isCanvas: false,
