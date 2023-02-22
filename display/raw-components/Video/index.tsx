@@ -2,7 +2,7 @@ import React from "react";
 import YouTube from "react-youtube";
 import { YoutubeDiv } from "./styled";
 import { defaultProps } from "./props";
-import { VideoProps } from "display/raw-components/Video/props";
+import { VideoProps } from "./props";
 
 export const Video = (props: VideoProps) => {
   const { className, videoId, width, height, enabled } = props;

@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "classnames";
 
-import { ContainerProps } from "../../raw-components/Container/props";
+import { ContainerProps } from "./props";
 import { defaultProps } from "./props";
 
 

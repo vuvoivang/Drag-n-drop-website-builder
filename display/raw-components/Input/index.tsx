@@ -1,9 +1,9 @@
 import cx from "classnames";
 import React from "react";
 
-import { StyledInput } from "../../raw-components/Input/styled";
+import { StyledInput } from "./styled";
 
-import { InputProps } from "../../raw-components/Input/props";
+import { InputProps } from "./props";
 import { defaultProps } from "./props";
 
 export const Input = (props: any) => {

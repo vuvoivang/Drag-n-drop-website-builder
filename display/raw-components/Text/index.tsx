@@ -1,5 +1,5 @@
 import React from "react";
-import { TextProps } from "../../raw-components/Text/props";
+import { TextProps } from "./props";
 import cx from "classnames";
 import Typography from '@material-ui/core/Typography';
 import { defaultProps } from "./props";
