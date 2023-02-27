@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { Toolbox } from './Toolbox';
 
+// @ts-ignore
 export const Viewport: React.FC = ({ children }) => {
   const {
     enabled,
@@ -44,10 +45,10 @@ export const Viewport: React.FC = ({ children }) => {
         className={cx(['flex h-full overflow-hidden flex-row w-full fixed'])}
       >
         <Toolbox />
-        <div className="page-container flex flex-1 h-full flex-col px-8">
+        <div className="page-container flex flex-1 h-full flex-col px-8 overflow-auto">
           <div
             className={cx([
-              'craftjs-renderer flex-1 h-full w-full transition pb-8 overflow-auto',
+              'craftjs-renderer flex-1 h-full w-full transition pb-8',
               {
                 'bg-renderer-gray': enabled,
               },

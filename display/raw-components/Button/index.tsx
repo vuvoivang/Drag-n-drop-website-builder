@@ -1,5 +1,6 @@
 import cx from "classnames";
 import React from "react";
+import { CLICK_TYPE } from "../constant";
 import { Text } from "../Text";
 import { ButtonProps, defaultProps } from "./props";
 
@@ -17,15 +18,26 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
     events,
     ...otherProps
   } = props;
+  
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
+
+  const { pageNavigate, absoluteUrlNavigate, popup, clickType } = events;
   const handleNavigate = () => {
-    if(events.pageNavigate || events.absoluteUrlNavigate){
-      const desUrl = events.pageNavigate || events.absoluteUrlNavigate;
+    if(pageNavigate || absoluteUrlNavigate){
+      const desUrl = pageNavigate || absoluteUrlNavigate;
       window.location.href = desUrl;
     }
   }
+  const handleOpenPopup = () => {
+    document.getElementById(popup).style.display = 'block';
+  };
+  const mapClickEvent = {
+    [CLICK_TYPE.NAVIGATE]: handleNavigate,
+    [CLICK_TYPE.POP_UP]: handleOpenPopup,
+  }
+
   return (
     <StyledButton
       ref={ref}
@@ -37,7 +49,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
         },
         styledClassNamesValues,
       ])}
-      onClick={handleNavigate}
+      onClick={mapClickEvent[clickType]}
       {...otherProps}
     >
       <Text

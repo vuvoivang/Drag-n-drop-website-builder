@@ -9,6 +9,7 @@ export type TextProps = Partial<{
   styledClassNames: Record<string, any>;
   className: string;
   tagName: string;
+  nestedPropKey?: string;
 }>;
 
 export const defaultProps: TextProps = {

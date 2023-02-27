@@ -23,6 +23,7 @@ export const CraftText: UserComponent<TextProps> = ({
   margin,
   styledClassNames,
   tagName,
+  nestedPropKey = "",
 }: Partial<TextProps>) => {
   const {
     connectors: { connect },
@@ -40,7 +41,13 @@ export const CraftText: UserComponent<TextProps> = ({
       html={text} // innerHTML of the editable div
       disabled={!enabled}
       onChange={(e) => {
-        setProp((prop) => (prop.text = e.target.value), 500);
+        setProp((prop) => {
+          if(nestedPropKey) {
+            prop[nestedPropKey].text = e.target.value;
+          } else {
+            prop.text = e.target.value
+          }
+        }, 500);
       }} // use true to disable editing
       tagName={tagName} // Use a custom HTML tag (uses a div by default)
       className={cx(styledClassNamesValues)}

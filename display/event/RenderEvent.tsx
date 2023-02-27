@@ -12,16 +12,18 @@ const mapPagesToSelectData = (pages) => {
   return pages.map((page) => ({
     value: page.path,
     label: page.name,
-  }))
-}
+  }));
+};
 
 const getListIdSectionCurrentPage = (nodes: Nodes, currentPage: string) => {
   const nodeIdAndDataPairs = Object.entries(nodes);
-  return nodeIdAndDataPairs.filter(([_, node]) => node.data.isCanvas && node.data.page === currentPage).map(([id, _]) => ({
-    value: id,
-    label: id,
-  }))
-}
+  return nodeIdAndDataPairs
+    .filter(([_, node]) => node.data.isCanvas && node.data.page === currentPage)
+    .map(([id, _]) => ({
+      value: id,
+      label: id,
+    }));
+};
 
 export const renderToolbarSection = (configSetting: ConfigEvent) => {
   const { pages, nodes, currentPage } = useEditor((state) => ({
@@ -29,14 +31,14 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
     nodes: state.nodes,
     currentPage: state.pageOptions.currentPage,
   }));
-  
+
   const { sections } = generateConfigSections(configSetting, {
     pageNavigate: {
       selectChildren: mapPagesToSelectData(pages),
     },
     href: {
       selectChildren: getListIdSectionCurrentPage(nodes, currentPage),
-    }
+    },
   });
   return (
     <>
@@ -51,7 +53,11 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
             return (
               <ToolbarEventItem
                 {...item}
-                key={Array.isArray(item.type) ? item.type[0] : item.type}
+                key={
+                  Array.isArray(item.type)
+                    ? `${item.propKey}${item.type[0]}`
+                    : `${item.propKey}${item.type}`
+                }
               />
             );
           })}

@@ -1,5 +1,7 @@
 import { Text } from "../Text";
 
+type EventKeys = "pageNavigate" | "absoluteUrlNavigate" | "popup" | "clickType";
+
 export type ButtonProps = Partial<{
   fontSize: string;
   textAlign: string;
@@ -15,7 +17,9 @@ export type ButtonProps = Partial<{
   textComponent: any;
   styledClassNames: Record<string, any>;
   className: string;
-  events: Record<"pageNavigate" | "absoluteUrlNavigate", string>;
+  events: Record<EventKeys, string>;
+  onClick: any;
+  nestedPropKey?: string;
 }>;
 
 export const defaultProps: ButtonProps = {
@@ -38,5 +42,7 @@ export const defaultProps: ButtonProps = {
   events: {
     pageNavigate: "",
     absoluteUrlNavigate: "",
+    popup: "",
+    clickType: "",
   },
 };

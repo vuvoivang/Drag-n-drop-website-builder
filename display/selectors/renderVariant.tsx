@@ -31,6 +31,7 @@ export const renderMenuItems = (
               style={{ fill: "currentColor", width: "100%", height: "100%" }}
             />
           }
+          key={subItem.label}
         >
           {renderSubItems(subItem.subItems, fnCreateCraftItem)}
         </SubMenu>
@@ -46,7 +47,7 @@ const renderSubItems = (
   return (
     <div className="pl-20">
       {Array.isArray(subItems) &&
-        subItems?.map((item) => {
+        subItems?.map((item, idx) => {
           const {
             isSubmenu,
             subItems,
@@ -69,7 +70,9 @@ const renderSubItems = (
                       height: "100%",
                     }}
                   />
+                
                 }
+                key={idx}
               >
                 {renderSubItems(subItems, fnCreateCraftItem)}
               </SubMenu>
@@ -80,7 +83,9 @@ const renderSubItems = (
                 [`.${menuClasses.button}`]: {
                   cursor: "default!important",
                 }
-              }}>
+              }}
+              key={idx}
+              >
                 {" "}
                 <div
                   className="flex justify-center"
@@ -95,7 +100,7 @@ const renderSubItems = (
                     <ViewElement
                       className="cursor-move"
                       {...overwritePropsView}
-                    />
+                    />                    
                   </Tooltip>
                 </div>
               </MenuItem>

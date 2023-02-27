@@ -5,9 +5,9 @@ export const DEFAULT_SECTIONS = {
     title: "Typography",
     props: ["fontSize", "fontWeight", "textAlign", "tagName"],
     summary: ({ fontSize, fontWeight, textAlign, tagName }: any) => {
-      return `${tagName || ""}, ${fontSize || ""}, ${weightDescription(fontWeight)}, ${capitalize(
-        textAlign
-      )}`;
+      return `${tagName || ""}, ${fontSize || ""}, ${weightDescription(
+        fontWeight
+      )}, ${capitalize(textAlign)}`;
     },
     items: ["tagName", "fontSize", "textAlign", "fontWeight"],
   },
@@ -200,6 +200,11 @@ export const DEFAULT_SECTIONS = {
       return objectFit;
     },
     items: ["objectFit"],
+  },
+  buttonPopup: {
+    title: "Button",
+    props: ["background", "color", "buttonStyle"],
+    items: ["background", "color", "buttonStyle"],
   },
 };
 

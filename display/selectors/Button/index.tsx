@@ -34,17 +34,19 @@ export const CraftButton: UserComponent<ButtonProps> = (props: any) => {
     fontWeight,
     textAlign,
     events,
+    onClick,
+    nestedPropKey,
     ...otherProps
   } = props;
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
   const handleNavigate = () => {
-    if(events.pageNavigate || events.absoluteUrlNavigate){
+    if (events.pageNavigate || events.absoluteUrlNavigate) {
       const desUrl = events.pageNavigate || events.absoluteUrlNavigate;
       window.location.href = desUrl;
     }
-  }
+  };
   return (
     <StyledButton
       ref={connect}
@@ -55,7 +57,7 @@ export const CraftButton: UserComponent<ButtonProps> = (props: any) => {
         },
         styledClassNamesValues,
       ])}
-      onClick={handleNavigate}
+      onClick={onClick ? onClick : handleNavigate}
       {...otherProps}
     >
       <CraftText
@@ -65,6 +67,7 @@ export const CraftButton: UserComponent<ButtonProps> = (props: any) => {
         fontSize={fontSize}
         fontWeight={fontWeight}
         textAlign={textAlign}
+        nestedPropKey={nestedPropKey}
       />
     </StyledButton>
   );

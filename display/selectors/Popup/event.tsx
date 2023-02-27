@@ -3,12 +3,10 @@ import React from "react";
 
 const configEvent: ConfigEvent = {
   sections: [
-    "clickType",
-    "navigate",
-    "popup",
+    "showPopup",
   ],
 };
 
-export const ButtonEvents = () => {
+export const PopupEvents = () => {
   return <React.Fragment>{renderToolbarSection(configEvent)}</React.Fragment>;
 };

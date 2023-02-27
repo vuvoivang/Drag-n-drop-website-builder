@@ -4,3 +4,4 @@ export { Image } from "./Image";
 export { Text } from "./Text";
 export { Input } from "./Input";
 export { Video } from "./Video";
+export { Popup } from "./Popup";

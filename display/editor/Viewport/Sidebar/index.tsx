@@ -103,12 +103,7 @@ function a11yProps(index) {
   };
 }
 
-const useStyleTab = makeStyles(() => ({
-  "&.MuiTab-root": {
-    minWidth: "120px",
-    width: "120px"
-  },
-}));
+
 const useStyleTabs = makeStyles(() => ({
   scrollButtons: {
     "& .MuiTouchRipple-root": {
@@ -120,6 +115,10 @@ const useStyleTabs = makeStyles(() => ({
     },
   },
 }));
+const StyledTab = styled(Tab)`
+  min-width: 130px !important;
+  width: 130px !important;
+`;
 export const Sidebar = () => {
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
@@ -131,7 +130,6 @@ export const Sidebar = () => {
     setCurrentTab(newValue);
   };
   const tabsStyle = useStyleTabs({});
-  const tabStyle = useStyleTab({});                                             
                                            
   return (
     <SidebarDiv enabled={enabled} className="sidebar transition bg-dark w-2">
@@ -144,9 +142,9 @@ export const Sidebar = () => {
           variant="scrollable"
           classes={tabsStyle}
         >
-          <Tab label="Customize" className="text-white-important" {...a11yProps(0)} classes={tabStyle}/>
-          <Tab label="Layers" className="text-white-important" {...a11yProps(1)} classes={tabStyle}/>
-          <Tab label="Events" className="text-white-important" {...a11yProps(2)} classes={tabStyle}/>
+          <StyledTab label="Customize" className="text-white-important" {...a11yProps(0)} />
+          <StyledTab label="Layers" className="text-white-important" {...a11yProps(1)} />
+          <StyledTab label="Events" className="text-white-important" {...a11yProps(2)} />
         </Tabs>
         <SidebarItem
           role="tabpanel"

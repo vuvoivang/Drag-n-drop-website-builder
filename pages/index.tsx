@@ -16,6 +16,7 @@ import {
   CraftVideo,
   CraftInput,
   CraftImage,
+  CraftPopup,
 } from "display/selectors";
 
 import {
@@ -58,6 +59,7 @@ function App() {
             Custom3,
             Custom3BtnDrop,
             OnlyButtons,
+            CraftPopup,
           }}
           enabled={false}
           onRender={RenderNode}
@@ -394,6 +396,10 @@ function App() {
                     </Element>
                   </Element>
                 </Element>
+                {/* <Element
+                    is={CraftPopup}
+                    custom={{ displayName: "Popup" }}
+                    ></Element> */}
               </Element>
             </Frame>
           </Viewport>

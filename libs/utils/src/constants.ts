@@ -96,3 +96,27 @@ export const serializedContainerRootNodeForPage: SerializedNode = {
   linkedNodes: {},
   page: "/",
 }
+
+export const serializedPopupNodeForPage: SerializedNode = {
+  type: {
+    resolvedName: "CraftPopup",
+  },
+  isCanvas: false,
+  props: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    width: "100%",
+    height: "auto",
+    styledClassNames: {},
+  },
+  displayName: "Popup",
+  custom: {
+    displayName: "Popup",
+  },
+  hidden: false,
+  nodes: [],
+  parent: undefined,
+  linkedNodes: {},
+  page: "/",
+}

@@ -81,7 +81,7 @@ const Indicators = styled.div<{ bound?: 'row' | 'column' }>`
   }
 `;
 
-export const Resizer = ({ propKey, children, ...props }: any) => {
+export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => {
   const {
     id,
     actions: { setProp },
@@ -245,8 +245,14 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
         }
 
         setProp((prop: any) => {
-          prop[propKey.width] = width;
-          prop[propKey.height] = height;
+          if(nestedPropKey) {
+            prop[nestedPropKey][propKey.width] = width;
+            prop[nestedPropKey][propKey.height] = height;
+          } else {
+            prop[propKey.width] = width;
+            prop[propKey.height] = height;
+          }
+          
         }, 500);
       }}
       onResizeStop={() => {

@@ -275,6 +275,8 @@ const Methods = (
         ...state.nodes,
         [id]: generatedNode,
       });
+
+      if(!id.startsWith(ROOT_NODE)) this.addChildren( generatedNode.data.parent, id);
     },
 
 
@@ -528,6 +530,17 @@ const Methods = (
         }
         cb(state.nodes[node.id].data.props.events);
       });
+    },
+    /**
+     * Add children to a node
+     * @param id
+     * @param childrenId
+     */
+    addChildren(id: NodeId, childrenId: NodeId) {
+      state.nodes[id].data.nodes = [
+        ...state.nodes[id].data.nodes,
+        childrenId,
+      ];
     },
   };
 };
