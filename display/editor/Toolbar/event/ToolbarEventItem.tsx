@@ -22,61 +22,26 @@ import {
   STYLED_CLASSNAMES_KEY,
 } from "display/constants";
 import { makeStyles } from "@material-ui/core/styles";
+import { serializedPopupNodeForPage } from "@libs/utils";
+import { getRandomId as getRandomNodeId } from "libs/utils/src";
+import styled from "styled-components";
 
-const iOSBoxShadow =
-  "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
-
-const SliderStyled = withStyles({
-  root: {
-    color: "#3880ff",
-    height: 2,
-    padding: "5px 0",
-    width: "100%",
-  },
-  thumb: {
-    height: 14,
-    width: 14,
-    backgroundColor: "#fff",
-    boxShadow: iOSBoxShadow,
-    marginTop: -7,
-    marginLeft: -7,
-    "&:focus,&:hover,&$active": {
-      boxShadow:
-        "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)",
-      // Reset on touch devices, it doesn't add specificity
-      "@media (hover: none)": {
-        boxShadow: iOSBoxShadow,
-      },
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: "calc(-50% + 11px)",
-    top: -22,
-    "& *": {
-      background: "transparent",
-      color: "#000",
-    },
-  },
-  track: {
-    height: 2,
-  },
-  rail: {
-    height: 2,
-    opacity: 0.5,
-    backgroundColor: "#fff",
-  },
-  mark: {
-    backgroundColor: "#fff",
-    height: 8,
-    width: 1,
-    marginTop: -3,
-  },
-  markActive: {
-    opacity: 1,
-    backgroundColor: "currentColor",
-  },
-})(Slider);
+const Btn = styled.a`
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-size: 14px;
+  width: fit-content;
+  margin-bottom: 16px;
+  svg {
+    margin-right: 6px;
+    width: 12px;
+    height: 12px;
+    fill: #fff;
+    opacity: 0.9;
+  }
+`;
 type Option = {
   value: string;
   label: string;
@@ -114,7 +79,13 @@ export const ToolbarEventItem = ({
   ...props
 }: ToolbarEventItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
-  const { actions } = useEditor();
+  const {
+    actions,
+    query,
+    currentPage,
+  } = useEditor((state) => ({
+    currentPage: state.pageOptions.currentPage,
+  }));
   const {
     actions: { setEvent },
     eventValue,
@@ -152,6 +123,8 @@ export const ToolbarEventItem = ({
       setEventKeyValueWithoutIndex(newValue);
     } else if (type === "checkbox") {
       setEventKeyValueWithPropertyName(newValue.name, newValue.checked);
+    } else if (type === "oneOptionCheckbox") {
+      setEventKeyValueWithoutIndex(newValue.checked);
     }
   };
   const appliedMouseOverEventSelect = EVENT_KEYS_WITH_MOUSE_OVER_SELECT.includes(eventKey);
@@ -232,6 +205,48 @@ export const ToolbarEventItem = ({
               </MenuItem>
             ))}
           </ToolbarDropdown>
+        ) : type === "popup" ? (
+          <div>
+            {!value ? (
+              <Btn
+                className="transition cursor-pointer bg-primary text-center  rounded-md px-4 py-2 bg-slate-100 text-black"
+                onClick={createNewPopup}
+              >
+                Create pop up
+              </Btn>
+            ) : (
+              <FormGroup>
+                <ToolbarCheckbox
+                  value={"showPopup"}
+                  name={"checkboxShowPopup"}
+                  label={"Show popup"}
+                  checked={!!getCurrentShowPopup()}
+                  onChange={(e) => togglePopup(e.target.checked)}
+                />
+              </FormGroup>
+            )}
+          </div>
+        ) : type === "oneOptionCheckbox" ? (
+          <>
+            <FormGroup>
+              {props.checkboxChildren?.map((option) => (
+                <ToolbarCheckbox
+                  key={option.value}
+                  value={option.value}
+                  name={option.value}
+                  label={option.label}
+                  checked={!!value}
+                  onChange={(e) => {
+                    const newValue = {
+                      name: e.target.value,
+                      checked: e.target.checked,
+                    };
+                    handleSetEventValue(newValue, type);
+                  }}
+                />
+              ))}
+            </FormGroup>
+          </>
         ) : null}
       </>
     );
@@ -240,6 +255,29 @@ export const ToolbarEventItem = ({
     if (eventKey === "href") {
       actions.setNodeEvent("hovered", id);
     }
+  };
+  const createNewPopup = () => {
+    const rootNodeIdThisPage =
+      currentPage.length > 1 ? `ROOT_${currentPage.slice(1)}` : `ROOT`;
+    const popupId = `Popup_${getRandomNodeId()}`;
+
+    const newPopupNodeThisPage = {
+      ...serializedPopupNodeForPage,
+      page: currentPage,
+      parent: rootNodeIdThisPage,
+      id: popupId,
+    };
+    setEventKeyValueWithoutIndex(popupId);
+    actions.addNewNodeWithSerializedData(newPopupNodeThisPage, popupId);
+    // actions.add(newPopupNodeThisPage, rootNodeIdThisPage);
+  };
+  const getCurrentShowPopup = () => {
+    if (eventKey === "popup" && value)
+      return query.node(value)?.get().data.props.events?.showPopup;
+    else return false;
+  };
+  const togglePopup = (toggle) => {
+    actions.setEvent(value, (events) => (events.showPopup = toggle));
   };
   return (
     <Grid item xs={12}>
