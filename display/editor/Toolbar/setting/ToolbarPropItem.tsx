@@ -17,7 +17,10 @@ import { ToolbarTextInput } from "../ToolbarTextInput";
 import { ToolbarRadio } from "../ToolbarRadio";
 import { ToolbarCheckbox } from "../ToolbarCheckbox";
 
-import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from "display/constants";
+import {
+  PLACEHOLDER_IMAGE_URL,
+  STYLED_CLASSNAMES_KEY,
+} from "display/constants";
 import { LightTooltip } from "display/shared/components/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -84,6 +87,7 @@ export type ToolbarPropItemProps = Partial<{
   label: string;
   full: boolean;
   propKey: string;
+  nestedPropKey?: string;
   index: number;
   children: React.ReactNode;
   type: string | string[];
@@ -107,6 +111,7 @@ const useMenuItemStyles = makeStyles({
 export const ToolbarPropItem = ({
   full = false,
   propKey,
+  nestedPropKey, // craft component is children of another component
   type: inputType,
   styledCustomOptions = [],
   onChange,
@@ -114,14 +119,28 @@ export const ToolbarPropItem = ({
   ...props
 }: ToolbarPropItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
+
+  const getCurrentProps = (props) => {
+    if (nestedPropKey) {
+      return props[nestedPropKey];
+    }
+    return props;
+  };
+
+  const setCurrentProp = (callbackSetProps) => {
+    if (nestedPropKey) {
+      return setProp((props) => callbackSetProps(props[nestedPropKey]));
+    }
+    return setProp(callbackSetProps);
+  };
   const {
     actions: { setProp },
     propValue,
     propStyledClassNameValue,
   } = useNode((node) => ({
-    propValue: node.data.props[propKey],
+    propValue: getCurrentProps(node.data.props)[propKey],
     propStyledClassNameValue:
-      node.data.props[STYLED_CLASSNAMES_KEY]?.[propKey] || "",
+      getCurrentProps(node.data.props)[STYLED_CLASSNAMES_KEY]?.[propKey] || "",
   }));
   const value = Array.isArray(propValue) ? propValue[index] : propValue;
   const styledClassNameValue = Array.isArray(propStyledClassNameValue)
@@ -157,7 +176,7 @@ export const ToolbarPropItem = ({
   }, [customStyle]);
 
   const handleSetPropClassName = (className: string) => {
-    setProp((props: any) => {
+    setCurrentProp((props: any) => {
       if (!props[STYLED_CLASSNAMES_KEY]) {
         props[STYLED_CLASSNAMES_KEY] = {};
       }
@@ -172,7 +191,7 @@ export const ToolbarPropItem = ({
     });
   };
   const setPropKeyValueWithIndexAndTimeOut = (value: any, timeout: number) => {
-    setProp((props: any) => {
+    setCurrentProp((props: any) => {
       if (Array.isArray(propValue)) {
         props[propKey][index] = onChange ? onChange(value) : value;
       } else {
@@ -181,12 +200,12 @@ export const ToolbarPropItem = ({
     }, timeout);
   };
   const setPropKeyValueWithoutIndex = (value: any) => {
-    setProp((props: any) => {
+    setCurrentProp((props: any) => {
       props[propKey] = onChange ? onChange(value) : value;
     });
   };
   const setPropKeyValueWithPropertyName = (propName: string, value: any) => {
-    setProp((props: any) => {
+    setCurrentProp((props: any) => {
       if (typeof props[propKey] === "object") {
         props[propKey][propName] = onChange ? onChange(value) : value;
       }
@@ -442,13 +461,6 @@ export const ToolbarPropItem = ({
             </div>
           )}
         </div>
-
-        {/* Render array type for this propKey */}
-
-        {/* Default class css by propKey */}
-        {/* Suggest, when choose -> add/remove class. Default value */}
-        {/* Design system -> get from context -> variable for every type */}
-        {/* First: color, font size, font weight -> define css */}
       </div>
     </Grid>
   );
