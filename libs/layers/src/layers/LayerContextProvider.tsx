@@ -1,6 +1,6 @@
 import { useEditor } from '@libs/core';
 import { wrapConnectorHooks } from '@libs/utils';
-import React, { useMemo, useContext, useRef, useEffect } from 'react';
+import React, { useMemo, useContext, useRef, useEffect, useState } from 'react';
 
 import { LayerContext } from './LayerContext';
 import { LayerNode } from './LayerNode';
@@ -12,6 +12,15 @@ export const LayerContextProvider: React.FC<Omit<
   LayerContext,
   'connectors'
 >> = ({ id, depth }) => {
+
+  const [showChild, setShowChild] = useState(false);
+
+  // Wait until after client-side hydration to show
+  // cause child useLayoutEffect
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
   const handlers = useLayerEventHandler();
 
   const { store } = useContext(LayerManagerContext);
@@ -38,6 +47,11 @@ export const LayerContextProvider: React.FC<Omit<
   }));
 
   if (!exists) {
+    return null;
+  }
+
+  if (!showChild) {
+    // You can show some kind of placeholder UI here
     return null;
   }
 
