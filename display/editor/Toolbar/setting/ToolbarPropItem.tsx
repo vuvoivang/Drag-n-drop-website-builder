@@ -29,7 +29,7 @@ const iOSBoxShadow =
 
 const SliderStyled = withStyles({
   root: {
-    color: "#3880ff",
+    color: "#2cb41e",
     height: 2,
     padding: "5px 0",
     width: "100%",
@@ -37,7 +37,7 @@ const SliderStyled = withStyles({
   thumb: {
     height: 14,
     width: 14,
-    backgroundColor: "#fff",
+    backgroundColor: "#00ff51",
     boxShadow: iOSBoxShadow,
     marginTop: -7,
     marginLeft: -7,
@@ -65,10 +65,10 @@ const SliderStyled = withStyles({
   rail: {
     height: 2,
     opacity: 0.5,
-    backgroundColor: "#fff",
+    backgroundColor: "#adccb7",
   },
   mark: {
-    backgroundColor: "#fff",
+    backgroundColor: "#adccb7",
     height: 8,
     width: 1,
     marginTop: -3,
@@ -127,11 +127,11 @@ export const ToolbarPropItem = ({
     return props;
   };
 
-  const setCurrentProp = (callbackSetProps) => {
+  const setCurrentProp = (callbackSetProps, timeout?) => {
     if (nestedPropKey) {
-      return setProp((props) => callbackSetProps(props[nestedPropKey]));
+      return setProp((props) => callbackSetProps(props[nestedPropKey]), timeout);
     }
-    return setProp(callbackSetProps);
+    return setProp(callbackSetProps, timeout);
   };
   const {
     actions: { setProp },
@@ -338,13 +338,13 @@ export const ToolbarPropItem = ({
                       <div className="image-item__btn-wrapper mt-4">
                         <button
                           onClick={() => onImageUpdate(0)}
-                          className="text-sm py-2 px-3 rounded-full text-white bg-green-600	focus:outline-none mr-2"
+                          className="text-sm py-2 px-3 rounded-full text-black bg-green-600	focus:outline-none mr-2"
                         >
                           <UpdateIcon /> Update
                         </button>
                         <button
                           onClick={() => onImageRemove(0)}
-                          className="text-sm py-2 px-3 rounded-full text-white bg-rose-600	 focus:outline-none"
+                          className="text-sm py-2 px-3 rounded-full text-black bg-rose-600	 focus:outline-none"
                         >
                           <DeleteIcon /> Remove
                         </button>
@@ -355,7 +355,7 @@ export const ToolbarPropItem = ({
                   <button
                     style={isDragging ? { color: "red" } : undefined}
                     onClick={onImageUpload}
-                    className="text-sm py-2 px-3 rounded-full text-white bg-green-600	focus:outline-none"
+                    className="text-sm py-2 px-3 rounded-full text-black bg-green-600	focus:outline-none"
                     {...dragProps}
                   >
                     Choose image (click or drop)
@@ -413,7 +413,7 @@ export const ToolbarPropItem = ({
                     className="p-4 pt-0"
                   >
                     <LightTooltip title="Use built-in styles, always be prioritized">
-                      <h4 className="text-sm text-white my-2">
+                      <h4 className="text-sm text-black my-2">
                         Custom {props.label}
                       </h4>
                       {/* <p className="text-sm text-slate-400 mb-4">

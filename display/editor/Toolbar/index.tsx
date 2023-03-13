@@ -31,7 +31,7 @@ export const Toolbar = ({ type = "settings" }) => {
             fontSize: '11px',
           }}
         >
-          <h2 className="pb-1">Click on a component to start {actionText[type]}.</h2>
+          <h2 className="pb-1 text-primary text-sm">Click on a component to start {actionText[type]}.</h2>
         </div>
       )}
     </div>

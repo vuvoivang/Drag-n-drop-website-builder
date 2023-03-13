@@ -71,7 +71,7 @@ const useLabelStyles = makeStyles({
     fontSize: "14px",
   },
   disabled: {
-    color: "#ffffff",
+    color: "#000000",
   },
 });
 
@@ -92,7 +92,7 @@ export const ToolbarCheckbox = ({
         <StyledCheckbox checked={checked} onChange={onChange} name={name} />
       }
       label={label}
-      style={{ color: "#fff" }}
+      style={{ color: "#000000" }}
       disabled={disabled}
     />
   );

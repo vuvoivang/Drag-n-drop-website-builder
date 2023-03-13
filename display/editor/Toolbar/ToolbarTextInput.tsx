@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   input: {
-    background: '#efeff1',
+    background: '#a5ffb8',
     borderRadius: '100px',
     fontSize: '12px',
     paddingLeft: '28px',

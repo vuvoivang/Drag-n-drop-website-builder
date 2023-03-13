@@ -10,13 +10,13 @@ const PageFormControl = styled(FormControl)`
 `;
 const PageSelect = styled(Select)`
   min-width: 120px;
-  color: white !important;
+  color: "#000000 !important;
   font-size: 14px!important;
 `;
 export const ToolbarDropdown = ({ value, onChange, children, disabled, renderValue }: any) => {
   return (
     <PageFormControl className="toolbar-dropdown_container">
-      <PageSelect renderValue={renderValue} disabled={disabled} value={value} onChange={(e) => onChange(e.target.value)}>
+      <PageSelect defaultValue="Select" renderValue={renderValue} disabled={disabled} value={value} onChange={(e) => onChange(e.target.value)}>
         {children}
       </PageSelect>
     </PageFormControl>

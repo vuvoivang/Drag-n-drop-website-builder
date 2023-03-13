@@ -12,32 +12,31 @@
         font-size: 14px;
     }
 
-    .MuiInput-underline {
-        &:before {
-            border-bottom: 1px solid $color-secondary;
-        }
+    
 
-        &:after {
-            border-bottom: 1px solid $color-secondary;
-        }
-
-        &:hover:not(.Mui-disabled):before {
-            border-bottom: 1px solid $color-secondary;
-        }
-    }
-
-    .MuiSelect-icon {
-        color: $color-secondary;
-    }
+   
 
     .add-page-container {
         &:hover {
             .MuiInputBase-inputSelect {
-                color: $color-primary;
+                color: #078412;
             }
 
             .MuiSelect-icon {
-                color: $color-primary;
+                color: #078412;
+            }
+            .MuiInput-underline {
+                &:before {
+                    border-bottom: 1px solid #078412;
+                }
+        
+                &:after {
+                    border-bottom: 1px solid #078412;
+                }
+        
+                &:hover:not(.Mui-disabled):before {
+                    border-bottom: 1px solid #078412;
+                }
             }
         }
 

@@ -209,7 +209,7 @@ export const ToolbarEventItem = ({
           <div>
             {!value ? (
               <Btn
-                className="transition cursor-pointer bg-primary text-center  rounded-md px-4 py-2 bg-slate-100 text-black"
+                className="transition cursor-pointer bg-primary text-center rounded-md px-4 py-2 bg-green-400 text-white"
                 onClick={createNewPopup}
               >
                 Create pop up

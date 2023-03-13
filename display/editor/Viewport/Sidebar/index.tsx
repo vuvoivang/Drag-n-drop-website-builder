@@ -13,7 +13,7 @@ import { Toolbar } from "../../Toolbar";
 export const SidebarDiv = styled.div<{ enabled: boolean }>`
   min-width: 320px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
-  background: #2c2c2c;
+  background: #ffffff;
   margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
 `;
 // const CarbonAdsContainer = styled.div`
@@ -106,18 +106,19 @@ function a11yProps(index) {
 
 const useStyleTabs = makeStyles(() => ({
   scrollButtons: {
-    "& .MuiTouchRipple-root": {
-      backgroundImage: "linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.25),hsla(0,0%,100%,.55))",
-    },
+    // "& .MuiTouchRipple-root": {
+    //   backgroundImage: "linear-gradient(90deg,hsl(0deg 5.14% 54.35% / 75%),hsla(0deg 5.14% 54.35% / 15%),hsla(0,0%,100%,.05));",
+    // },
+    marginBottom: '2px',
     "& svg": {
-      fill : "white",
-      fontSize: "1.5rem"
+      fill : "#079512",
+      fontSize: "1.75rem"
     },
   },
 }));
 const StyledTab = styled(Tab)`
-  min-width: 130px !important;
-  width: 130px !important;
+  min-width: 120px !important;
+  width: 120px !important;
 `;
 export const Sidebar = () => {
   const { enabled } = useEditor((state) => ({
@@ -142,9 +143,9 @@ export const Sidebar = () => {
           variant="scrollable"
           classes={tabsStyle}
         >
-          <StyledTab label="Customize" className="text-white-important" {...a11yProps(0)} />
-          <StyledTab label="Layers" className="text-white-important" {...a11yProps(1)} />
-          <StyledTab label="Events" className="text-white-important" {...a11yProps(2)} />
+          <StyledTab label="Customize" className="text-black-important text-base" {...a11yProps(0)} />
+          <StyledTab label="Layers" className="text-black-important text-base" {...a11yProps(1)} />
+          <StyledTab label="Events" className="text-black-important text-base" {...a11yProps(2)} />
         </Tabs>
         <SidebarItem
           role="tabpanel"

@@ -54,7 +54,7 @@ export const ToolbarEventSection = ({ title, children }: any) => {
         <div className="px-6 w-full">
           <Grid container direction="row" alignItems="center" spacing={3}>
             <Grid item xs={12}>
-              <h5 className="text-md text-white text-left font-medium text-dark-gray">
+              <h5 className="text-md text-secondary text-left font-medium text-dark-gray">
                 {title}
               </h5>
             </Grid>

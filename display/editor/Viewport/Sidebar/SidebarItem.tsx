@@ -10,7 +10,7 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
       : "auto"};
   flex: ${(props) =>
     props.visible && props.height && props.height === "full" ? `1` : "unset"};
-  color: #fff;
+  color: #000000;
   overflow: auto;
 `;
 
@@ -34,10 +34,10 @@ export type SidebarItemProps = {
 };
 
 const HeaderDiv = styled.div`
-  color: #fff;
+  color: #000000;
   height: 45px;
   svg {
-    fill: #fff;
+    fill: #000000;
   }
 `;
 

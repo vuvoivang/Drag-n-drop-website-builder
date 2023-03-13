@@ -50,7 +50,7 @@ const useLabelStyles = makeStyles({
     fontSize: '14px',
   },
   disabled: {
-    color: "#ffffff",
+    color: "#000000",
   }
 });
 
@@ -62,7 +62,7 @@ export const ToolbarRadio = ({ value, label, disabled }: any) => {
       value={value}
       control={<StyledRadio />}
       label={label}
-      style={{ color: '#fff' }}
+      style={{ color: '#000000' }}
       disabled={disabled}
     />
   );

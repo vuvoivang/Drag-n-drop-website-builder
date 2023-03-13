@@ -21,7 +21,7 @@ import Checkmark from "../../../public/icons/check.svg";
 import Customize from "../../../public/icons/customize.svg";
 import RedoSvg from "../../../public/icons/toolbox/redo.svg";
 import UndoSvg from "../../../public/icons/toolbox/undo.svg";
-import Logo from "../../../public/images/logo.png";
+import Logo from "../../../public/images/logo.webp";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { LightTooltip } from "display/shared/components/Tooltip";
@@ -38,23 +38,24 @@ const HeaderDiv = styled.div<any>`
   z-index: 0;
   position: relative;
   padding: 0px 10px;
-  background: #2c2c2c;
+  background: #ffffff;
   display: flex;
+  border-bottom: 2px solid #d8d6de;
 `;
 
 const Btn = styled.a`
   display: flex;
   align-items: center;
   padding: 5px 15px;
-  border-radius: 3px;
+  border-radius: 4px;
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   svg {
     margin-right: 6px;
     width: 12px;
     height: 12px;
     fill: #fff;
-    opacity: 0.9;
+    opacity: 1;
   }
 `;
 
@@ -64,7 +65,7 @@ const Item = styled.a<{ disabled?: boolean }>`
   svg {
     width: 20px;
     height: 20px;
-    fill: #fff;
+    fill: #079512;
   }
   ${(props) =>
     props.disabled &&
@@ -86,7 +87,8 @@ const PageFormControl = styled(FormControl)`
 `;
 const PageSelect = styled(Select)`
   min-width: 120px;
-  color: white !important;
+  color: #2e9737 !important;
+  font-weight: 500;
 `;
 
 function addPageReducer(state, action) {
@@ -197,21 +199,25 @@ export const Header = () => {
       className="header text-white transition w-full"
     >
       <div className="items-center flex w-full pl-4 justify-end">
-        <button onClick={() => collapseSidebar()}>
-          {collapsed ? (
-            <MenuOpenIcon fontSize="large" />
-          ) : (
-            <MenuIcon fontSize="large" />
-          )}
-        </button>
+        <div style={{
+          width: collapsed ? "auto" : "280px"
+        }} >
+          <button onClick={() => collapseSidebar()}>
+            {collapsed ? (
+              <MenuOpenIcon fontSize="large" style={{ color: "#079512"}}/>
+            ) : (
+              <MenuIcon fontSize="large" style={{ color: "#079512"}}/>
+            )}
+          </button>
+        </div>
 
-        <div className="logo-container" style={{ marginLeft: 90 }}>
+        <div className="logo-container" style={{ marginLeft: 30 }}>
           <Image
             className="header-logo"
             src={Logo}
             alt="Our Logo"
-            height={45}
-            width={60}
+            height={60}
+            width={80}
           />
         </div>
         {/* Form add new page  */}
@@ -234,7 +240,7 @@ export const Header = () => {
                 id: "current-page",
               }}
               renderValue={(value) =>
-                pages.find((el) => el.path === value)?.name
+                pages.find((el) => el.path === value)?.name + ' page'
               }
             >
               {pages.map((page) => (
@@ -264,6 +270,7 @@ export const Header = () => {
                 className="cursor-pointer ml-1"
                 onClick={clickOpenDialogAddNewPage}
                 fontSize="small"
+                style={{ color: "#079512"}}
               />
             </LightTooltip>
           </div>
