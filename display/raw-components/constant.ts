@@ -4,4 +4,5 @@ export const PLACEHOLDER_IMAGE_URL = "https://phutungnhapkhauchinhhang.com/wp-co
 export enum CLICK_TYPE {
     NAVIGATE = "navigate",
     POP_UP = "popup",
+    HREF = "href",
 }

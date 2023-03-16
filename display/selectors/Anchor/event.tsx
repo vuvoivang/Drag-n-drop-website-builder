@@ -3,12 +3,12 @@ import React from "react";
 
 const configEvent: ConfigEvent = {
   sections: [
-    "clickTypeButton",
+    "scrollTo",
     "navigate",
-    "popup",
+    "clickTypeAnchor",
   ],
 };
 
-export const ButtonEvents = () => {
+export const AnchorEvents = () => {
   return <React.Fragment>{renderToolbarSection(configEvent)}</React.Fragment>;
 };

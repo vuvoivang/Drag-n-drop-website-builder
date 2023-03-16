@@ -17,6 +17,7 @@ import {
   CraftInput,
   CraftImage,
   CraftPopup,
+  CraftAnchor,
 } from "display/selectors";
 
 import {
@@ -53,6 +54,7 @@ function App() {
             CraftInput,
             CraftImage,
             CraftButton,
+            CraftAnchor,
             Custom1,
             Custom2,
             Custom2VideoDrop,

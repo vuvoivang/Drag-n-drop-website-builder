@@ -16,8 +16,13 @@ export const DEFAULT_SECTIONS = {
     events: ["popup"],
     items: ["popup"],
   },
-  clickType: {
-    title: "Action when click",
+  clickTypeButton: {
+    title: "Action when click button",
+    events: ["clickType"],
+    items: ["clickTypeButton"],
+  },
+  clickTypeAnchor: {
+    title: "Action when click anchor",
     events: ["clickType"],
     items: ["clickType"],
   },
@@ -53,10 +58,10 @@ export const DEFAULT_EVENT_KEYS = {
     label: "Custom pop-up when clicked",
     full: true,
   },
-  clickType: {
+  clickTypeButton: {
     eventKey: "clickType",
     type: ["select"],
-    label: "Choose applied action type when click",
+    label: "Choose applied action type when click button",
     full: true,
     selectChildren: [
       {
@@ -78,6 +83,22 @@ export const DEFAULT_EVENT_KEYS = {
         value: "showPopup",
         label: "Show pop up",
       }
+    ],
+  },
+  clickTypeAnchor: {
+    eventKey: "clickType",
+    type: ["select"],
+    label: "Choose applied action type when click anchor",
+    full: true,
+    selectChildren: [
+      {
+        value: CLICK_TYPE.NAVIGATE,
+        label: "Navigate",
+      },
+      {
+        value: CLICK_TYPE.HREF,
+        label: "Scroll to element",
+      },
     ],
   },
 };

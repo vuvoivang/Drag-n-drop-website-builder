@@ -5,3 +5,4 @@ export { CraftText } from "./Text";
 export { CraftInput } from "./Input";
 export { CraftVideo } from "./Video";
 export { CraftPopup } from "./Popup";
+export { CraftAnchor } from "./Anchor";

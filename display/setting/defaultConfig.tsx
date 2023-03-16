@@ -103,6 +103,10 @@ export const DEFAULT_SECTIONS = {
     title: "Decoration",
     items: ["buttonStyle"],
   },
+  anchorDecoration: {
+    title: "Decoration",
+    items: ["anchorStyle"],
+  },
   inputDecoration: {
     title: "Decoration",
     items: ["inputStyle"],

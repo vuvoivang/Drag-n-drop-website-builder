@@ -4,6 +4,8 @@ import SquareSvg from "../../public/icons/toolbox/rectangle.svg";
 import YoutubeSvg from "../../public/icons/toolbox/video-line.svg";
 import ImageSvg from "../../public/icons/toolbox/image.svg";
 import InputSvg from "../../public/icons/toolbox/input.svg";
+import AnchorSvg from "../../public/icons/toolbox/anchor.svg";
+
 import {
   CraftButton,
   CraftContainer,
@@ -11,6 +13,7 @@ import {
   CraftVideo,
   CraftInput,
   CraftImage,
+  CraftAnchor,
 } from "display/selectors";
 
 import {
@@ -20,6 +23,7 @@ import {
   Image,
   Video,
   Input,
+  Anchor,
 } from "display/raw-components";
 import { ConfigVariant } from "./renderVariant";
 
@@ -596,6 +600,34 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
             height: "50px",
             width: "150px",
             inputOptions: { readonly: true },
+          },
+        },
+      ],
+    },
+
+    {
+      label: "Link",
+      Icon: AnchorSvg,
+      subItems: [
+        {
+          isSubmenu: false,
+          CraftElement: CraftAnchor,
+          ViewElement: Anchor,
+          overwritePropsCraft: {
+            color: { r: "255", g: "255", b: "255", a: "1" },
+            background: { r: "197", g: "8", b: "41", a: "1" },
+            fontSize: "16",
+            width: "50%",
+            fontWeight: "400",
+            text: "Link",
+          },
+          overwritePropsView: {
+            color: { r: "255", g: "255", b: "255", a: "1" },
+            background: { r: "197", g: "8", b: "41", a: "1" },
+            fontSize: "16",
+            width: "50%",
+            fontWeight: "400",
+            text: "Link",
           },
         },
       ],
