@@ -218,7 +218,7 @@ export const DEFAULT_PROP_KEYS = {
     type: ["slider", "text", "select"],
     label: "Font Size",
     full: true,
-    selectChildren: [
+    selectchildren: [
       {
         value: "14",
         label: "14px",
@@ -569,7 +569,7 @@ export const DEFAULT_PROP_KEYS = {
     propKey: "type",
     type: ["text", "select"],
     label: "Type",
-    selectChildren: [
+    selectchildren: [
       {
         value: "text",
         label: "Text",
@@ -665,7 +665,7 @@ export const DEFAULT_PROP_KEYS = {
     propKey: "tagName",
     type: ["text", "select"],
     label: "Tag name",
-    selectChildren: [
+    selectchildren: [
       {
         value: "h1",
         label: "Heading 1",

@@ -34,10 +34,10 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
 
   const { sections } = generateConfigSections(configSetting, {
     pageNavigate: {
-      selectChildren: mapPagesToSelectData(pages),
+      selectchildren: mapPagesToSelectData(pages),
     },
     href: {
-      selectChildren: getListIdSectionCurrentPage(nodes, currentPage),
+      selectchildren: getListIdSectionCurrentPage(nodes, currentPage),
     },
   });
   return (

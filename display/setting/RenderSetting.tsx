@@ -20,11 +20,12 @@ export const renderToolbarSection = (configSetting: ConfigSetting) => {
           summary={section.summary}
           key={section.title}
         >
-          {section.items.map((item) => {
+          {section.items.map((item, idx) => {
             return (
               <ToolbarPropItem
                 {...item}
-                key={Array.isArray(item.type) ? item.type[0] : item.type}
+                key={idx}
+                // key={Array.isArray(item.type) ? `${section.title}-${item.type[0]}-${idx}` : `${section.title}-${item.type}-${idx}`}
               />
             );
           })}

@@ -57,7 +57,7 @@ export type ToolbarEventItemProps = Partial<{
   styledCustomOptions: Option | Array<Option>;
   checkboxChildren: Array<Option>;
   radioChildren: Array<Option>;
-  selectChildren: Array<Option>;
+  selectchildren: Array<Option>;
   onChange: (value: any) => any;
 }>;
 
@@ -182,7 +182,7 @@ export const ToolbarEventItem = ({
           <ToolbarDropdown
             value={value || ""}
             renderValue={(value) => {
-              const option = props.selectChildren?.find(
+              const option = props.selectchildren?.find(
                 (option) => option.value === value
               );
               return option?.label || "Select value";
@@ -190,7 +190,7 @@ export const ToolbarEventItem = ({
             onChange={(value) => handleSetEventValue(value, type)}
             {...props}
           >
-            {props.selectChildren?.map((option) => (
+            {props.selectchildren?.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}

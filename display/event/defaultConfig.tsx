@@ -63,7 +63,7 @@ export const DEFAULT_EVENT_KEYS = {
     type: ["select"],
     label: "Choose applied action type when click button",
     full: true,
-    selectChildren: [
+    selectchildren: [
       {
         value: CLICK_TYPE.NAVIGATE,
         label: "Navigate",
@@ -90,7 +90,7 @@ export const DEFAULT_EVENT_KEYS = {
     type: ["select"],
     label: "Choose applied action type when click anchor",
     full: true,
-    selectChildren: [
+    selectchildren: [
       {
         value: CLICK_TYPE.NAVIGATE,
         label: "Navigate",

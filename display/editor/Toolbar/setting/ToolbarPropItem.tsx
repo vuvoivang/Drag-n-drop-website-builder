@@ -94,7 +94,7 @@ export type ToolbarPropItemProps = Partial<{
   styledCustomOptions: Option | Array<Option>;
   checkboxChildren: Array<Option>;
   radioChildren: Array<Option>;
-  selectChildren: Array<Option>;
+  selectchildren: Array<Option>;
   onChange: (value: any) => any;
 }>;
 enum CUSTOM_STYLE {
@@ -293,7 +293,7 @@ export const ToolbarPropItem = ({
           <ToolbarDropdown
             value={value || ""}
             renderValue={(value) => {
-              const option = props.selectChildren?.find(
+              const option = props.selectchildren?.find(
                 (option) => option.value === value
               );
               return option?.label || "Select value";
@@ -302,7 +302,7 @@ export const ToolbarPropItem = ({
             disabled={isDisabledDefault}
             {...props}
           >
-            {props.selectChildren?.map((option) => (
+            {props.selectchildren?.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}
