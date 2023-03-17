@@ -1,4 +1,4 @@
-import { useEditor } from "libs/core/src";
+import { useEditor } from 'libs/core/src';
 import {
   Tooltip,
   FormControl,
@@ -11,26 +11,27 @@ import {
   DialogActions,
   TextField,
   MenuItem,
-} from "@material-ui/core";
-import cx from "classnames";
-import React, { useEffect, useReducer, useState } from "react";
-import styled from "styled-components";
-import { ROOT_PATH, serializedContainerRootNodeForPage } from "libs/utils/src";
+} from '@material-ui/core';
+import cx from 'classnames';
+import React, { useEffect, useReducer, useState } from 'react';
+import styled from 'styled-components';
+import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
-import Checkmark from "../../../public/icons/check.svg";
-import Customize from "../../../public/icons/customize.svg";
-import RedoSvg from "../../../public/icons/toolbox/redo.svg";
-import UndoSvg from "../../../public/icons/toolbox/undo.svg";
-import Logo from "../../../public/images/logo.webp";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import RemoveIcon from "@material-ui/icons/Remove";
-import { LightTooltip } from "display/shared/components/Tooltip";
-import lz from "lzutf8";
-import copy from "copy-to-clipboard";
-import Image from "next/image";
-import { useProSidebar } from "react-pro-sidebar";
-import MenuOpenIcon from "@material-ui/icons/MenuOpen";
-import MenuIcon from "@material-ui/icons/Menu";
+import axios from 'axios';
+import Checkmark from '../../../public/icons/check.svg';
+import Customize from '../../../public/icons/customize.svg';
+import RedoSvg from '../../../public/icons/toolbox/redo.svg';
+import UndoSvg from '../../../public/icons/toolbox/undo.svg';
+import Logo from '../../../public/images/logo.webp';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { LightTooltip } from 'display/shared/components/Tooltip';
+import lz from 'lzutf8';
+import copy from 'copy-to-clipboard';
+import Image from 'next/image';
+import { useProSidebar } from 'react-pro-sidebar';
+import MenuOpenIcon from '@material-ui/icons/MenuOpen';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -92,31 +93,31 @@ const PageSelect = styled(Select)`
 `;
 
 function addPageReducer(state, action) {
-  if (action.type === "UPDATE_PATH") {
+  if (action.type === 'UPDATE_PATH') {
     return {
       ...state,
       path: action.data,
     };
-  } else if (action.type === "UPDATE_NAME") {
+  } else if (action.type === 'UPDATE_NAME') {
     return {
       ...state,
       name: action.data,
     };
   }
-  throw Error("Unknown action.");
+  throw Error('Unknown action.');
 }
 
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
   const [addPage, dispatch] = useReducer(addPageReducer, {
-    path: "",
-    name: "",
+    path: '',
+    name: '',
   });
   const [openDialogLoadState, setOpenDialogLoadState] = useState(false);
-  const [stateToLoad, setStateToLoad] = useState<string>("");
+  const [stateToLoad, setStateToLoad] = useState<string>('');
 
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState(false);
-  const [deletingPagePath, setDeletingPagePath] = useState("");
+  const [deletingPagePath, setDeletingPagePath] = useState('');
 
   const {
     enabled,
@@ -153,7 +154,7 @@ export const Header = () => {
   const handleAddPage = () => {
     handleCloseDialogNewPage();
     actions.addNewPage(addPage);
-    
+
     // add new container root node for new page
     const newContainerRootNodeInNewPage = {
       ...serializedContainerRootNodeForPage,
@@ -161,7 +162,6 @@ export const Header = () => {
     };
     const rootNodeIdInNewPage = `ROOT_${addPage.path.slice(1)}`;
     actions.addNewNodeWithSerializedData(newContainerRootNodeInNewPage, rootNodeIdInNewPage);
-
 
     setTimeout(() => {
       actions.setCurrentPage(addPage.path);
@@ -183,42 +183,105 @@ export const Header = () => {
 
   const handleCloseDialogConfirmDelete = () => {
     setOpenDialogConfirmDelete(false);
-    setDeletingPagePath("");
+    setDeletingPagePath('');
   };
 
   const handleDeletePageDialog = () => {
     actions.deletePage(deletingPagePath);
     handleCloseDialogConfirmDelete();
   };
+
+  const handleGenerateCode = async () => {
+    type Page = {
+      path: string;
+      name: string;
+    };
+    type Node = {
+      id: string;
+      type: string;
+      props: string;
+      displayName: string;
+      hidden: boolean;
+      children: Array<string>;
+      pagePath: string;
+    };
+    let pages = new Array<Page>();
+    let nodes = new Array<Node>();
+
+    // get pages info
+    for (const page of query.getState().pageOptions.pages) {
+      pages.push({ path: page.path, name: page.name });
+    }
+
+    // get nodes info
+
+    let serializeNodes = query.getSerializedNodes();
+
+    for (const id in serializeNodes) {
+      let serializeNode = serializeNodes[id];
+      let type = serializeNode.type;
+      let typeName = '';
+      if (typeof type === 'object' && type.resolvedName) {
+        typeName = type.resolvedName;
+      } else continue;
+
+      let node: Node = {
+        id: id,
+        type: typeName.replace('Craft', ''),
+        props: JSON.stringify(serializeNode.props),
+        displayName: serializeNode.custom?.displayName ? serializeNode.custom?.displayName : serializeNode.displayName,
+        hidden: serializeNode.hidden,
+        children: serializeNode.nodes,
+        pagePath: serializeNode.page,
+      };
+
+      nodes.push(node);
+    }
+
+    console.log({ nodes, pages });
+
+    // call api
+    await axios
+      .post(
+        'http://localhost:3003/api/gen-react-code',
+        {
+          nodes,
+          pages,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
+    // await axios.get('http://localhost:3003/api/hello-world').then((res) => {
+    //   console.log(res);
+    //   console.log(res.data);
+    // });
+  };
   const { collapseSidebar, collapsed } = useProSidebar();
 
   return (
-    <HeaderDiv
-      collapsed={collapsed}
-      id="header"
-      className="header text-white transition w-full"
-    >
+    <HeaderDiv collapsed={collapsed} id="header" className="header text-white transition w-full">
       <div className="items-center flex w-full pl-4 justify-end">
-        <div style={{
-          width: collapsed ? "auto" : "280px"
-        }} >
+        <div
+          style={{
+            width: collapsed ? 'auto' : '280px',
+          }}
+        >
           <button onClick={() => collapseSidebar()}>
             {collapsed ? (
-              <MenuOpenIcon fontSize="large" style={{ color: "#079512"}}/>
+              <MenuOpenIcon fontSize="large" style={{ color: '#079512' }} />
             ) : (
-              <MenuIcon fontSize="large" style={{ color: "#079512"}}/>
+              <MenuIcon fontSize="large" style={{ color: '#079512' }} />
             )}
           </button>
         </div>
 
         <div className="logo-container" style={{ marginLeft: 30 }}>
-          <Image
-            className="header-logo"
-            src={Logo}
-            alt="Our Logo"
-            height={60}
-            width={80}
-          />
+          <Image className="header-logo" src={Logo} alt="Our Logo" height={60} width={80} />
         </div>
         {/* Form add new page  */}
         <PageFormControl className="pt-4">
@@ -228,7 +291,7 @@ export const Header = () => {
             disableTouchListener
           >
             <label className="label-page" htmlFor="current-page">
-              Page:{" "}
+              Page:{' '}
             </label>
           </LightTooltip>
           <div className="add-page-container ml-2">
@@ -236,19 +299,13 @@ export const Header = () => {
               value={currentPage}
               onChange={handleChangePage}
               inputProps={{
-                name: "current-page-select",
-                id: "current-page",
+                name: 'current-page-select',
+                id: 'current-page',
               }}
-              renderValue={(value) =>
-                pages.find((el) => el.path === value)?.name + ' page'
-              }
+              renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
             >
               {pages.map((page) => (
-                <MenuItem
-                  key={page.path}
-                  value={page.path}
-                  className="custom-menu-item"
-                >
+                <MenuItem key={page.path} value={page.path} className="custom-menu-item">
                   {page.name}
                   {/* Can't remove home page */}
                   {page.path !== ROOT_PATH && (
@@ -270,7 +327,7 @@ export const Header = () => {
                 className="cursor-pointer ml-1"
                 onClick={clickOpenDialogAddNewPage}
                 fontSize="small"
-                style={{ color: "#079512"}}
+                style={{ color: '#079512' }}
               />
             </LightTooltip>
           </div>
@@ -295,10 +352,10 @@ export const Header = () => {
         <div className="actions-group flex">
           <Btn
             className={cx([
-              "transition cursor-pointer",
+              'transition cursor-pointer',
               {
-                "bg-green-400": enabled,
-                "bg-primary": !enabled,
+                'bg-green-400': enabled,
+                'bg-primary': !enabled,
               },
             ])}
             onClick={() => {
@@ -306,20 +363,20 @@ export const Header = () => {
             }}
           >
             {enabled ? <Checkmark /> : <Customize />}
-            {enabled ? "Finish Editing" : "Edit"}
+            {enabled ? 'Finish Editing' : 'Edit'}
           </Btn>
 
           <Btn
             className="ml-2 transition cursor-pointer bg-primary"
             onClick={() => {
               console.log(
-                "Node tree",
+                'Node tree',
                 query.getSerializedNodes(),
-                "length",
+                'length',
                 Object.keys(query.getSerializedNodes()).length
               );
-              console.log("State", query.getState());
-              console.log("Serialized data", query.serialize());
+              console.log('State', query.getState());
+              console.log('Serialized data', query.serialize());
             }}
           >
             Debug
@@ -335,48 +392,37 @@ export const Header = () => {
             Copy state
           </Btn>
 
-          <Btn
-            className="ml-2 transition cursor-pointer bg-primary"
-            onClick={() => setOpenDialogLoadState(true)}
-          >
+          <Btn className="ml-2 transition cursor-pointer bg-primary" onClick={() => setOpenDialogLoadState(true)}>
             Load state
           </Btn>
 
           <Btn
-            className="ml-2 transition cursor-pointer bg-red"
+            className="ml-2 transition cursor-pointer bg-rose-500"
             onClick={() => {
-              actions.setOptions(
-                (options) =>
-                  (options.isShownAllIndicator = !isShownAllIndicator)
-              );
+              actions.setOptions((options) => (options.isShownAllIndicator = !isShownAllIndicator));
             }}
           >
-            {!isShownAllIndicator ? " Show indicators" : "Hide indicators"}
+            {!isShownAllIndicator ? ' Show indicators' : 'Hide indicators'}
+          </Btn>
+
+          <Btn
+            className="ml-2 transition cursor-pointer bg-fuchsia-600"
+            onClick={async () => await handleGenerateCode()}
+          >
+            Generate Code
           </Btn>
         </div>
       </div>
 
       {/* Dialog add new page infor */}
 
-      <Dialog
-        open={openDialogNewPage}
-        onClose={handleCloseDialogNewPage}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={openDialogNewPage} onClose={handleCloseDialogNewPage} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New Page Information</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Enter new path and name for your page:
-          </DialogContentText>
+          <DialogContentText>Enter new path and name for your page:</DialogContentText>
           <ul className="dialog-new-page">
-            <li>
-              Path: specific path for pages' routing, must start with /. Ex:
-              /example
-            </li>
-            <li>
-              Name: specific name for corresponding page, use as title. Ex:
-              Example
-            </li>
+            <li>Path: specific path for pages' routing, must start with /. Ex: /example</li>
+            <li>Name: specific name for corresponding page, use as title. Ex: Example</li>
           </ul>
 
           <TextField
@@ -386,7 +432,7 @@ export const Header = () => {
             type="text"
             fullWidth
             onChange={(e) => {
-              dispatch({ type: "UPDATE_PATH", data: e.target.value });
+              dispatch({ type: 'UPDATE_PATH', data: e.target.value });
             }}
           />
           <TextField
@@ -396,7 +442,7 @@ export const Header = () => {
             type="text"
             fullWidth
             onChange={(e) => {
-              dispatch({ type: "UPDATE_NAME", data: e.target.value });
+              dispatch({ type: 'UPDATE_NAME', data: e.target.value });
             }}
           />
         </DialogContent>
@@ -411,12 +457,7 @@ export const Header = () => {
       </Dialog>
 
       {/* Dialog load state (copied) */}
-      <Dialog
-        open={openDialogLoadState}
-        onClose={() => setOpenDialogLoadState(false)}
-        fullWidth
-        maxWidth="md"
-      >
+      <Dialog open={openDialogLoadState} onClose={() => setOpenDialogLoadState(false)} fullWidth maxWidth="md">
         <DialogTitle id="alert-dialog-title">Load state</DialogTitle>
         <DialogContent>
           <TextField
@@ -428,10 +469,7 @@ export const Header = () => {
           />
         </DialogContent>
         <DialogActions>
-          <MaterialButton
-            onClick={() => setOpenDialogLoadState(false)}
-            color="secondary"
-          >
+          <MaterialButton onClick={() => setOpenDialogLoadState(false)} color="secondary">
             Cancel
           </MaterialButton>
           <MaterialButton
@@ -460,16 +498,12 @@ export const Header = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-page-dialog-description">
-            This action cannot be undone. Delete this page will permanently
-            delete all its elements you've designed. Are you sure you want to
-            delete?
+            This action cannot be undone. Delete this page will permanently delete all its elements you've designed. Are
+            you sure you want to delete?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <MaterialButton
-            onClick={handleCloseDialogConfirmDelete}
-            color="secondary"
-          >
+          <MaterialButton onClick={handleCloseDialogConfirmDelete} color="secondary">
             Cancel
           </MaterialButton>
           <MaterialButton onClick={handleDeletePageDialog} color="primary">
