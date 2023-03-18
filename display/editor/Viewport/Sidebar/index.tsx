@@ -105,11 +105,13 @@ function a11yProps(index) {
 
 
 const useStyleTabs = makeStyles(() => ({
+  root: {
+    marginBottom: '16px',
+  },
   scrollButtons: {
     // "& .MuiTouchRipple-root": {
     //   backgroundImage: "linear-gradient(90deg,hsl(0deg 5.14% 54.35% / 75%),hsla(0deg 5.14% 54.35% / 15%),hsla(0,0%,100%,.05));",
     // },
-    marginBottom: '2px',
     "& svg": {
       fill : "#079512",
       fontSize: "1.75rem"
@@ -133,7 +135,7 @@ export const Sidebar = () => {
   const tabsStyle = useStyleTabs({});
                                
   return (
-    <SidebarDiv enabled={enabled} className="sidebar transition bg-dark w-2">
+    <SidebarDiv enabled={enabled} className="sidebar transition w-2">
       <div className="flex flex-col h-full">
         <Tabs
           value={currentTab}

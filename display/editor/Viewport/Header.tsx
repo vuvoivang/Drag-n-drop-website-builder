@@ -1,8 +1,8 @@
 import { useEditor } from 'libs/core/src';
 import {
   Tooltip,
-  FormControl,
-  Select,
+  // FormControl,
+  // Select,
   Button as MaterialButton,
   Dialog,
   DialogTitle,
@@ -11,11 +11,15 @@ import {
   DialogActions,
   TextField,
   MenuItem,
-} from '@material-ui/core';
-import cx from 'classnames';
-import React, { useEffect, useReducer, useState } from 'react';
-import styled from 'styled-components';
-import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
+} from "@material-ui/core";
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+
+
+import cx from "classnames";
+import React, { useEffect, useReducer, useState } from "react";
+import styled from "styled-components";
+import { ROOT_PATH, serializedContainerRootNodeForPage } from "libs/utils/src";
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -69,11 +73,6 @@ const PageFormControl = styled(FormControl)`
   display: flex;
   flex-direction: row !important;
   align-items: center;
-`;
-const PageSelect = styled(Select)`
-  min-width: 120px;
-  color: #2e9737 !important;
-  font-weight: 500;
 `;
 
 function addPageReducer(state, action) {
@@ -279,13 +278,14 @@ export const Header = () => {
             </label>
           </LightTooltip>
           <div className="add-page-container ml-2">
-            <PageSelect
+            <Select
               value={currentPage}
               onChange={handleChangePage}
               inputProps={{
                 name: 'current-page-select',
                 id: 'current-page',
               }}
+              className="page-select global-select"
               renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
             >
               {pages.map((page) => (
@@ -304,7 +304,7 @@ export const Header = () => {
                   )}
                 </MenuItem>
               ))}
-            </PageSelect>
+            </Select>
 
             <LightTooltip title="Add new page">
               <AddCircleIcon

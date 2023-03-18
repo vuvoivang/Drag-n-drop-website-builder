@@ -28,30 +28,56 @@ html {
     background-color: #0ba52f;
   }
   .text-base {
-    font-size: 0.9rem/* 16px */;
-    line-height: 1.5rem/* 24px */;
+    font-size: 0.9rem /* 16px */;
+    line-height: 1.5rem /* 24px */;
   }
   .MuiInput-underline {
     &:before {
-        border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid #0ba52f;
     }
 
     &:after {
-        border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid #0ba52f;
     }
 
     &:hover:not(.Mui-disabled):before {
-        border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid #0ba52f;
     }
   }
   .MuiSelect-icon {
     color: #0e8518;
   }
-  .MuiSelect-select:focus{
+  .MuiSelect-select:focus {
     background-color: transparent;
   }
 }
-.pl-20{
+.pl-20 {
   padding-left: 20px;
+}
+.global-select {
+  cursor: pointer !important;
+  padding: 10px !important;
+  padding-right: 20px !important;
+  line-height: 20px !important;
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #2e9737 !important;
+  }
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #0a9c16 !important;
+    border-width: 1px !important;
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #0a9c16 !important;
+    border-width: 1px !important;
+  }
+  & > .MuiInputBase-input{
+    padding: 0px !important;
+    padding-right: 14px !important;
+    height: 1.4375em !important;
+    border-radius: 4px !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+
+  }
 }
 

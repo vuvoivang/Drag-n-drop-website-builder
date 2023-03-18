@@ -41,12 +41,12 @@ const StyledDiv = styled.div<{ depth: number; selected: boolean }>`
 `;
 
 const Expand = styled.a<{ expanded: boolean }>`
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   display: block;
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   transform: rotate(${(props) => (props.expanded ? 180 : 0)}deg);
-  opacity: 0.7;
+  opacity: 0.8;
   cursor: pointer;
   transform-origin: 60% center;
 `;
