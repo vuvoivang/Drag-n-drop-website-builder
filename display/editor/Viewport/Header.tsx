@@ -60,22 +60,6 @@ const Btn = styled.a`
   }
 `;
 
-const Item = styled.a<{ disabled?: boolean }>`
-  margin-right: 10px;
-  cursor: pointer;
-  svg {
-    width: 20px;
-    height: 20px;
-    fill: #079512;
-  }
-  ${(props) =>
-    props.disabled &&
-    `
-    opacity:0.5;
-    cursor: not-allowed;
-  `}
-`;
-
 const PageFormControl = styled(FormControl)`
   min-width: 180px;
   margin: 16px;
@@ -337,14 +321,20 @@ export const Header = () => {
         {enabled && (
           <div className="flex-1 flex">
             <Tooltip title="Undo" placement="bottom">
-              <Item disabled={!canUndo} onClick={() => actions.history.undo()}>
+              <a className="action-ic" style={{
+                cursor: canUndo ? "pointer" : "not-allowed",
+                opacity: canUndo ? 1 : 0.5,
+              }} onClick={() => actions.history.undo()}>
                 <UndoSvg />
-              </Item>
+              </a>
             </Tooltip>
             <Tooltip title="Redo" placement="bottom">
-              <Item disabled={!canRedo} onClick={() => actions.history.redo()}>
+              <a className="action-ic" style={{
+                cursor: canRedo ? "pointer" : "not-allowed",
+                opacity: canRedo ? 1 : 0.5,
+              }}onClick={() => actions.history.redo()}>
                 <RedoSvg />
-              </Item>
+              </a>
             </Tooltip>
           </div>
         )}

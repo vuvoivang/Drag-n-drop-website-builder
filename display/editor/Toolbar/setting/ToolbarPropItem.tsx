@@ -291,7 +291,9 @@ export const ToolbarPropItem = ({
           </>
         ) : type === "select" ? (
           <ToolbarDropdown
-            value={value || ""}
+            value={props.selectchildren?.find(
+              (option) => option.value === value
+            ) ? value : 'default'}
             renderValue={(value) => {
               const option = props.selectchildren?.find(
                 (option) => option.value === value
@@ -302,6 +304,13 @@ export const ToolbarPropItem = ({
             disabled={isDisabledDefault}
             {...props}
           >
+            <MenuItem
+                value={'default'}
+                disabled={isDisabledDefault}
+                classes={menuItemClasses}
+              >
+                Select
+              </MenuItem>
             {props.selectchildren?.map((option) => (
               <MenuItem
                 key={option.value}

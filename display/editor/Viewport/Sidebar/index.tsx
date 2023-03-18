@@ -131,7 +131,7 @@ export const Sidebar = () => {
     setCurrentTab(newValue);
   };
   const tabsStyle = useStyleTabs({});
-                                           
+                               
   return (
     <SidebarDiv enabled={enabled} className="sidebar transition bg-dark w-2">
       <div className="flex flex-col h-full">
