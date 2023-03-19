@@ -1,55 +1,84 @@
-$color-primary: #32e0c4;
+// primary
+$color-primary: #3fc1c9;
 $color-primary-light: #66fae1;
 $color-primary-hover: #32e0c4;
-$color-secondary: #364f6b;
 $color-primary-text: #3fc1c9;
 $color-primary-text-bold: #3fc1c9;
-$color-secondary-text: #364f6b;
+
+// secondary
+
+$color-secondary: #57534e;
+$color-secondary-text: #57534e;
+$color-border-bottom: #d8d6de;
+
+// background
 $color-background: #f5f5f5;
-
-// -------
-$color-border: #8e8e8e;
-// -------
-$color-red: #d52b2b;
-$color-red-hover: #861f1f;
-
-$color-blue: #0f6fff;
-$color-blue-hover: #0f6fff;
-
-$color-green: #079512;
-$color-green-hover: #079512;
-
-$color-black: #222222;
-$color-black-hover: #000;
-
-$color-white: #fff;
-
-// -------
-$color-disable: #000000;
-
 $color-background-sidebar: #003e67;
 
-$color-border-bottom: #d8d6de;
+// border
+$color-border: #8e8e8e;
+
+// orthers
+$color-disable: #3a3a3a;
+$color-scrollbar: #a3c7d6;
+$color-scrollbar-hover: #32e0c4;
+
+// color
+$color-red-light: #f1929c;
+$color-red: #ea3347;
+$color-red-dark: #b62737;
+
+$color-blue-light: #40c0f2;
+$color-blue: #43b1ff;
+$color-blue-dark: #4297ff;
+
+$color-green-light: #4ade80;
+$color-green: #22c55e;
+$color-green-dark: #16a34a;
+
+$color-gray-light: #eeeeee;
+$color-gray: #bbbbbb;
+$color-gray-dark: #878787;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
 :export {
+  // primary
   primaryColor: $color-primary;
   primaryLightColor: $color-primary-light;
   primaryHoverColor: $color-primary-hover;
-  secondaryColor: $color-secondary;
   primaryTextColor: $color-primary-text;
   primaryTextBoldColor: $color-primary-text-bold;
+
+  // secondary
+  secondaryColor: $color-secondary;
   secondaryTextColor: $color-secondary-text;
-  redColor: $color-red;
-  redHoverColor: $color-red-hover;
-  blueColor: $color-blue;
-  blueHoverColor: $color-blue-hover;
-  greenColor: $color-green;
-  greenHoverColor: $color-green-hover;
-  blackColor: $color-black;
-  blackHoverColor: $color-black-hover;
-  whiteColor: $color-white;
+
+  // others
   disableColor: $color-disable;
   borderColor: $color-border;
   backgroundColor: $color-background;
   backgroundSidebarColor: $color-background-sidebar;
   borderBottomColor: $color-border-bottom;
+
+  // color
+  redLightColor: $color-red-light;
+  redColor: $color-red;
+  redDarkColor: $color-red-dark;
+
+  blueLightColor: $color-blue-light;
+  blueColor: $color-blue;
+  blueDarkColor: $color-blue-dark;
+
+  greenLightColor: $color-green-light;
+  greenColor: $color-green;
+  greenDarkColor: $color-green-dark;
+
+  grayLightColor: $color-gray-light;
+  grayColor: $color-gray;
+  grayDarkColor: $color-gray-dark;
+
+  whiteColor: $color-white;
+  blackColor: $color-black;
 }

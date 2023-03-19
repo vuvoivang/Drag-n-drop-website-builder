@@ -6,36 +6,36 @@ import _var from '../../styles/common/_var.module.scss';
 export const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
-    color: _var.blackColor,
+    color: _var.secondaryColor,
     boxShadow: theme.shadows[1],
     fontSize: '13px',
     fontWeight: 500,
-    opacity: 0.87,
+    opacity: 0.8,
   },
 }))(Tooltip);
 
-export const useStylesBootstrap = makeStyles((theme) => ({
-  arrow: {
-    color: theme.palette.common.black,
-  },
-  tooltip: {
-    backgroundColor: theme.palette.common.black,
-  },
-}));
+// export const useStylesBootstrap = makeStyles((theme) => ({
+//   arrow: {
+//     color: theme.palette.common.black,
+//   },
+//   tooltip: {
+//     backgroundColor: theme.palette.common.black,
+//   },
+// }));
 
-export function BootstrapTooltip(props) {
-  const classes = useStylesBootstrap();
+// export function BootstrapTooltip(props) {
+//   const classes = useStylesBootstrap();
 
-  return <Tooltip arrow classes={classes} {...props} />;
-}
+//   return <Tooltip arrow classes={classes} {...props} />;
+// }
 
-export const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: _var.backgroundColor,
-    color: _var.blackColor,
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: `1px solid ${_var.borderColor}`,
-    opacity: 0.87,
-  },
-}))(Tooltip);
+// export const HtmlTooltip = withStyles((theme) => ({
+//   tooltip: {
+//     backgroundColor: _var.backgroundColor,
+//     color: _var.blackColor,
+//     maxWidth: 220,
+//     fontSize: theme.typography.pxToRem(12),
+//     border: `1px solid ${_var.borderColor}`,
+//     opacity: 0.87,
+//   },
+// }))(Tooltip);

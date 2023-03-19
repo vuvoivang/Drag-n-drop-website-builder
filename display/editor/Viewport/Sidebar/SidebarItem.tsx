@@ -32,13 +32,13 @@ export type SidebarItemProps = {
   onChange?: (bool: boolean) => void;
 };
 
-const HeaderDiv = styled.div`
-  color: ${_var.blackColor};
-  height: 45px;
-  svg {
-    fill: ${_var.blackColor};
-  }
-`;
+// const HeaderDiv = styled.div`
+//   color: ${_var.secondaryColor};
+//   height: 45px;
+//   svg {
+//     fill: ${_var.secondaryColor};
+//   }
+// `;
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
   visible,

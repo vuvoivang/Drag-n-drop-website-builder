@@ -20,7 +20,7 @@ const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0
 
 const SliderStyled = withStyles({
   root: {
-    color: _var.whiteColor,
+    color: _var.secondaryColor,
     height: 2,
     padding: '5px 0',
     width: '100%',
@@ -28,7 +28,7 @@ const SliderStyled = withStyles({
   thumb: {
     height: 14,
     width: 14,
-    backgroundColor: _var.whiteColor,
+    backgroundColor: _var.primaryColor,
     boxShadow: iOSBoxShadow,
     marginTop: -7,
     marginLeft: -7,
@@ -46,7 +46,7 @@ const SliderStyled = withStyles({
     top: -22,
     '& *': {
       background: 'transparent',
-      color: _var.whiteColor,
+      color: _var.redColor, //??
     },
   },
   track: {
@@ -55,10 +55,10 @@ const SliderStyled = withStyles({
   rail: {
     height: 2,
     opacity: 0.5,
-    backgroundColor: _var.whiteColor,
+    backgroundColor: _var.grayDarkColor,
   },
   mark: {
-    backgroundColor: _var.whiteColor,
+    backgroundColor: _var.redColor, //??
     height: 8,
     width: 1,
     marginTop: -3,

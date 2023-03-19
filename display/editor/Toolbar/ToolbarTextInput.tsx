@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 const useLabelStyles = makeStyles({
   root: {
-    color: _var.secondaryTextColor,
+    color: _var.secondaryColor,
   },
   formControl: {
     fontSize: '18px',
@@ -144,7 +144,7 @@ export const ToolbarTextInput = ({
           classes: {
             ...labelClasses,
           },
-          shrink: true,
+          shrink: true, 
         }}
         {...props}
       />

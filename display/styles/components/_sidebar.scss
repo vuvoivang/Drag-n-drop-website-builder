@@ -1,3 +1,16 @@
+@use '../common/var.module.scss';
+
+.collapse-sidebar {
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    // background-color: var.$color-primary;
+    color: var.$color-primary;
+  }
+  border-top: 1px solid var.$color-border-bottom;
+}
 .sidebar{
     .MuiTabs-indicator {
         background-color: #2e9737 !important;

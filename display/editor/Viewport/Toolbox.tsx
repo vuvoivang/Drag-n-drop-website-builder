@@ -4,22 +4,25 @@ import React from 'react';
 import { Sidebar, Menu, useProSidebar } from 'react-pro-sidebar';
 import { DEFAULT_VARIANTS } from 'display/selectors/defaultVariant';
 import { renderMenuItems } from 'display/selectors/renderVariant';
+import styled from 'styled-components';
 import _var from '../../styles/common/_var.module.scss';
-
+import { default as ArrowLeft } from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
+import { default as ArrowRight } from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
+import Button from '@material-ui/core/Button';
 type Theme = 'light' | 'dark';
 
 const themes = {
   light: {
     sidebar: {
       backgroundColor: _var.whiteColor,
-      color: _var.secondaryTextColor,
+      color: _var.secondaryColor,
     },
     menu: {
-      menuContent: _var.whiteColor,
-      icon: _var.primaryColor,
+      menuContent: _var.grayLightColor,
+      // icon: _var.primaryColor,
       hover: {
-        backgroundColor: _var.blackColor,
-        color: _var.secondaryColor,
+        // backgroundColor: _var.primaryColor,
+        color: _var.primaryColor,
       },
       disabled: {
         color: _var.disableColor,
@@ -28,14 +31,14 @@ const themes = {
   },
   dark: {
     sidebar: {
-      backgroundColor: _var.whiteColor,
+      backgroundColor: _var.blackColor,
       color: _var.whiteColor,
     },
     menu: {
       menuContent: _var.whiteColor,
       icon: _var.whiteColor,
       hover: {
-        backgroundColor: _var.whiteColor,
+        backgroundColor: _var.blackColor,
         color: _var.whiteColor,
       },
       disabled: {
@@ -90,7 +93,7 @@ export const Toolbox = () => {
       margin: '10px 0px',
     },
     icon: {
-      color: themes[theme].menu.icon,
+      // color: themes[theme].menu.icon,
       // @ts-ignore
       [`&.${menuClasses.disabled}`]: {
         color: themes[theme].menu.disabled.color,
@@ -103,7 +106,7 @@ export const Toolbox = () => {
       },
     },
     SubMenuExpandIcon: ({ open }) => ({
-      color: open ? _var.whiteColor : _var.whiteColor,
+      color: open ? _var.primaryColor : _var.secondaryColor,
       '& > span': { width: 7, height: 7 },
     }),
     subMenuContent: ({ level }) => ({
@@ -151,8 +154,8 @@ export const Toolbox = () => {
       };
     },
     label: ({ open }) => ({
-      fontWeight: open ? 700 : undefined,
-      color: open ? _var.blackColor : undefined,
+      fontWeight: open ? 600 : undefined,
+      color: open ? _var.primaryColor : undefined,
       overflow: !collapsed ? 'visible' : undefined,
       // whiteSpace: !collapsed ? "normal" : undefined,
       // overflow: "visible",
@@ -162,23 +165,42 @@ export const Toolbox = () => {
 
   return (
     <div
-      style={{
-        display: 'flex',
-        height: 'calc(100% - 65px)',
-        direction: 'ltr',
-      }}
+    // style={
+    //   {
+    // width: collapsed ? 'auto' : '280px',
+    //   }
+    // }
     >
-      <Sidebar
-        breakPoint="lg"
-        backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
-        rootStyles={{
-          color: themes[theme].sidebar.color,
-          width: collapsed ? undefined : '280px',
+     
+      <div
+        style={{
+          display: 'flex',
+          height: 'calc(100% - 80px)',
+          direction: 'ltr',
         }}
       >
-        {/* @ts-ignore  */}
-        <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(DEFAULT_VARIANTS, create)}</Menu>
-      </Sidebar>
+        <Sidebar
+          breakPoint='lg'
+          backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
+          rootStyles={{
+            color: themes[theme].sidebar.color,
+            width: collapsed ? undefined : '280px',
+          }}
+        >
+          {/* @ts-ignore  */}
+          <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(DEFAULT_VARIANTS, create)}</Menu>
+        </Sidebar>
+      </div>
+      <div className='bg-gray-100 collapse-sidebar' onClick={() => collapseSidebar()}>
+        {collapsed ? (
+          <ArrowRight fontSize='medium' />
+        ) : (
+          <div className='flex items-center'>
+            <ArrowLeft fontSize='medium' />
+            <span> Collapse sidebar</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

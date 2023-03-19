@@ -25,13 +25,14 @@ export const Toolbar = ({ type = 'settings' }) => {
       {active && related[type] && React.createElement(related[type])}
       {!active && (
         <div
-          className='px-5 py-2 flex flex-col items-center h-full justify-center text-center'
+          className='flex flex-col items-center h-full justify-center text-center'
           style={{
-            color: _var.whiteColor,
-            fontSize: '11px',
+            color: _var.primaryColor,
+            fontSize: '14px',
+            paddingBottom: '150px',
           }}
         >
-          <h2 className='pb-1 text-primary text-sm'>Click on a component to start {actionText[type]}.</h2>
+          Click on a component to start {actionText[type]}.
         </div>
       )}
     </div>

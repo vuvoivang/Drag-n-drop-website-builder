@@ -9,12 +9,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var.$color-primary;
+  background-color: var.$color-scrollbar;
   border-radius: 0px 0px 5px 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var.$color-primary-hover;
+  background: var.$color-scrollbar-hover;
 }
 html {
   scroll-behavior: smooth;
@@ -35,7 +35,7 @@ html {
   }
   .MuiInput-underline {
     &:before {
-      border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid var.$color-primary;
     }
 
     &:after {
@@ -58,18 +58,18 @@ html {
 }
 .global-select {
   cursor: pointer !important;
-  padding: 10px !important;
+  padding: 6px !important;
   padding-right: 20px !important;
   line-height: 20px !important;
   .MuiOutlinedInput-notchedOutline {
-    border-color: #2e9737 !important;
+    border-color: var.$color-primary !important;
   }
   &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #0a9c16 !important;
+    border-color: var.$color-primary !important;
     border-width: 1px !important;
   }
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #0a9c16 !important;
+    border-color: var.$color-primary !important;
     border-width: 1px !important;
   }
   & > .MuiInputBase-input {

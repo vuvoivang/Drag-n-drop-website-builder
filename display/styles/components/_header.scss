@@ -20,7 +20,7 @@
     svg {
       width: 20px;
       height: 20px;
-      fill: #079512;
+      fill: var.$color-blue;
     }
   }
   .page-select {
@@ -29,35 +29,21 @@
     font-weight: 600;
     padding: 6px !important;
     padding-right: 20px !important;
-    border-color: var.$color-border-bottom !important;
     box-sizing: border-box !important;
     font-size: 13px;
-    border: none !important;
   }
 
   .add-page-container {
-    color: var.$color-white;
+    margin-left: 80px;
+    margin-right: 20px;
     text-decoration: none;
     &:hover {
       .MuiInputBase-inputSelect {
-        color: var.$color-primary-text;
+        // color: var.$color-primary-text;
       }
 
       .MuiSelect-icon {
         color: var.$color-primary-text;
-      }
-      .MuiInput-underline {
-        &:before {
-          border-bottom: 1px solid var.$color-primary-text;
-        }
-
-        &:after {
-          border-bottom: 1px solid var.$color-primary-text;
-        }
-
-        &:hover:not(.Mui-disabled):before {
-          border-bottom: 1px solid var.$color-primary-text;
-        }
       }
     }
   }
@@ -65,15 +51,10 @@
 
 .custom-menu-item {
   justify-content: space-between !important;
-
+  
   .rm-icon {
-    background-color: var.$color-red;
-    color: white;
     border-radius: 20px;
-
-    &:hover {
-      background-color: var.$color-red-hover;
-    }
+    color: white;
   }
 }
 

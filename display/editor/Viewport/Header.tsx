@@ -11,15 +11,14 @@ import {
   DialogActions,
   TextField,
   MenuItem,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 
-
-import cx from "classnames";
-import React, { useEffect, useReducer, useState } from "react";
-import styled from "styled-components";
-import { ROOT_PATH, serializedContainerRootNodeForPage } from "libs/utils/src";
+import cx from 'classnames';
+import React, { useEffect, useReducer, useState } from 'react';
+import styled from 'styled-components';
+import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -33,9 +32,7 @@ import { LightTooltip } from 'display/shared/components/Tooltip';
 import lz from 'lzutf8';
 import copy from 'copy-to-clipboard';
 import Image from 'next/image';
-import { useProSidebar } from 'react-pro-sidebar';
-import MenuOpenIcon from '@material-ui/icons/MenuOpen';
-import MenuIcon from '@material-ui/icons/Menu';
+
 import _var from '../../styles/common/_var.module.scss';
 
 const HeaderDiv = styled.div<any>`
@@ -241,31 +238,24 @@ export const Header = () => {
     //   console.log(res.data);
     // });
   };
-  const { collapseSidebar, collapsed } = useProSidebar();
 
   return (
-    <HeaderDiv collapsed={collapsed} id="header" className="header text-white transition w-full">
-      <div className="items-center flex w-full pl-4 justify-end">
-        {/* <div
-          style={{
-            width: collapsed ? 'auto' : '180px',
-          }}
-        >
-          <button onClick={() => collapseSidebar()}>
-            {collapsed ? (
-              <MenuOpenIcon fontSize="large" style={{ color: '#079512' }} />
-            ) : (
-              <MenuIcon fontSize="large" style={{ color: '#079512' }} />
-            )}
-          </button>
-        </div> */}
-        <a href="/" className="logo-container flex items-center" style={{ width: '200px' }}>
-          <Image className="header-logo" src={Logo} alt="Our Logo" height={48} width={80} />
-          <span className="self-center text-xl font-bold whitespace-nowrap text-stone-600">Buidify</span>
+    <HeaderDiv id='header' className='header text-white transition w-full'>
+      <div className='items-center flex w-full pl-4 justify-space-between'>
+        <a href='/' className='logo-container flex items-center' style={{ width: '200px' }}>
+          <Image className='header-logo' src={Logo} alt='Our Logo' height={48} width={80} />
+          <span className='self-center text-xl font-bold whitespace-nowrap text-stone-600'>Buidify</span>
         </a>
         {/* Form add new page  */}
-        <PageFormControl className="pt-4">
-          <div className="add-page-container ml-2">
+        <PageFormControl className='pt-4'>
+          <div className='add-page-container'>
+            <LightTooltip title='Add new page'>
+              <AddCircleIcon
+                className='cursor-pointer mr-3 text-green-500'
+                onClick={clickOpenDialogAddNewPage}
+                fontSize='small'
+              />
+            </LightTooltip>
             <Select
               value={currentPage}
               onChange={handleChangePage}
@@ -273,17 +263,17 @@ export const Header = () => {
                 name: 'current-page-select',
                 id: 'current-page',
               }}
-              className="page-select global-select"
-              renderValue={(value) => pages.find((el) => el.path === value)?.name}
+              className='page-select global-select'
+              renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
             >
               {pages.map((page) => (
-                <MenuItem key={page.path} value={page.path} className="custom-menu-item">
+                <MenuItem key={page.path} value={page.path} className='custom-menu-item'>
                   {page.name}
                   {/* Can't remove home page */}
                   {page.path !== ROOT_PATH && (
                     <RemoveIcon
-                      fontSize="small"
-                      className="rm-icon"
+                      fontSize='small'
+                      className='rm-icon bg-red-500 hover:bg-red-600'
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeletePageSelectItem(page.path);
@@ -293,47 +283,47 @@ export const Header = () => {
                 </MenuItem>
               ))}
             </Select>
-
-            <LightTooltip title="Add new page">
-              <AddCircleIcon
-                className="cursor-pointer ml-1"
-                onClick={clickOpenDialogAddNewPage}
-                fontSize="small"
-                style={{ color: _var.primaryColor }}
-              />
-            </LightTooltip>
           </div>
         </PageFormControl>
 
         {/* Undo and Redo  */}
         {enabled && (
-          <div className="flex-1 flex">
-            <Tooltip title="Undo" placement="bottom">
-              <a className="action-ic" style={{
-                cursor: canUndo ? "pointer" : "not-allowed",
-                opacity: canUndo ? 1 : 0.5,
-              }} onClick={() => actions.history.undo()}>
+          <div className='flex'>
+            <Tooltip title='Undo' placement='bottom'>
+              <a
+                className='action-ic'
+                style={{
+                  cursor: canUndo ? 'pointer' : 'not-allowed',
+                  opacity: canUndo ? 1 : 0.5,
+                }}
+                onClick={() => actions.history.undo()}
+              >
                 <UndoSvg />
               </a>
             </Tooltip>
-            <Tooltip title="Redo" placement="bottom">
-              <a className="action-ic" style={{
-                cursor: canRedo ? "pointer" : "not-allowed",
-                opacity: canRedo ? 1 : 0.5,
-              }}onClick={() => actions.history.redo()}>
+            <Tooltip title='Redo' placement='bottom'>
+              <a
+                className='action-ic'
+                style={{
+                  cursor: canRedo ? 'pointer' : 'not-allowed',
+                  opacity: canRedo ? 1 : 0.5,
+                }}
+                onClick={() => actions.history.redo()}
+              >
                 <RedoSvg />
               </a>
             </Tooltip>
           </div>
         )}
+        <div className='flex-1 flex' />
 
-        <div className="actions-group flex">
+        <div className='actions-group flex'>
           <Btn
             className={cx([
               'transition cursor-pointer',
               {
-                'bg-green-400': enabled,
-                'bg-primary': !enabled,
+                'bg-green-500': enabled,
+                'bg-blue-500': !enabled,
               },
             ])}
             onClick={() => {
@@ -345,7 +335,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className="ml-2 transition cursor-pointer bg-primary"
+            className='ml-2 transition cursor-pointer bg-blue-500'
             onClick={() => {
               console.log(
                 'Node tree',
@@ -361,7 +351,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className="ml-2 transition cursor-pointer bg-primary"
+            className='ml-2 transition cursor-pointer bg-blue-500'
             onClick={() => {
               const json = query.serialize();
               copy(lz.encodeBase64(lz.compress(json)));
@@ -370,12 +360,12 @@ export const Header = () => {
             Copy state
           </Btn>
 
-          <Btn className="ml-2 transition cursor-pointer bg-primary" onClick={() => setOpenDialogLoadState(true)}>
+          <Btn className='ml-2 transition cursor-pointer bg-blue-500' onClick={() => setOpenDialogLoadState(true)}>
             Load state
           </Btn>
 
           <Btn
-            className="ml-2 transition cursor-pointer bg-rose-500"
+            className='ml-2 transition cursor-pointer bg-rose-500'
             onClick={() => {
               actions.setOptions((options) => (options.isShownAllIndicator = !isShownAllIndicator));
             }}
@@ -384,7 +374,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className="ml-2 transition cursor-pointer bg-fuchsia-600"
+            className='ml-2 transition cursor-pointer bg-fuchsia-600'
             onClick={async () => await handleGenerateCode()}
           >
             Generate Code
@@ -394,30 +384,30 @@ export const Header = () => {
 
       {/* Dialog add new page infor */}
 
-      <Dialog open={openDialogNewPage} onClose={handleCloseDialogNewPage} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">New Page Information</DialogTitle>
+      <Dialog open={openDialogNewPage} onClose={handleCloseDialogNewPage} aria-labelledby='form-dialog-title'>
+        <DialogTitle id='form-dialog-title'>New Page Information</DialogTitle>
         <DialogContent>
           <DialogContentText>Enter new path and name for your page:</DialogContentText>
-          <ul className="dialog-new-page">
+          <ul className='dialog-new-page'>
             <li>Path: specific path for pages' routing, must start with /. Ex: /example</li>
             <li>Name: specific name for corresponding page, use as title. Ex: Example</li>
           </ul>
 
           <TextField
-            margin="dense"
-            id="path"
-            label="Page Path"
-            type="text"
+            margin='dense'
+            id='path'
+            label='Page Path'
+            type='text'
             fullWidth
             onChange={(e) => {
               dispatch({ type: 'UPDATE_PATH', data: e.target.value });
             }}
           />
           <TextField
-            margin="dense"
-            id="name"
-            label="Page Name"
-            type="text"
+            margin='dense'
+            id='name'
+            label='Page Name'
+            type='text'
             fullWidth
             onChange={(e) => {
               dispatch({ type: 'UPDATE_NAME', data: e.target.value });
@@ -425,18 +415,36 @@ export const Header = () => {
           />
         </DialogContent>
         <DialogActions>
-          <MaterialButton onClick={handleCloseDialogNewPage} color="primary">
+          <MaterialButton
+            onClick={handleCloseDialogNewPage}
+            style={{
+              backgroundColor: _var.redColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 0 10px 0',
+            }}
+          >
             Cancel
           </MaterialButton>
-          <MaterialButton onClick={handleAddPage} color="primary">
+          <MaterialButton
+            onClick={handleAddPage}
+            style={{
+              backgroundColor: _var.greenColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 14px 10px 10px',
+            }}
+          >
             Done
           </MaterialButton>
         </DialogActions>
       </Dialog>
 
       {/* Dialog load state (copied) */}
-      <Dialog open={openDialogLoadState} onClose={() => setOpenDialogLoadState(false)} fullWidth maxWidth="md">
-        <DialogTitle id="alert-dialog-title">Load state</DialogTitle>
+      <Dialog open={openDialogLoadState} onClose={() => setOpenDialogLoadState(false)} fullWidth maxWidth='md'>
+        <DialogTitle id='alert-dialog-title'>Load state</DialogTitle>
         <DialogContent>
           <TextField
             multiline
@@ -447,7 +455,7 @@ export const Header = () => {
           />
         </DialogContent>
         <DialogActions>
-          <MaterialButton onClick={() => setOpenDialogLoadState(false)} color="secondary">
+          <MaterialButton onClick={() => setOpenDialogLoadState(false)} color='secondary'>
             Cancel
           </MaterialButton>
           <MaterialButton
@@ -456,7 +464,7 @@ export const Header = () => {
               const json = lz.decompress(lz.decodeBase64(stateToLoad));
               actions.deserialize(json);
             }}
-            color="primary"
+            color='primary'
             autoFocus
           >
             Load
@@ -468,23 +476,23 @@ export const Header = () => {
 
       <Dialog
         open={openDialogConfirmDelete}
-        aria-labelledby="delete-page-dialog-title"
-        aria-describedby="delete-page-dialog-description"
+        aria-labelledby='delete-page-dialog-title'
+        aria-describedby='delete-page-dialog-description'
       >
-        <DialogTitle id="delete-page-dialog-title">
+        <DialogTitle id='delete-page-dialog-title'>
           Delete {pages.find((el) => el.path === deletingPagePath)?.name} page
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="delete-page-dialog-description">
+          <DialogContentText id='delete-page-dialog-description'>
             This action cannot be undone. Delete this page will permanently delete all its elements you've designed. Are
             you sure you want to delete?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <MaterialButton onClick={handleCloseDialogConfirmDelete} color="secondary">
+          <MaterialButton onClick={handleCloseDialogConfirmDelete} color='secondary'>
             Cancel
           </MaterialButton>
-          <MaterialButton onClick={handleDeletePageDialog} color="primary">
+          <MaterialButton onClick={handleDeletePageDialog} color='primary'>
             Sure
           </MaterialButton>
         </DialogActions>

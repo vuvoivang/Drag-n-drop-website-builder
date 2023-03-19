@@ -1,12 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
-  <defs>
-    <style>
-      <!-- .a {
-        fill: #707070;
-      } -->
-    </style>
-  </defs>
-  <title>S Button 18 N</title>
-  <rect id="Canvas" opacity="0" /><path class="a" d="M13,4H5A5,5,0,0,0,5,14h8A5,5,0,0,0,13,4Zm0,9.05H5a4.05,4.05,0,0,1,0-8.1h8a4.05,4.05,0,0,1,0,8.1Z" />
-  <path class="a" d="M13,6.05H5a2.95,2.95,0,0,0,0,5.9h8a2.95,2.95,0,0,0,0-5.9Z" />
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#000" stroke-width="5" rx="15" id="svg_1" height="90" width="196" y="54.99999" x="1.5" fill="#59c1c1"/>
+  <path id="svg_5" d="m30.99999,95" opacity="NaN" stroke-width="0" stroke="#000" fill="#ffffff"/>
+  <path id="svg_6" d="m311.99999,153.99999" opacity="NaN" stroke-width="0" stroke="#000" fill="#ffffff"/>
+  <path id="svg_10" d="m75.70182,99.20296l5.90987,-6.24657l16.18999,17.10412l26.98819,-28.50686l5.91196,6.24215l-32.90014,34.75785" stroke-width="0" stroke="#000" fill="#ffffff"/>
+ </g>
 </svg>

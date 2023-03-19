@@ -23,7 +23,7 @@ const useStyles = makeStyles({
       outlineOffset: 2,
     },
     'input:hover ~ &': {
-      backgroundColor: _var.whiteColor,
+      backgroundColor: _var.blueColor,
     },
     'input:disabled ~ &': {
       boxShadow: 'none',
@@ -79,7 +79,7 @@ export const ToolbarCheckbox = ({ value, label, disabled, onChange, checked, nam
       value={value}
       control={<StyledCheckbox checked={checked} onChange={onChange} name={name} />}
       label={label}
-      style={{ color: _var.blackColor }}
+      style={{ color: _var.secondaryColor }}
       disabled={disabled}
     />
   );

@@ -1,24 +1,24 @@
-import { useEditor } from "@libs/core";
-import React from "react";
-import styled from "styled-components";
+import { useEditor } from '@libs/core';
+import React from 'react';
+import styled from 'styled-components';
 
-import { EditableLayerName } from "./EditableLayerName";
-import Arrow from "./svg/arrow.svg";
-import Eye from "./svg/eye.svg";
-import Linked from "./svg/linked.svg";
+import { EditableLayerName } from './EditableLayerName';
+import Arrow from './svg/arrow.svg';
+import Eye from './svg/eye.svg';
+import Linked from './svg/linked.svg';
 
-import { useLayer } from "../useLayer";
-import { ROOT_NODE } from "@libs/utils";
+import { useLayer } from '../useLayer';
+import { ROOT_NODE } from '@libs/utils';
 
 const StyledDiv = styled.div<{ depth: number; selected: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 4px 10px;
-  background: ${(props) => (props.selected ? "#379221" : "transparent")};
-  color: ${(props) => (props.selected ? "#fff" : "inherit")};
+  background: ${(props) => (props.selected ? '#3fc1c9' : 'transparent')};
+  color: ${(props) => (props.selected ? '#fff' : 'inherit')};
   svg {
-    fill: ${(props) => (props.selected ? "#fff" : "#808184")};
+    fill: ${(props) => (props.selected ? '#fff' : '#808184')};
     margin-top: 2px;
   }
   .inner {
@@ -66,13 +66,13 @@ const Hide = styled.a<{ selected: boolean; isHidden: boolean }>`
     opacity: ${(props) => (props.isHidden ? 0.2 : 1)};
   }
   &:after {
-    content: " ";
+    content: ' ';
     width: 2px;
     height: ${(props) => (props.isHidden ? 100 : 0)}%;
     position: absolute;
     left: 2px;
     top: 3px;
-    background: ${(props) => (props.selected ? "#fff" : "#808184")};
+    background: ${(props) => (props.selected ? '#fff' : '#808184')};
     transform: rotate(-45deg);
     transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     transform-origin: 0% 0%;
@@ -104,39 +104,44 @@ export const DefaultLayerHeader: React.FC = () => {
     };
   });
 
-  const { hidden, actions, selected, topLevel, isHiddenInCurrentPage: isBelongToCurrentPage } =
-    useEditor((state, query) => {
-      // TODO: handle multiple selected elements
-      const selected = query.getEvent("selected").first() === id;
+  const {
+    hidden,
+    actions,
+    selected,
+    topLevel,
+    isHiddenInCurrentPage: isBelongToCurrentPage,
+  } = useEditor((state, query) => {
+    // TODO: handle multiple selected elements
+    const selected = query.getEvent('selected').first() === id;
 
-      return {
-        hidden: state.nodes[id] && state.nodes[id].data.hidden,
-        selected,
-        topLevel: query.node(id).isTopLevelCanvas(),
-        isHiddenInCurrentPage:
-          !id.startsWith(ROOT_NODE) &&
-          state.pageOptions.currentPage !== state.nodes[id].data.page,
-      };
-    });
+    return {
+      hidden: state.nodes[id] && state.nodes[id].data.hidden,
+      selected,
+      topLevel: query.node(id).isTopLevelCanvas(),
+      isHiddenInCurrentPage: !id.startsWith(ROOT_NODE) && state.pageOptions.currentPage !== state.nodes[id].data.page,
+    };
+  });
   if (isBelongToCurrentPage) return null;
   return (
     <StyledDiv selected={selected} ref={drag} depth={depth}>
-      <Hide
-        selected={selected}
-        isHidden={hidden}
-        onClick={() => actions.setHidden(id, !hidden)}
-      >
-        <Eye />
-      </Hide>
-      <div className="inner">
+      <div className='inner flex items-center'>
         <div ref={layerHeader}>
           {topLevel ? (
             <TopLevelIndicator>
               <Linked />
             </TopLevelIndicator>
           ) : null}
-
-          <div className="layer-name s">
+          <div>
+            <Hide
+              className='block'
+              selected={selected}
+              isHidden={hidden}
+              onClick={() => actions.setHidden(id, !hidden)}
+            >
+              <Eye />
+            </Hide>
+          </div>
+          <div className='layer-name'>
             <EditableLayerName />
           </div>
           <div>

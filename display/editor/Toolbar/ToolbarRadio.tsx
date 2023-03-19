@@ -61,7 +61,7 @@ export const ToolbarRadio = ({ value, label, disabled }: any) => {
       value={value}
       control={<StyledRadio />}
       label={label}
-      style={{ color: _var.blackColor }}
+      style={{ color: _var.secondaryColor }}
       disabled={disabled}
     />
   );
