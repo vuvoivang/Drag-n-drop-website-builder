@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  rootNode,
-  card,
-  primaryButton,
-  secondaryButton,
-  documentWithCardState,
-} from '../../tests/fixtures';
+import { rootNode, card, primaryButton, secondaryButton, documentWithCardState } from '../../tests/fixtures';
 import { createNode } from '../../utils/createNode';
 import { deserializeNode } from '../../utils/deserializeNode';
 import { parseNodeFromJSX } from '../../utils/parseNodeFromJSX';
@@ -128,10 +122,7 @@ describe('query', () => {
         tree = query.parseReactElement(node).toNodeTree();
       });
       it('should have called the resolveComponent', () => {
-        expect(resolveComponent).toHaveBeenCalledWith(
-          state.options.resolver,
-          nodeData.type
-        );
+        expect(resolveComponent).toHaveBeenCalledWith(state.options.resolver, nodeData.type);
       });
       it('should have changed the displayName and name of the node', () => {
         expect(rootNode.data.name).toEqual(name);
@@ -157,8 +148,8 @@ describe('query', () => {
 
       describe('when there is a complex tree', () => {
         const node = (
-          <div id="root">
-            <div id="card">
+          <div id='root'>
+            <div id='card'>
               <button>one</button>
               <button>two</button>
             </div>

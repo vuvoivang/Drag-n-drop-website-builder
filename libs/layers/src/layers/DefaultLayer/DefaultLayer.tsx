@@ -21,8 +21,7 @@ const LayerNodeDiv = styled.div<{
 
 const LayerChildren = styled.div<{ hasCanvases: boolean }>`
   margin: 0 0 0 ${(props) => (props.hasCanvases ? 35 : 0)}px;
-  background: ${(props) =>
-    props.hasCanvases ? 'rgba(255, 255, 255, 0.02)' : 'transparent'};
+  background: ${(props) => (props.hasCanvases ? 'rgba(255, 255, 255, 0.02)' : 'transparent')};
   position: relative;
 
   ${(props) =>
@@ -64,18 +63,10 @@ export const DefaultLayer: React.FC = ({ children }) => {
   });
 
   return (
-    <LayerNodeDiv
-      ref={layer}
-      expanded={expanded}
-      hasCanvases={hasChildCanvases}
-      hovered={hovered}
-    >
+    <LayerNodeDiv ref={layer} expanded={expanded} hasCanvases={hasChildCanvases} hovered={hovered}>
       <DefaultLayerHeader />
       {children ? (
-        <LayerChildren
-          hasCanvases={hasChildCanvases}
-          className="craft-layer-children"
-        >
+        <LayerChildren hasCanvases={hasChildCanvases} className='craft-layer-children'>
           {children}
         </LayerChildren>
       ) : null}

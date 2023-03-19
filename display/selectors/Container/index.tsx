@@ -4,10 +4,10 @@ import { Resizer } from '../Resizer';
 import { ContainerProps } from '../../raw-components/Container/props';
 import cx from 'classnames';
 
-import { defaultProps } from "../../raw-components/Container/props";
-import { ContainerSettings } from "./setting";
-import { UserComponent } from "@libs/interfaces";
-import { useNode } from "@libs/hooks";
+import { defaultProps } from '../../raw-components/Container/props';
+import { ContainerSettings } from './setting';
+import { UserComponent } from '@libs/interfaces';
+import { useNode } from '@libs/hooks';
 
 export const craftConfig = {
   displayName: 'Container',
@@ -40,9 +40,7 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
     children,
     styledClassNames,
   } = props;
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const { id } = useNode();
   return (
     <Resizer

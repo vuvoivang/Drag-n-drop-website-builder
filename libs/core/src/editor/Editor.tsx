@@ -22,63 +22,40 @@ export const Editor: React.FC<Partial<Options>> = ({
 }) => {
   // we do not want to warn the user if no resolver was supplied
   if (resolver !== undefined) {
-    invariant(
-      typeof resolver === 'object' && !Array.isArray(resolver),
-      ERROR_RESOLVER_NOT_AN_OBJECT
-    );
+    invariant(typeof resolver === 'object' && !Array.isArray(resolver), ERROR_RESOLVER_NOT_AN_OBJECT);
   }
 
   const options = useMemo(() => {
-    return pickBy(
-      { onRender, onNodesChange, resolver, enabled, indicator },
-      (value) => value !== undefined
-    );
+    return pickBy({ onRender, onNodesChange, resolver, enabled, indicator }, (value) => value !== undefined);
   }, [enabled, indicator, onNodesChange, onRender, resolver]);
 
-  const context = useEditorStore(
-    options,
-    (state, previousState, actionPerformedWithPatches, query, normalizer) => {
-      if (!actionPerformedWithPatches) {
-        return;
+  const context = useEditorStore(options, (state, previousState, actionPerformedWithPatches, query, normalizer) => {
+    if (!actionPerformedWithPatches) {
+      return;
+    }
+
+    const { patches, ...actionPerformed } = actionPerformedWithPatches;
+
+    for (let i = 0; i < patches.length; i++) {
+      const { path } = patches[i];
+      const isModifyingNodeData = path.length > 2 && path[0] === 'nodes' && path[2] === 'data';
+
+      let actionType = actionPerformed.type;
+
+      if ([HISTORY_ACTIONS.IGNORE, HISTORY_ACTIONS.THROTTLE].includes(actionType) && actionPerformed.params) {
+        actionPerformed.type = actionPerformed.params[0];
       }
 
-      const { patches, ...actionPerformed } = actionPerformedWithPatches;
-
-      for (let i = 0; i < patches.length; i++) {
-        const { path } = patches[i];
-        const isModifyingNodeData =
-          path.length > 2 && path[0] === 'nodes' && path[2] === 'data';
-
-        let actionType = actionPerformed.type;
-
-        if (
-          [HISTORY_ACTIONS.IGNORE, HISTORY_ACTIONS.THROTTLE].includes(
-            actionType
-          ) &&
-          actionPerformed.params
-        ) {
-          actionPerformed.type = actionPerformed.params[0];
-        }
-
-        if (
-          ['setState', 'deserialize'].includes(actionPerformed.type) ||
-          isModifyingNodeData
-        ) {
-          normalizer((draft) => {
-            if (state.options.normalizeNodes) {
-              state.options.normalizeNodes(
-                draft,
-                previousState,
-                actionPerformed,
-                query
-              );
-            }
-          });
-          break; // we exit the loop as soon as we find a change in node.data
-        }
+      if (['setState', 'deserialize'].includes(actionPerformed.type) || isModifyingNodeData) {
+        normalizer((draft) => {
+          if (state.options.normalizeNodes) {
+            state.options.normalizeNodes(draft, previousState, actionPerformed, query);
+          }
+        });
+        break; // we exit the loop as soon as we find a change in node.data
       }
     }
-  );
+  });
 
   useEffect(() => {
     if (context && options) {

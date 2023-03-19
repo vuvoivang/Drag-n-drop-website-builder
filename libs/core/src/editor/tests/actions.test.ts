@@ -3,11 +3,7 @@ import mapValues from 'lodash/mapValues';
 import { QueryMethods } from '../../editor/query';
 import { EditorState } from '../../interfaces';
 import { createNode } from '../../utils/createNode';
-import {
-  createTestState,
-  createTestNodes,
-  expectEditorState,
-} from '../../utils/testHelpers';
+import { createTestState, createTestNodes, expectEditorState } from '../../utils/testHelpers';
 import { ActionMethods } from '../actions';
 
 // TODO: create a cleaner way to test Action methods
@@ -46,11 +42,7 @@ describe('actions.add', () => {
     ).toThrow();
   });
   it('should throw if we create a node that doesnt have a parent and we dont provide a parent ', () => {
-    expect(() =>
-      Actions(createTestState())((actions) =>
-        actions.add(rootNode, rootNode.id)
-      )
-    ).toThrow();
+    expect(() => Actions(createTestState())((actions) => actions.add(rootNode, rootNode.id))).toThrow();
   });
   it('should be able to add leaf to the document', () => {
     const node = createNode({
@@ -60,9 +52,7 @@ describe('actions.add', () => {
       },
     });
 
-    const newState = Actions(state)((actions) =>
-      actions.add(node, rootNode.id)
-    );
+    const newState = Actions(state)((actions) => actions.add(node, rootNode.id));
 
     rootNode.data.nodes = [node];
 
@@ -88,9 +78,7 @@ describe('actions.add', () => {
       },
     });
 
-    const newState = Actions(state)((actions) =>
-      actions.add([primaryButton, secondaryButton], rootNode.id)
-    );
+    const newState = Actions(state)((actions) => actions.add([primaryButton, secondaryButton], rootNode.id));
 
     rootNode.data.nodes = [primaryButton, secondaryButton];
 
@@ -199,14 +187,10 @@ describe('actions.delete', () => {
   });
 
   it('should throw if you try to a non existing node', () => {
-    expect(() =>
-      Actions(createTestState())((actions) => actions.delete(rootNode.id))
-    ).toThrow();
+    expect(() => Actions(createTestState())((actions) => actions.delete(rootNode.id))).toThrow();
   });
   it('should throw if you try to delete the root', () => {
-    expect(() =>
-      Actions(state)((actions) => actions.add(rootNode.id))
-    ).toThrow();
+    expect(() => Actions(state)((actions) => actions.add(rootNode.id))).toThrow();
   });
   it('should be able to delete node', () => {
     const node = {
@@ -324,9 +308,7 @@ describe('actions.replaceNodes', () => {
       },
     };
 
-    const newState = Actions(createTestState())((actions) =>
-      actions.replaceNodes(createTestNodes(newNodes))
-    );
+    const newState = Actions(createTestState())((actions) => actions.replaceNodes(createTestNodes(newNodes)));
 
     expectEditorState(newState, createTestState({ nodes: newNodes }));
   });
@@ -395,9 +377,7 @@ describe('actions.deserialize', () => {
       ...data,
     }));
 
-    const newState = Actions(createTestState())((actions) =>
-      actions.deserialize(serialized)
-    );
+    const newState = Actions(createTestState())((actions) => actions.deserialize(serialized));
 
     expectEditorState(
       newState,
@@ -445,9 +425,7 @@ describe('actions.move', () => {
     });
   });
   it('should be able to move node', () => {
-    const newState = Actions(state)((actions) =>
-      actions.move('node-c', 'root', 2)
-    );
+    const newState = Actions(state)((actions) => actions.move('node-c', 'root', 2));
 
     expectEditorState(
       newState,
@@ -535,9 +513,7 @@ describe('actions.setNodeEvent', () => {
   });
 
   it('should be able to change events state', () => {
-    const newState = Actions(state)((actions) =>
-      actions.setNodeEvent('selected', ['node-a', 'node-b'])
-    );
+    const newState = Actions(state)((actions) => actions.setNodeEvent('selected', ['node-a', 'node-b']));
 
     nodeA.events = {
       selected: true,
@@ -588,9 +564,7 @@ describe('actions.setProp', () => {
   });
 
   it('should update props', () => {
-    const newState = Actions(state)((actions) =>
-      actions.setProp('node-a', (props) => (props.color = '#000'))
-    );
+    const newState = Actions(state)((actions) => actions.setProp('node-a', (props) => (props.color = '#000')));
 
     nodeA.data.props.color = '#000';
 
@@ -636,9 +610,7 @@ describe('actions.setCustom', () => {
   });
 
   it('should update custom properties', () => {
-    const newState = Actions(state)((actions) =>
-      actions.setCustom('node-a', (custom) => (custom.css.color = '#000'))
-    );
+    const newState = Actions(state)((actions) => actions.setCustom('node-a', (custom) => (custom.css.color = '#000')));
 
     nodeA.data.custom.css.color = '#000';
 
@@ -679,9 +651,7 @@ describe('actions.setHidden', () => {
   });
 
   it('should hide node', () => {
-    const newState = Actions(state)((actions) =>
-      actions.setHidden('node-a', true)
-    );
+    const newState = Actions(state)((actions) => actions.setHidden('node-a', true));
 
     nodeA.data.hidden = true;
 
@@ -778,9 +748,7 @@ describe('actions.setIndicator', () => {
       },
     };
 
-    const newState = Actions(state)((actions) =>
-      actions.setIndicator(indicator)
-    );
+    const newState = Actions(state)((actions) => actions.setIndicator(indicator));
 
     expectEditorState(
       newState,

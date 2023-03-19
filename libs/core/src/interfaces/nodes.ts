@@ -75,18 +75,14 @@ export type ReducedComp = {
   props: any;
 };
 
-export type SerializedNode = Omit<
-  NodeData,
-  'type' | 'subtype' | 'name' | 'event'
-> &
-  ReducedComp;
+export type SerializedNode = Omit<NodeData, 'type' | 'subtype' | 'name' | 'event'> & ReducedComp;
 
 export type SerializedNodes = Record<NodeId, SerializedNode>;
 
 export type SerializedData = {
   nodes: SerializedNodes;
   pages: PageData[];
-}
+};
 // TODO: Deprecate in favor of SerializedNode
 export type SerializedNodeData = SerializedNode;
 
@@ -113,9 +109,7 @@ export enum NodeSelectorType {
   Obj,
 }
 
-export type NodeSelector<
-  T extends NodeSelectorType = NodeSelectorType.Any
-> = T extends NodeSelectorType.Id
+export type NodeSelector<T extends NodeSelectorType = NodeSelectorType.Any> = T extends NodeSelectorType.Id
   ? NodeIdSelector
   : T extends NodeSelectorType.Obj
   ? NodeObjSelector

@@ -53,14 +53,14 @@ export const ToolbarPropSection = ({ title, props, summary, children }: any) => 
   return (
     <ExpansionPanel classes={panelClasses}>
       <ExpansionPanelSummary classes={summaryClasses}>
-        <div className="px-6 w-full">
-          <Grid container direction="row" alignItems="center" spacing={3}>
+        <div className='px-6 w-full'>
+          <Grid container direction='row' alignItems='center' spacing={3}>
             <Grid item xs={summary && props ? 4 : 12}>
-              <h5 className="text-md text-secondary text-left font-medium text-dark-gray">{title}</h5>
+              <h5 className='text-md text-secondary text-left font-medium text-dark-gray'>{title}</h5>
             </Grid>
             {summary && props ? (
               <Grid item xs={8}>
-                <h5 className="text-secondary text-sm text-right text-dark-blue">
+                <h5 className='text-secondary text-sm text-right text-dark-blue'>
                   {summary(
                     props.reduce((acc: any, key: any) => {
                       acc[key] = nodeProps[key];

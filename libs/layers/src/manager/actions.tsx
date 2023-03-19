@@ -30,16 +30,11 @@ export const LayerMethods = (state: LayerState) => ({
       };
     }
   },
-  setDOM: (
-    id: string,
-    domCollection: Partial<Record<'dom' | 'headingDom', HTMLElement>>
-  ) => {
+  setDOM: (id: string, domCollection: Partial<Record<'dom' | 'headingDom', HTMLElement>>) => {
     state.layers[id] = {
       ...state.layers[id],
       ...(domCollection.dom ? { dom: domCollection.dom } : {}),
-      ...(domCollection.headingDom
-        ? { headingDom: domCollection.headingDom }
-        : {}),
+      ...(domCollection.headingDom ? { headingDom: domCollection.headingDom } : {}),
     };
   },
   toggleLayer: (id: string) => {

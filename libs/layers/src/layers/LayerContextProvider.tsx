@@ -8,11 +8,7 @@ import { LayerNode } from './LayerNode';
 import { useLayerEventHandler } from '../events/LayerEventContext';
 import { LayerManagerContext } from '../manager';
 
-export const LayerContextProvider: React.FC<Omit<
-  LayerContext,
-  'connectors'
->> = ({ id, depth }) => {
-
+export const LayerContextProvider: React.FC<Omit<LayerContext, 'connectors'>> = ({ id, depth }) => {
   const [showChild, setShowChild] = useState(false);
 
   // Wait until after client-side hydration to show
@@ -27,14 +23,9 @@ export const LayerContextProvider: React.FC<Omit<
   const storeRef = useRef(store);
   storeRef.current = store;
 
-  const connectorsUsage = useMemo(() => handlers.createConnectorsUsage(), [
-    handlers,
-  ]);
+  const connectorsUsage = useMemo(() => handlers.createConnectorsUsage(), [handlers]);
 
-  const connectors = useMemo(
-    () => wrapConnectorHooks(connectorsUsage.connectors),
-    [connectorsUsage]
-  );
+  const connectors = useMemo(() => wrapConnectorHooks(connectorsUsage.connectors), [connectorsUsage]);
 
   useEffect(() => {
     return () => {

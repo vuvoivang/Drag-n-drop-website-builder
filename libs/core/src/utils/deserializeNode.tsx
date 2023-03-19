@@ -5,12 +5,7 @@ import { ROOT_PATH } from 'libs/utils/src';
 
 import { resolveComponent } from './resolveComponent';
 
-import {
-  NodeData,
-  SerializedNode,
-  ReducedComp,
-  ReduceCompType,
-} from '../interfaces';
+import { NodeData, SerializedNode, ReducedComp, ReduceCompType } from '../interfaces';
 import { Resolver } from '../interfaces';
 import { Canvas } from '../nodes/Canvas';
 
@@ -25,11 +20,7 @@ const restoreType = (type: ReduceCompType, resolver: Resolver) =>
     ? type
     : null;
 
-export const deserializeComp = (
-  data: ReducedComp,
-  resolver: Resolver,
-  index?: number
-): DeserialisedType | void => {
+export const deserializeComp = (data: ReducedComp, resolver: Resolver, index?: number): DeserialisedType | void => {
   let { type, props } = data;
 
   const main = restoreType(type, resolver);
@@ -73,29 +64,21 @@ export const deserializeComp = (
   };
 };
 
-export const deserializeNode = (
-  data: SerializedNode,
-  resolver: Resolver
-): Omit<NodeData, 'event'> => {
+export const deserializeNode = (data: SerializedNode, resolver: Resolver): Omit<NodeData, 'event'> => {
   const { type: Comp, props: Props, ...nodeData } = data;
 
   const isCompAnHtmlElement = Comp !== undefined && typeof Comp === 'string';
-  const isCompAUserComponent =
-    Comp !== undefined &&
-    (Comp as { resolvedName?: string }).resolvedName !== undefined;
+  const isCompAUserComponent = Comp !== undefined && (Comp as { resolvedName?: string }).resolvedName !== undefined;
 
   invariant(
     isCompAnHtmlElement || isCompAUserComponent,
-    ERROR_DESERIALIZE_COMPONENT_NOT_IN_RESOLVER.replace(
-      '%displayName%',
-      data.displayName
-    ).replace('%availableComponents%', Object.keys(resolver).join(', '))
+    ERROR_DESERIALIZE_COMPONENT_NOT_IN_RESOLVER.replace('%displayName%', data.displayName).replace(
+      '%availableComponents%',
+      Object.keys(resolver).join(', ')
+    )
   );
 
-  const { type, name, props } = (deserializeComp(
-    data,
-    resolver
-  ) as unknown) as NodeData;
+  const { type, name, props } = deserializeComp(data, resolver) as unknown as NodeData;
 
   const { parent, custom, displayName, isCanvas, nodes, hidden, page } = nodeData;
 

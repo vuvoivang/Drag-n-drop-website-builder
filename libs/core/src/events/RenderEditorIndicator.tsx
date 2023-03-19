@@ -7,13 +7,11 @@ import movePlaceholder from './movePlaceholder';
 import { useInternalEditor } from '../editor/useInternalEditor';
 
 export const RenderEditorIndicator = () => {
-  const { indicator, indicatorOptions, enabled } = useInternalEditor(
-    (state) => ({
-      indicator: state.indicator,
-      indicatorOptions: state.options.indicator,
-      enabled: state.options.enabled,
-    })
-  );
+  const { indicator, indicatorOptions, enabled } = useInternalEditor((state) => ({
+    indicator: state.indicator,
+    indicatorOptions: state.options.indicator,
+    enabled: state.options.enabled,
+  }));
 
   const handler = useEventHandler();
 
@@ -39,13 +37,10 @@ export const RenderEditorIndicator = () => {
       ...movePlaceholder(
         indicator.placement,
         getDOMInfo(indicator.placement.parent.dom),
-        indicator.placement.currentNode &&
-          getDOMInfo(indicator.placement.currentNode.dom),
+        indicator.placement.currentNode && getDOMInfo(indicator.placement.currentNode.dom),
         indicatorOptions.thickness
       ),
-      backgroundColor: indicator.error
-        ? indicatorOptions.error
-        : indicatorOptions.success,
+      backgroundColor: indicator.error ? indicatorOptions.error : indicatorOptions.success,
       transition: indicatorOptions.transition || '0.2s ease-in',
     },
     parentDom: indicator.placement.parent.dom,

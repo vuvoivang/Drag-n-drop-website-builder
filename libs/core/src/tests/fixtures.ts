@@ -128,11 +128,7 @@ export const documentWithVariousNodes = {
     ...documentWithCardState.nodes,
     'canvas-node': createTestNode('canvas-node', {
       isCanvas: true,
-      nodes: [
-        'node-reject-dnd',
-        'canvas-node-incoming-dnd',
-        'canvas-node-reject-outgoing-dnd',
-      ],
+      nodes: ['node-reject-dnd', 'canvas-node-incoming-dnd', 'canvas-node-reject-outgoing-dnd'],
     }),
     'node-reject-dnd': createTestNode(
       'node-reject-dnd',

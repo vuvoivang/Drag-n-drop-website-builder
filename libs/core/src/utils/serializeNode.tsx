@@ -12,10 +12,7 @@ const reduceType = (type: React.ElementType | string, resolver: Resolver) => {
   return { resolvedName: resolveComponent(resolver, type) };
 };
 
-export const serializeComp = (
-  data: Pick<NodeData, 'type' | 'isCanvas' | 'props'>,
-  resolver: Resolver
-): ReducedComp => {
+export const serializeComp = (data: Pick<NodeData, 'type' | 'isCanvas' | 'props'>, resolver: Resolver): ReducedComp => {
   let { type, isCanvas, props } = data;
   props = Object.keys(props).reduce((result: Record<string, any>, key) => {
     const prop = props[key];
@@ -46,10 +43,7 @@ export const serializeComp = (
   };
 };
 
-export const serializeNode = (
-  data: Omit<NodeData, 'event'>,
-  resolver: Resolver
-): SerializedNode => {
+export const serializeNode = (data: Omit<NodeData, 'event'>, resolver: Resolver): SerializedNode => {
   const { type, props, isCanvas, name, ...nodeData } = data;
 
   const reducedComp = serializeComp({ type, isCanvas, props }, resolver);

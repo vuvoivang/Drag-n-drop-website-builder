@@ -95,9 +95,7 @@ export abstract class EventHandlers<O extends Record<string, any> = {}> {
     // This is so we can return a cleanup method below so the callee can programmatically cleanup all connectors
     const activeConnectorIds: Set<string> = new Set();
 
-    const connectors = Object.entries(handlers).reduce<
-      Record<string, Connector>
-    >(
+    const connectors = Object.entries(handlers).reduce<Record<string, Connector>>(
       (accum, [name, handler]) => ({
         ...accum,
         [name]: (el, required, options) => {
@@ -119,9 +117,7 @@ export abstract class EventHandlers<O extends Record<string, any> = {}> {
     return {
       connectors,
       cleanup: () => {
-        activeConnectorIds.forEach((connectorId) =>
-          this.registry.remove(connectorId)
-        );
+        activeConnectorIds.forEach((connectorId) => this.registry.remove(connectorId));
       },
     };
   }

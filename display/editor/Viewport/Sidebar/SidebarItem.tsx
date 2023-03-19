@@ -9,8 +9,7 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
   flex: ${(props) => (props.visible && props.height && props.height === 'full' ? `1` : 'unset')};
   color: ${_var.secondaryColor};
   overflow: auto;
-  display: ${(props) =>
-    props.visible ? `flex` : "none"};
+  display: ${(props) => (props.visible ? `flex` : 'none')};
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`
@@ -51,16 +50,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 }) => {
   // if (!visible) return <></>;
   return (
-    <SidebarItemDiv
-      {...props}
-      visible={visible}
-      height={height}
-      className="flex flex-col"
-    >
+    <SidebarItemDiv {...props} visible={visible} height={height} className='flex flex-col'>
       {/* {visible ? (
         <div className="w-full flex-1 overflow-auto">{children}</div>
       ) : null} */}
-       <div className="w-full flex-1 overflow-auto">{children}</div>
+      <div className='w-full flex-1 overflow-auto'>{children}</div>
     </SidebarItemDiv>
   );
 };

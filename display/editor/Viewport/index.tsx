@@ -39,11 +39,11 @@ export const Viewport: React.FC = ({ children }) => {
   }, [setOptions]);
 
   return (
-    <div className="viewport w-full fixed">
+    <div className='viewport w-full fixed'>
       <Header />
       <div className={cx(['flex h-full overflow-hidden flex-row w-full fixed'])}>
         <Toolbox />
-        <div className="page-container flex flex-1 h-full flex-col px-8 overflow-auto">
+        <div className='page-container flex flex-1 h-full flex-col px-8 overflow-auto'>
           <div
             className={cx([
               'craftjs-renderer flex-1 h-full w-full transition pb-8',
@@ -53,11 +53,11 @@ export const Viewport: React.FC = ({ children }) => {
             ])}
             ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
           >
-            <div className="relative flex-col flex items-center pt-8" id="app-container">
+            <div className='relative flex-col flex items-center pt-8' id='app-container'>
               {children}
             </div>
             <div className={'flex items-center justify-center w-full pt-6 fw-bold text-white'}>
-              <a href="#">HCMUS - Software Architecture</a>
+              <a href='#'>HCMUS - Software Architecture</a>
             </div>
           </div>
         </div>

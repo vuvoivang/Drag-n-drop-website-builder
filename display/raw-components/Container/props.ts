@@ -1,6 +1,6 @@
 export type ContainerProps = Partial<{
-  background: Record<"r" | "g" | "b" | "a", number>;
-  color: Record<"r" | "g" | "b" | "a", number>;
+  background: Record<'r' | 'g' | 'b' | 'a', number>;
+  color: Record<'r' | 'g' | 'b' | 'a', number>;
   flexDirection: string;
   alignItems: string;
   justifyContent: string;
@@ -20,17 +20,17 @@ export type ContainerProps = Partial<{
   className?: string;
 }>;
 export const defaultProps: ContainerProps = {
-  flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "flex-start",
-  fillSpace: "no",
-  padding: ["0", "0", "0", "0"],
-  margin: ["0", "0", "0", "0"],
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  fillSpace: 'no',
+  padding: ['0', '0', '0', '0'],
+  margin: ['0', '0', '0', '0'],
   background: { r: 255, g: 255, b: 255, a: 1 },
   color: { r: 0, g: 0, b: 0, a: 1 },
   shadow: 0,
   radius: 0,
-  width: "100%",
-  height: "auto",
+  width: '100%',
+  height: 'auto',
   styledClassNames: {},
 };

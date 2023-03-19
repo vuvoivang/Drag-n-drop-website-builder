@@ -17,33 +17,22 @@ import { CoreEventHandlers } from '../events/CoreEventHandlers';
 import { useEventHandler } from '../events/EventContext';
 import { EditorState } from '../interfaces';
 
-export type EditorCollector<C> = (
-  state: EditorState,
-  query: QueryCallbacksFor<typeof QueryMethods>
-) => C;
+export type EditorCollector<C> = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => C;
 
-export type useInternalEditorReturnType<C = null> = useCollectorReturnType<
-  EditorStore,
-  C
-> & {
+export type useInternalEditorReturnType<C = null> = useCollectorReturnType<EditorStore, C> & {
   inContext: boolean;
   store: EditorStore;
   connectors: EventHandlerConnectors<CoreEventHandlers, React.ReactElement>;
 };
 
-export function useInternalEditor<C>(
-  collector?: EditorCollector<C>
-): useInternalEditorReturnType<C> {
+export function useInternalEditor<C>(collector?: EditorCollector<C>): useInternalEditorReturnType<C> {
   const handler = useEventHandler();
   const store = useContext(EditorContext);
   invariant(store, ERROR_USE_EDITOR_OUTSIDE_OF_EDITOR_CONTEXT);
 
   const collected = useCollector(store, collector);
 
-  const connectorsUsage = useMemo(
-    () => handler && handler.createConnectorsUsage(),
-    [handler]
-  );
+  const connectorsUsage = useMemo(() => handler && handler.createConnectorsUsage(), [handler]);
 
   useEffect(() => {
     return () => {

@@ -45,10 +45,10 @@ export const ToolbarEventSection = ({ title, children }: any) => {
   return (
     <ExpansionPanel classes={panelClasses}>
       <ExpansionPanelSummary classes={summaryClasses}>
-        <div className="px-6 w-full">
-          <Grid container direction="row" alignItems="center" spacing={3}>
+        <div className='px-6 w-full'>
+          <Grid container direction='row' alignItems='center' spacing={3}>
             <Grid item xs={12}>
-              <h5 className="text-md text-secondary text-left font-medium text-dark-gray">{title}</h5>
+              <h5 className='text-md text-secondary text-left font-medium text-dark-gray'>{title}</h5>
             </Grid>
           </Grid>
         </div>

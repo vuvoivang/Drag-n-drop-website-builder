@@ -187,7 +187,7 @@ export const ToolbarEventItem = ({
           <div>
             {!value ? (
               <Btn
-                className="transition cursor-pointer text-center rounded-md px-4 py-2 bg-sky-500 text-white"
+                className='transition cursor-pointer text-center rounded-md px-4 py-2 bg-sky-500 text-white'
                 onClick={createNewPopup}
               >
                 Create pop up
@@ -257,14 +257,14 @@ export const ToolbarEventItem = ({
   };
   return (
     <Grid item xs={12}>
-      <div className="mb-2 toolbar-item-container">
-        {props.label && <h4 className="text-sm text-primary">{props.label}</h4>}
+      <div className='mb-2 toolbar-item-container'>
+        {props.label && <h4 className='text-sm text-primary'>{props.label}</h4>}
 
-        <div className="toolbar-item-setting-container p-4 pb-0">
-          <div className="default-setting-container pl-4">
+        <div className='toolbar-item-setting-container p-4 pb-0'>
+          <div className='default-setting-container pl-4'>
             {listType.map((type, keyIndex) => {
               return (
-                <div className="mb-3" key={keyIndex}>
+                <div className='mb-3' key={keyIndex}>
                   {handleRenderInputSetting(type)}
                 </div>
               );

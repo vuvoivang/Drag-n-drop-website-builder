@@ -8,9 +8,7 @@ const expectNode = (node, testData) => {
 
   const match = createTestNode(node.id, {
     ...testData,
-    props: isUserComponent
-      ? { ...(type.craft.props || {}), ...testData.props }
-      : testData.props || {},
+    props: isUserComponent ? { ...(type.craft.props || {}), ...testData.props } : testData.props || {},
     custom: isUserComponent ? type.craft.custom : {},
     name: typeof type === 'string' ? type : type.name,
     displayName: typeof type === 'string' ? type : type.name,

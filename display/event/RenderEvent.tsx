@@ -43,19 +43,9 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
   return (
     <>
       {sections?.map((section) => (
-        <ToolbarEventSection
-          title={section.title}
-          props={section.props}
-          summary={section.summary}
-          key={section.title}
-        >
+        <ToolbarEventSection title={section.title} props={section.props} summary={section.summary} key={section.title}>
           {section.items.map((item, idx) => {
-            return (
-              <ToolbarEventItem
-                {...item}
-                key={idx}
-              />
-            );
+            return <ToolbarEventItem {...item} key={idx} />;
           })}
         </ToolbarEventSection>
       ))}

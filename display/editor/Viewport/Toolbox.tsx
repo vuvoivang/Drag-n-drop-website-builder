@@ -171,7 +171,6 @@ export const Toolbox = () => {
     //   }
     // }
     >
-     
       <div
         style={{
           display: 'flex',

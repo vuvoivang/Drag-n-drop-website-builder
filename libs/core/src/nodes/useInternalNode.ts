@@ -1,7 +1,4 @@
-import {
-  wrapConnectorHooks,
-  ERROR_USE_NODE_OUTSIDE_OF_EDITOR_CONTEXT,
-} from 'libs/utils/src';
+import { wrapConnectorHooks, ERROR_USE_NODE_OUTSIDE_OF_EDITOR_CONTEXT } from 'libs/utils/src';
 import { useMemo, useContext } from 'react';
 import invariant from 'tiny-invariant';
 
@@ -21,9 +18,7 @@ export function useInternalNode<S = null>(collect?: (node: Node) => S) {
     query,
     connectors: editorConnectors,
     ...collected
-  } = useInternalEditor(
-    (state) => id && state.nodes[id] && collect && collect(state.nodes[id])
-  );
+  } = useInternalEditor((state) => id && state.nodes[id] && collect && collect(state.nodes[id]));
 
   const connectors = useMemo(
     () =>

@@ -11,8 +11,8 @@
   }
   border-top: 1px solid var.$color-border-bottom;
 }
-.sidebar{
-    .MuiTabs-indicator {
-        background-color: #2e9737 !important;
-      }
+.sidebar {
+  .MuiTabs-indicator {
+    background-color: var.$color-primary !important;
+  }
 }
