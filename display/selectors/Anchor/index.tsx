@@ -27,9 +27,9 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
   }));
 
   const {
-    enabled,
+    enabled: enabledEvent,
   } = useEditor((state) => ({
-    enabled: state.options.enabled,}));
+    enabled: !state.options.enabled,}));
 
   const {
     text,
@@ -66,12 +66,12 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
       className={cx([
         "rounded w-full px-4 py-2 mt-4",
         {
-          "shadow-lg": props.AnchorStyle === "full",
+          "shadow-lg": props.anchorStyle === "full",
         },
         styledClassNamesValues,
       ])}
-      href={enabled && isUsedHref ? href : ""}
-      onClick={enabled && !isUsedHref && onClick ? onClick : mapClickEvent[clickType]}
+      href={enabledEvent && isUsedHref ? href : "#"}
+      onClick={enabledEvent && !isUsedHref && onClick ? onClick : mapClickEvent[clickType]}
       {...otherProps}
     >
       <CraftText

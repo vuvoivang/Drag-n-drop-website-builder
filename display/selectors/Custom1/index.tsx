@@ -6,6 +6,7 @@ import { CraftContainer } from '../Container';
 
 export const OnlyButtons = ({ children, ...props }) => {
   const {
+    id,
     connectors: { connect },
   } = useNode();
   return (
