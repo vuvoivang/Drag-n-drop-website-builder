@@ -67,8 +67,8 @@ const Btn = styled.a`
 const PageFormControl = styled(FormControl)`
   min-width: 180px;
   margin: 16px;
-  margin-left: 50px !important;
-  margin-right: 50px !important;
+  margin-left: 35px !important;
+  margin-right: 35px !important;
   margin-bottom: 5px !important;
   display: flex;
   flex-direction: row !important;
@@ -251,7 +251,7 @@ export const Header = () => {
       <div className="items-center flex w-full pl-4 justify-end">
         <div
           style={{
-            width: collapsed ? 'auto' : '280px',
+            width: collapsed ? 'auto' : '180px',
           }}
         >
           <button onClick={() => collapseSidebar()}>
@@ -286,7 +286,7 @@ export const Header = () => {
                 id: 'current-page',
               }}
               className="page-select global-select"
-              renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+              renderValue={(value) => pages.find((el) => el.path === value)?.name}
             >
               {pages.map((page) => (
                 <MenuItem key={page.path} value={page.path} className="custom-menu-item">

@@ -13,7 +13,7 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
   color: #000000;
   overflow: auto;
   display: ${(props) =>
-    props.visible ? `initial` : "none"};
+    props.visible ? `flex` : "none"};
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`
