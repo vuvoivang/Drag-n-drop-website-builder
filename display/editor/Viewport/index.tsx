@@ -41,9 +41,7 @@ export const Viewport: React.FC = ({ children }) => {
   return (
     <div className="viewport w-full fixed">
       <Header />
-      <div
-        className={cx(['flex h-full overflow-hidden flex-row w-full fixed'])}
-      >
+      <div className={cx(['flex h-full overflow-hidden flex-row w-full fixed'])}>
         <Toolbox />
         <div className="page-container flex flex-1 h-full flex-col px-8 overflow-auto">
           <div
@@ -58,14 +56,8 @@ export const Viewport: React.FC = ({ children }) => {
             <div className="relative flex-col flex items-center pt-8" id="app-container">
               {children}
             </div>
-            <div
-              className={
-                'flex items-center justify-center w-full pt-6 fw-bold text-white'
-              }
-            >
-              <a href="#">
-                HCMUS - Software Architecture
-              </a>
+            <div className={'flex items-center justify-center w-full pt-6 fw-bold text-white'}>
+              <a href="#">HCMUS - Software Architecture</a>
             </div>
           </div>
         </div>

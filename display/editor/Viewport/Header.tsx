@@ -36,16 +36,17 @@ import Image from 'next/image';
 import { useProSidebar } from 'react-pro-sidebar';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import MenuIcon from '@material-ui/icons/Menu';
+import _var from '../../styles/common/_var.module.scss';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
-  height: 60px;
+  height: 48px;
   z-index: 0;
   position: relative;
   padding: 0px 10px;
-  background: #ffffff;
+  background: ${_var.whiteColor};
   display: flex;
-  border-bottom: 2px solid #d8d6de;
+  border-bottom: 2px solid ${_var.borderBottomColor};
 `;
 
 const Btn = styled.a`
@@ -53,13 +54,13 @@ const Btn = styled.a`
   align-items: center;
   padding: 5px 15px;
   border-radius: 4px;
-  color: #fff;
+  color: ${_var.whiteColor};
   font-size: 14px;
   svg {
     margin-right: 6px;
     width: 12px;
     height: 12px;
-    fill: #fff;
+    fill: ${_var.whiteColor};
     opacity: 1;
   }
 `;
@@ -249,7 +250,7 @@ export const Header = () => {
   return (
     <HeaderDiv collapsed={collapsed} id="header" className="header text-white transition w-full">
       <div className="items-center flex w-full pl-4 justify-end">
-        <div
+        {/* <div
           style={{
             width: collapsed ? 'auto' : '180px',
           }}
@@ -261,22 +262,13 @@ export const Header = () => {
               <MenuIcon fontSize="large" style={{ color: '#079512' }} />
             )}
           </button>
-        </div>
-
-        <div className="logo-container" style={{ marginLeft: 30 }}>
-          <Image className="header-logo" src={Logo} alt="Our Logo" height={60} width={80} />
-        </div>
+        </div> */}
+        <a href="/" className="logo-container flex items-center" style={{ width: '200px' }}>
+          <Image className="header-logo" src={Logo} alt="Our Logo" height={48} width={80} />
+          <span className="self-center text-xl font-bold whitespace-nowrap text-stone-600">Buidify</span>
+        </a>
         {/* Form add new page  */}
         <PageFormControl className="pt-4">
-          <LightTooltip
-            title="See all the pages on your site and switch between them"
-            disableFocusListener
-            disableTouchListener
-          >
-            <label className="label-page" htmlFor="current-page">
-              Page:{' '}
-            </label>
-          </LightTooltip>
           <div className="add-page-container ml-2">
             <Select
               value={currentPage}
@@ -311,7 +303,7 @@ export const Header = () => {
                 className="cursor-pointer ml-1"
                 onClick={clickOpenDialogAddNewPage}
                 fontSize="small"
-                style={{ color: '#079512' }}
+                style={{ color: _var.primaryColor }}
               />
             </LightTooltip>
           </div>

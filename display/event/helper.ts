@@ -1,5 +1,5 @@
-import { DEFAULT_EVENT_KEYS, DEFAULT_SECTIONS } from "./defaultConfig";
-import { ConfigEvent } from "./RenderEvent";
+import { DEFAULT_EVENT_KEYS, DEFAULT_SECTIONS } from './defaultConfig';
+import { ConfigEvent } from './RenderEvent';
 
 const generateDefaultItems = (defaultItems, contextDataForItems) => {
   return defaultItems.map((item) => {
@@ -7,7 +7,7 @@ const generateDefaultItems = (defaultItems, contextDataForItems) => {
     return {
       ...DEFAULT_EVENT_KEYS[item],
       ...contextDataThisItem,
-    }
+    };
   });
 };
 

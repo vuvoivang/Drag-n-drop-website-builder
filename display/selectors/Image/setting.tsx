@@ -1,15 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { ConfigSetting, renderToolbarSection } from "../../setting/RenderSetting";
+import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
-  sections: [
-    'dimensions',
-    "radius",
-    "src",
-    "alt",
-    "objectFit",
-  ],
+  sections: ['dimensions', 'radius', 'src', 'alt', 'objectFit'],
 };
 
 export const ImageSettings = () => {

@@ -1,31 +1,33 @@
+@use '_var.module.scss';
+
 .MuiListItem-root.Mui-selected,
 .MuiListItem-root.Mui-selected:hover {
-  background-color: #35ed78 !important;
+  background-color: var.$color-primary-hover !important;
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #41d577;
+  background-color: var.$color-primary;
   border-radius: 0px 0px 5px 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0aca51;
+  background: var.$color-primary-hover;
 }
 html {
   scroll-behavior: smooth;
 }
 .viewport {
   .MuiFormControlLabel-label.Mui-disabled {
-    color: #000000;
+    color: var.$color-disable;
   }
   .PrivateTabIndicator-colorPrimary-4 {
-    background-color: #0ba52f;
+    background-color: var.$color-primary;
   }
   .PrivateTabIndicator-colorSecondary-5 {
-    background-color: #0ba52f;
+    background-color: var.$color-secondary;
   }
   .text-base {
     font-size: 0.9rem /* 16px */;
@@ -37,15 +39,15 @@ html {
     }
 
     &:after {
-      border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid var.$color-secondary;
     }
 
     &:hover:not(.Mui-disabled):before {
-      border-bottom: 1px solid #0ba52f;
+      border-bottom: 1px solid var.$color-secondary;
     }
   }
   .MuiSelect-icon {
-    color: #0e8518;
+    color: var.$color-primary;
   }
   .MuiSelect-select:focus {
     background-color: transparent;
@@ -70,14 +72,16 @@ html {
     border-color: #0a9c16 !important;
     border-width: 1px !important;
   }
-  & > .MuiInputBase-input{
+  & > .MuiInputBase-input {
     padding: 0px !important;
     padding-right: 14px !important;
     height: 1.4375em !important;
     border-radius: 4px !important;
     border: 0 !important;
     box-sizing: border-box !important;
-
   }
 }
 
+* {
+  color: var.$color-primary-text;
+}

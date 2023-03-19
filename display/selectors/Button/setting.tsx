@@ -1,39 +1,36 @@
-import React from "react";
+import React from 'react';
 
-import {
-  ConfigSetting,
-  renderToolbarSection,
-} from "../../setting/RenderSetting";
+import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
   sections: [
-    "typography",
-    "colors",
-    "dimensions",
-    "padding",
+    'typography',
+    'colors',
+    'dimensions',
+    'padding',
     {
-      section: "margin",
+      section: 'margin',
       items: [
         {
-          propKey: "margin",
+          propKey: 'margin',
           index: 0,
         },
         {
-          propKey: "margin",
+          propKey: 'margin',
           index: 1,
         },
         {
-          propKey: "margin",
-          type: ["slider", "text"],
+          propKey: 'margin',
+          type: ['slider', 'text'],
           index: 2,
         },
         {
-          propKey: "margin",
+          propKey: 'margin',
           index: 3,
         },
       ],
     },
-    "buttonDecoration",
+    'buttonDecoration',
   ],
 };
 

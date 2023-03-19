@@ -1,8 +1,8 @@
-import { useEditor } from "@libs/hooks";
-import { Nodes } from "@libs/interfaces";
-import { ToolbarEventItem } from "display/editor/Toolbar/event/ToolbarEventItem";
-import { ToolbarEventSection } from "display/editor/Toolbar/event/ToolbarEventSection";
-import { generateConfigSections } from "./helper";
+import { useEditor } from '@libs/hooks';
+import { Nodes } from '@libs/interfaces';
+import { ToolbarEventItem } from 'display/editor/Toolbar/event/ToolbarEventItem';
+import { ToolbarEventSection } from 'display/editor/Toolbar/event/ToolbarEventSection';
+import { generateConfigSections } from './helper';
 
 export type ConfigEvent = {
   sections: Array<string>;

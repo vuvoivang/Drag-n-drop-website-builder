@@ -1,98 +1,93 @@
+@use '../common/var.module.scss';
+
 #header {
-    .logo-container{
-        & > span{
-            display: block!important;
-        }
+  .logo-container {
+    & > span {
+      display: block !important;
     }
-    .header-logo{
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    .label-page {
-        font-size: 16px;
-        color: #000;
-    }
+  }
+  .header-logo {
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .label-page {
+    font-size: 14px;
+  }
 
-    .action-ic{
-        margin-right: 10px;
-        cursor: pointer;
-        svg {
-            width: 20px;
-            height: 20px;
-            fill: #079512;
-        }
+  .action-ic {
+    margin-right: 10px;
+    cursor: pointer;
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #079512;
     }
-    .page-select{
-        margin-top: 5px;
-        min-width: 120px;
-        color: #2e9737 !important;
-        font-weight: 500;
-        padding: 10px !important;
-        padding-right: 20px !important;
-        border-color:  #2e9737 !important;
-        box-sizing: border-box !important;
-        
-    }
-    
-    
-    
+  }
+  .page-select {
+    margin-top: 5px;
+    min-width: 120px;
+    color: #2e9737 !important;
+    font-weight: 500;
+    padding: 10px !important;
+    padding-right: 20px !important;
+    border-color: #2e9737 !important;
+    box-sizing: border-box !important;
+  }
 
-   
+  .add-page-container {
+    color: var.$color-white;
+    text-decoration: none;
+    &:hover {
+      .MuiInputBase-inputSelect {
+        color: var.$color-primary-text;
+      }
 
-    .add-page-container {
-        &:hover {
-            .MuiInputBase-inputSelect {
-                color: #078412;
-            }
-
-            .MuiSelect-icon {
-                color: #078412;
-            }
-            .MuiInput-underline {
-                &:before {
-                    border-bottom: 1px solid #078412;
-                }
-        
-                &:after {
-                    border-bottom: 1px solid #078412;
-                }
-        
-                &:hover:not(.Mui-disabled):before {
-                    border-bottom: 1px solid #078412;
-                }
-            }
+      .MuiSelect-icon {
+        color: var.$color-primary-text;
+      }
+      .MuiInput-underline {
+        &:before {
+          border-bottom: 1px solid var.$color-primary-text;
         }
 
+        &:after {
+          border-bottom: 1px solid var.$color-primary-text;
+        }
+
+        &:hover:not(.Mui-disabled):before {
+          border-bottom: 1px solid var.$color-primary-text;
+        }
+      }
     }
+  }
 }
 
 .custom-menu-item {
-    justify-content: space-between !important;
+  justify-content: space-between !important;
 
-    .rm-icon {
+  .rm-icon {
+    background-color: var.$color-red;
+    color: white;
+    border-radius: 20px;
 
-        background-color: rgb(213, 43, 43);
-        color: white;
-        border-radius: 20px;
-
-        &:hover {
-            background-color: #d90606;
-        }
+    &:hover {
+      background-color: var.$color-red-hover;
     }
+  }
 }
 
 .MuiListItem-gutters {
-    padding-right: 8px !important;
+  padding-right: 8px !important;
 }
 
 .dialog-new-page {
-    list-style: initial;
-    padding-left: 15px;
+  list-style: initial;
+  padding-left: 15px;
 
-    li {
-        color: rgba(0, 0, 0, 0.54) !important;
-        font-size: 14px !important;
-    }
+  li {
+    color: rgba(0, 0, 0, 0.54) !important;
+    font-size: 14px !important;
+  }
 }
 
 // .MuiPaper-root.MuiMenu-paper {

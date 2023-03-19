@@ -1,12 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { ConfigSetting, renderToolbarSection } from "../../setting/RenderSetting";
+import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
-  sections: [
-    'youtube',
-    'dimensions',
-  ],
+  sections: ['youtube', 'dimensions'],
 };
 
 export const VideoSettings = () => {

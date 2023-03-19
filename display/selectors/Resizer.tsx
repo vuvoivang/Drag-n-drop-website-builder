@@ -4,13 +4,9 @@ import { debounce } from 'debounce';
 import { Resizable } from 're-resizable';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
+import _var from '../styles/common/_var.module.scss';
 
-import {
-  isPercentage,
-  pxToPercent,
-  percentToPx,
-  getElementDimensions,
-} from '../../utils/numToMeasurement';
+import { isPercentage, pxToPercent, percentToPx, getElementDimensions } from '../../utils/numToMeasurement';
 
 const Indicators = styled.div<{ bound?: 'row' | 'column' }>`
   position: absolute;
@@ -23,13 +19,13 @@ const Indicators = styled.div<{ bound?: 'row' | 'column' }>`
     position: absolute;
     width: 10px;
     height: 10px;
-    background: #fff;
+    background: ${_var.whiteColor};
     border-radius: 100%;
     display: block;
     box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.25);
     z-index: 99999;
     pointer-events: none;
-    border: 2px solid #36a9e0;
+    border: 2px solid ${_var.borderColor};
     &:nth-child(1) {
       ${(props) =>
         props.bound
@@ -81,7 +77,7 @@ const Indicators = styled.div<{ bound?: 'row' | 'column' }>`
   }
 `;
 
-export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => {
+export const Resizer = ({ nestedPropKey, propKey, children, ...props }: any) => {
   const {
     id,
     actions: { setProp },
@@ -102,10 +98,7 @@ export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => 
 
   const { isRootNode, parentDirection } = useEditor((state, query) => {
     return {
-      parentDirection:
-        parent &&
-        state.nodes[parent] &&
-        state.nodes[parent].data.props.flexDirection,
+      parentDirection: parent && state.nodes[parent] && state.nodes[parent].data.props.flexDirection,
       isRootNode: query.node(id).isRoot(),
     };
   });
@@ -130,13 +123,11 @@ export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => 
 
     const width = percentToPx(
       nodeWidth,
-      resizable.current &&
-        getElementDimensions(resizable.current.resizable.parentElement).width
+      resizable.current && getElementDimensions(resizable.current.resizable.parentElement).width
     );
     const height = percentToPx(
       nodeHeight,
-      resizable.current &&
-        getElementDimensions(resizable.current.resizable.parentElement).height
+      resizable.current && getElementDimensions(resizable.current.resizable.parentElement).height
     );
 
     setInternalDimensions({
@@ -181,19 +172,13 @@ export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => 
 
   return (
     <Resizable
-      enable={[
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'topLeft',
-        'topRight',
-        'bottomLeft',
-        'bottomRight',
-      ].reduce((acc: any, key) => {
-        acc[key] = active && inNodeContext;
-        return acc;
-      }, {})}
+      enable={['top', 'left', 'bottom', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'].reduce(
+        (acc: any, key) => {
+          acc[key] = active && inNodeContext;
+          return acc;
+        },
+        {}
+      )}
       className={cx([
         {
           'm-auto': isRootNode,
@@ -222,18 +207,11 @@ export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => 
       onResize={(_, __, ___, d) => {
         const dom = resizable.current.resizable;
         let { width, height }: any = getUpdatedDimensions(d.width, d.height);
-        if (isPercentage(nodeWidth))
-          width =
-            pxToPercent(width, getElementDimensions(dom.parentElement).width) +
-            '%';
+        if (isPercentage(nodeWidth)) width = pxToPercent(width, getElementDimensions(dom.parentElement).width) + '%';
         else width = `${width}px`;
 
         if (isPercentage(nodeHeight))
-          height =
-            pxToPercent(
-              height,
-              getElementDimensions(dom.parentElement).height
-            ) + '%';
+          height = pxToPercent(height, getElementDimensions(dom.parentElement).height) + '%';
         else height = `${height}px`;
 
         if (isPercentage(width) && dom.parentElement.style.width === 'auto') {
@@ -245,14 +223,13 @@ export const Resizer = ({ nestedPropKey ,propKey, children, ...props }: any) => 
         }
 
         setProp((prop: any) => {
-          if(nestedPropKey) {
+          if (nestedPropKey) {
             prop[nestedPropKey][propKey.width] = width;
             prop[nestedPropKey][propKey.height] = height;
           } else {
             prop[propKey.width] = width;
             prop[propKey.height] = height;
           }
-          
         }, 500);
       }}
       onResizeStop={() => {
