@@ -244,7 +244,7 @@ export const Header = () => {
       <div className='items-center flex w-full pl-4 justify-space-between'>
         <a href='/' className='logo-container flex items-center' style={{ width: '200px' }}>
           <Image className='header-logo' src={Logo} alt='Our Logo' height={48} width={80} />
-          <span className='self-center text-xl font-bold whitespace-nowrap text-stone-600'>Buidify</span>
+          <span className='self-center text-xl font-bold whitespace-nowrap text-stone-600'>Buildify</span>
         </a>
         {/* Form add new page  */}
         <PageFormControl className='pt-4'>
