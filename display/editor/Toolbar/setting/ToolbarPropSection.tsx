@@ -1,11 +1,5 @@
 import { useNode } from 'libs/core/src';
-import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  Grid,
-  Divider,
-} from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { ToolbarPropItemProps } from './ToolbarPropItem';
@@ -44,7 +38,7 @@ export type ToolbarPropSectionProps = {
   props?: string[];
   summary?: (props: any) => React.ReactNode;
   items?: Array<ToolbarPropItemProps | string>; // if define, just contains defined items (with overwrite values from default)
-}
+};
 export const ToolbarPropSection = ({ title, props, summary, children }: any) => {
   const panelClasses = usePanelStyles({});
   const summaryClasses = useSummaryStyles({});
@@ -61,10 +55,8 @@ export const ToolbarPropSection = ({ title, props, summary, children }: any) => 
       <ExpansionPanelSummary classes={summaryClasses}>
         <div className="px-6 w-full">
           <Grid container direction="row" alignItems="center" spacing={3}>
-            <Grid item xs={summary && props ? 4: 12}>
-              <h5 className="text-md text-secondary text-left font-medium text-dark-gray">
-                {title}
-              </h5>
+            <Grid item xs={summary && props ? 4 : 12}>
+              <h5 className="text-md text-secondary text-left font-medium text-dark-gray">{title}</h5>
             </Grid>
             {summary && props ? (
               <Grid item xs={8}>

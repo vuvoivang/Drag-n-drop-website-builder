@@ -1,16 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Arrow from "../../../../public/icons/arrow.svg";
+import Arrow from '../../../../public/icons/arrow.svg';
+import _var from '../../../styles/common/_var.module.scss';
 
 const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
-  height: ${(props) =>
-    props.visible && props.height && props.height !== "full"
-      ? `${props.height}`
-      : "auto"};
-  flex: ${(props) =>
-    props.visible && props.height && props.height === "full" ? `1` : "unset"};
-  color: #000000;
+  height: ${(props) => (props.visible && props.height && props.height !== 'full' ? `${props.height}` : 'auto')};
+  flex: ${(props) => (props.visible && props.height && props.height === 'full' ? `1` : 'unset')};
+  color: ${_var.secondaryColor};
   overflow: auto;
   display: ${(props) =>
     props.visible ? `flex` : "none"};
@@ -36,10 +33,10 @@ export type SidebarItemProps = {
 };
 
 const HeaderDiv = styled.div`
-  color: #000000;
+  color: ${_var.blackColor};
   height: 45px;
   svg {
-    fill: #000000;
+    fill: ${_var.blackColor};
   }
 `;
 

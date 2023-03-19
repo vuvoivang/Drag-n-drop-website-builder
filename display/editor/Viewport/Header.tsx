@@ -68,12 +68,8 @@ const Btn = styled.a`
 const PageFormControl = styled(FormControl)`
   min-width: 180px;
   margin: 16px;
-  margin-left: 35px !important;
-  margin-right: 35px !important;
-  margin-bottom: 5px !important;
   display: flex;
   flex-direction: row !important;
-  align-items: center;
 `;
 
 function addPageReducer(state, action) {

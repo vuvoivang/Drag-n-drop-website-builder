@@ -1,44 +1,45 @@
-import { useEditor } from "libs/core/src";
-import React from "react";
+import { useEditor } from 'libs/core/src';
+import React from 'react';
 
-import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
-import { DEFAULT_VARIANTS } from "display/selectors/defaultVariant";
-import { renderMenuItems } from "display/selectors/renderVariant";
+import { Sidebar, Menu, useProSidebar } from 'react-pro-sidebar';
+import { DEFAULT_VARIANTS } from 'display/selectors/defaultVariant';
+import { renderMenuItems } from 'display/selectors/renderVariant';
+import _var from '../../styles/common/_var.module.scss';
 
-type Theme = "light" | "dark";
+type Theme = 'light' | 'dark';
 
 const themes = {
   light: {
     sidebar: {
-      backgroundColor: "#ffffff",
-      color: "#607489",
+      backgroundColor: _var.whiteColor,
+      color: _var.secondaryTextColor,
     },
     menu: {
-      menuContent: "#fbfcfd",
-      icon: "#079512",
+      menuContent: _var.whiteColor,
+      icon: _var.primaryColor,
       hover: {
-        backgroundColor: "#c5e4ff",
-        color: "#44596e",
+        backgroundColor: _var.blackColor,
+        color: _var.secondaryColor,
       },
       disabled: {
-        color: "#9fb6cf",
+        color: _var.disableColor,
       },
     },
   },
   dark: {
     sidebar: {
-      backgroundColor: "#0b2948",
-      color: "#8ba1b7",
+      backgroundColor: _var.whiteColor,
+      color: _var.whiteColor,
     },
     menu: {
-      menuContent: "#082440",
-      icon: "#ffffff",
+      menuContent: _var.whiteColor,
+      icon: _var.whiteColor,
       hover: {
-        backgroundColor: "#00458b",
-        color: "#b6c8d9",
+        backgroundColor: _var.whiteColor,
+        color: _var.whiteColor,
       },
       disabled: {
-        color: "#3e5e7e",
+        color: _var.whiteColor,
       },
     },
   },
@@ -53,19 +54,19 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 export const menuClasses = {
-  root: "ps-menu-root",
-  menuItemRoot: "ps-menuitem-root",
-  subMenuRoot: "ps-submenu-root",
-  button: "ps-menu-button",
-  prefix: "ps-menu-prefix",
-  suffix: "ps-menu-suffix",
-  label: "ps-menu-label",
-  icon: "ps-menu-icon",
-  subMenuContent: "ps-submenu-content",
-  SubMenuExpandIcon: "ps-submenu-expand-icon",
-  disabled: "ps-disabled",
-  active: "ps-active",
-  open: "ps-open",
+  root: 'ps-menu-root',
+  menuItemRoot: 'ps-menuitem-root',
+  subMenuRoot: 'ps-submenu-root',
+  button: 'ps-menu-button',
+  prefix: 'ps-menu-prefix',
+  suffix: 'ps-menu-suffix',
+  label: 'ps-menu-label',
+  icon: 'ps-menu-icon',
+  subMenuContent: 'ps-submenu-content',
+  SubMenuExpandIcon: 'ps-submenu-expand-icon',
+  disabled: 'ps-disabled',
+  active: 'ps-active',
+  open: 'ps-open',
 };
 export const Toolbox = () => {
   const {
@@ -75,18 +76,18 @@ export const Toolbox = () => {
     enabled: state.options.enabled,
   }));
   const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
-  const [theme, setTheme] = React.useState<Theme>("light");
+  const [theme, setTheme] = React.useState<Theme>('light');
 
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(e.target.checked ? "dark" : "light");
+    setTheme(e.target.checked ? 'dark' : 'light');
   };
 
   const menuItemStyles = {
     root: {
-      fontSize: "13px",
+      fontSize: '13px',
       fontWeight: 400,
-      margin: "10px 0px",
+      margin: '10px 0px',
     },
     icon: {
       color: themes[theme].menu.icon,
@@ -96,23 +97,20 @@ export const Toolbox = () => {
       },
       marginRight: 7,
       svg: {
-        width: "100%",
-        height: "100%",
-        fill: "currentColor",
+        width: '100%',
+        height: '100%',
+        fill: 'currentColor',
       },
     },
     SubMenuExpandIcon: ({ open }) => ({
-      color: open ? "#079512" : "#b6b7b9",
-      "& > span": { width: 7, height: 7 },
+      color: open ? _var.whiteColor : _var.whiteColor,
+      '& > span': { width: 7, height: 7 },
     }),
     subMenuContent: ({ level }) => ({
-      backgroundColor:
-        level === 0
-          ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.4 : 1)
-          : "transparent",
-      overflow: "visible!important",
-      width: collapsed ? "min-content": undefined,
-      minWidth: "200px",
+      backgroundColor: level === 0 ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.4 : 1) : 'transparent',
+      overflow: 'visible!important',
+      width: collapsed ? 'min-content' : undefined,
+      minWidth: '200px',
     }),
     button: ({ level }) => {
       // @ts-ignore
@@ -143,31 +141,31 @@ export const Toolbox = () => {
         [`&.${menuClasses.disabled}`]: {
           color: themes[theme].menu.disabled.color,
         },
-        "&:hover": {
-          backgroundColor: "transparent",
+        '&:hover': {
+          backgroundColor: 'transparent',
           color: themes[theme].menu.hover.color,
         },
         minHeight: 50,
-        height: "auto",
-        margin: "5px 0",
+        height: 'auto',
+        margin: '5px 0',
       };
     },
     label: ({ open }) => ({
       fontWeight: open ? 700 : undefined,
-      color: open ? "#079512" : undefined,
-      overflow: !collapsed ? "visible": undefined,
+      color: open ? _var.blackColor : undefined,
+      overflow: !collapsed ? 'visible' : undefined,
       // whiteSpace: !collapsed ? "normal" : undefined,
       // overflow: "visible",
-      whiteSpace:  "normal",
+      whiteSpace: 'normal',
     }),
   };
 
   return (
     <div
       style={{
-        display: "flex",
-        height: "calc(100% - 65px)",
-        direction: "ltr",
+        display: 'flex',
+        height: 'calc(100% - 65px)',
+        direction: 'ltr',
       }}
     >
       <Sidebar
@@ -175,13 +173,11 @@ export const Toolbox = () => {
         backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
         rootStyles={{
           color: themes[theme].sidebar.color,
-          width: collapsed ? undefined : "280px",
+          width: collapsed ? undefined : '280px',
         }}
       >
         {/* @ts-ignore  */}
-        <Menu menuItemStyles={menuItemStyles}>
-          {renderMenuItems(DEFAULT_VARIANTS, create)}
-        </Menu>
+        <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(DEFAULT_VARIANTS, create)}</Menu>
       </Sidebar>
     </div>
   );

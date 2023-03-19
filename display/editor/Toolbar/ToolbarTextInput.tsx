@@ -2,6 +2,7 @@ import { TextField, makeStyles, InputAdornment } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { ChromePicker } from 'react-color';
+import _var from '../../styles/common/_var.module.scss';
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   input: {
-    background: '#a5ffb8',
+    background: _var.primaryLightColor,
     borderRadius: '100px',
     fontSize: '12px',
     paddingLeft: '28px',
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
 
 const useLabelStyles = makeStyles({
   root: {
-    color: 'rgb(128,128,128)',
+    color: _var.secondaryTextColor,
   },
   formControl: {
     fontSize: '18px',
@@ -67,8 +68,7 @@ export const ToolbarTextInput = ({
   const labelClasses = useLabelStyles({});
   useEffect(() => {
     let val = value;
-    if (type === 'color' || type === 'bg')
-      val = `rgba(${Object.values(value)})`;
+    if (type === 'color' || type === 'bg') val = `rgba(${Object.values(value)})`;
     setInternalValue(val);
   }, [value, type]);
 
@@ -76,7 +76,7 @@ export const ToolbarTextInput = ({
     <div
       style={{ width: '100%', position: 'relative' }}
       onClick={() => {
-        if(disabled) return;
+        if (disabled) return;
         setActive(true);
       }}
     >

@@ -2,6 +2,7 @@ import { FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import React from 'react';
+import _var from '../../styles/common/_var.module.scss';
 
 const useStyles = makeStyles({
   icon: {
@@ -11,11 +12,11 @@ const useStyles = makeStyles({
     background: 'transparent',
     position: 'relative',
     padding: '3px',
-    border: '2px solid rgb(142, 142, 142)',
+    border: `2px solid ${_var.borderColor}`,
     transition: '0.4s cubic-bezier(0.19, 1, 0.22, 1)',
   },
   checkedIcon: {
-    background: 'rgb(19, 115, 230)',
+    background: _var.blueColor,
     borderColor: 'transparent',
     '&:before': {
       content: '""',
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
       width: '100%',
       height: '100%',
       borderRadius: '100%',
-      background: '#fff',
+      background: _var.whiteColor,
     },
   },
 });
@@ -35,10 +36,8 @@ function StyledRadio(props) {
   return (
     <Radio
       disableRipple
-      color="default"
-      checkedIcon={
-        <span className={classnames(classes.icon, classes.checkedIcon)} />
-      }
+      color='default'
+      checkedIcon={<span className={classnames(classes.icon, classes.checkedIcon)} />}
       icon={<span className={classes.icon} />}
       {...props}
     />
@@ -50,8 +49,8 @@ const useLabelStyles = makeStyles({
     fontSize: '14px',
   },
   disabled: {
-    color: "#000000",
-  }
+    color: _var.disableColor,
+  },
 });
 
 export const ToolbarRadio = ({ value, label, disabled }: any) => {
@@ -62,7 +61,7 @@ export const ToolbarRadio = ({ value, label, disabled }: any) => {
       value={value}
       control={<StyledRadio />}
       label={label}
-      style={{ color: '#000000' }}
+      style={{ color: _var.blackColor }}
       disabled={disabled}
     />
   );
