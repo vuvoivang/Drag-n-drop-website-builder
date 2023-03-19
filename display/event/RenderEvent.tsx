@@ -49,15 +49,11 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
           summary={section.summary}
           key={section.title}
         >
-          {section.items.map((item) => {
+          {section.items.map((item, idx) => {
             return (
               <ToolbarEventItem
                 {...item}
-                key={
-                  Array.isArray(item.type)
-                    ? `${item.propKey}${item.type[0]}`
-                    : `${item.propKey}${item.type}`
-                }
+                key={idx}
               />
             );
           })}

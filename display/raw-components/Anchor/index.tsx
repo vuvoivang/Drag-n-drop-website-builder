@@ -25,6 +25,7 @@ export const Anchor = React.forwardRef((props: AnchorProps, ref: any) => {
 
   const { pageNavigate, absoluteUrlNavigate, href, clickType } = events;
   const handleNavigate = () => {
+    if(isUsedHref) return;
     if(pageNavigate || absoluteUrlNavigate){
       const desUrl = pageNavigate || absoluteUrlNavigate;
       window.location.href = desUrl;
@@ -48,7 +49,7 @@ export const Anchor = React.forwardRef((props: AnchorProps, ref: any) => {
         },
         styledClassNamesValues,
       ])}
-      href={isUsedHref ? href : ""}
+      href={isUsedHref ? '#' + href : undefined}
       onClick={isUsedHref && mapClickEvent[clickType]}
       {...otherProps}
     >
