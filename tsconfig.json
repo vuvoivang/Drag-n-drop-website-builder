@@ -27,7 +27,7 @@
       "@libs/*": ["libs/core/src/*"],
       "@libs/layers": ["libs/layers/src/index"],
       "@libs/utils": ["libs/utils/src/index"],
-      "@libs/utils/*": ["libs/utils/src/*"],
+      "@libs/utils/*": ["libs/utils/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,18 +1,10 @@
-import {
-  createTestDerivedHandlers,
-  createTestHandlers,
-  triggerMouseEvent,
-} from './fixtures';
+import { createTestDerivedHandlers, createTestHandlers, triggerMouseEvent } from './fixtures';
 
 import { EventHandlers } from '../EventHandlers';
 import { ConnectorsUsage } from '../interfaces';
 
 describe('DerivedEventHandlers', () => {
-  let dom,
-    instance: EventHandlers,
-    handlers,
-    derivedInstance: EventHandlers,
-    derivedHandlers;
+  let dom, instance: EventHandlers, handlers, derivedInstance: EventHandlers, derivedHandlers;
 
   let derivedConnectorsUsage: ConnectorsUsage<typeof derivedInstance>;
 

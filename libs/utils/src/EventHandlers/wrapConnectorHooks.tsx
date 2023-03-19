@@ -15,10 +15,7 @@ function setRef(ref: any, node: any) {
   }
 }
 
-export function cloneWithRef(
-  element: any,
-  newRef: any
-): React.ReactElement<any> {
+export function cloneWithRef(element: any, newRef: any): React.ReactElement<any> {
   const previousRef = element.ref;
   invariant(
     typeof previousRef !== 'string',
@@ -50,9 +47,7 @@ function throwIfCompositeComponentElement(element: React.ReactElement<any>) {
   throw new Error();
 }
 
-export function wrapHookToRecognizeElement(
-  hook: (node: any, ...args: any[]) => void
-) {
+export function wrapHookToRecognizeElement(hook: (node: any, ...args: any[]) => void) {
   return (elementOrNode = null, ...args: any) => {
     // When passed a node, call the hook straight away.
     if (!isValidElement(elementOrNode)) {
@@ -81,7 +76,7 @@ export function wrapConnectorHooks<H extends ConnectorsRecord>(
   connectors: H
 ): ChainableConnectors<H, React.ReactElement | HTMLElement> {
   // console.log("wrapConnectorHooks connectors", connectors);
-  const res =  Object.keys(connectors).reduce((accum, key) => {
+  const res = Object.keys(connectors).reduce((accum, key) => {
     accum[key] = wrapHookToRecognizeElement((...args) => {
       // @ts-ignore
       return connectors[key](...args);

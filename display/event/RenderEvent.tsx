@@ -1,8 +1,8 @@
-import { useEditor } from "@libs/hooks";
-import { Nodes } from "@libs/interfaces";
-import { ToolbarEventItem } from "display/editor/Toolbar/event/ToolbarEventItem";
-import { ToolbarEventSection } from "display/editor/Toolbar/event/ToolbarEventSection";
-import { generateConfigSections } from "./helper";
+import { useEditor } from '@libs/hooks';
+import { Nodes } from '@libs/interfaces';
+import { ToolbarEventItem } from 'display/editor/Toolbar/event/ToolbarEventItem';
+import { ToolbarEventSection } from 'display/editor/Toolbar/event/ToolbarEventSection';
+import { generateConfigSections } from './helper';
 
 export type ConfigEvent = {
   sections: Array<string>;
@@ -43,19 +43,9 @@ export const renderToolbarSection = (configSetting: ConfigEvent) => {
   return (
     <>
       {sections?.map((section) => (
-        <ToolbarEventSection
-          title={section.title}
-          props={section.props}
-          summary={section.summary}
-          key={section.title}
-        >
+        <ToolbarEventSection title={section.title} props={section.props} summary={section.summary} key={section.title}>
           {section.items.map((item, idx) => {
-            return (
-              <ToolbarEventItem
-                {...item}
-                key={idx}
-              />
-            );
+            return <ToolbarEventItem {...item} key={idx} />;
           })}
         </ToolbarEventSection>
       ))}

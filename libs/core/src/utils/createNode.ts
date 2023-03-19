@@ -2,22 +2,12 @@ import { getRandomId as getRandomNodeId, ROOT_PATH } from 'libs/utils/src';
 import React from 'react';
 
 import { Node, FreshNode, UserComponentConfig } from '../interfaces';
-import {
-  defaultElementProps,
-  Element,
-  Canvas,
-  elementPropToNodeData,
-  deprecateCanvasComponent,
-} from '../nodes';
+import { defaultElementProps, Element, Canvas, elementPropToNodeData, deprecateCanvasComponent } from '../nodes';
 import { NodeProvider } from '../nodes/NodeContext';
 
-const getNodeTypeName = (type: string | { name: string }) =>
-  typeof type == 'string' ? type : type.name;
+const getNodeTypeName = (type: string | { name: string }) => (typeof type == 'string' ? type : type.name);
 
-export function createNode(
-  newNode: FreshNode,
-  normalize?: (node: Node) => void
-) {
+export function createNode(newNode: FreshNode, normalize?: (node: Node) => void) {
   let actualType = newNode.data.type as any;
   let id = newNode.id || getRandomNodeId();
 
@@ -86,14 +76,11 @@ export function createNode(
     }
   }
 
-
   // generate best meaningful prefixId
   const userComponentConfig = actualType.craft as UserComponentConfig<any>;
 
-  const bestDisplayName = userComponentConfig?.displayName ||
-  userComponentConfig?.name ||
-  node.data.displayName;
-  const prefixIdWithDisplayName = bestDisplayName.trim().replace(" ", '').replace('Craft', '');
+  const bestDisplayName = userComponentConfig?.displayName || userComponentConfig?.name || node.data.displayName;
+  const prefixIdWithDisplayName = bestDisplayName.trim().replace(' ', '').replace('Craft', '');
   node.id = newNode.id || `${prefixIdWithDisplayName}_${getRandomNodeId()}`;
   if (normalize) {
     normalize(node);
@@ -102,10 +89,7 @@ export function createNode(
   // TODO: use UserComponentConfig type
 
   if (userComponentConfig) {
-    node.data.displayName =
-      userComponentConfig.displayName ||
-      userComponentConfig.name ||
-      node.data.displayName;
+    node.data.displayName = userComponentConfig.displayName || userComponentConfig.name || node.data.displayName;
 
     node.data.props = {
       ...(userComponentConfig.props || userComponentConfig.defaultProps || {}),
@@ -117,10 +101,7 @@ export function createNode(
       ...node.data.custom,
     };
 
-    if (
-      userComponentConfig.isCanvas !== undefined &&
-      userComponentConfig.isCanvas !== null
-    ) {
+    if (userComponentConfig.isCanvas !== undefined && userComponentConfig.isCanvas !== null) {
       node.data.isCanvas = userComponentConfig.isCanvas;
     }
 
@@ -140,11 +121,7 @@ export function createNode(
 
       Object.keys(userComponentConfig.related).forEach((comp) => {
         node.related[comp] = () =>
-          React.createElement(
-            NodeProvider,
-            relatedNodeContext,
-            React.createElement(userComponentConfig.related[comp])
-          );
+          React.createElement(NodeProvider, relatedNodeContext, React.createElement(userComponentConfig.related[comp]));
       });
     }
   }

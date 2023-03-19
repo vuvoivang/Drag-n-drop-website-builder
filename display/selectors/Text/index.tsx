@@ -1,10 +1,10 @@
-import { useNode, useEditor, UserComponent } from "libs/core/src";
-import React from "react";
-import ContentEditable from "react-contenteditable";
-import { TextProps } from "../../raw-components/Text/props";
-import cx from "classnames";
-import { TextSettings } from "./setting";
-import { defaultProps } from "display/raw-components/Text/props";
+import { useNode, useEditor, UserComponent } from 'libs/core/src';
+import React from 'react';
+import ContentEditable from 'react-contenteditable';
+import { TextProps } from '../../raw-components/Text/props';
+import cx from 'classnames';
+import { TextSettings } from './setting';
+import { defaultProps } from 'display/raw-components/Text/props';
 
 export const craftConfig = {
   displayName: 'Text',
@@ -12,7 +12,7 @@ export const craftConfig = {
   related: {
     settings: TextSettings,
   },
-}
+};
 export const CraftText: UserComponent<TextProps> = ({
   fontSize,
   textAlign,
@@ -23,7 +23,7 @@ export const CraftText: UserComponent<TextProps> = ({
   margin,
   styledClassNames,
   tagName,
-  nestedPropKey = "",
+  nestedPropKey = '',
 }: Partial<TextProps>) => {
   const {
     connectors: { connect },
@@ -32,9 +32,7 @@ export const CraftText: UserComponent<TextProps> = ({
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   return (
     <ContentEditable
       innerRef={connect}
@@ -42,17 +40,17 @@ export const CraftText: UserComponent<TextProps> = ({
       disabled={!enabled}
       onChange={(e) => {
         setProp((prop) => {
-          if(nestedPropKey) {
+          if (nestedPropKey) {
             prop[nestedPropKey].text = e.target.value;
           } else {
-            prop.text = e.target.value
+            prop.text = e.target.value;
           }
         }, 500);
       }} // use true to disable editing
       tagName={tagName} // Use a custom HTML tag (uses a div by default)
       className={cx(styledClassNamesValues)}
       style={{
-        width: "100%",
+        width: '100%',
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
         color: `rgba(${Object.values(color)})`,
         fontSize: `${fontSize}px`,

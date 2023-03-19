@@ -1,10 +1,8 @@
-import { ConfigEvent, renderToolbarSection } from "display/event/RenderEvent";
-import React from "react";
+import { ConfigEvent, renderToolbarSection } from 'display/event/RenderEvent';
+import React from 'react';
 
 const configEvent: ConfigEvent = {
-  sections: [
-    "showPopup",
-  ],
+  sections: ['showPopup'],
 };
 
 export const PopupEvents = () => {

@@ -1,12 +1,8 @@
-import { ConfigEvent, renderToolbarSection } from "display/event/RenderEvent";
-import React from "react";
+import { ConfigEvent, renderToolbarSection } from 'display/event/RenderEvent';
+import React from 'react';
 
 const configEvent: ConfigEvent = {
-  sections: [
-    "clickTypeButton",
-    "navigate",
-    "popup",
-  ],
+  sections: ['clickTypeButton', 'navigate', 'popup'],
 };
 
 export const ButtonEvents = () => {

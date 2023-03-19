@@ -51,11 +51,7 @@ export class ConnectorRegistry {
           cleanup();
         }
 
-        cleanup = connectorPayload.connector(
-          element,
-          connectorPayload.required,
-          connectorPayload.options
-        );
+        cleanup = connectorPayload.connector(element, connectorPayload.required, connectorPayload.options);
       },
       disable: () => {
         if (!cleanup) {

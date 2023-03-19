@@ -10,6 +10,4 @@ export type LayerContext = {
   connectors: EventHandlerConnectors<LayerHandlers, React.ReactElement>;
 };
 
-export const LayerContext = React.createContext<LayerContext>(
-  {} as LayerContext
-);
+export const LayerContext = React.createContext<LayerContext>({} as LayerContext);

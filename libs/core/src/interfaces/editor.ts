@@ -12,7 +12,7 @@ export type Options = {
   onRender: React.ComponentType<{ render: React.ReactElement }>;
   onNodesChange: (query: QueryCallbacksFor<typeof QueryMethods>) => void;
   resolver: Resolver;
-  enabled: boolean;  // block editor??
+  enabled: boolean; // block editor??
   isShownAllIndicator: boolean;
   indicator: Partial<{
     success: string;
@@ -24,10 +24,7 @@ export type Options = {
   normalizeNodes: (
     state: EditorState,
     previousState: EditorState,
-    actionPerformed: Delete<
-      PatchListenerAction<EditorState, typeof ActionMethodsWithConfig>,
-      'patches'
-    >,
+    actionPerformed: Delete<PatchListenerAction<EditorState, typeof ActionMethodsWithConfig>, 'patches'>,
     query: QueryCallbacksFor<typeof QueryMethods>
   ) => void;
 };
@@ -59,4 +56,4 @@ export interface PageOptions {
 export type PageData = {
   path: string;
   name: string;
-}
+};

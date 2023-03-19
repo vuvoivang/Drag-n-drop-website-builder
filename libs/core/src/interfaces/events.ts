@@ -5,16 +5,7 @@ export type NodeInfo = {
 } & DOMInfo;
 
 export type DOMInfo = Record<
-  | 'x'
-  | 'y'
-  | 'top'
-  | 'left'
-  | 'bottom'
-  | 'right'
-  | 'width'
-  | 'height'
-  | 'outerWidth'
-  | 'outerHeight',
+  'x' | 'y' | 'top' | 'left' | 'bottom' | 'right' | 'width' | 'height' | 'outerWidth' | 'outerHeight',
   number
 > & {
   inFlow: boolean;

@@ -28,11 +28,7 @@ export type Element<T extends React.ElementType> = {
   canvas?: boolean;
 } & React.ComponentProps<T>;
 
-export function Element<T extends React.ElementType>({
-  id,
-  children,
-  ...elementProps
-}: Element<T>) {
+export function Element<T extends React.ElementType>({ id, children, ...elementProps }: Element<T>) {
   const { is } = {
     ...defaultElementProps,
     ...elementProps,
@@ -55,21 +51,14 @@ export function Element<T extends React.ElementType>({
     if (inNodeContext) {
       let linkedNodeId;
 
-      const existingNode =
-        data.linkedNodes &&
-        data.linkedNodes[id] &&
-        query.node(data.linkedNodes[id]).get();
+      const existingNode = data.linkedNodes && data.linkedNodes[id] && query.node(data.linkedNodes[id]).get();
 
       // Render existing linked Node if it already exists (and is the same type as the JSX)
       if (existingNode && existingNode.data.type === is) {
         linkedNodeId = existingNode.id;
       } else {
         // otherwise, create and render a new linked Node
-        const linkedElement = React.createElement(
-          Element,
-          elementProps,
-          children
-        );
+        const linkedElement = React.createElement(Element, elementProps, children);
 
         const tree = query.parseReactElement(linkedElement).toNodeTree();
 

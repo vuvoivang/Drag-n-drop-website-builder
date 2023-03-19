@@ -1,5 +1,7 @@
+@use '../common/var.module.scss';
+
 .toolbar-item {
-    .MuiFormControlLabel-label.Mui-disabled{
-        color: #000000;
-    }
+  .MuiFormControlLabel-label.Mui-disabled {
+    color: var.$color-disable;
+  }
 }

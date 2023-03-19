@@ -24,10 +24,7 @@ const mergeNodes = (rootNode: Node, childrenNodes: NodeTree[]) => {
   }, rootNodes);
 };
 
-export const mergeTrees = (
-  rootNode: Node,
-  childrenNodes: NodeTree[]
-): NodeTree => ({
+export const mergeTrees = (rootNode: Node, childrenNodes: NodeTree[]): NodeTree => ({
   rootNodeId: rootNode.id,
   nodes: mergeNodes(rootNode, childrenNodes),
 });

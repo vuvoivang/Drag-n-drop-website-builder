@@ -1,6 +1,6 @@
-import { MenuItem, SubMenu } from "react-pro-sidebar";
-import { Tooltip } from "@material-ui/core";
-import { menuClasses } from "display/editor/Viewport/Toolbox";
+import { MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Tooltip } from '@material-ui/core';
+import { menuClasses } from 'display/editor/Viewport/Toolbox';
 
 export type ConfigVariant = {
   subItems: Array<MenuItemProps>;
@@ -16,21 +16,14 @@ type MenuItemProps = {
 };
 const generateConfigSections = (configVariant) => configVariant;
 
-export const renderMenuItems = (
-  configVariant: ConfigVariant,
-  fnCreateCraftItem
-) => {
+export const renderMenuItems = (configVariant: ConfigVariant, fnCreateCraftItem) => {
   const { subItems } = generateConfigSections(configVariant);
   return (
     <>
       {subItems?.map((subItem) => (
         <SubMenu
           label={subItem.label}
-          icon={
-            <subItem.Icon
-              style={{ fill: "currentColor", width: "100%", height: "100%" }}
-            />
-          }
+          icon={<subItem.Icon style={{ fill: 'currentColor', width: '100%', height: '100%' }} />}
           key={subItem.label}
         >
           {renderSubItems(subItem.subItems, fnCreateCraftItem)}
@@ -40,12 +33,9 @@ export const renderMenuItems = (
   );
 };
 
-const renderSubItems = (
-  subItems: Array<MenuItemProps & { isSubmenu: boolean }>,
-  fnCreateCraftItem
-) => {
+const renderSubItems = (subItems: Array<MenuItemProps & { isSubmenu: boolean }>, fnCreateCraftItem) => {
   return (
-    <div className="pl-20">
+    <div className='pl-20'>
       {Array.isArray(subItems) &&
         subItems?.map((item, idx) => {
           const {
@@ -62,15 +52,16 @@ const renderSubItems = (
             return (
               <SubMenu
                 label={label}
-                icon={ Icon &&
-                  <Icon
-                    style={{
-                      fill: "currentColor",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                
+                icon={
+                  Icon && (
+                    <Icon
+                      style={{
+                        fill: 'currentColor',
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+                  )
                 }
                 key={idx}
               >
@@ -79,28 +70,21 @@ const renderSubItems = (
             );
           } else {
             return (
-              <MenuItem rootStyles={{
-                [`.${menuClasses.button}`]: {
-                  cursor: "default!important",
-                }
-              }}
-              key={idx}
+              <MenuItem
+                rootStyles={{
+                  [`.${menuClasses.button}`]: {
+                    cursor: 'default!important',
+                  },
+                }}
+                key={idx}
               >
-                {" "}
+                {' '}
                 <div
-                  className="flex justify-center"
-                  ref={(ref) =>
-                    fnCreateCraftItem(
-                      ref,
-                      <CraftElement {...overwritePropsCraft} />
-                    )
-                  }
+                  className='flex justify-center'
+                  ref={(ref) => fnCreateCraftItem(ref, <CraftElement {...overwritePropsCraft} />)}
                 >
-                  <Tooltip title="Drag and drop to use this" placement="right">
-                    <ViewElement
-                      className="cursor-move"
-                      {...overwritePropsView}
-                    />                    
+                  <Tooltip title='Drag and drop to use this' placement='right'>
+                    <ViewElement className='cursor-move' {...overwritePropsView} />
                   </Tooltip>
                 </div>
               </MenuItem>

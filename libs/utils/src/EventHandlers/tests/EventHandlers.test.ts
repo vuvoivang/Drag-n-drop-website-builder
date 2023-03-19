@@ -56,9 +56,7 @@ describe('EventHandlers', () => {
         });
         it('should stopPropagation on parent DOM element', () => {
           expect(handlers.select.events.mousedown).toHaveBeenCalledTimes(1);
-          expect(
-            handlers.select.events.mousedown.mock.calls[0][0].target
-          ).toEqual(childDom);
+          expect(handlers.select.events.mousedown.mock.calls[0][0].target).toEqual(childDom);
         });
       });
 
@@ -73,12 +71,7 @@ describe('EventHandlers', () => {
         it('should reattach connector if opts changed', () => {
           connectorsUsage.connectors.select(dom, 'node-a');
           expect(handlers.select.cleanup).toHaveBeenCalledTimes(1);
-          expect(handlers.select.init).toHaveBeenNthCalledWith(
-            1,
-            dom,
-            'node-a',
-            undefined
-          );
+          expect(handlers.select.init).toHaveBeenNthCalledWith(1, dom, 'node-a', undefined);
         });
       });
     });

@@ -8,6 +8,4 @@ export type LayerManagerContext = {
   store: LayerStore;
 };
 
-export const LayerManagerContext = createContext<LayerManagerContext>(
-  {} as LayerManagerContext
-);
+export const LayerManagerContext = createContext<LayerManagerContext>({} as LayerManagerContext);

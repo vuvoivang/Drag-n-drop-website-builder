@@ -1,34 +1,35 @@
-.toolbar-dropdown{
-    &_container{
-        margin-top: 16px !important;
-        // .MuiInput-underline {
-        //     &:before {
-        //         border-bottom: 1px solid $color-secondary;
-        //     }
-    
-        //     &:after {
-        //         border-bottom: 1px solid $color-secondary;
-        //     }
-    
-        //     &:hover:not(.Mui-disabled):before {
-        //         border-bottom: 1px solid $color-secondary;
-        //     }
-        // }
-        // .MuiSelect-icon {
-        //     color: $color-secondary;
-        // }
-        min-width: 180px;
-        display: flex;
-        flex-direction: row !important;
-        align-items: center;
-        .MuiPaper-root.MuiMenu-paper {
-            top: 120px !important;
-        }
+@use '../common/var.module.scss';
+
+.toolbar-dropdown {
+  font-size: 12px !important;
+
+  &_container {
+    margin-top: 10px !important;
+    // .MuiInput-underline {
+    //     &:before {
+    //         border-bottom: 1px solid $color-secondary;
+    //     }
+
+    //     &:after {
+    //         border-bottom: 1px solid $color-secondary;
+    //     }
+
+    //     &:hover:not(.Mui-disabled):before {
+    //         border-bottom: 1px solid $color-secondary;
+    //     }
+    // }
+    // .MuiSelect-icon {
+    //     color: $color-secondary;
+    // }
+    min-width: 180px;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    .MuiPaper-root.MuiMenu-paper {
+      top: 120px !important;
     }
-    &__select{
-        min-width: 120px;
-        color: #000000 !important;
-        font-size: 14px!important;
-    }
-    
+  }
+  &__select {
+    min-width: 120px;
+  }
 }

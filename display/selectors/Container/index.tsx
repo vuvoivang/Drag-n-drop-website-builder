@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { Resizer } from "../Resizer";
-import { ContainerProps } from "../../raw-components/Container/props";
-import cx from "classnames";
+import { Resizer } from '../Resizer';
+import { ContainerProps } from '../../raw-components/Container/props';
+import cx from 'classnames';
 
-import { defaultProps } from "../../raw-components/Container/props";
-import { ContainerSettings } from "./setting";
-import { UserComponent } from "@libs/interfaces";
-import { useNode } from "@libs/hooks";
+import { defaultProps } from '../../raw-components/Container/props';
+import { ContainerSettings } from './setting';
+import { UserComponent } from '@libs/interfaces';
+import { useNode } from '@libs/hooks';
 
 export const craftConfig = {
-  displayName: "Container",
+  displayName: 'Container',
   props: defaultProps,
   rules: {
     canDrag: () => true,
@@ -40,14 +40,12 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
     children,
     styledClassNames,
   } = props;
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const { id } = useNode();
   return (
     <Resizer
-      propKey={{ width: "width", height: "height" }}
-      className={cx(["flex container", styledClassNamesValues])}
+      propKey={{ width: 'width', height: 'height' }}
+      className={cx(['flex container', styledClassNamesValues])}
       style={{
         justifyContent,
         flexDirection,
@@ -56,12 +54,9 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
         color: `rgba(${Object.values(color)})`,
         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-        boxShadow:
-          shadow === 0
-            ? "none"
-            : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
+        boxShadow: shadow === 0 ? 'none' : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
         borderRadius: `${radius}px`,
-        flex: fillSpace === "yes" ? 1 : "unset",
+        flex: fillSpace === 'yes' ? 1 : 'unset',
       }}
       id={id}
     >

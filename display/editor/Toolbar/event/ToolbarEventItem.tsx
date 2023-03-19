@@ -1,30 +1,22 @@
-import { useEditor, useNode } from "libs/core/src";
-import {
-  Grid,
-  Slider,
-  RadioGroup,
-  MenuItem,
-  FormGroup,
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import UpdateIcon from "@material-ui/icons/Update";
-import { withStyles } from "@material-ui/core/styles";
-import React from "react";
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import { useEditor, useNode } from 'libs/core/src';
+import { Grid, Slider, RadioGroup, MenuItem, FormGroup } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import UpdateIcon from '@material-ui/icons/Update';
+import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import ImageUploading, { ImageListType } from 'react-images-uploading';
 
-import { ToolbarDropdown } from "../ToolbarDropdown";
-import { ToolbarTextInput } from "../ToolbarTextInput";
-import { ToolbarRadio } from "../ToolbarRadio";
-import { ToolbarCheckbox } from "../ToolbarCheckbox";
+import { ToolbarDropdown } from '../ToolbarDropdown';
+import { ToolbarTextInput } from '../ToolbarTextInput';
+import { ToolbarRadio } from '../ToolbarRadio';
+import { ToolbarCheckbox } from '../ToolbarCheckbox';
 
-import {
-  PLACEHOLDER_IMAGE_URL,
-  STYLED_CLASSNAMES_KEY,
-} from "display/constants";
-import { makeStyles } from "@material-ui/core/styles";
-import { serializedPopupNodeForPage } from "@libs/utils";
-import { getRandomId as getRandomNodeId } from "libs/utils/src";
-import styled from "styled-components";
+import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from 'display/constants';
+import { makeStyles } from '@material-ui/core/styles';
+import { serializedPopupNodeForPage } from '@libs/utils';
+import { getRandomId as getRandomNodeId } from 'libs/utils/src';
+import styled from 'styled-components';
+import _var from '../../../styles/common/_var.module.scss';
 
 const Btn = styled.a`
   display: flex;
@@ -38,7 +30,7 @@ const Btn = styled.a`
     margin-right: 6px;
     width: 12px;
     height: 12px;
-    fill: #fff;
+    fill: ${_var.whiteColor};
     opacity: 0.9;
   }
 `;
@@ -63,11 +55,11 @@ export type ToolbarEventItemProps = Partial<{
 
 const useMenuItemStyles = makeStyles({
   root: {
-    fontSize: "14px",
+    fontSize: '14px',
   },
 });
 
-const EVENT_KEYS_WITH_MOUSE_OVER_SELECT = ["href"];
+const EVENT_KEYS_WITH_MOUSE_OVER_SELECT = ['href'];
 
 export const ToolbarEventItem = ({
   full = false,
@@ -79,11 +71,7 @@ export const ToolbarEventItem = ({
   ...props
 }: ToolbarEventItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
-  const {
-    actions,
-    query,
-    currentPage,
-  } = useEditor((state) => ({
+  const { actions, query, currentPage } = useEditor((state) => ({
     currentPage: state.pageOptions.currentPage,
   }));
   const {
@@ -111,19 +99,19 @@ export const ToolbarEventItem = ({
   };
   const setEventKeyValueWithPropertyName = (propName: string, value: any) => {
     setEvent((events: any) => {
-      if (typeof events[eventKey] === "object") {
+      if (typeof events[eventKey] === 'object') {
         events[eventKey][propName] = onChange ? onChange(value) : value;
       }
     });
   };
   const handleSetEventValue = (newValue: any, type: string) => {
-    if (["text"].includes(type)) {
+    if (['text'].includes(type)) {
       setEventKeyValueWithIndexAndTimeOut(newValue, 500);
-    } else if (["radio", "select"].includes(type)) {
+    } else if (['radio', 'select'].includes(type)) {
       setEventKeyValueWithoutIndex(newValue);
-    } else if (type === "checkbox") {
+    } else if (type === 'checkbox') {
       setEventKeyValueWithPropertyName(newValue.name, newValue.checked);
-    } else if (type === "oneOptionCheckbox") {
+    } else if (type === 'oneOptionCheckbox') {
       setEventKeyValueWithoutIndex(newValue.checked);
     }
   };
@@ -131,7 +119,7 @@ export const ToolbarEventItem = ({
   const handleRenderInputSetting = (type) => {
     return (
       <>
-        {["text"].includes(type) ? (
+        {['text'].includes(type) ? (
           <ToolbarTextInput
             {...props}
             type={type}
@@ -140,7 +128,7 @@ export const ToolbarEventItem = ({
               handleSetEventValue(value, type);
             }}
           />
-        ) : type === "radio" ? (
+        ) : type === 'radio' ? (
           <>
             <RadioGroup
               value={value || 0}
@@ -150,15 +138,11 @@ export const ToolbarEventItem = ({
               }}
             >
               {props.radioChildren?.map((option) => (
-                <ToolbarRadio
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                />
+                <ToolbarRadio key={option.value} value={option.value} label={option.label} />
               ))}
             </RadioGroup>
           </>
-        ) : type === "checkbox" ? (
+        ) : type === 'checkbox' ? (
           <>
             <FormGroup>
               {props.checkboxChildren?.map((option) => (
@@ -178,14 +162,12 @@ export const ToolbarEventItem = ({
               ))}
             </FormGroup>
           </>
-        ) : type === "select" ? (
+        ) : type === 'select' ? (
           <ToolbarDropdown
-            value={value || ""}
+            value={value || ''}
             renderValue={(value) => {
-              const option = props.selectchildren?.find(
-                (option) => option.value === value
-              );
-              return option?.label || "Select value";
+              const option = props.selectchildren?.find((option) => option.value === value);
+              return option?.label || 'Select value';
             }}
             onChange={(value) => handleSetEventValue(value, type)}
             {...props}
@@ -195,21 +177,17 @@ export const ToolbarEventItem = ({
                 key={option.value}
                 value={option.value}
                 classes={menuItemClasses}
-                onMouseOver={
-                  appliedMouseOverEventSelect
-                    ? () => handleOnMouseOver(option.value)
-                    : undefined
-                }
+                onMouseOver={appliedMouseOverEventSelect ? () => handleOnMouseOver(option.value) : undefined}
               >
                 {option.label}
               </MenuItem>
             ))}
           </ToolbarDropdown>
-        ) : type === "popup" ? (
+        ) : type === 'popup' ? (
           <div>
             {!value ? (
               <Btn
-                className="transition cursor-pointer bg-primary text-center rounded-md px-4 py-2 bg-green-400 text-white"
+                className='transition cursor-pointer text-center rounded-md px-4 py-2 bg-sky-500 text-white'
                 onClick={createNewPopup}
               >
                 Create pop up
@@ -217,16 +195,16 @@ export const ToolbarEventItem = ({
             ) : (
               <FormGroup>
                 <ToolbarCheckbox
-                  value={"showPopup"}
-                  name={"checkboxShowPopup"}
-                  label={"Show popup"}
+                  value={'showPopup'}
+                  name={'checkboxShowPopup'}
+                  label={'Show popup'}
                   checked={!!getCurrentShowPopup()}
                   onChange={(e) => togglePopup(e.target.checked)}
                 />
               </FormGroup>
             )}
           </div>
-        ) : type === "oneOptionCheckbox" ? (
+        ) : type === 'oneOptionCheckbox' ? (
           <>
             <FormGroup>
               {props.checkboxChildren?.map((option) => (
@@ -252,13 +230,12 @@ export const ToolbarEventItem = ({
     );
   };
   const handleOnMouseOver = (id) => {
-    if (eventKey === "href") {
-      actions.setNodeEvent("hovered", id);
+    if (eventKey === 'href') {
+      actions.setNodeEvent('hovered', id);
     }
   };
   const createNewPopup = () => {
-    const rootNodeIdThisPage =
-      currentPage.length > 1 ? `ROOT_${currentPage.slice(1)}` : `ROOT`;
+    const rootNodeIdThisPage = currentPage.length > 1 ? `ROOT_${currentPage.slice(1)}` : `ROOT`;
     const popupId = `Popup_${getRandomNodeId()}`;
 
     const newPopupNodeThisPage = {
@@ -272,8 +249,7 @@ export const ToolbarEventItem = ({
     // actions.add(newPopupNodeThisPage, rootNodeIdThisPage);
   };
   const getCurrentShowPopup = () => {
-    if (eventKey === "popup" && value)
-      return query.node(value)?.get().data.props.events?.showPopup;
+    if (eventKey === 'popup' && value) return query.node(value)?.get().data.props.events?.showPopup;
     else return false;
   };
   const togglePopup = (toggle) => {
@@ -281,14 +257,14 @@ export const ToolbarEventItem = ({
   };
   return (
     <Grid item xs={12}>
-      <div className="mb-2 toolbar-item-container">
-        {props.label && <h4 className="text-sm text-primary">{props.label}</h4>}
+      <div className='mb-2 toolbar-item-container'>
+        {props.label && <h4 className='text-sm text-primary'>{props.label}</h4>}
 
-        <div className="toolbar-item-setting-container p-4 pb-0">
-          <div className="default-setting-container pl-4">
+        <div className='toolbar-item-setting-container p-4 pb-0'>
+          <div className='default-setting-container pl-4'>
             {listType.map((type, keyIndex) => {
               return (
-                <div className="mb-3" key={keyIndex}>
+                <div className='mb-3' key={keyIndex}>
                   {handleRenderInputSetting(type)}
                 </div>
               );

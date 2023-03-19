@@ -9,7 +9,7 @@ import {
   CallbacksFor,
   Delete,
   ERROR_NOT_IN_RESOLVER,
-  ROOT_PATH
+  ROOT_PATH,
 } from 'libs/utils/src';
 import invariant from 'tiny-invariant';
 
@@ -35,10 +35,7 @@ import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
 
-const Methods = (
-  state: EditorState,
-  query: QueryCallbacksFor<typeof QueryMethods>
-) => {
+const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   /** Helper functions */
   const addNodeTreeToParent = (
     tree: NodeTree,
@@ -59,10 +56,7 @@ const Methods = (
       if (typeof node.data.type !== 'string') {
         invariant(
           state.options.resolver[node.data.name],
-          ERROR_NOT_IN_RESOLVER.replace(
-            '%node_type%',
-            `${(node.data.type as any).name}`
-          )
+          ERROR_NOT_IN_RESOLVER.replace('%node_type%', `${(node.data.type as any).name}`)
         );
       }
 
@@ -76,23 +70,16 @@ const Methods = (
 
       if (node.data.nodes.length > 0) {
         delete state.nodes[id].data.props.children;
-        node.data.nodes.forEach((childNodeId) =>
-          iterateChildren(childNodeId, node.id)
-        );
+        node.data.nodes.forEach((childNodeId) => iterateChildren(childNodeId, node.id));
       }
 
-      Object.values(node.data.linkedNodes).forEach((linkedNodeId) =>
-        iterateChildren(linkedNodeId, node.id)
-      );
+      Object.values(node.data.linkedNodes).forEach((linkedNodeId) => iterateChildren(linkedNodeId, node.id));
     };
 
     iterateChildren(tree.rootNodeId, parentId);
 
     if (!parentId) {
-      invariant(
-        tree.rootNodeId === ROOT_NODE,
-        'Cannot add non-root Node without a parent'
-      );
+      invariant(tree.rootNodeId === ROOT_NODE, 'Cannot add non-root Node without a parent');
 
       return;
     }
@@ -132,9 +119,7 @@ const Methods = (
     }
 
     if (targetNode.data.linkedNodes) {
-      Object.values(targetNode.data.linkedNodes).map((linkedNodeId) =>
-        deleteNode(linkedNodeId)
-      );
+      Object.values(targetNode.data.linkedNodes).map((linkedNodeId) => deleteNode(linkedNodeId));
     }
 
     const isChildNode = parentNode.data.nodes.includes(id);
@@ -143,9 +128,7 @@ const Methods = (
       const parentChildren = parentNode.data.nodes;
       parentChildren.splice(parentChildren.indexOf(id), 1);
     } else {
-      const linkedId = Object.keys(parentNode.data.linkedNodes).find(
-        (id) => parentNode.data.linkedNodes[id] === id
-      );
+      const linkedId = Object.keys(parentNode.data.linkedNodes).find((id) => parentNode.data.linkedNodes[id] === id);
       if (linkedId) {
         delete parentNode.data.linkedNodes[linkedId];
       }
@@ -230,17 +213,13 @@ const Methods = (
       });
 
       targets.forEach(({ node }) => {
-        invariant(
-          !query.node(node.id).isTopLevelNode(),
-          ERROR_DELETE_TOP_LEVEL_NODE
-        );
+        invariant(!query.node(node.id).isTopLevelNode(), ERROR_DELETE_TOP_LEVEL_NODE);
         deleteNode(node.id);
       });
     },
 
     deserialize(input: SerializedData | string) {
-      const dehydratedData =
-        typeof input == 'string' ? JSON.parse(input) : input;
+      const dehydratedData = typeof input == 'string' ? JSON.parse(input) : input;
       const dehydratedNodes = dehydratedData.nodes;
       const dehydratedPages = dehydratedData.pages;
       const nodePairs = Object.keys(dehydratedNodes).map((id) => {
@@ -250,35 +229,25 @@ const Methods = (
           nodeId = ROOT_NODE;
         }
 
-        return [
-          nodeId,
-          query
-            .parseSerializedNode(dehydratedNodes[id])
-            .toNode((node) => (node.id = nodeId)),
-        ];
+        return [nodeId, query.parseSerializedNode(dehydratedNodes[id]).toNode((node) => (node.id = nodeId))];
       });
 
       this.replaceNodes(fromEntries(nodePairs));
       this.replacePageOptions(dehydratedPages, ROOT_PATH);
     },
 
-
     addNewNodeWithSerializedData(input: SerializedNode | string, id) {
-      const dehydratedNode =
-        typeof input == 'string' ? JSON.parse(input) : input;
+      const dehydratedNode = typeof input == 'string' ? JSON.parse(input) : input;
 
-      const generatedNode =  query
-      .parseSerializedNode(dehydratedNode)
-      .toNode((node) => (node.id = id));
+      const generatedNode = query.parseSerializedNode(dehydratedNode).toNode((node) => (node.id = id));
 
       this.replaceNodes({
         ...state.nodes,
         [id]: generatedNode,
       });
 
-      if(!id.startsWith(ROOT_NODE)) this.addChildren( generatedNode.data.parent, id);
+      if (!id.startsWith(ROOT_NODE)) this.addChildren(generatedNode.data.parent, id);
     },
-
 
     /**
      * Move a target Node to a new Parent at a given index
@@ -341,10 +310,7 @@ const Methods = (
       cb(state.options);
     },
 
-    setNodeEvent(
-      eventType: NodeEventTypes,
-      nodeIdSelector: NodeSelector<NodeSelectorType.Id>
-    ) {
+    setNodeEvent(eventType: NodeEventTypes, nodeIdSelector: NodeSelector<NodeSelectorType.Id>) {
       state.events[eventType].forEach((id) => {
         if (state.nodes[id]) {
           state.nodes[id].events[eventType] = false;
@@ -403,9 +369,7 @@ const Methods = (
     setIndicator(indicator: Indicator | null) {
       if (
         indicator &&
-        (!indicator.placement.parent.dom ||
-          (indicator.placement.currentNode &&
-            !indicator.placement.currentNode.dom))
+        (!indicator.placement.parent.dom || (indicator.placement.currentNode && !indicator.placement.currentNode.dom))
       )
         return;
       state.indicator = indicator;
@@ -425,10 +389,7 @@ const Methods = (
      * @param id
      * @param cb
      */
-    setProp(
-      selector: NodeSelector<NodeSelectorType.Id>,
-      cb: (props: any) => void
-    ) {
+    setProp(selector: NodeSelector<NodeSelectorType.Id>, cb: (props: any) => void) {
       const targets = getNodesFromSelector(state.nodes, selector, {
         idOnly: true,
         existOnly: true,
@@ -459,11 +420,11 @@ const Methods = (
      * @param id
      * @param page
      */
-     replacePageOptions(pages: PageData[], currentPage: string) {
+    replacePageOptions(pages: PageData[], currentPage: string) {
       state.pageOptions = {
         pages,
         currentPage,
-      }
+      };
     },
     /**
      * Set page of a Node
@@ -494,18 +455,18 @@ const Methods = (
     addNewPage(page: PageData) {
       state.pageOptions.pages.push(page);
     },
-     /**
+    /**
      * Delete a page and all nodes in that page
      * @param removedPage: path of page to be deleted
      */
     deletePage(removedPage: string) {
-      state.pageOptions.pages = state.pageOptions.pages.filter(pageData => pageData.path !== removedPage);
+      state.pageOptions.pages = state.pageOptions.pages.filter((pageData) => pageData.path !== removedPage);
       // change to new page if current page is deleted
-      if(state.pageOptions.currentPage === removedPage) {
+      if (state.pageOptions.currentPage === removedPage) {
         state.pageOptions.currentPage = state.pageOptions.pages[0]?.path;
       }
       Object.entries(state.nodes).forEach(([key, value]) => {
-        if(value.data.page === removedPage) {
+        if (value.data.page === removedPage) {
           deleteNode(key);
         }
       });
@@ -515,17 +476,14 @@ const Methods = (
      * @param id
      * @param cb
      */
-     setEvent(
-      selector: NodeSelector<NodeSelectorType.Id>,
-      cb: (events: any) => void
-    ) {
+    setEvent(selector: NodeSelector<NodeSelectorType.Id>, cb: (events: any) => void) {
       const targets = getNodesFromSelector(state.nodes, selector, {
         idOnly: true,
         existOnly: true,
       });
 
       targets.forEach(({ node }) => {
-        if(!state.nodes[node.id].data.props.events) {
+        if (!state.nodes[node.id].data.props.events) {
           state.nodes[node.id].data.props.events = {};
         }
         cb(state.nodes[node.id].data.props.events);
@@ -537,28 +495,17 @@ const Methods = (
      * @param childrenId
      */
     addChildren(id: NodeId, childrenId: NodeId) {
-      state.nodes[id].data.nodes = [
-        ...state.nodes[id].data.nodes,
-        childrenId,
-      ];
+      state.nodes[id].data.nodes = [...state.nodes[id].data.nodes, childrenId];
     },
   };
 };
 
-export const ActionMethods = (
-  state: EditorState,
-  query: QueryCallbacksFor<typeof QueryMethods>
-) => {
+export const ActionMethods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   return {
     ...Methods(state, query),
     // Note: Beware: advanced method! You most likely don't need to use this
     // TODO: fix parameter types and cleanup the method
-    setState(
-      cb: (
-        state: EditorState,
-        actions: Delete<CallbacksFor<typeof Methods>, 'history'>
-      ) => void
-    ) {
+    setState(cb: (state: EditorState, actions: Delete<CallbacksFor<typeof Methods>, 'history'>) => void) {
       const { history, ...actions } = this;
 
       // We pass the other actions as the second parameter, so that devs could still make use of the predefined actions

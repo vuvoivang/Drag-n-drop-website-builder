@@ -7,9 +7,9 @@ module.exports = {
     ignoreBuildErrors: true,
     compiler: {
       styledComponents: true,
-    }
+    },
   },
   compiler: {
     styledComponents: true,
-  }
+  },
 };

@@ -1,19 +1,15 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Arrow from "../../../../public/icons/arrow.svg";
+import Arrow from '../../../../public/icons/arrow.svg';
+import _var from '../../../styles/common/_var.module.scss';
 
 const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
-  height: ${(props) =>
-    props.visible && props.height && props.height !== "full"
-      ? `${props.height}`
-      : "auto"};
-  flex: ${(props) =>
-    props.visible && props.height && props.height === "full" ? `1` : "unset"};
-  color: #000000;
+  height: ${(props) => (props.visible && props.height && props.height !== 'full' ? `${props.height}` : 'auto')};
+  flex: ${(props) => (props.visible && props.height && props.height === 'full' ? `1` : 'unset')};
+  color: ${_var.secondaryColor};
   overflow: auto;
-  display: ${(props) =>
-    props.visible ? `flex` : "none"};
+  display: ${(props) => (props.visible ? `flex` : 'none')};
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`
@@ -35,13 +31,13 @@ export type SidebarItemProps = {
   onChange?: (bool: boolean) => void;
 };
 
-const HeaderDiv = styled.div`
-  color: #000000;
-  height: 45px;
-  svg {
-    fill: #000000;
-  }
-`;
+// const HeaderDiv = styled.div`
+//   color: ${_var.secondaryColor};
+//   height: 45px;
+//   svg {
+//     fill: ${_var.secondaryColor};
+//   }
+// `;
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
   visible,
@@ -54,16 +50,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 }) => {
   // if (!visible) return <></>;
   return (
-    <SidebarItemDiv
-      {...props}
-      visible={visible}
-      height={height}
-      className="flex flex-col"
-    >
+    <SidebarItemDiv {...props} visible={visible} height={height} className='flex flex-col'>
       {/* {visible ? (
         <div className="w-full flex-1 overflow-auto">{children}</div>
       ) : null} */}
-       <div className="w-full flex-1 overflow-auto">{children}</div>
+      <div className='w-full flex-1 overflow-auto'>{children}</div>
     </SidebarItemDiv>
   );
 };

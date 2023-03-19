@@ -3,10 +3,7 @@ import invariant from 'tiny-invariant';
 
 import { Resolver } from '../interfaces';
 
-export const resolveComponent = (
-  resolver: Resolver,
-  comp: React.ElementType | string
-) => {
+export const resolveComponent = (resolver: Resolver, comp: React.ElementType | string) => {
   const componentName = (comp as any).name || (comp as any).displayName;
 
   const getNameInResolver = () => {
@@ -30,10 +27,7 @@ export const resolveComponent = (
 
   const resolvedName = getNameInResolver();
 
-  invariant(
-    resolvedName,
-    ERROR_NOT_IN_RESOLVER.replace('%node_type%', componentName)
-  );
+  invariant(resolvedName, ERROR_NOT_IN_RESOLVER.replace('%node_type%', componentName));
 
   return resolvedName;
 };
