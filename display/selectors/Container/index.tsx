@@ -7,12 +7,14 @@ import cx from "classnames";
 import { defaultProps } from "../../raw-components/Container/props";
 import { ContainerSettings } from "./setting";
 import { UserComponent } from "@libs/interfaces";
+import { useNode } from "@libs/hooks";
 
 export const craftConfig = {
   displayName: "Container",
   props: defaultProps,
   rules: {
     canDrag: () => true,
+    canMoveIn: () => true,
   },
   related: {
     settings: ContainerSettings,
@@ -41,6 +43,7 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
   const styledClassNamesValues = (
     Object.values(styledClassNames) as string[]
   ).flat();
+  const { id } = useNode();
   return (
     <Resizer
       propKey={{ width: "width", height: "height" }}
@@ -60,6 +63,7 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
         borderRadius: `${radius}px`,
         flex: fillSpace === "yes" ? 1 : "unset",
       }}
+      id={id}
     >
       {children}
     </Resizer>

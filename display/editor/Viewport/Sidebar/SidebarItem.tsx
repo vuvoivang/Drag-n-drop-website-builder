@@ -12,6 +12,8 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
     props.visible && props.height && props.height === "full" ? `1` : "unset"};
   color: #000000;
   overflow: auto;
+  display: ${(props) =>
+    props.visible ? `flex` : "none"};
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`
@@ -50,7 +52,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   onChange,
   ...props
 }) => {
-  if (!visible) return <></>;
+  // if (!visible) return <></>;
   return (
     <SidebarItemDiv
       {...props}
@@ -58,9 +60,10 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       height={height}
       className="flex flex-col"
     >
-      {visible ? (
+      {/* {visible ? (
         <div className="w-full flex-1 overflow-auto">{children}</div>
-      ) : null}
+      ) : null} */}
+       <div className="w-full flex-1 overflow-auto">{children}</div>
     </SidebarItemDiv>
   );
 };

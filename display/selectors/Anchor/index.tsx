@@ -51,6 +51,7 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
   const { pageNavigate, absoluteUrlNavigate, href, clickType } = events;
 
   const handleNavigate = () => {
+    if(isUsedHref) return;
     if(pageNavigate || absoluteUrlNavigate){
       const desUrl = pageNavigate || absoluteUrlNavigate;
       window.location.href = desUrl;
@@ -70,7 +71,7 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
         },
         styledClassNamesValues,
       ])}
-      href={enabledEvent && isUsedHref ? href : "#"}
+      href={enabledEvent && isUsedHref ? '#' + href : undefined}
       onClick={enabledEvent && !isUsedHref && onClick ? onClick : mapClickEvent[clickType]}
       {...otherProps}
     >

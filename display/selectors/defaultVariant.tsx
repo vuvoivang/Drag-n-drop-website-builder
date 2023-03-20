@@ -26,6 +26,7 @@ import {
   Anchor,
 } from "display/raw-components";
 import { ConfigVariant } from "./renderVariant";
+import { Element } from "@libs/nodes";
 
 export const DEFAULT_VARIANTS: ConfigVariant = {
   subItems: [
@@ -293,11 +294,11 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
       subItems: [
         {
           isSubmenu: false,
-          CraftElement: CraftContainer,
+          CraftElement: Element,
           ViewElement: Container,
           overwritePropsCraft: {
             canvas: true,
-            is: { CraftContainer },
+            is: CraftContainer,
             background: { r: 78, g: 78, b: 78, a: 1 },
             color: { r: 0, g: 0, b: 0, a: 1 },
             height: "300px",
@@ -312,7 +313,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
         },
         {
           isSubmenu: false,
-          CraftElement: CraftContainer,
+          CraftElement: Element,
           ViewElement: Container,
           overwritePropsCraft: {
             background: { r: 200, g: 61, b: 61, a: 1 },
@@ -329,7 +330,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
         },
         {
           isSubmenu: false,
-          CraftElement: CraftContainer,
+          CraftElement: Element,
           ViewElement: Container,
           overwritePropsCraft: {
             background: { r: 200, g: 61, b: 61, a: 1 },
@@ -349,7 +350,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
         },
         {
           isSubmenu: false,
-          CraftElement: CraftContainer,
+          CraftElement: Element,
           ViewElement: Container,
           overwritePropsCraft: {
             canvas: true,
@@ -368,7 +369,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
         },
         {
           isSubmenu: false,
-          CraftElement: CraftContainer,
+          CraftElement: Element,
           ViewElement: Container,
           overwritePropsCraft: {
             canvas: true,
@@ -614,6 +615,52 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
           CraftElement: CraftAnchor,
           ViewElement: Anchor,
           overwritePropsCraft: {
+            color: { r: "0", g: "0", b: "0", a: "1" },
+            background: { r: "0", g: "0", b: "0", a: "0" },
+            fontSize: "16",
+            width: "auto",
+            fontWeight: "400",
+            anchorStyle: "outline",
+            text: "Link without shadow",
+          },
+          overwritePropsView: {
+            color: { r: "0", g: "0", b: "0", a: "1" },
+            background: { r: "0", g: "0", b: "0", a: "0" },
+            fontSize: "16",
+            width: "auto",
+            fontWeight: "400",
+            anchorStyle: "outline",
+            text: "Link without shadow",
+          },
+        },
+        {
+          isSubmenu: false,
+          CraftElement: CraftAnchor,
+          ViewElement: Anchor,
+          overwritePropsCraft: {
+            color: { r: "255", g: "0", b: "0", a: "1" },
+            background: { r: "0", g: "0", b: "0", a: "0" },
+            fontSize: "16",
+            width: "auto",
+            fontWeight: "400",
+            anchorStyle: "outline",
+            text: "Link without shadow",
+          },
+          overwritePropsView: {
+            color: { r: "255", g: "0", b: "0", a: "1" },
+            background: { r: "0", g: "0", b: "0", a: "0" },
+            fontSize: "16",
+            width: "auto",
+            fontWeight: "400",
+            anchorStyle: "outline",
+            text: "Link without shadow",
+          },
+        },
+        {
+          isSubmenu: false,
+          CraftElement: CraftAnchor,
+          ViewElement: Anchor,
+          overwritePropsCraft: {
             color: { r: "255", g: "255", b: "255", a: "1" },
             background: { r: "197", g: "8", b: "41", a: "1" },
             fontSize: "16",
@@ -624,6 +671,27 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
           overwritePropsView: {
             color: { r: "255", g: "255", b: "255", a: "1" },
             background: { r: "197", g: "8", b: "41", a: "1" },
+            fontSize: "16",
+            width: "50%",
+            fontWeight: "400",
+            text: "Link",
+          },
+        },
+        {
+          isSubmenu: false,
+          CraftElement: CraftAnchor,
+          ViewElement: Anchor,
+          overwritePropsCraft: {
+            color: { r: "0", g: "255", b: "255", a: "1" },
+            background: { r: "0", g: "8", b: "41", a: "1" },
+            fontSize: "16",
+            width: "50%",
+            fontWeight: "400",
+            text: "Link",
+          },
+          overwritePropsView: {
+            color: { r: "0", g: "255", b: "255", a: "1" },
+            background: { r: "0", g: "8", b: "41", a: "1" },
             fontSize: "16",
             width: "50%",
             fontWeight: "400",
