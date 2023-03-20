@@ -15,7 +15,8 @@ const RenderRootNode = () => {
   const { currentPageRootNodeId, timestamp } = useInternalEditor((state) => ({
     currentPageRootNodeId: getCurrentRootNodeId(state.pageOptions.currentPage),
     timestamp:
-      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)] && state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)]._hydrationTimestamp,
+      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)] &&
+      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)]._hydrationTimestamp,
   }));
 
   if (!timestamp) {
@@ -48,9 +49,7 @@ export const Frame: React.FC<Frame> = ({ children, json, data }) => {
     if (initialData) {
       actions.history.ignore().deserialize(initialData);
     } else if (initialChildren) {
-      const rootNode = React.Children.only(
-        initialChildren
-      ) as React.ReactElement;
+      const rootNode = React.Children.only(initialChildren) as React.ReactElement;
 
       const node = query.parseReactElement(rootNode).toNodeTree((node, jsx) => {
         if (jsx === rootNode) {

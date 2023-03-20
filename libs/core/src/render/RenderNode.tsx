@@ -1,17 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import { DefaultRender } from "./DefaultRender";
+import { DefaultRender } from './DefaultRender';
 
-import { useInternalEditor } from "../editor/useInternalEditor";
-import { useInternalNode } from "../nodes/useInternalNode";
-import { getCurrentRootNodeId } from "../utils/getCurrentPageRootNodeId";
+import { useInternalEditor } from '../editor/useInternalEditor';
+import { useInternalNode } from '../nodes/useInternalNode';
+import { getCurrentRootNodeId } from '../utils/getCurrentPageRootNodeId';
 
 type RenderNodeToElementType = {
   render?: React.ReactElement;
 };
-export const RenderNodeToElement: React.FC<RenderNodeToElementType> = ({
-  render,
-}) => {
+export const RenderNodeToElement: React.FC<RenderNodeToElementType> = ({ render }) => {
   const { id, hidden, page } = useInternalNode((node) => ({
     id: node.id,
     hidden: node.data.hidden,

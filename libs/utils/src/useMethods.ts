@@ -1,10 +1,5 @@
 // https://github.com/pelotom/use-methods
-import produce, {
-  Patch,
-  produceWithPatches,
-  enableMapSet,
-  enablePatches,
-} from 'immer';
+import produce, { Patch, produceWithPatches, enableMapSet, enablePatches } from 'immer';
 import isEqualWith from 'lodash/isEqualWith';
 import { useMemo, useEffect, useRef, useReducer, useCallback } from 'react';
 
@@ -14,10 +9,7 @@ import { Delete } from './utilityTypes';
 enableMapSet();
 enablePatches();
 
-export type SubscriberAndCallbacksFor<
-  M extends MethodsOrOptions,
-  Q extends QueryMethods = any
-> = {
+export type SubscriberAndCallbacksFor<M extends MethodsOrOptions, Q extends QueryMethods = any> = {
   subscribe: Watcher<StateFor<M>>['subscribe'];
   getState: () => { prev: StateFor<M>; current: StateFor<M> };
   actions: CallbacksFor<M>;
@@ -25,50 +17,33 @@ export type SubscriberAndCallbacksFor<
   history: History;
 };
 
-export type StateFor<M extends MethodsOrOptions> = M extends MethodsOrOptions<
-  infer S,
-  any
->
-  ? S
-  : never;
+export type StateFor<M extends MethodsOrOptions> = M extends MethodsOrOptions<infer S, any> ? S : never;
 /**
   Use to get the callbacks return of methods or options 
 */
-export type CallbacksFor<
-  M extends MethodsOrOptions
-> = M extends MethodsOrOptions<any, infer R>
+export type CallbacksFor<M extends MethodsOrOptions> = M extends MethodsOrOptions<any, infer R>
   ? {
-      [T in ActionUnion<R>['type']]: (
-        ...payload: ActionByType<ActionUnion<R>, T>['payload']
-      ) => void;
+      [T in ActionUnion<R>['type']]: (...payload: ActionByType<ActionUnion<R>, T>['payload']) => void;
     } & {
       history: {
         undo: () => void;
         redo: () => void;
         clear: () => void;
-        throttle: (
-          rate?: number
-        ) => Delete<
+        throttle: (rate?: number) => Delete<
           {
-            [T in ActionUnion<R>['type']]: (
-              ...payload: ActionByType<ActionUnion<R>, T>['payload']
-            ) => void;
+            [T in ActionUnion<R>['type']]: (...payload: ActionByType<ActionUnion<R>, T>['payload']) => void;
           },
           M extends Options ? M['ignoreHistoryForActions'][number] : never
         >;
         merge: () => Delete<
           {
-            [T in ActionUnion<R>['type']]: (
-              ...payload: ActionByType<ActionUnion<R>, T>['payload']
-            ) => void;
+            [T in ActionUnion<R>['type']]: (...payload: ActionByType<ActionUnion<R>, T>['payload']) => void;
           },
           M extends Options ? M['ignoreHistoryForActions'][number] : never
         >;
         ignore: () => Delete<
           {
-            [T in ActionUnion<R>['type']]: (
-              ...payload: ActionByType<ActionUnion<R>, T>['payload']
-            ) => void;
+            [T in ActionUnion<R>['type']]: (...payload: ActionByType<ActionUnion<R>, T>['payload']) => void;
           },
           M extends Options ? M['ignoreHistoryForActions'][number] : never
         >;
@@ -76,10 +51,7 @@ export type CallbacksFor<
     }
   : {};
 
-export type Methods<S = any, R extends MethodRecordBase<S> = any, Q = any> = (
-  state: S,
-  query: Q
-) => R;
+export type Methods<S = any, R extends MethodRecordBase<S> = any, Q = any> = (state: S, query: Q) => R;
 
 export type Options<S = any, R extends MethodRecordBase<S> = any, Q = any> = {
   methods: Methods<S, R, Q>;
@@ -87,16 +59,11 @@ export type Options<S = any, R extends MethodRecordBase<S> = any, Q = any> = {
   normalizeHistory?: (state: S) => void;
 };
 
-export type MethodsOrOptions<
-  S = any,
-  R extends MethodRecordBase<S> = any,
-  Q = any
-> = Methods<S, R, Q> | Options<S, R, Q>;
+export type MethodsOrOptions<S = any, R extends MethodRecordBase<S> = any, Q = any> =
+  | Methods<S, R, Q>
+  | Options<S, R, Q>;
 
-export type MethodRecordBase<S = any> = Record<
-  string,
-  (...args: any[]) => S extends object ? S | void : S
->;
+export type MethodRecordBase<S = any> = Record<string, (...args: any[]) => S extends object ? S | void : S>;
 
 export type Action<T = any, P = any> = {
   type: T;
@@ -108,26 +75,12 @@ export type ActionUnion<R extends MethodRecordBase> = {
   [T in keyof R]: { type: T; payload: Parameters<R[T]> };
 }[keyof R];
 
-export type ActionByType<A, T> = A extends { type: infer T2 }
-  ? T extends T2
-    ? A
-    : never
-  : never;
+export type ActionByType<A, T> = A extends { type: infer T2 } ? (T extends T2 ? A : never) : never;
 
-export type QueryMethods<
-  S = any,
-  O = any,
-  R extends MethodRecordBase<S> = any
-> = (state?: S, options?: O) => R;
-export type QueryCallbacksFor<M extends QueryMethods> = M extends QueryMethods<
-  any,
-  any,
-  infer R
->
+export type QueryMethods<S = any, O = any, R extends MethodRecordBase<S> = any> = (state?: S, options?: O) => R;
+export type QueryCallbacksFor<M extends QueryMethods> = M extends QueryMethods<any, any, infer R>
   ? {
-      [T in ActionUnion<R>['type']]: (
-        ...payload: ActionByType<ActionUnion<R>, T>['payload']
-      ) => ReturnType<R[T]>;
+      [T in ActionUnion<R>['type']]: (...payload: ActionByType<ActionUnion<R>, T>['payload']) => ReturnType<R[T]>;
     } & {
       history: {
         canUndo: () => boolean;
@@ -142,11 +95,7 @@ export type PatchListenerAction<S, M extends MethodsOrOptions> = {
   patches: Patch[];
 };
 
-export type PatchListener<
-  S,
-  M extends MethodsOrOptions,
-  Q extends QueryMethods
-> = (
+export type PatchListener<S, M extends MethodsOrOptions, Q extends QueryMethods> = (
   newState: S,
   previousState: S,
   actionPerformedWithPatches: PatchListenerAction<S, M>,
@@ -159,36 +108,20 @@ export function useMethods<S, R extends MethodRecordBase<S>>(
   initialState: any
 ): SubscriberAndCallbacksFor<MethodsOrOptions<S, R>>;
 
-export function useMethods<
-  S,
-  R extends MethodRecordBase<S>,
-  Q extends QueryMethods
->(
+export function useMethods<S, R extends MethodRecordBase<S>, Q extends QueryMethods>(
   methodsOrOptions: MethodsOrOptions<S, R, QueryCallbacksFor<Q>>, // methods to manipulate the state
   initialState: any,
   queryMethods: Q
 ): SubscriberAndCallbacksFor<MethodsOrOptions<S, R>, Q>;
 
-export function useMethods<
-  S,
-  R extends MethodRecordBase<S>,
-  Q extends QueryMethods
->(
+export function useMethods<S, R extends MethodRecordBase<S>, Q extends QueryMethods>(
   methodsOrOptions: MethodsOrOptions<S, R, QueryCallbacksFor<Q>>, // methods to manipulate the state
   initialState: any,
   queryMethods: Q,
-  patchListener: PatchListener<
-    S,
-    MethodsOrOptions<S, R, QueryCallbacksFor<Q>>,
-    Q
-  >
+  patchListener: PatchListener<S, MethodsOrOptions<S, R, QueryCallbacksFor<Q>>, Q>
 ): SubscriberAndCallbacksFor<MethodsOrOptions<S, R>, Q>;
 
-export function useMethods<
-  S,
-  R extends MethodRecordBase<S>,
-  Q extends QueryMethods = null
->(
+export function useMethods<S, R extends MethodRecordBase<S>, Q extends QueryMethods = null>(
   methodsOrOptions: MethodsOrOptions<S, R>,
   initialState: any,
   queryMethods?: Q,
@@ -218,65 +151,50 @@ export function useMethods<
 
     return [
       (state: S, action: Action) => {
-        const query =
-          queryMethods && createQuery(queryMethods, () => state, history);
+        const query = queryMethods && createQuery(queryMethods, () => state, history);
 
         let finalState;
-        let [nextState, patches, inversePatches] = (produceWithPatches as any)(
-          state,
-          (draft: S) => {
-            switch (action.type) {
-              case HISTORY_ACTIONS.UNDO: {
-                return history.undo(draft);
-              }
-              case HISTORY_ACTIONS.REDO: {
-                return history.redo(draft);
-              }
-              case HISTORY_ACTIONS.CLEAR: {
-                history.clear();
-                return {
-                  ...draft,
-                };
-              }
-
-              // TODO: Simplify History API
-              case HISTORY_ACTIONS.IGNORE:
-              case HISTORY_ACTIONS.MERGE:
-              case HISTORY_ACTIONS.THROTTLE: {
-                const [type, ...params] = action.payload;
-                methods(draft, query)[type](...params);
-                break;
-              }
-              default:
-                methods(draft, query)[action.type](...action.payload);
+        let [nextState, patches, inversePatches] = (produceWithPatches as any)(state, (draft: S) => {
+          switch (action.type) {
+            case HISTORY_ACTIONS.UNDO: {
+              return history.undo(draft);
             }
+            case HISTORY_ACTIONS.REDO: {
+              return history.redo(draft);
+            }
+            case HISTORY_ACTIONS.CLEAR: {
+              history.clear();
+              return {
+                ...draft,
+              };
+            }
+
+            // TODO: Simplify History API
+            case HISTORY_ACTIONS.IGNORE:
+            case HISTORY_ACTIONS.MERGE:
+            case HISTORY_ACTIONS.THROTTLE: {
+              const [type, ...params] = action.payload;
+              methods(draft, query)[type](...params);
+              break;
+            }
+            default:
+              methods(draft, query)[action.type](...action.payload);
           }
-        );
+        });
 
         finalState = nextState;
 
         if (patchListener) {
-          patchListener(
-            nextState,
-            state,
-            { type: action.type, params: action.payload, patches },
-            query,
-            (cb) => {
-              let normalizedDraft = produceWithPatches(nextState, cb);
-              finalState = normalizedDraft[0];
+          patchListener(nextState, state, { type: action.type, params: action.payload, patches }, query, (cb) => {
+            let normalizedDraft = produceWithPatches(nextState, cb);
+            finalState = normalizedDraft[0];
 
-              patches = [...patches, ...normalizedDraft[1]];
-              inversePatches = [...normalizedDraft[2], ...inversePatches];
-            }
-          );
+            patches = [...patches, ...normalizedDraft[1]];
+            inversePatches = [...normalizedDraft[2], ...inversePatches];
+          });
         }
 
-        if (
-          [HISTORY_ACTIONS.UNDO, HISTORY_ACTIONS.REDO].includes(
-            action.type as any
-          ) &&
-          normalizeHistory
-        ) {
+        if ([HISTORY_ACTIONS.UNDO, HISTORY_ACTIONS.REDO].includes(action.type as any) && normalizeHistory) {
           finalState = produce(finalState, normalizeHistory);
         }
 
@@ -290,11 +208,7 @@ export function useMethods<
           ].includes(action.type as any)
         ) {
           if (action.type === HISTORY_ACTIONS.THROTTLE) {
-            history.throttleAdd(
-              patches,
-              inversePatches,
-              action.config && action.config.rate
-            );
+            history.throttleAdd(patches, inversePatches, action.config && action.config.rate);
           } else if (action.type === HISTORY_ACTIONS.MERGE) {
             history.merge(patches, inversePatches);
           } else {
@@ -315,10 +229,7 @@ export function useMethods<
   currState.current = state;
 
   const query = useMemo(
-    () =>
-      !queryMethods
-        ? []
-        : createQuery(queryMethods, () => currState.current, history),
+    () => (!queryMethods ? [] : createQuery(queryMethods, () => currState.current, history)),
     [history, queryMethods]
   );
 
@@ -408,8 +319,7 @@ export function useMethods<
   return useMemo(
     () => ({
       getState,
-      subscribe: (collector, cb, collectOnCreate) =>
-        watcher.subscribe(collector, cb, collectOnCreate),
+      subscribe: (collector, cb, collectOnCreate) => watcher.subscribe(collector, cb, collectOnCreate),
       actions,
       query,
       history,
@@ -418,11 +328,7 @@ export function useMethods<
   ) as any;
 }
 
-export function createQuery<Q extends QueryMethods>(
-  queryMethods: Q,
-  getState,
-  history: History
-) {
+export function createQuery<Q extends QueryMethods>(queryMethods: Q, getState, history: History) {
   const queries = Object.keys(queryMethods()).reduce((accum, key) => {
     return {
       ...accum,
@@ -453,16 +359,8 @@ class Watcher<S> {
    * Creates a Subscriber
    * @returns {() => void} a Function that removes the Subscriber
    */
-  subscribe<C>(
-    collector: (state: S) => C,
-    onChange: (collected: C) => void,
-    collectOnCreate?: boolean
-  ): () => void {
-    const subscriber = new Subscriber(
-      () => collector(this.getState()),
-      onChange,
-      collectOnCreate
-    );
+  subscribe<C>(collector: (state: S) => C, onChange: (collected: C) => void, collectOnCreate?: boolean): () => void {
+    const subscriber = new Subscriber(() => collector(this.getState()), onChange, collectOnCreate);
     this.subscribers.push(subscriber);
     return this.unsubscribe.bind(this, subscriber);
   }

@@ -1,6 +1,6 @@
-import { Text } from "../Text";
+import { Text } from '../Text';
 
-type EventKeys = "pageNavigate" | "absoluteUrlNavigate" | "href" | "clickType";
+type EventKeys = 'pageNavigate' | 'absoluteUrlNavigate' | 'href' | 'clickType';
 
 export type AnchorProps = Partial<{
   fontSize: string;
@@ -8,8 +8,8 @@ export type AnchorProps = Partial<{
   fontWeight: string;
   width: string;
   height: string;
-  background: Record<"r" | "g" | "b" | "a", number>;
-  color: Record<"r" | "g" | "b" | "a", number>;
+  background: Record<'r' | 'g' | 'b' | 'a', number>;
+  color: Record<'r' | 'g' | 'b' | 'a', number>;
   anchorStyle: string;
   padding: any[];
   margin: any[];
@@ -23,26 +23,26 @@ export type AnchorProps = Partial<{
 }>;
 
 export const defaultProps: AnchorProps = {
-  fontSize: "14",
-  textAlign: "center",
-  fontWeight: "500",
+  fontSize: '14',
+  textAlign: 'center',
+  fontWeight: '500',
   background: { r: 255, g: 255, b: 255, a: 0.5 },
   color: { r: 92, g: 90, b: 90, a: 1 },
-  anchorStyle: "full",
-  text: "Button",
-  padding: ["10", "10", "10", "10"],
-  margin: ["5", "0", "5", "0"],
+  anchorStyle: 'full',
+  text: 'Button',
+  padding: ['10', '10', '10', '10'],
+  margin: ['5', '0', '5', '0'],
   textComponent: {
     ...Text.defaultProps,
-    textAlign: "center",
+    textAlign: 'center',
   },
-  width: "100%",
-  height: "auto",
+  width: '100%',
+  height: 'auto',
   styledClassNames: {},
   events: {
-    pageNavigate: "",
-    absoluteUrlNavigate: "",
-    href: "",
-    clickType: "href",
+    pageNavigate: '',
+    absoluteUrlNavigate: '',
+    href: '',
+    clickType: 'href',
   },
 };

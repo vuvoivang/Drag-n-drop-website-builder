@@ -25,9 +25,7 @@ describe('<Editor />', () => {
     onNodesChange = jest.fn();
     mockStore.mockImplementation((value) => ({ ...value, query, actions }));
     act(() => {
-      component = shallow(
-        <Editor onNodesChange={onNodesChange}>{children}</Editor>
-      );
+      component = shallow(<Editor onNodesChange={onNodesChange}>{children}</Editor>);
     });
   });
   it('should render the children with events', () => {

@@ -71,16 +71,14 @@ describe('<Element />', () => {
 
       children = <h1>Child</h1>;
       mount(
-        <Element id="test" {...elementProps}>
+        <Element id='test' {...elementProps}>
           {children}
         </Element>
       );
     });
 
     it('should call query.parseReactElement()', () => {
-      expect(parseReactElement).toHaveBeenCalledWith(
-        <Element {...elementProps}>{children}</Element>
-      );
+      expect(parseReactElement).toHaveBeenCalledWith(<Element {...elementProps}>{children}</Element>);
     });
     it('should call actions.addLinkedNodeFromTree()', () => {
       expect(addLinkedNodeFromTree).toHaveBeenCalled();
@@ -108,7 +106,7 @@ describe('<Element />', () => {
         },
       });
 
-      mount(<Element id="test" color="#000" />);
+      mount(<Element id='test' color='#000' />);
     });
     it('should render existing Node', () => {
       expect(NodeElementTest).toHaveBeenCalledWith({

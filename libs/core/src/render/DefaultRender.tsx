@@ -7,14 +7,12 @@ import { NodeElement } from '../nodes/NodeElement';
 import { useInternalNode } from '../nodes/useInternalNode';
 
 export const DefaultRender = () => {
-  const { type, props, nodes, hydrationTimestamp } = useInternalNode(
-    (node) => ({
-      type: node.data.type,
-      props: node.data.props,
-      nodes: node.data.nodes,
-      hydrationTimestamp: node._hydrationTimestamp,
-    })
-  );
+  const { type, props, nodes, hydrationTimestamp } = useInternalNode((node) => ({
+    type: node.data.type,
+    props: node.data.props,
+    nodes: node.data.nodes,
+    hydrationTimestamp: node._hydrationTimestamp,
+  }));
 
   return useMemo(() => {
     let children = props.children;

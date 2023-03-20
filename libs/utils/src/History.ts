@@ -33,21 +33,13 @@ export class History {
     };
   }
 
-  throttleAdd(
-    patches: Patch[],
-    inversePatches: Patch[],
-    throttleRate: number = 500
-  ) {
+  throttleAdd(patches: Patch[], inversePatches: Patch[], throttleRate: number = 500) {
     if (patches.length === 0 && inversePatches.length === 0) {
       return;
     }
 
     if (this.timeline.length && this.pointer >= 0) {
-      const {
-        patches: currPatches,
-        inversePatches: currInversePatches,
-        timestamp,
-      } = this.timeline[this.pointer];
+      const { patches: currPatches, inversePatches: currInversePatches, timestamp } = this.timeline[this.pointer];
 
       const now = new Date();
       const diff = now.getTime() - timestamp;
@@ -71,11 +63,7 @@ export class History {
     }
 
     if (this.timeline.length && this.pointer >= 0) {
-      const {
-        patches: currPatches,
-        inversePatches: currInversePatches,
-        timestamp,
-      } = this.timeline[this.pointer];
+      const { patches: currPatches, inversePatches: currInversePatches, timestamp } = this.timeline[this.pointer];
 
       this.timeline[this.pointer] = {
         timestamp,

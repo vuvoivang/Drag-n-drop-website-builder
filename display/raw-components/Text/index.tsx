@@ -1,8 +1,8 @@
-import React from "react";
-import { TextProps } from "./props";
-import cx from "classnames";
+import React from 'react';
+import { TextProps } from './props';
+import cx from 'classnames';
 import Typography from '@material-ui/core/Typography';
-import { defaultProps } from "./props";
+import { defaultProps } from './props';
 
 export const Text = ({
   fontSize,
@@ -16,16 +16,14 @@ export const Text = ({
   className,
   tagName,
 }: TextProps) => {
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   return (
     <Typography
       variant={tagName as any}
-      className={cx([className, "text", styledClassNamesValues])}
+      className={cx([className, 'text', styledClassNamesValues])}
       align={textAlign as any}
       style={{
-        width: "100%",
+        width: '100%',
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
         color: `rgba(${Object.values(color)})`,
         fontSize: `${fontSize}px`,

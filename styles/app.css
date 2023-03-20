@@ -4,9 +4,8 @@
 @import url('https://use.typekit.net/mpa1wkh.css');
 html,
 body {
-  font-family: 'acumin-pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: 'acumin-pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: rgb(75, 75, 75);
   background: #e0e0e0;
 }
@@ -31,9 +30,8 @@ body {
 }
 
 #carbonads {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+    Helvetica, Arial, sans-serif;
 
   padding: 10px 0.5rem;
   border-top: 1px solid rgb(0 0 0 / 6%);
@@ -82,7 +80,6 @@ body {
 .text-white-important {
   color: #fff !important;
 }
-
 
 .MuiFormLabel-root.Mui-focused {
   color: #fff !important;

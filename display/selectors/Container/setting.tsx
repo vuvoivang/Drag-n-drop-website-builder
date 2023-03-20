@@ -1,19 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import {
-  ConfigSetting,
-  renderToolbarSection,
-} from "../../setting/RenderSetting";
+import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
-  sections: [
-    "dimensions",
-    "colors",
-    "margin",
-    "padding",
-    "containerDecoration",
-    "containerAlignment",
-  ],
+  sections: ['dimensions', 'colors', 'margin', 'padding', 'containerDecoration', 'containerAlignment'],
 };
 
 export const ContainerSettings = () => {

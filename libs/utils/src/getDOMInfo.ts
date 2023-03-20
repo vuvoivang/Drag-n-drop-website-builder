@@ -1,14 +1,5 @@
 export const getDOMInfo = (el: HTMLElement) => {
-  const {
-    x,
-    y,
-    top,
-    left,
-    bottom,
-    right,
-    width,
-    height,
-  } = el.getBoundingClientRect() as DOMRect;
+  const { x, y, top, left, bottom, right, width, height } = el.getBoundingClientRect() as DOMRect;
 
   const style = window.getComputedStyle(el);
 
@@ -41,10 +32,7 @@ export const getDOMInfo = (el: HTMLElement) => {
       return;
     }
 
-    if (
-      parentStyle.display === 'flex' &&
-      parentStyle['flex-direction'] !== 'column'
-    ) {
+    if (parentStyle.display === 'flex' && parentStyle['flex-direction'] !== 'column') {
       return;
     }
 

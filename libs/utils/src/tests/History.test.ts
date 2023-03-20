@@ -59,10 +59,7 @@ describe('History Manager', () => {
 
     it('should prevent redo if a change occured after undo', () => {
       history.undo(dummyTimeline[1].state);
-      history.add(
-        [{ op: 'add', path: '/node1', value: 1000 }],
-        dummyTimeline[0].patches
-      );
+      history.add([{ op: 'add', path: '/node1', value: 1000 }], dummyTimeline[0].patches);
       expect(history.canRedo()).toEqual(false);
     });
   });

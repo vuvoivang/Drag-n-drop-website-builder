@@ -2,6 +2,7 @@ import { TextField, makeStyles, InputAdornment } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { ChromePicker } from 'react-color';
+import _var from '../../styles/common/_var.module.scss';
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   input: {
-    background: '#a5ffb8',
+    background: _var.primaryLightColor,
     borderRadius: '100px',
     fontSize: '12px',
     paddingLeft: '28px',
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
 
 const useLabelStyles = makeStyles({
   root: {
-    color: 'rgb(128,128,128)',
+    color: _var.secondaryColor,
   },
   formControl: {
     fontSize: '18px',
@@ -67,8 +68,7 @@ export const ToolbarTextInput = ({
   const labelClasses = useLabelStyles({});
   useEffect(() => {
     let val = value;
-    if (type === 'color' || type === 'bg')
-      val = `rgba(${Object.values(value)})`;
+    if (type === 'color' || type === 'bg') val = `rgba(${Object.values(value)})`;
     setInternalValue(val);
   }, [value, type]);
 
@@ -76,13 +76,13 @@ export const ToolbarTextInput = ({
     <div
       style={{ width: '100%', position: 'relative' }}
       onClick={() => {
-        if(disabled) return;
+        if (disabled) return;
         setActive(true);
       }}
     >
       {(type === 'color' || type === 'bg') && active ? (
         <div
-          className="absolute"
+          className='absolute'
           style={{
             zIndex: 99999,
             top: 'calc(100% + 10px)',
@@ -90,7 +90,7 @@ export const ToolbarTextInput = ({
           }}
         >
           <div
-            className="fixed top-0 left-0 w-full h-full cursor-pointer"
+            className='fixed top-0 left-0 w-full h-full cursor-pointer'
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -116,14 +116,14 @@ export const ToolbarTextInput = ({
         onChange={(e) => {
           setInternalValue(e.target.value);
         }}
-        margin="dense"
-        variant="filled"
+        margin='dense'
+        variant='filled'
         InputProps={{
           classes,
           disableUnderline: true,
           startAdornment: ['color', 'bg'].includes(type) ? (
             <InputAdornment
-              position="start"
+              position='start'
               style={{
                 position: 'absolute',
                 marginTop: '2px',
@@ -131,7 +131,7 @@ export const ToolbarTextInput = ({
               }}
             >
               <div
-                className="w-2 h-2 inline-block rounded-full relative"
+                className='w-2 h-2 inline-block rounded-full relative'
                 style={{
                   left: '15px',
                   background: internalValue,

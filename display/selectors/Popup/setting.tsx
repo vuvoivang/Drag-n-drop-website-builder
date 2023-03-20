@@ -1,93 +1,90 @@
-import React from "react";
+import React from 'react';
 
-import {
-  ConfigSetting,
-  renderToolbarSection,
-} from "../../setting/RenderSetting";
+import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
   sections: [
     {
-      section: "typography",
-      title: "Popup title",
+      section: 'typography',
+      title: 'Popup title',
       summary: undefined,
       items: [
         {
-          propKey: "tagName",
-          nestedPropKey: "titleComponent",
+          propKey: 'tagName',
+          nestedPropKey: 'titleComponent',
         },
         {
-          propKey: "fontSize",
-          nestedPropKey: "titleComponent",
+          propKey: 'fontSize',
+          nestedPropKey: 'titleComponent',
         },
         {
-          propKey: "textAlign",
-          nestedPropKey: "titleComponent",
+          propKey: 'textAlign',
+          nestedPropKey: 'titleComponent',
         },
         {
-          propKey: "fontWeight",
-          nestedPropKey: "titleComponent",
+          propKey: 'fontWeight',
+          nestedPropKey: 'titleComponent',
         },
       ],
     },
     {
-      section: "typography",
-      title: "Popup content",
+      section: 'typography',
+      title: 'Popup content',
       summary: undefined,
       items: [
         {
-          propKey: "tagName",
-          nestedPropKey: "contentComponent",
+          propKey: 'tagName',
+          nestedPropKey: 'contentComponent',
         },
         {
-          propKey: "fontSize",
-          nestedPropKey: "contentComponent",
+          propKey: 'fontSize',
+          nestedPropKey: 'contentComponent',
         },
         {
-          propKey: "textAlign",
-          nestedPropKey: "contentComponent",
+          propKey: 'textAlign',
+          nestedPropKey: 'contentComponent',
         },
         {
-          propKey: "fontWeight",
-          nestedPropKey: "contentComponent",
+          propKey: 'fontWeight',
+          nestedPropKey: 'contentComponent',
         },
       ],
     },
     {
-      section: "buttonPopup",
-      title: "First button",
+      section: 'buttonPopup',
+      title: 'First button',
       summary: undefined,
       items: [
         {
-          propKey: "background",
-          nestedPropKey: "firstButtonComponent",
+          propKey: 'background',
+          nestedPropKey: 'firstButtonComponent',
         },
         {
-          propKey: "color",
-          nestedPropKey: "firstButtonComponent",
+          propKey: 'color',
+          nestedPropKey: 'firstButtonComponent',
         },
         {
-          propKey: "buttonStyle",
-          nestedPropKey: "firstButtonComponent",
+          propKey: 'buttonStyle',
+          nestedPropKey: 'firstButtonComponent',
         },
       ],
     },
     {
-      section: "buttonPopup",
-      title: "Second button",
+      section: 'buttonPopup',
+      title: 'Second button',
       summary: undefined,
       items: [
         {
-          propKey: "background",
-          nestedPropKey: "secondButtonComponent",
+          propKey: 'background',
+          nestedPropKey: 'secondButtonComponent',
         },
         {
-          propKey: "color",
-          nestedPropKey: "secondButtonComponent",
+          propKey: 'color',
+          nestedPropKey: 'secondButtonComponent',
         },
         {
-          propKey: "buttonStyle",
-          nestedPropKey: "secondButtonComponent",
+          propKey: 'buttonStyle',
+          nestedPropKey: 'secondButtonComponent',
         },
       ],
     },

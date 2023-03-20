@@ -1,19 +1,20 @@
-import { useEditor } from "libs/core/src";
-import { Layers } from "libs/layers/src";
-import React, { useState } from "react";
-import styled from "styled-components";
+import { useEditor } from 'libs/core/src';
+import { Layers } from 'libs/layers/src';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import { SidebarItem } from "./SidebarItem";
-import { Tabs, Tab, makeStyles } from "@material-ui/core";
+import { SidebarItem } from './SidebarItem';
+import { Tabs, Tab, makeStyles } from '@material-ui/core';
 
-import CustomizeIcon from "../../../../public/icons/customize.svg";
-import LayerIcon from "../../../../public/icons/layers.svg";
-import { Toolbar } from "../../Toolbar";
+import CustomizeIcon from '../../../../public/icons/customize.svg';
+import LayerIcon from '../../../../public/icons/layers.svg';
+import { Toolbar } from '../../Toolbar';
+import _var from '../../../styles/common/_var.module.scss';
 
 export const SidebarDiv = styled.div<{ enabled: boolean }>`
   min-width: 320px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
-  background: #ffffff;
+  background: ${_var.whiteColor};
   margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
 `;
 // const CarbonAdsContainer = styled.div`
@@ -99,10 +100,9 @@ export const SidebarDiv = styled.div<{ enabled: boolean }>`
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
-
 
 const useStyleTabs = makeStyles(() => ({
   root: {
@@ -112,9 +112,9 @@ const useStyleTabs = makeStyles(() => ({
     // "& .MuiTouchRipple-root": {
     //   backgroundImage: "linear-gradient(90deg,hsl(0deg 5.14% 54.35% / 75%),hsla(0deg 5.14% 54.35% / 15%),hsla(0,0%,100%,.05));",
     // },
-    "& svg": {
-      fill : "#079512",
-      fontSize: "1.75rem"
+    '& svg': {
+      fill: _var.primaryColor,
+      fontSize: '1.75rem',
     },
   },
 }));
@@ -133,56 +133,56 @@ export const Sidebar = () => {
     setCurrentTab(newValue);
   };
   const tabsStyle = useStyleTabs({});
-                               
+
   return (
-    <SidebarDiv enabled={enabled} className="sidebar transition w-2">
-      <div className="flex flex-col h-full">
+    <SidebarDiv enabled={enabled} className='sidebar transition w-2'>
+      <div className='flex flex-col h-full'>
         <Tabs
           value={currentTab}
           onChange={handleChangeTab}
-          aria-label="simple tabs example"
-          scrollButtons="auto"
-          variant="scrollable"
+          aria-label='simple tabs example'
+          scrollButtons='auto'
+          variant='scrollable'
           classes={tabsStyle}
         >
-          <StyledTab label="Customize" className="text-black-important text-base" {...a11yProps(0)} />
-          <StyledTab label="Layers" className="text-black-important text-base" {...a11yProps(1)} />
-          <StyledTab label="Events" className="text-black-important text-base" {...a11yProps(2)} />
+          <StyledTab label='Customize' className='text-black-important text-base' {...a11yProps(0)} />
+          <StyledTab label='Layers' className='text-black-important text-base' {...a11yProps(1)} />
+          <StyledTab label='Events' className='text-black-important text-base' {...a11yProps(2)} />
         </Tabs>
         <SidebarItem
-          role="tabpanel"
+          role='tabpanel'
           id={`simple-tabpanel-${0}`}
           aria-labelledby={`simple-tab-${0}`}
           icon={CustomizeIcon}
-          title="Customize"
-          height="full"
+          title='Customize'
+          height='full'
           visible={currentTab === 0}
         >
-          <Toolbar type="settings"/>
+          <Toolbar type='settings' />
         </SidebarItem>
         <SidebarItem
-        role="tabpanel"
-        id={`simple-tabpanel-${1}`}
-        aria-labelledby={`simple-tab-${1}`}
+          role='tabpanel'
+          id={`simple-tabpanel-${1}`}
+          aria-labelledby={`simple-tab-${1}`}
           icon={LayerIcon}
-          title="Layers"
-          height="full"
+          title='Layers'
+          height='full'
           visible={currentTab === 1}
         >
-          <div className="">
+          <div className=''>
             <Layers expandRootOnLoad={true} />
           </div>
         </SidebarItem>
         <SidebarItem
-          role="tabpanel"
+          role='tabpanel'
           id={`simple-tabpanel-${2}`}
           aria-labelledby={`simple-tab-${2}`}
           icon={CustomizeIcon}
-          title="Customize"
-          height="full"
+          title='Customize'
+          height='full'
           visible={currentTab === 2}
         >
-          <Toolbar type="events"/>
+          <Toolbar type='events' />
         </SidebarItem>
       </div>
     </SidebarDiv>

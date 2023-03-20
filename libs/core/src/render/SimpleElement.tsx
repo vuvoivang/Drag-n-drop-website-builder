@@ -7,7 +7,5 @@ export const SimpleElement = ({ render }: any) => {
     connectors: { connect, drag },
   } = useNode();
 
-  return typeof render.type === 'string'
-    ? connect(drag(React.cloneElement(render)))
-    : render;
+  return typeof render.type === 'string' ? connect(drag(React.cloneElement(render))) : render;
 };

@@ -7,9 +7,7 @@ export interface CreateHandlerOptions {
   onCreate: (nodeTree: NodeTree) => void;
 }
 
-export class CoreEventHandlers<O = {}> extends EventHandlers<
-  { store: EditorStore } & O
-> {
+export class CoreEventHandlers<O = {}> extends EventHandlers<{ store: EditorStore } & O> {
   handlers() {
     return {
       connect: (el: HTMLElement, id: NodeId) => {},
@@ -17,15 +15,9 @@ export class CoreEventHandlers<O = {}> extends EventHandlers<
       hover: (el: HTMLElement, id: NodeId) => {},
       drag: (el: HTMLElement, id: NodeId) => {},
       drop: (el: HTMLElement, id: NodeId) => {},
-      create: (
-        el: HTMLElement,
-        UserElement: React.ReactElement,
-        options?: Partial<CreateHandlerOptions>
-      ) => {},
+      create: (el: HTMLElement, UserElement: React.ReactElement, options?: Partial<CreateHandlerOptions>) => {},
     };
   }
 }
 
-export abstract class DerivedCoreEventHandlers<
-  O = {}
-> extends DerivedEventHandlers<CoreEventHandlers, O> {}
+export abstract class DerivedCoreEventHandlers<O = {}> extends DerivedEventHandlers<CoreEventHandlers, O> {}

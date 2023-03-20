@@ -17,8 +17,7 @@ export const LayerNode: React.FC = () => {
 
     return {
       data: state.nodes[id] && state.nodes[id].data,
-      shouldBeExpanded:
-        selected && query.node(selected).ancestors(true).includes(id),
+      shouldBeExpanded: selected && query.node(selected).ancestors(true).includes(id),
     };
   });
 
@@ -41,9 +40,7 @@ export const LayerNode: React.FC = () => {
   const expandedRef = useRef<boolean>(expanded);
   expandedRef.current = expanded;
 
-  const shouldBeExpandedOnLoad = useRef<boolean>(
-    expandRootOnLoad && id.startsWith(ROOT_NODE)
-  );
+  const shouldBeExpandedOnLoad = useRef<boolean>(expandRootOnLoad && id.startsWith(ROOT_NODE));
 
   useEffect(() => {
     if (!expandedRef.current && shouldBeExpanded) {
@@ -62,11 +59,7 @@ export const LayerNode: React.FC = () => {
       {React.createElement(
         renderLayer,
         {},
-        children && expanded
-          ? children.map((id) => (
-              <LayerContextProvider key={id} id={id} depth={depth + 1} />
-            ))
-          : null
+        children && expanded ? children.map((id) => <LayerContextProvider key={id} id={id} depth={depth + 1} />) : null
       )}
     </div>
   ) : null;

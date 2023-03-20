@@ -6,10 +6,7 @@ export type Placeholder = {
   suggestedStyles: any;
 };
 
-export const LayerIndicator: React.FC<Placeholder> = ({
-  placeholder,
-  suggestedStyles,
-}) => {
+export const LayerIndicator: React.FC<Placeholder> = ({ placeholder, suggestedStyles }) => {
   const { indicator } = useEditor((state) => ({
     indicator: state.options.indicator,
   }));

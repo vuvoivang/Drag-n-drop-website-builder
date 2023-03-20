@@ -42,10 +42,7 @@ export const getNodesFromSelector = (
     });
 
   if (mergedConfig.existOnly) {
-    invariant(
-      nodeSelectors.filter((selector) => !selector.exists).length === 0,
-      ERROR_INVALID_NODEID
-    );
+    invariant(nodeSelectors.filter((selector) => !selector.exists).length === 0, ERROR_INVALID_NODEID);
   }
 
   return nodeSelectors;

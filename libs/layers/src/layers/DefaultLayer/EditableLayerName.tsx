@@ -42,12 +42,9 @@ export const EditableLayerName = () => {
         }
       }}
       onChange={(e) => {
-        actions.setCustom(
-          id,
-          (custom) => (custom.displayName = e.target.value)
-        );
+        actions.setCustom(id, (custom) => (custom.displayName = e.target.value));
       }}
-      tagName="h2"
+      tagName='h2'
       onDoubleClick={() => {
         if (!editingName) setEditingName(true);
       }}

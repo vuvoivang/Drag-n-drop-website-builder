@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import ArrowUp from '../../public/icons/arrow-up.svg';
 import Delete from '../../public/icons/delete.svg';
 import Move from '../../public/icons/move.svg';
+import _var from '../styles/common/_var.module.scss';
 
 const IndicatorDiv = styled.div`
   height: 30px;
@@ -15,7 +16,7 @@ const IndicatorDiv = styled.div`
   line-height: 12px;
 
   svg {
-    fill: #fff;
+    fill: ${_var.whiteColor};
     width: 15px;
     height: 15px;
   }
@@ -59,7 +60,7 @@ export const RenderNode = ({ render }) => {
 
   const { isShownAllIndicator } = useEditor((state) => ({
     isShownAllIndicator: state.options.isShownAllIndicator,
-  }))
+  }));
 
   const currentRef = useRef<HTMLDivElement>();
 
@@ -71,9 +72,7 @@ export const RenderNode = ({ render }) => {
   }, [dom, isActive, isHover]);
 
   const getPos = useCallback((dom: HTMLElement) => {
-    const { top, left, bottom } = dom
-      ? dom.getBoundingClientRect()
-      : { top: 0, left: 0, bottom: 0 };
+    const { top, left, bottom } = dom ? dom.getBoundingClientRect() : { top: 0, left: 0, bottom: 0 };
     return {
       top: `${top > 0 ? top : bottom}px`,
       left: `${left}px`,
@@ -90,14 +89,10 @@ export const RenderNode = ({ render }) => {
   }, [dom, getPos]);
 
   useEffect(() => {
-    document
-      .querySelector('.craftjs-renderer')
-      .addEventListener('scroll', scroll);
+    document.querySelector('.craftjs-renderer').addEventListener('scroll', scroll);
 
     return () => {
-      document
-        .querySelector('.craftjs-renderer')
-        .removeEventListener('scroll', scroll);
+      document.querySelector('.craftjs-renderer').removeEventListener('scroll', scroll);
     };
   }, [scroll]);
   return (
@@ -106,23 +101,23 @@ export const RenderNode = ({ render }) => {
         ? ReactDOM.createPortal(
             <IndicatorDiv
               ref={currentRef}
-              className="px-2 py-2 text-white bg-primary fixed flex items-center"
+              className='px-2 py-2 text-white bg-blue-500 fixed flex items-center'
               style={{
                 left: getPos(dom).left,
                 top: getPos(dom).top,
                 zIndex: 9999,
               }}
             >
-              <h2 className="flex-1">{name}</h2>
-              <p className="text-sm text-yellow-300 mr-4 ml-2">{id}</p>
+              <h2 className='flex-1'>{name}</h2>
+              <p className='text-sm text-yellow-300 mr-4 ml-2'>{id}</p>
               {moveable ? (
-                <Btn className="mr-2 cursor-move" ref={drag}>
+                <Btn className='mr-2 cursor-move' ref={drag}>
                   <Move />
                 </Btn>
               ) : null}
               {!id.startsWith(ROOT_NODE) && (
                 <Btn
-                  className="mr-2 cursor-pointer"
+                  className='mr-2 cursor-pointer'
                   onClick={() => {
                     actions.selectNode(parent);
                   }}
@@ -132,7 +127,7 @@ export const RenderNode = ({ render }) => {
               )}
               {deletable ? (
                 <Btn
-                  className="cursor-pointer"
+                  className='cursor-pointer'
                   onMouseDown={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     actions.delete(id);

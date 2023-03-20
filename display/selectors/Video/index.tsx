@@ -1,13 +1,13 @@
-import { useNode, useEditor, UserComponent } from "libs/core/src";
-import React from "react";
-import YouTube from "react-youtube";
-import { YoutubeDiv } from "../../raw-components/Video/styled";
+import { useNode, useEditor, UserComponent } from 'libs/core/src';
+import React from 'react';
+import YouTube from 'react-youtube';
+import { YoutubeDiv } from '../../raw-components/Video/styled';
 
-import { VideoSettings } from "./setting";
-import { defaultProps, VideoProps } from "display/raw-components/Video/props";
+import { VideoSettings } from './setting';
+import { defaultProps, VideoProps } from 'display/raw-components/Video/props';
 
 export const craftConfig = {
-  displayName: "Video",
+  displayName: 'Video',
   props: defaultProps,
   related: {
     settings: VideoSettings,
@@ -30,8 +30,8 @@ export const CraftVideo: UserComponent<VideoProps> = (props: any) => {
       <YouTube
         videoId={videoId}
         opts={{
-          width: "100%",
-          height: "100%",
+          width: '100%',
+          height: '100%',
         }}
       />
     </YoutubeDiv>

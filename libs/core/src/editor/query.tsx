@@ -39,8 +39,7 @@ export function QueryMethods(state: EditorState) {
   const options = state && state.options;
 
   // _() as this, to ref other methods
-  const _: () => QueryCallbacksFor<typeof QueryMethods> = () =>
-    QueryMethods(state) as any;
+  const _: () => QueryCallbacksFor<typeof QueryMethods> = () => QueryMethods(state) as any;
 
   return {
     /**
@@ -52,15 +51,12 @@ export function QueryMethods(state: EditorState) {
       source: NodeSelector,
       target: NodeId,
       pos: { x: number; y: number },
-      nodesToDOM: (node: Node) => HTMLElement = (node) =>
-        state.nodes[node.id].dom
+      nodesToDOM: (node: Node) => HTMLElement = (node) => state.nodes[node.id].dom
     ) => {
       const targetNode = state.nodes[target],
         isTargetCanvas = _().node(targetNode.id).isCanvas();
 
-      const targetParent = isTargetCanvas
-        ? targetNode
-        : state.nodes[targetNode.data.parent];
+      const targetParent = isTargetCanvas ? targetNode : state.nodes[targetNode.data.parent];
 
       if (!targetParent) return;
 
@@ -81,15 +77,8 @@ export function QueryMethods(state: EditorState) {
           }, [] as NodeInfo[])
         : [];
 
-      const dropAction = findPosition(
-        targetParent,
-        dimensionsInContainer,
-        pos.x,
-        pos.y
-      );
-      const currentNode =
-        targetParentNodes.length &&
-        state.nodes[targetParentNodes[dropAction.index]];
+      const dropAction = findPosition(targetParent, dimensionsInContainer, pos.x, pos.y);
+      const currentNode = targetParentNodes.length && state.nodes[targetParentNodes[dropAction.index]];
 
       const output: Indicator = {
         placement: {
@@ -141,10 +130,7 @@ export function QueryMethods(state: EditorState) {
      * Returns all the `nodes` in a serialized format
      */
     getSerializedNodes(): SerializedNodes {
-      const nodePairs = Object.keys(state.nodes).map((id: NodeId) => [
-        id,
-        this.node(id).toSerializedNode(),
-      ]);
+      const nodePairs = Object.keys(state.nodes).map((id: NodeId) => [id, this.node(id).toSerializedNode()]);
       return fromEntries(nodePairs);
     },
 
@@ -163,9 +149,7 @@ export function QueryMethods(state: EditorState) {
     },
 
     parseReactElement: (reactElement: React.ReactElement) => ({
-      toNodeTree(
-        normalize?: (node: Node, jsx: React.ReactElement) => void
-      ): NodeTree {
+      toNodeTree(normalize?: (node: Node, jsx: React.ReactElement) => void): NodeTree {
         let node = parseNodeFromJSX(reactElement, (node, jsx) => {
           const name = resolveComponent(state.options.resolver, node.data.type);
 
@@ -180,14 +164,15 @@ export function QueryMethods(state: EditorState) {
         let childrenNodes: NodeTree[] = [];
 
         if (reactElement.props && reactElement.props.children) {
-          childrenNodes = React.Children.toArray(
-            reactElement.props.children
-          ).reduce<NodeTree[]>((accum, child: any) => {
-            if (React.isValidElement(child)) {
-              accum.push(_().parseReactElement(child).toNodeTree(normalize));
-            }
-            return accum;
-          }, []);
+          childrenNodes = React.Children.toArray(reactElement.props.children).reduce<NodeTree[]>(
+            (accum, child: any) => {
+              if (React.isValidElement(child)) {
+                accum.push(_().parseReactElement(child).toNodeTree(normalize));
+              }
+              return accum;
+            },
+            []
+          );
         }
 
         return mergeTrees(node, childrenNodes);

@@ -1,17 +1,17 @@
-import { useEditor, useNode } from "@libs/hooks";
-import { UserComponent } from "@libs/interfaces";
-import React from "react";
-import { AnchorProps } from "../../raw-components/Anchor/props";
-import { defaultProps } from "../../raw-components/Anchor/props";
-import cx from "classnames";
-import { CraftText } from "../Text";
-import { AnchorEvents } from "./event";
-import { CLICK_TYPE } from "display/raw-components/constant";
-import { StyledAnchor } from "display/raw-components/Anchor/styled";
-import { AnchorSettings } from "./setting";
+import { useEditor, useNode } from '@libs/hooks';
+import { UserComponent } from '@libs/interfaces';
+import React from 'react';
+import { AnchorProps } from '../../raw-components/Anchor/props';
+import { defaultProps } from '../../raw-components/Anchor/props';
+import cx from 'classnames';
+import { CraftText } from '../Text';
+import { AnchorEvents } from './event';
+import { CLICK_TYPE } from 'display/raw-components/constant';
+import { StyledAnchor } from 'display/raw-components/Anchor/styled';
+import { AnchorSettings } from './setting';
 
 export const craftConfig = {
-  displayName: "Anchor",
+  displayName: 'Anchor',
   props: defaultProps,
   related: {
     settings: AnchorSettings,
@@ -26,10 +26,9 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
     selected: node.events.selected,
   }));
 
-  const {
-    enabled: enabledEvent,
-  } = useEditor((state) => ({
-    enabled: !state.options.enabled,}));
+  const { enabled: enabledEvent } = useEditor((state) => ({
+    enabled: !state.options.enabled,
+  }));
 
   const {
     text,
@@ -44,30 +43,28 @@ export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
     nestedPropKey,
     ...otherProps
   } = props;
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
 
   const { pageNavigate, absoluteUrlNavigate, href, clickType } = events;
 
   const handleNavigate = () => {
-    if(isUsedHref) return;
-    if(pageNavigate || absoluteUrlNavigate){
+    if (isUsedHref) return;
+    if (pageNavigate || absoluteUrlNavigate) {
       const desUrl = pageNavigate || absoluteUrlNavigate;
       window.location.href = desUrl;
     }
-  }
+  };
   const mapClickEvent = {
     [CLICK_TYPE.NAVIGATE]: handleNavigate,
-  }
+  };
   const isUsedHref = clickType === CLICK_TYPE.HREF;
   return (
     <StyledAnchor
       ref={connect}
       className={cx([
-        "rounded w-full px-4 py-2 mt-4",
+        'rounded w-full px-4 py-2 mt-4',
         {
-          "shadow-lg": props.anchorStyle === "full",
+          'shadow-lg': props.anchorStyle === 'full',
         },
         styledClassNamesValues,
       ])}

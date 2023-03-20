@@ -1,9 +1,4 @@
-import {
-  useMethods,
-  SubscriberAndCallbacksFor,
-  PatchListener,
-  ROOT_PATH,
-} from 'libs/utils/src';
+import { useMethods, SubscriberAndCallbacksFor, PatchListener, ROOT_PATH } from 'libs/utils/src';
 
 import { ActionMethods } from './actions';
 import { QueryMethods } from './query';
@@ -39,11 +34,13 @@ export const editorInitialState: EditorState = {
   },
   pageOptions: {
     currentPage: ROOT_PATH,
-    pages: [{
-      path: ROOT_PATH,
-      name: "Home",
-    }],
-  }
+    pages: [
+      {
+        path: ROOT_PATH,
+        name: 'Home',
+      },
+    ],
+  },
 };
 
 export const ActionMethodsWithConfig = {
@@ -79,11 +76,7 @@ export const ActionMethodsWithConfig = {
       Object.keys(node.events).forEach((eventName: NodeEventTypes) => {
         const isEventActive = !!node.events[eventName];
 
-        if (
-          isEventActive &&
-          state.events[eventName] &&
-          !state.events[eventName].has(node.id)
-        ) {
+        if (isEventActive && state.events[eventName] && !state.events[eventName].has(node.id)) {
           node.events[eventName] = false;
         }
       });
@@ -91,18 +84,11 @@ export const ActionMethodsWithConfig = {
   },
 };
 
-export type EditorStore = SubscriberAndCallbacksFor<
-  typeof ActionMethodsWithConfig,
-  typeof QueryMethods
->;
+export type EditorStore = SubscriberAndCallbacksFor<typeof ActionMethodsWithConfig, typeof QueryMethods>;
 
 export const useEditorStore = (
   options: Partial<Options>,
-  patchListener: PatchListener<
-    EditorState,
-    typeof ActionMethodsWithConfig,
-    typeof QueryMethods
-  >
+  patchListener: PatchListener<EditorState, typeof ActionMethodsWithConfig, typeof QueryMethods>
 ): EditorStore => {
   // TODO: fix type
   return useMethods(

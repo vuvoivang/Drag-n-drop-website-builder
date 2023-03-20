@@ -1,9 +1,8 @@
-import React from "react";
-import cx from "classnames";
+import React from 'react';
+import cx from 'classnames';
 
-import { ContainerProps } from "./props";
-import { defaultProps } from "./props";
-
+import { ContainerProps } from './props';
+import { defaultProps } from './props';
 
 export const Container = (props: Partial<ContainerProps>) => {
   props = {
@@ -27,12 +26,10 @@ export const Container = (props: Partial<ContainerProps>) => {
     height,
     className,
   } = props;
-  const styledClassNamesValues = (
-    Object.values(styledClassNames) as string[]
-  ).flat();
+  const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   return (
     <div
-      className={cx([className, "flex container", styledClassNamesValues])}
+      className={cx([className, 'flex container', styledClassNamesValues])}
       style={{
         justifyContent,
         // @ts-ignore
@@ -44,12 +41,9 @@ export const Container = (props: Partial<ContainerProps>) => {
         color: `rgba(${Object.values(color)})`,
         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-        boxShadow:
-          shadow === 0
-            ? "none"
-            : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
+        boxShadow: shadow === 0 ? 'none' : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
         borderRadius: `${radius}px`,
-        flex: fillSpace === "yes" ? 1 : "unset",
+        flex: fillSpace === 'yes' ? 1 : 'unset',
       }}
     >
       {children}

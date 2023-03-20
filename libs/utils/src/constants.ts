@@ -1,4 +1,4 @@
-import { SerializedNode } from "@libs/interfaces";
+import { SerializedNode } from '@libs/interfaces';
 
 export const ROOT_NODE = 'ROOT';
 export const DEPRECATED_ROOT_NODE = 'canvas-ROOT';
@@ -6,23 +6,17 @@ export const DEPRECATED_ROOT_NODE = 'canvas-ROOT';
 export const ROOT_PATH = '/';
 // TODO: Use a better way to store/display error messages
 export const ERROR_NOPARENT = 'Parent id cannot be ommited';
-export const ERROR_DUPLICATE_NODEID =
-  'Attempting to add a node with duplicated id';
-export const ERROR_INVALID_NODEID =
-  'Node does not exist, it may have been removed';
+export const ERROR_DUPLICATE_NODEID = 'Attempting to add a node with duplicated id';
+export const ERROR_INVALID_NODEID = 'Node does not exist, it may have been removed';
 export const ERROR_TOP_LEVEL_ELEMENT_NO_ID =
   'A <Element /> that is used inside a User Component must specify an `id` prop, eg: <Element id="text_element">...</Element> ';
 export const ERROR_MISSING_PLACEHOLDER_PLACEMENT =
   'Placeholder required placement info (parent, index, or where) is missing';
-export const ERROR_MOVE_CANNOT_DROP =
-  'Node cannot be dropped into target parent';
+export const ERROR_MOVE_CANNOT_DROP = 'Node cannot be dropped into target parent';
 export const ERROR_MOVE_INCOMING_PARENT = 'Target parent rejects incoming node';
-export const ERROR_MOVE_OUTGOING_PARENT =
-  'Current parent rejects outgoing node';
-export const ERROR_MOVE_NONCANVAS_CHILD =
-  'Cannot move node that is not a direct child of a Canvas node';
-export const ERROR_MOVE_TO_NONCANVAS_PARENT =
-  'Cannot move node into a non-Canvas parent';
+export const ERROR_MOVE_OUTGOING_PARENT = 'Current parent rejects outgoing node';
+export const ERROR_MOVE_NONCANVAS_CHILD = 'Cannot move node that is not a direct child of a Canvas node';
+export const ERROR_MOVE_TO_NONCANVAS_PARENT = 'Cannot move node into a non-Canvas parent';
 export const ERROR_MOVE_TOP_LEVEL_NODE = 'A top-level Node cannot be moved';
 export const ERROR_MOVE_ROOT_NODE = 'Root Node cannot be moved';
 
@@ -31,11 +25,9 @@ export const ERROR_NOT_IN_RESOLVER =
   'The component type specified for this node (%node_type%) does not exist in the resolver';
 export const ERROR_INFINITE_CANVAS =
   "The component specified in the <Canvas> `is` prop has additional Canvas specified in it's render template.";
-export const ERROR_CANNOT_DRAG =
-  'The node has specified a canDrag() rule that prevents it from being dragged';
+export const ERROR_CANNOT_DRAG = 'The node has specified a canDrag() rule that prevents it from being dragged';
 export const ERROR_INVALID_NODE_ID = 'Invalid parameter Node Id specified';
-export const ERROR_DELETE_TOP_LEVEL_NODE =
-  'Attempting to delete a top-level Node';
+export const ERROR_DELETE_TOP_LEVEL_NODE = 'Attempting to delete a top-level Node';
 
 export const ERROR_RESOLVER_NOT_AN_OBJECT = `Resolver in <Editor /> has to be an object. For (de)serialization Craft.js needs a list of all the User Components. 
     
@@ -55,19 +47,18 @@ export const ERROR_USE_NODE_OUTSIDE_OF_EDITOR_CONTEXT = `You can only use useNod
 
 Please only use useNode in components that are children of the <Editor /> component.`;
 
-
 export const serializedContainerRootNodeForPage: SerializedNode = {
   type: {
-    resolvedName: "CraftContainer",
+    resolvedName: 'CraftContainer',
   },
   isCanvas: true,
   props: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    fillSpace: "no",
-    padding: ["40", "40", "40", "40"],
-    margin: ["0", "0", "0", "0"],
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    fillSpace: 'no',
+    padding: ['40', '40', '40', '40'],
+    margin: ['0', '0', '0', '0'],
     background: {
       r: 255,
       g: 255,
@@ -82,41 +73,41 @@ export const serializedContainerRootNodeForPage: SerializedNode = {
     },
     shadow: 0,
     radius: 0,
-    width: "100%",
-    height: "auto",
+    width: '100%',
+    height: 'auto',
     styledClassNames: {},
   },
-  displayName: "Container",
+  displayName: 'Container',
   custom: {
-    displayName: "App",
+    displayName: 'App',
   },
   hidden: false,
   nodes: [],
   parent: undefined,
   linkedNodes: {},
-  page: "/",
-}
+  page: '/',
+};
 
 export const serializedPopupNodeForPage: SerializedNode = {
   type: {
-    resolvedName: "CraftPopup",
+    resolvedName: 'CraftPopup',
   },
   isCanvas: false,
   props: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    width: "100%",
-    height: "auto",
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '100%',
+    height: 'auto',
     styledClassNames: {},
   },
-  displayName: "Popup",
+  displayName: 'Popup',
   custom: {
-    displayName: "Popup",
+    displayName: 'Popup',
   },
   hidden: false,
   nodes: [],
   parent: undefined,
   linkedNodes: {},
-  page: "/",
-}
+  page: '/',
+};
