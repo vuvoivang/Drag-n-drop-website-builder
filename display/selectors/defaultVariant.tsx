@@ -19,6 +19,7 @@ import {
 import { Container, Button, Text, Image, Video, Input, Anchor } from 'display/raw-components';
 import { ConfigVariant } from './renderVariant';
 import { Element } from '@libs/nodes';
+import { CraftTemplateMenu, TemplateMenu } from "display/template";
 
 export const DEFAULT_VARIANTS: ConfigVariant = {
   subItems: [
@@ -686,6 +687,19 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
             fontWeight: '400',
             text: 'Link',
           },
+        },
+      ],
+    },
+
+    {
+      label: "Menu",
+      Icon: AnchorSvg,
+      subItems: [
+        {
+          isSubmenu: false,
+          isTemplate: true,
+          CraftElement: CraftTemplateMenu,
+          ViewElement: TemplateMenu,
         },
       ],
     },

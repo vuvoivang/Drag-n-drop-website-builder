@@ -13,6 +13,7 @@ type MenuItemProps = {
   label?: string;
   Icon?: any;
   subItems?: Array<MenuItemProps & { isSubmenu: boolean }>;
+  isTemplate?: boolean;
 };
 const generateConfigSections = (configVariant) => configVariant;
 
@@ -43,6 +44,7 @@ const renderSubItems = (subItems: Array<MenuItemProps & { isSubmenu: boolean }>,
             subItems,
             label,
             Icon,
+            isTemplate,
             CraftElement,
             ViewElement,
             overwritePropsCraft = {},
@@ -81,7 +83,11 @@ const renderSubItems = (subItems: Array<MenuItemProps & { isSubmenu: boolean }>,
                 {' '}
                 <div
                   className='flex justify-center'
-                  ref={(ref) => fnCreateCraftItem(ref, <CraftElement {...overwritePropsCraft} />)}
+                  ref={(ref) => {
+                    // template: multiple craft nodes => use original jsx to parse
+                    if (isTemplate) fnCreateCraftItem(ref, CraftElement);
+                    else fnCreateCraftItem(ref, <CraftElement {...overwritePropsCraft} />);
+                  }}
                 >
                   <Tooltip title='Drag and drop to use this' placement='right'>
                     <ViewElement className='cursor-move' {...overwritePropsView} />
