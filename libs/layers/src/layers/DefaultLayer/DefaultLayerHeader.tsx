@@ -15,7 +15,7 @@ const StyledDiv = styled.div<{ depth: number; selected: boolean }>`
   flex-direction: row;
   align-items: center;
   padding: 4px 10px;
-  background: ${(props) => (props.selected ? '#3fc1c9' : 'transparent')};
+  background: ${(props) => (props.selected ? '#4173fd' : 'transparent')};
   color: ${(props) => (props.selected ? '#fff' : 'inherit')};
   svg {
     fill: ${(props) => (props.selected ? '#fff' : '#808184')};

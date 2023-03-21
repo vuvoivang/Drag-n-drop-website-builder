@@ -17,6 +17,7 @@ const useStyles = makeStyles({
   },
   input: {
     background: _var.primaryLightColor,
+    color: "#ffffff",
     borderRadius: '100px',
     fontSize: '12px',
     paddingLeft: '28px',

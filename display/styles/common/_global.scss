@@ -3,6 +3,7 @@
 .MuiListItem-root.Mui-selected,
 .MuiListItem-root.Mui-selected:hover {
   background-color: var.$color-primary-hover !important;
+  color: $color-white;
 }
 ::-webkit-scrollbar {
   width: 8px;

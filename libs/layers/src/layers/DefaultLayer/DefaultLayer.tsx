@@ -11,9 +11,9 @@ const LayerNodeDiv = styled.div<{
   hasCanvases: boolean;
   hovered: boolean;
 }>`
-  // background: ${(props) => (props.hovered ? '#66fae1' : 'transparent')};
+  // background: ${(props) => (props.hovered ? '#4173fd' : 'transparent')};
   background: 'transparent';
-  color: ${(props) => (props.hovered ? '#32e0c4' : '')};
+  color: ${(props) => (props.hovered ? '#1652f5' : '')};
   // font-weight: ${(props) => (props.hovered ? '500' : '400')};
   display: block;
   padding-bottom: ${(props) => (props.hasCanvases && props.expanded ? 5 : 0)}px;

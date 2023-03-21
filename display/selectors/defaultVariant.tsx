@@ -5,6 +5,7 @@ import YoutubeSvg from '../../public/icons/toolbox/video-line.svg';
 import ImageSvg from '../../public/icons/toolbox/image.svg';
 import InputSvg from '../../public/icons/toolbox/input.svg';
 import AnchorSvg from '../../public/icons/toolbox/anchor.svg';
+import MenuSvg from '../../public/icons/toolbox/menu.svg';
 
 import {
   CraftButton,
@@ -693,7 +694,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
 
     {
       label: "Menu",
-      Icon: AnchorSvg,
+      Icon: MenuSvg,
       subItems: [
         {
           isSubmenu: false,
