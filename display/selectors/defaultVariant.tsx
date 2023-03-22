@@ -6,6 +6,7 @@ import ImageSvg from '../../public/icons/toolbox/image.svg';
 import InputSvg from '../../public/icons/toolbox/input.svg';
 import AnchorSvg from '../../public/icons/toolbox/anchor.svg';
 import MenuSvg from '../../public/icons/toolbox/menu.svg';
+import IntroductionSvg from '../../public/icons/toolbox/introduction.svg';
 
 import {
   CraftButton,
@@ -706,7 +707,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
     },
     {
       label: 'Introduction',
-      Icon: MenuSvg,
+      Icon: IntroductionSvg,
       subItems: [
         {
           isSubmenu: false,
