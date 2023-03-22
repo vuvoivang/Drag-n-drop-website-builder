@@ -56,7 +56,7 @@
     "shallowequal": "^1.1.0",
     "tailwindcss": "latest",
     "tiny-invariant": "^1.0.6",
-    "typescript": "3.9.10"
+    "typescript": "4.3.2"
   },
   "nohoist": [
     "immer",

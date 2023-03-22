@@ -59,8 +59,10 @@ html {
 }
 .global-select {
   cursor: pointer !important;
-  padding: 6px !important;
-  padding-right: 20px !important;
+  & > .MuiSelect-select{
+    padding: 8px !important;
+    padding-right: 32px !important;
+  }
   line-height: 20px !important;
   .MuiOutlinedInput-notchedOutline {
     border-color: var.$color-primary !important;
@@ -74,9 +76,9 @@ html {
     border-width: 1px !important;
   }
   & > .MuiInputBase-input {
-    padding: 0px !important;
-    padding-right: 14px !important;
-    height: 1.4375em !important;
+    // padding: 0px !important;
+    // padding-right: 14px !important;
+    // height: 1.4375em !important;
     border-radius: 4px !important;
     border: 0 !important;
     box-sizing: border-box !important;

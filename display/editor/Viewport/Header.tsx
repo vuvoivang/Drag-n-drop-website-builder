@@ -248,7 +248,7 @@ export const Header = () => {
         </a>
         {/* Form add new page  */}
         <PageFormControl className='pt-4'>
-          <div className='add-page-container'>
+          <div className='add-page-container flex items-center'>
             <LightTooltip title='Add new page'>
               <AddCircleIcon
                 className='cursor-pointer mr-3 text-green-500'
