@@ -190,13 +190,13 @@ export const Toolbox = () => {
           <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(DEFAULT_VARIANTS, create)}</Menu>
         </Sidebar>
       </div>
-      <div className='bg-gray-100 collapse-sidebar' onClick={() => collapseSidebar()}>
+      <div className='bg-gray-50 collapse-sidebar' onClick={() => collapseSidebar()}>
         {collapsed ? (
           <ArrowRight fontSize='medium' />
         ) : (
           <div className='flex items-center'>
             <ArrowLeft fontSize='medium' />
-            <span> Collapse sidebar</span>
+            <span>Collapse</span>
           </div>
         )}
       </div>
