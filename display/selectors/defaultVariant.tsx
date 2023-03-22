@@ -20,7 +20,7 @@ import {
 import { Container, Button, Text, Image, Video, Input, Anchor } from 'display/raw-components';
 import { ConfigVariant } from './renderVariant';
 import { Element } from '@libs/nodes';
-import { CraftTemplateMenu, TemplateMenu } from "display/template";
+import { CraftTemplateMenu, TemplateMenu, CraftTemplateIntroduction, TemplateIntroduction } from 'display/template';
 
 export const DEFAULT_VARIANTS: ConfigVariant = {
   subItems: [
@@ -693,7 +693,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
     },
 
     {
-      label: "Menu",
+      label: 'Menu',
       Icon: MenuSvg,
       subItems: [
         {
@@ -701,6 +701,18 @@ export const DEFAULT_VARIANTS: ConfigVariant = {
           isTemplate: true,
           CraftElement: CraftTemplateMenu,
           ViewElement: TemplateMenu,
+        },
+      ],
+    },
+    {
+      label: 'Introduction',
+      Icon: MenuSvg,
+      subItems: [
+        {
+          isSubmenu: false,
+          isTemplate: true,
+          CraftElement: CraftTemplateIntroduction,
+          ViewElement: TemplateIntroduction,
         },
       ],
     },
