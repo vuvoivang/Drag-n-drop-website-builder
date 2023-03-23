@@ -178,7 +178,7 @@ export const Toolbox = () => {
           height: 'calc(100% - 80px)',
           direction: 'ltr',
         }}
-        className='toolbox'
+        className={`toolbox ${collapsed ? 'collapsed' : ''}`}
       >
         <Sidebar
           breakPoint='lg'

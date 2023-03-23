@@ -1,19 +1,14 @@
-.toolbox {
-    .expansion-title {
-        color: $color-primary-light;
-        font-size: 15px;
-    }
-    .MuiExpansionPanelDetails-root{
-        padding: 0;
-        .ps-menu-root {
-            width: 100%;
+.toolbox{
+    &.collapsed{
+        .expansion-title {
+            font-size: 13px;
         }
-        margin-bottom: 12px;
-    }
-    .MuiExpansionPanelSummary-content.Mui-expanded{
-        margin: 8px 0;
-    }
-    .MuiExpansionPanelSummary-root.Mui-expanded {
-        min-height: 40px;
+        .MuiExpansionPanelSummary-content{
+            & > .px-6{
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+        
     }
 }
