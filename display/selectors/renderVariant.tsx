@@ -3,7 +3,8 @@ import { Tooltip } from '@material-ui/core';
 import { menuClasses } from 'display/editor/Viewport/Toolbox';
 
 export type ConfigVariant = Array<{
-  title: string,
+  title: string;
+  Icon: any;
   subItems: Array<MenuItemProps>;
 }>;
 type MenuItemProps = {

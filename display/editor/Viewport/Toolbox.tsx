@@ -190,7 +190,7 @@ export const Toolbox = () => {
         >
           {DEFAULT_VARIANTS?.map((itemExpansion) => {
             return (
-              <ExpandablePanel title={itemExpansion.title}>
+              <ExpandablePanel title={itemExpansion.title} Icon={itemExpansion.Icon}>
                 {/* @ts-ignore */}
                 <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(itemExpansion, create)}</Menu>
               </ExpandablePanel>

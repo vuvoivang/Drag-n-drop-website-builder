@@ -7,6 +7,8 @@ import InputSvg from '../../public/icons/toolbox/input.svg';
 import AnchorSvg from '../../public/icons/toolbox/anchor.svg';
 import MenuSvg from '../../public/icons/toolbox/menu.svg';
 import IntroductionSvg from '../../public/icons/toolbox/introduction.svg';
+import ElementSvg from '../../public/icons/element.svg';
+import TemplateSvg from '../../public/icons/template.svg';
 
 import {
   CraftButton,
@@ -718,6 +720,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
         ],
       },
     ],
+    Icon: ElementSvg,
   },
   {
     title: 'Built-in Template',
@@ -747,5 +750,6 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
         ],
       },
     ],
+    Icon: TemplateSvg,
   }
 ];
