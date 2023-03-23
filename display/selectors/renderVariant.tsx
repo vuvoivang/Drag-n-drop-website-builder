@@ -2,9 +2,10 @@ import { MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Tooltip } from '@material-ui/core';
 import { menuClasses } from 'display/editor/Viewport/Toolbox';
 
-export type ConfigVariant = {
+export type ConfigVariant = Array<{
+  title: string,
   subItems: Array<MenuItemProps>;
-};
+}>;
 type MenuItemProps = {
   CraftElement?: any;
   ViewElement?: any;

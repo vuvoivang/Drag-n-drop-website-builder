@@ -9,6 +9,7 @@ import _var from '../../styles/common/_var.module.scss';
 import { default as ArrowLeft } from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
 import { default as ArrowRight } from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import Button from '@material-ui/core/Button';
+import { ExpandablePanel } from 'display/shared/components/ExpansionPanel';
 type Theme = 'light' | 'dark';
 
 const themes = {
@@ -177,17 +178,24 @@ export const Toolbox = () => {
           height: 'calc(100% - 80px)',
           direction: 'ltr',
         }}
+        className='toolbox'
       >
         <Sidebar
           breakPoint='lg'
           backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
           rootStyles={{
             color: themes[theme].sidebar.color,
-            width: collapsed ? undefined : '280px',
+            width: collapsed ? undefined : '300px',
           }}
         >
-          {/* @ts-ignore  */}
-          <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(DEFAULT_VARIANTS, create)}</Menu>
+          {DEFAULT_VARIANTS?.map((itemExpansion) => {
+            return (
+              <ExpandablePanel title={itemExpansion.title}>
+                {/* @ts-ignore */}
+                <Menu menuItemStyles={menuItemStyles}>{renderMenuItems(itemExpansion, create)}</Menu>
+              </ExpandablePanel>
+            );
+          })}
         </Sidebar>
       </div>
       <div className='bg-gray-50 collapse-sidebar' onClick={() => collapseSidebar()}>
