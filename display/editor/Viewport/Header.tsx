@@ -51,14 +51,27 @@ const Btn = styled.a`
   align-items: center;
   padding: 5px 15px;
   border-radius: 4px;
-  color: ${_var.whiteColor};
-  font-size: 14px;
+  color: ${_var.blackColor};
+  font-size: 15px;
   svg {
     margin-right: 6px;
     width: 12px;
     height: 12px;
-    fill: ${_var.whiteColor};
+    fill: ${_var.blackColor};
     opacity: 1;
+  }
+  &:hover {
+    background-color: ${_var.grayDarkColor};
+    color: ${_var.whiteColor};
+    svg {
+      fill: ${_var.whiteColor};
+    }
+  }
+  &.btn-gen-code{
+    color: ${_var.whiteColor};
+    &:hover {
+      background-color: ${_var.blueDarkColor};
+    }
   }
 `;
 
@@ -322,8 +335,8 @@ export const Header = () => {
             className={cx([
               'transition cursor-pointer',
               {
-                'bg-green-500': enabled,
-                'bg-blue-500': !enabled,
+                '': enabled,
+                'bg-gray-50': !enabled,
               },
             ])}
             onClick={() => {
@@ -335,7 +348,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className='ml-2 transition cursor-pointer bg-blue-500'
+            className='ml-2 transition cursor-pointer'
             onClick={() => {
               console.log(
                 'Node tree',
@@ -351,7 +364,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className='ml-2 transition cursor-pointer bg-blue-500'
+            className='ml-2 transition cursor-pointer'
             onClick={() => {
               const json = query.serialize();
               copy(lz.encodeBase64(lz.compress(json)));
@@ -360,12 +373,12 @@ export const Header = () => {
             Copy state
           </Btn>
 
-          <Btn className='ml-2 transition cursor-pointer bg-blue-500' onClick={() => setOpenDialogLoadState(true)}>
+          <Btn className='ml-2 transition cursor-pointer' onClick={() => setOpenDialogLoadState(true)}>
             Load state
           </Btn>
 
           <Btn
-            className='ml-2 transition cursor-pointer bg-rose-500'
+            className='ml-2 transition cursor-pointer'
             onClick={() => {
               actions.setOptions((options) => (options.isShownAllIndicator = !isShownAllIndicator));
             }}
@@ -374,7 +387,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className='ml-2 transition cursor-pointer bg-fuchsia-600'
+            className='ml-2 transition cursor-pointer btn-gen-code bg-sky-600'
             onClick={async () => await handleGenerateCode()}
           >
             Generate Code
