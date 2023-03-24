@@ -5,7 +5,7 @@ import {
 
 export const TemplateMenu = () => {
   return (
-    <Container
+  <Container
     background={{ r: 255, g: 255, b: 255, a: 1 }}
     flexDirection='row'
     justifyContent='center'
