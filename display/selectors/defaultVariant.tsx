@@ -695,30 +695,6 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
           },
         ],
       },
-      {
-        label: 'Menu',
-        Icon: MenuSvg,
-        subItems: [
-          {
-            isSubmenu: false,
-            isTemplate: true,
-            CraftElement: CraftTemplateMenu,
-            ViewElement: TemplateMenu,
-          },
-        ],
-      },
-      {
-        label: 'Introduction',
-        Icon: IntroductionSvg,
-        subItems: [
-          {
-            isSubmenu: false,
-            isTemplate: true,
-            CraftElement: CraftTemplateIntroduction,
-            ViewElement: TemplateIntroduction,
-          },
-        ],
-      },
     ],
     Icon: ElementSvg,
   },
