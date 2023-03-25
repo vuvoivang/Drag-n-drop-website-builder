@@ -7,7 +7,7 @@ export type ConfigVariant = Array<{
   Icon: any;
   subItems: Array<MenuItemProps>;
 }>;
-type MenuItemProps = {
+export type MenuItemProps = {
   CraftElement?: any;
   ViewElement?: any;
   overwritePropsView?: any;
