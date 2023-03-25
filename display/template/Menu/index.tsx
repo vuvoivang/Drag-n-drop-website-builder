@@ -80,5 +80,3 @@ export const MenuTemplate = [
     craft: {} as any,
   },
 ];
-console.log(genTemplateVariant(MenuTemplate)?.[0].raw);
-console.log(TemplateMenu);

@@ -9,13 +9,19 @@ type VariantComponent = {
 };
 
 const getJsxFromVariant = (variant: VariantComponent) => {
-  return function Template() {
-    return (
-      <variant.type {...variant.overwriteProps}>
-        {variant?.children?.length > 0 && variant?.children?.map((child) => getJsxFromVariant(child))}
-      </variant.type>
-    );
+  const childrenJsx = variant?.children?.map((child) => {
+    return getJsxChildrenFromVariant(child);
+  });
+  return () => { // return functional component, just 1 time
+    return <variant.type {...variant.overwriteProps}>{childrenJsx}</variant.type>;
   };
+};
+const getJsxChildrenFromVariant = (variant: VariantComponent) => {
+  const childrenJsx = variant?.children?.map((child) => {
+    return getJsxChildrenFromVariant(child);
+  });
+  // return jsx only
+  return <variant.type {...variant.overwriteProps}>{childrenJsx}</variant.type>;
 };
 
 export const genTemplateVariant = (config: ConfigTemplateVariant) => {
@@ -23,7 +29,7 @@ export const genTemplateVariant = (config: ConfigTemplateVariant) => {
     const { raw, craft } = item;
     return {
       raw: getJsxFromVariant(raw),
-      // craft: getJsxFromVariant(craft),
+      craft: getJsxFromVariant(craft),
     };
   });
 };
