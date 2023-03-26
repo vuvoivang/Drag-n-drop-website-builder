@@ -9,6 +9,10 @@ import MenuSvg from '../../public/icons/toolbox/menu.svg';
 import IntroductionSvg from '../../public/icons/toolbox/introduction.svg';
 import ElementSvg from '../../public/icons/element.svg';
 import TemplateSvg from '../../public/icons/template.svg';
+import FooterSvg from '../../public/icons/toolbox/footer.svg';
+import BannerSvg from '../../public/icons/toolbox/banner.svg';
+import ProductSvg from '../../public/icons/toolbox/product.svg';
+import ContentSvg from '../../public/icons/toolbox/content.svg';
 
 import {
   CraftButton,
@@ -23,8 +27,12 @@ import {
 import { Container, Button, Text, Image, Video, Input, Anchor } from 'display/raw-components';
 import { ConfigVariant } from './renderVariant';
 import { Element } from '@libs/nodes';
-import { CraftTemplateIntroduction, TemplateIntroduction, MenuTemplateConfig } from 'display/template';
+import { IntroductionTemplateConfig, MenuTemplateConfig } from 'display/template';
 import { genItemsDefaultConfigTemplateVariant } from 'display/template/genTemplateVariant';
+import { FooterTemplateConfig } from 'display/template/Footer';
+import { BannerTemplateConfig } from 'display/template/Banner';
+import { ProductTemplateConfig } from 'display/template/Product';
+import { ContentTemplateConfig } from 'display/template/Content';
 
 export const DEFAULT_VARIANTS: ConfigVariant = [
   {
@@ -710,14 +718,27 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
       {
         label: 'Introduction',
         Icon: IntroductionSvg,
-        subItems: [
-          {
-            isSubmenu: false,
-            isTemplate: true,
-            CraftElement: CraftTemplateIntroduction,
-            ViewElement: TemplateIntroduction,
-          },
-        ],
+        subItems: genItemsDefaultConfigTemplateVariant(IntroductionTemplateConfig),
+      },
+      {
+        label: 'Footer',
+        Icon: FooterSvg,
+        subItems: genItemsDefaultConfigTemplateVariant(FooterTemplateConfig),
+      },
+      {
+        label: 'Banner',
+        Icon: BannerSvg,
+        subItems: genItemsDefaultConfigTemplateVariant(BannerTemplateConfig),
+      },
+      {
+        label: 'Product',
+        Icon: ProductSvg,
+        subItems: genItemsDefaultConfigTemplateVariant(ProductTemplateConfig),
+      },
+      {
+        label: 'Content',
+        Icon: ContentSvg,
+        subItems: genItemsDefaultConfigTemplateVariant(ContentTemplateConfig),
       },
     ],
     Icon: TemplateSvg,
