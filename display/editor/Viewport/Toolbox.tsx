@@ -182,7 +182,7 @@ export const Toolbox = () => {
       >
         <Sidebar
           breakPoint='lg'
-          backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, 1)}
+          backgroundColor={themes[theme].sidebar.backgroundColor}
           rootStyles={{
             color: themes[theme].sidebar.color,
             width: collapsed ? undefined : '350px',
