@@ -67,7 +67,7 @@ const Btn = styled.a`
       fill: ${_var.whiteColor};
     }
   }
-  &.btn-gen-code{
+  &.btn-gen-code {
     color: ${_var.whiteColor};
     &:hover {
       background-color: ${_var.blueDarkColor};
@@ -233,7 +233,7 @@ export const Header = () => {
     // call api
     await axios
       .post(
-        'http://localhost:3003/api/gen-react-code',
+        'https://gencode.azurewebsites.net/api/gen-react-code',
         {
           nodes,
           pages,
@@ -245,11 +245,13 @@ export const Header = () => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        if (res.data?.url) {
+          const win = window.open(res.data.url, '_blank');
+          if (win != null) {
+            win.focus();
+          }
+        }
       });
-    // await axios.get('http://localhost:3003/api/hello-world').then((res) => {
-    //   console.log(res);
-    //   console.log(res.data);
-    // });
   };
 
   return (
