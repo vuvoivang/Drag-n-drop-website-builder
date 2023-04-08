@@ -34,6 +34,8 @@ import copy from 'copy-to-clipboard';
 import Image from 'next/image';
 
 import _var from '../../styles/common/_var.module.scss';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -107,6 +109,8 @@ export const Header = () => {
   const [stateToLoad, setStateToLoad] = useState<string>('');
 
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState(false);
+  const [loadingGenCode, setLoadingGenCode] = useState(false);
+
   const [deletingPagePath, setDeletingPagePath] = useState('');
 
   const {
@@ -182,77 +186,79 @@ export const Header = () => {
   };
 
   const handleGenerateCode = async () => {
-    type Page = {
-      path: string;
-      name: string;
-    };
-    type Node = {
-      id: string;
-      type: string;
-      props: string;
-      displayName: string;
-      hidden: boolean;
-      children: Array<string>;
-      pagePath: string;
-    };
-    let pages = new Array<Page>();
-    let nodes = new Array<Node>();
-
-    // get pages info
-    for (const page of query.getState().pageOptions.pages) {
-      pages.push({ path: page.path, name: page.name });
-    }
-
-    // get nodes info
-
-    let serializeNodes = query.getSerializedNodes();
-
-    for (const id in serializeNodes) {
-      let serializeNode = serializeNodes[id];
-      let type = serializeNode.type;
-      let typeName = '';
-      if (typeof type === 'object' && type.resolvedName) {
-        typeName = type.resolvedName;
-      } else continue;
-
-      let node: Node = {
-        id: id,
-        type: typeName.replace('Craft', ''),
-        props: JSON.stringify(serializeNode.props),
-        displayName: serializeNode.custom?.displayName ? serializeNode.custom?.displayName : serializeNode.displayName,
-        hidden: serializeNode.hidden,
-        children: serializeNode.nodes,
-        pagePath: serializeNode.page,
+    setLoadingGenCode(true);
+    try {
+      type Page = {
+        path: string;
+        name: string;
       };
-
-      nodes.push(node);
+      type Node = {
+        id: string;
+        type: string;
+        props: string;
+        displayName: string;
+        hidden: boolean;
+        children: Array<string>;
+        pagePath: string;
+      };
+      let pages = new Array<Page>();
+      let nodes = new Array<Node>();
+  
+      // get pages info
+      for (const page of query.getState().pageOptions.pages) {
+        pages.push({ path: page.path, name: page.name });
+      }
+  
+      // get nodes info
+  
+      let serializeNodes = query.getSerializedNodes();
+  
+      for (const id in serializeNodes) {
+        let serializeNode = serializeNodes[id];
+        let type = serializeNode.type;
+        let typeName = '';
+        if (typeof type === 'object' && type.resolvedName) {
+          typeName = type.resolvedName;
+        } else continue;
+  
+        let node: Node = {
+          id: id,
+          type: typeName.replace('Craft', ''),
+          props: JSON.stringify(serializeNode.props),
+          displayName: serializeNode.custom?.displayName ? serializeNode.custom?.displayName : serializeNode.displayName,
+          hidden: serializeNode.hidden,
+          children: serializeNode.nodes,
+          pagePath: serializeNode.page,
+        };
+  
+        nodes.push(node);
+      }
+  
+      console.log({ nodes, pages });
+  
+      // call api
+      const srcCodeUrl = await axios
+        .post(
+          'https://gencode.azurewebsites.net/api/gen-react-code',
+          {
+            nodes,
+            pages,
+          },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          return res.data?.url;
+        }).catch((err) => {
+          console.log(err);
+        });
+      if(srcCodeUrl) window.location.href = srcCodeUrl;
+    } finally {
+      setLoadingGenCode(false);
     }
-
-    console.log({ nodes, pages });
-
-    // call api
-    await axios
-      .post(
-        'https://gencode.azurewebsites.net/api/gen-react-code',
-        {
-          nodes,
-          pages,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        if (res.data?.url) {
-          // const win = window.open(res.data.url, '_blank');
-          // if (win != null) {
-          //   win.focus();
-          // }
-          window.location.href = res.data.url;
-        }
-      });
   };
 
   return (
@@ -390,9 +396,10 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className='ml-2 transition cursor-pointer btn-gen-code bg-sky-600'
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-sky-600 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={async () => await handleGenerateCode()}
           >
+            {loadingGenCode && <CircularProgress size={20}/>}
             Generate Code
           </Btn>
         </div>
