@@ -246,10 +246,11 @@ export const Header = () => {
         console.log(res);
         console.log(res.data);
         if (res.data?.url) {
-          const win = window.open(res.data.url, '_blank');
-          if (win != null) {
-            win.focus();
-          }
+          // const win = window.open(res.data.url, '_blank');
+          // if (win != null) {
+          //   win.focus();
+          // }
+          window.location.href = res.data.url;
         }
       });
   };
