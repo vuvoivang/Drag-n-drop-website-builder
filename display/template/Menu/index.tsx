@@ -14,7 +14,7 @@ export const MenuTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         width: '100%',
@@ -27,7 +27,7 @@ export const MenuTemplateConfig = [
         {
           type: Anchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '12',
             width: 'auto',
@@ -42,7 +42,7 @@ export const MenuTemplateConfig = [
         {
           type: Anchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '12',
             width: 'auto',
@@ -57,7 +57,7 @@ export const MenuTemplateConfig = [
         {
           type: Anchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '12',
             width: 'auto',
@@ -72,7 +72,7 @@ export const MenuTemplateConfig = [
         {
           type: Anchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '12',
             width: 'auto',
@@ -89,7 +89,7 @@ export const MenuTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         width: '100%',
@@ -101,7 +101,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftAnchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '16',
             width: 'auto',
@@ -114,7 +114,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftAnchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '16',
             width: 'auto',
@@ -127,7 +127,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftAnchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '16',
             width: 'auto',
@@ -140,7 +140,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftAnchor,
           overwriteProps: {
-            color: { r: 0, g: 0, b: 0, a: 1 },
+            color: { r: '0', g: '0', b: '0', a: '1' },
             background: { r: 0, g: 0, b: 0, a: 0 },
             fontSize: '16',
             width: 'auto',
@@ -157,7 +157,7 @@ export const MenuTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -171,7 +171,7 @@ export const MenuTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: '100%',
@@ -183,7 +183,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -198,7 +198,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -213,7 +213,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -228,7 +228,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -245,7 +245,7 @@ export const MenuTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-end',
             width: '100%',
@@ -288,7 +288,7 @@ export const MenuTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -301,7 +301,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: '100%',
@@ -313,7 +313,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -327,7 +327,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -341,7 +341,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -355,7 +355,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -371,7 +371,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-end',
             width: '30%',
@@ -414,7 +414,7 @@ export const MenuTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -437,7 +437,7 @@ export const MenuTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: '100%',
@@ -449,7 +449,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -464,7 +464,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -479,7 +479,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -494,7 +494,7 @@ export const MenuTemplateConfig = [
             {
               type: Anchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '10',
                 width: 'auto',
@@ -511,7 +511,7 @@ export const MenuTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: 'auto',
@@ -541,7 +541,7 @@ export const MenuTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -563,7 +563,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: 'auto',
@@ -575,7 +575,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -589,7 +589,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -603,7 +603,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -617,7 +617,7 @@ export const MenuTemplateConfig = [
             {
               type: CraftAnchor,
               overwriteProps: {
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
                 background: { r: 0, g: 0, b: 0, a: 0 },
                 fontSize: '14',
                 width: 'auto',
@@ -633,7 +633,7 @@ export const MenuTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: 'auto',

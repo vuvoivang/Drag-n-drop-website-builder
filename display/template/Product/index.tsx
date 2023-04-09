@@ -14,7 +14,7 @@ export const ProductTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -39,7 +39,7 @@ export const ProductTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -52,7 +52,7 @@ export const ProductTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -76,7 +76,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -85,7 +85,7 @@ export const ProductTemplateConfig = [
                     fontSize: '7',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },
@@ -117,7 +117,7 @@ export const ProductTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -141,7 +141,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -150,7 +150,7 @@ export const ProductTemplateConfig = [
                     fontSize: '7',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },
@@ -182,7 +182,7 @@ export const ProductTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -206,7 +206,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -215,7 +215,7 @@ export const ProductTemplateConfig = [
                     fontSize: '7',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },
@@ -251,7 +251,7 @@ export const ProductTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -275,7 +275,7 @@ export const ProductTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -288,7 +288,7 @@ export const ProductTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -312,7 +312,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -321,7 +321,7 @@ export const ProductTemplateConfig = [
                     fontSize: '10',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },
@@ -353,7 +353,7 @@ export const ProductTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -377,7 +377,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -386,7 +386,7 @@ export const ProductTemplateConfig = [
                     fontSize: '10',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },
@@ -418,7 +418,7 @@ export const ProductTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -442,7 +442,7 @@ export const ProductTemplateConfig = [
                     tagName: 'h1',
                     text: ' Apple iPhone 14 Pro 128GB',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -451,7 +451,7 @@ export const ProductTemplateConfig = [
                     fontSize: '10',
                     tagName: 'paragraph',
                     text: "6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['8', '0', '8', '0'],
                   },

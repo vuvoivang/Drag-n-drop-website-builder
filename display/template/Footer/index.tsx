@@ -14,7 +14,7 @@ export const FooterTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -28,7 +28,7 @@ export const FooterTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',
@@ -44,13 +44,13 @@ export const FooterTemplateConfig = [
                 tagName: 'h1',
                 text: 'Contact us',
                 fontWeight: '500',
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
               },
             },
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '100%',
@@ -65,7 +65,7 @@ export const FooterTemplateConfig = [
                     fontSize: '8',
                     tagName: 'h4',
                     text: 'Phone: 0836256444',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -76,7 +76,7 @@ export const FooterTemplateConfig = [
                     fontSize: '8',
                     tagName: 'h4',
                     text: 'Address: 227 Nguyễn Văn Cừ, Quận 5, TP Hồ Chí Minh, Việt Nam',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -87,7 +87,7 @@ export const FooterTemplateConfig = [
                     fontSize: '8',
                     tagName: 'h4',
                     text: 'Email: vohoangvu.dev99@gmail.com',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -99,7 +99,7 @@ export const FooterTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',
@@ -115,13 +115,13 @@ export const FooterTemplateConfig = [
                 tagName: 'h1',
                 text: 'Our branches',
                 fontWeight: '500',
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
               },
             },
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '100%',
@@ -136,7 +136,7 @@ export const FooterTemplateConfig = [
                     fontSize: '8',
                     tagName: 'h4',
                     text: '1st: Trung Tâm Tin Học',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -147,7 +147,7 @@ export const FooterTemplateConfig = [
                     fontSize: '8',
                     tagName: 'h4',
                     text: '2st: Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -159,7 +159,7 @@ export const FooterTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',
@@ -182,7 +182,7 @@ export const FooterTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -195,7 +195,7 @@ export const FooterTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',
@@ -211,13 +211,13 @@ export const FooterTemplateConfig = [
                 tagName: 'h1',
                 text: 'Contact us',
                 fontWeight: '500',
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
               },
             },
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '100%',
@@ -232,7 +232,7 @@ export const FooterTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: 'Phone: 0836256444',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -243,7 +243,7 @@ export const FooterTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: 'Address: 227 Nguyễn Văn Cừ, Quận 5, TP Hồ Chí Minh, Việt Nam',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -254,7 +254,7 @@ export const FooterTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: 'Email: vohoangvu.dev99@gmail.com',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -266,7 +266,7 @@ export const FooterTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',
@@ -282,13 +282,13 @@ export const FooterTemplateConfig = [
                 tagName: 'h1',
                 text: 'Our branches',
                 fontWeight: '500',
-                color: { r: 0, g: 0, b: 0, a: 1 },
+                color: { r: '0', g: '0', b: '0', a: '1' },
               },
             },
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '100%',
@@ -303,7 +303,7 @@ export const FooterTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: '1st: Trung Tâm Tin Học',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -314,7 +314,7 @@ export const FooterTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: '2st: Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -326,7 +326,7 @@ export const FooterTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '33%',

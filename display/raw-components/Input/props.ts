@@ -4,10 +4,10 @@ export type InputProps = Partial<{
   fontWeight: string;
   width: string;
   height: string;
-  background: Record<'r' | 'g' | 'b' | 'a', number>;
-  color: Record<'r' | 'g' | 'b' | 'a', number>;
-  borderColor: Record<'r' | 'g' | 'b' | 'a', number>;
-  borderColorFocus: Record<'r' | 'g' | 'b' | 'a', number>;
+  background: Record<'r' | 'g' | 'b' | 'a', string>;
+  color: Record<'r' | 'g' | 'b' | 'a', string>;
+  borderColor: Record<'r' | 'g' | 'b' | 'a', string>;
+  borderColorFocus: Record<'r' | 'g' | 'b' | 'a', string>;
   inputStyle: string;
   padding: any[];
   margin: any[];
@@ -25,10 +25,10 @@ export const defaultProps: InputProps = {
   fontSize: '14',
   textAlign: 'left',
   fontWeight: '500',
-  background: { r: 255, g: 255, b: 255, a: 0.5 },
-  color: { r: 0, g: 0, b: 0, a: 1 },
-  borderColor: { r: 221, g: 223, b: 226, a: 1 },
-  borderColorFocus: { r: 126, g: 176, b: 114, a: 1 },
+  background: { r: '255', g: '255', b: '255', a: '0.5' },
+  color: { r: '0', g: '0', b: '0', a: '1' },
+  borderColor: { r: '221', g: '223', b: '226', a: '1' },
+  borderColorFocus: { r: '126', g: '176', b: '114', a: '1' },
   type: 'text',
   inputStyle: 'full',
   padding: ['10', '10', '10', '10'],

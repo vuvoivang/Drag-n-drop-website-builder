@@ -60,7 +60,7 @@ function App() {
                   is={CraftContainer}
                   width='100%' // editor container
                   height='auto'
-                  background={{ r: 255, g: 255, b: 255, a: 1 }}
+                  background={{ r: '255', g: '255', b: '255', a: '1' }}
                   padding={['40', '40', '40', '40']}
                   custom={{ displayName: 'App' }}
                 >
@@ -113,7 +113,7 @@ function App() {
                   <Element
                     canvas
                     is={CraftContainer}
-                    background={{ r: 39, g: 41, b: 41, a: 1 }}
+                    background={{ r: '39', g: '41', b: '41', a: '1' }}
                     flexDirection='column'
                     width='100%'
                     height='auto'
@@ -124,10 +124,10 @@ function App() {
                     <Element
                       canvas
                       background={{
-                        r: 76,
-                        g: 78,
-                        b: 78,
-                        a: 0,
+                        r: '76',
+                        g: '78',
+                        b: '78',
+                        a: '0',
                       }}
                       is={CraftContainer}
                       flexDirection='row'
@@ -140,10 +140,10 @@ function App() {
                       <Element
                         canvas
                         background={{
-                          r: 0,
-                          g: 0,
-                          b: 0,
-                          a: 0,
+                          r: '0',
+                          g: '0',
+                          b: '0',
+                          a: '0',
                         }}
                         is={CraftContainer}
                         alignItems='center'
@@ -159,10 +159,10 @@ function App() {
                           justifyContent='center'
                           alignItems='center'
                           background={{
-                            r: 76,
-                            g: 78,
-                            b: 78,
-                            a: 1,
+                            r: '76',
+                            g: '78',
+                            b: '78',
+                            a: '1',
                           }}
                           shadow={25}
                           width='90%'
@@ -176,10 +176,10 @@ function App() {
                             justifyContent='center'
                             alignItems='center'
                             background={{
-                              r: 76,
-                              g: 78,
-                              b: 78,
-                              a: 1,
+                              r: '76',
+                              g: '78',
+                              b: '78',
+                              a: '1',
                             }}
                             shadow={50}
                             width='80%'
@@ -193,10 +193,10 @@ function App() {
                               justifyContent='center'
                               alignItems='center'
                               background={{
-                                r: 76,
-                                g: 78,
-                                b: 78,
-                                a: 1,
+                                r: '76',
+                                g: '78',
+                                b: '78',
+                                a: '1',
                               }}
                               shadow={50}
                               width='60%'
@@ -210,10 +210,10 @@ function App() {
                       <Element
                         canvas
                         background={{
-                          r: 0,
-                          g: 0,
-                          b: 0,
-                          a: 0,
+                          r: '0',
+                          g: '0',
+                          b: '0',
+                          a: '0',
                         }}
                         is={CraftContainer}
                         padding={['0', '0', '0', '20']}
@@ -253,10 +253,10 @@ function App() {
                     canvas
                     is={CraftContainer}
                     background={{
-                      r: 234,
-                      g: 245,
-                      b: 245,
-                      a: 1,
+                      r: '234',
+                      g: '245',
+                      b: '245',
+                      a: '1',
                     }}
                     flexDirection='column'
                     width='100%'
@@ -268,10 +268,10 @@ function App() {
                     <Element
                       canvas
                       background={{
-                        r: 76,
-                        g: 78,
-                        b: 78,
-                        a: 0,
+                        r: '76',
+                        g: '78',
+                        b: '78',
+                        a: '0',
                       }}
                       is={CraftContainer}
                       flexDirection='column'
@@ -299,10 +299,10 @@ function App() {
                     <Element
                       canvas
                       background={{
-                        r: 76,
-                        g: 78,
-                        b: 78,
-                        a: 0,
+                        r: '76',
+                        g: '78',
+                        b: '78',
+                        a: '0',
                       }}
                       is={CraftContainer}
                       flexDirection='row'
@@ -314,10 +314,10 @@ function App() {
                       <Element
                         canvas
                         background={{
-                          r: 0,
-                          g: 0,
-                          b: 0,
-                          a: 0,
+                          r: '0',
+                          g: '0',
+                          b: '0',
+                          a: '0',
                         }}
                         is={CraftContainer}
                         padding={['0', '20', '0', '0']}
@@ -327,10 +327,10 @@ function App() {
                       >
                         <Custom1
                           background={{
-                            r: 119,
-                            g: 219,
-                            b: 165,
-                            a: 1,
+                            r: '119',
+                            g: '219',
+                            b: '165',
+                            a: '1',
                           }}
                           height='auto'
                           width='100%'
@@ -342,10 +342,10 @@ function App() {
                       <Element
                         canvas
                         background={{
-                          r: 0,
-                          g: 0,
-                          b: 0,
-                          a: 0,
+                          r: '0',
+                          g: '0',
+                          b: '0',
+                          a: '0',
                         }}
                         is={CraftContainer}
                         padding={['0', '0', '0', '20']}
@@ -355,10 +355,10 @@ function App() {
                       >
                         <Custom2
                           background={{
-                            r: 108,
-                            g: 126,
-                            b: 131,
-                            a: 1,
+                            r: '108',
+                            g: '126',
+                            b: '131',
+                            a: '1',
                           }}
                           height='125px'
                           width='100%'
@@ -370,10 +370,10 @@ function App() {
                         />
                         <Custom3
                           background={{
-                            r: 134,
-                            g: 187,
-                            b: 201,
-                            a: 1,
+                            r: '134',
+                            g: '187',
+                            b: '201',
+                            a: '1',
                           }}
                           height='auto'
                           width='100%'

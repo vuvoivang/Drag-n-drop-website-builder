@@ -14,7 +14,7 @@ export const ContentTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -39,7 +39,7 @@ export const ContentTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -52,7 +52,7 @@ export const ContentTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -68,7 +68,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -77,7 +77,7 @@ export const ContentTemplateConfig = [
                     fontSize: '7',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -87,7 +87,7 @@ export const ContentTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -103,7 +103,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -112,7 +112,7 @@ export const ContentTemplateConfig = [
                     fontSize: '7',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -122,7 +122,7 @@ export const ContentTemplateConfig = [
             {
               type: Container,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -138,7 +138,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -147,7 +147,7 @@ export const ContentTemplateConfig = [
                     fontSize: '7',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '2', '0'],
                   },
@@ -185,7 +185,7 @@ export const ContentTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -209,7 +209,7 @@ export const ContentTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -222,7 +222,7 @@ export const ContentTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -238,7 +238,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -247,7 +247,7 @@ export const ContentTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -257,7 +257,7 @@ export const ContentTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -273,7 +273,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -282,7 +282,7 @@ export const ContentTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },
@@ -292,7 +292,7 @@ export const ContentTemplateConfig = [
             {
               type: CraftContainer,
               overwriteProps: {
-                background: { r: 255, g: 255, b: 255, a: 1 },
+                background: { r: '255', g: '255', b: '255', a: '1' },
                 flexDirection: 'column',
                 justifyContent: 'center',
                 width: '33%',
@@ -308,7 +308,7 @@ export const ContentTemplateConfig = [
                     tagName: 'h1',
                     text: 'Create a site, no programming or design skills needed',
                     fontWeight: '500',
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                   },
                 },
                 {
@@ -317,7 +317,7 @@ export const ContentTemplateConfig = [
                     fontSize: '14',
                     tagName: 'h4',
                     text: "Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc",
-                    color: { r: 0, g: 0, b: 0, a: 1 },
+                    color: { r: '0', g: '0', b: '0', a: '1' },
                     fontWeight: '400',
                     margin: ['0', '0', '8', '0'],
                   },

@@ -14,7 +14,7 @@ export const IntroductionTemplateConfig = [
     raw: {
       type: Container,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -28,7 +28,7 @@ export const IntroductionTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '50%',
@@ -61,7 +61,7 @@ export const IntroductionTemplateConfig = [
         {
           type: Container,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             width: '50%',
@@ -84,7 +84,7 @@ export const IntroductionTemplateConfig = [
     craft: {
       type: CraftContainer,
       overwriteProps: {
-        background: { r: 255, g: 255, b: 255, a: 1 },
+        background: { r: '255', g: '255', b: '255', a: '1' },
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -97,7 +97,7 @@ export const IntroductionTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'column',
             justifyContent: 'center',
             width: '50%',
@@ -130,7 +130,7 @@ export const IntroductionTemplateConfig = [
         {
           type: CraftContainer,
           overwriteProps: {
-            background: { r: 255, g: 255, b: 255, a: 1 },
+            background: { r: '255', g: '255', b: '255', a: '1' },
             flexDirection: 'row',
             justifyContent: 'center',
             width: '50%',
