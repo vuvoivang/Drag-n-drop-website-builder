@@ -25,6 +25,7 @@ export const renderMenuItems = (configVariant: ConfigVariant, fnCreateCraftItem)
     <>
       {subItems?.map((subItem) => (
         <SubMenu
+          className='root-sub-menu'
           label={subItem.label}
           icon={<subItem.Icon style={{ fill: 'currentColor', width: '100%', height: '100%' }} />}
           key={subItem.label}

@@ -1,19 +1,23 @@
-.toolbox{
-    &.collapsed{
-        .expansion-title {
-            font-size: 13px;
-        }
-        .MuiExpansionPanelSummary-content{
-            & > .px-6{
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-        }
-        .panel-icon {
-            display: none!important;
-        }
-        .ps-menu-label{
-            display: none;
-        }
+.toolbox {
+  &.collapsed {
+    .expansion-title {
+      font-size: 13px;
     }
+    .MuiExpansionPanelSummary-content {
+      & > .px-6 {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+    .panel-icon {
+      display: none !important;
+    }
+    .root-sub-menu {
+      & > .ps-menu-button {
+        .ps-menu-label {
+          display: none;
+        }
+      }
+    }
+  }
 }
