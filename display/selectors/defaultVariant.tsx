@@ -324,6 +324,8 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             CraftElement: Element,
             ViewElement: Container,
             overwritePropsCraft: {
+              canvas: true,
+              is: CraftContainer,
               background: { r: 200, g: 61, b: 61, a: 1 },
               color: { r: '0', g: '0', b: '0', a: '1' },
               height: '300px',
@@ -341,6 +343,8 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             CraftElement: Element,
             ViewElement: Container,
             overwritePropsCraft: {
+              canvas: true,
+              is: CraftContainer,
               background: { r: 200, g: 61, b: 61, a: 1 },
               color: { r: '0', g: '0', b: '0', a: '1' },
               height: '300px',
@@ -361,7 +365,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             ViewElement: Container,
             overwritePropsCraft: {
               canvas: true,
-              is: { CraftContainer },
+              is: CraftContainer,
               background: { r: 78, g: 78, b: 78, a: 1 },
               color: { r: '0', g: '0', b: '0', a: '1' },
               height: '150px',
@@ -380,7 +384,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             ViewElement: Container,
             overwritePropsCraft: {
               canvas: true,
-              is: { CraftContainer },
+              is: CraftContainer,
               background: { r: 78, g: 78, b: 78, a: 1 },
               color: { r: '0', g: '0', b: '0', a: '1' },
               height: '450px',
@@ -742,5 +746,5 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
       },
     ],
     Icon: TemplateSvg,
-  }
+  },
 ];

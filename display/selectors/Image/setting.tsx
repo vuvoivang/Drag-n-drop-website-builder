@@ -3,7 +3,7 @@ import React from 'react';
 import { ConfigSetting, renderToolbarSection } from '../../setting/RenderSetting';
 
 const configSetting: ConfigSetting = {
-  sections: ['dimensions', 'radius', 'src', 'alt', 'objectFit'],
+  sections: ['src', 'dimensions', 'radius', 'alt', 'objectFit'],
 };
 
 export const ImageSettings = () => {

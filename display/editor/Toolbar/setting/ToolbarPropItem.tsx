@@ -15,6 +15,7 @@ import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from 'display/constants'
 import { LightTooltip } from 'display/shared/components/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import _var from '../../../styles/common/_var.module.scss';
+import axios from 'axios';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
 
@@ -294,10 +295,28 @@ export const ToolbarPropItem = ({
         ) : type === 'imageUpload' ? (
           <ImageUploading
             value={[value] || ['']}
-            onChange={(imageList: ImageListType) => {
+            onChange={async (imageList: ImageListType) => {
               // call api upload image
               // set image url to value
-              handleSetPropValue(imageList[0]?.dataURL, type);
+              const fileImage = imageList[0]?.file;
+              const formData = new FormData();
+              formData.append('file', fileImage);
+
+              try {
+                  await axios.post('https://gencode.azurewebsites.net/api/upload/image_component', formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+                    }
+                  }).then((res: any) => {
+                    if(res?.code === 0){
+                      handleSetPropValue(res?.data?.file, type);
+                    }
+                  });
+                 
+              } catch (err) {
+                console.log('Err upload image', err);
+              }
+              // handleSetPropValue(imageList[0]?.dataURL, type);
             }}
             acceptType={['jpg', 'gif', 'png']}
           >
@@ -327,7 +346,7 @@ export const ToolbarPropItem = ({
                   <button
                     style={isDragging ? { color: 'red' } : undefined}
                     onClick={onImageUpload}
-                    className='text-sm py-2 px-3 rounded-full text-black bg-green-600	focus:outline-none'
+                    className='text-sm py-2 px-3 rounded-full text-white bg-green-600	focus:outline-none'
                     {...dragProps}
                   >
                     Choose image (click or drop)
