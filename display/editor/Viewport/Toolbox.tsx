@@ -19,7 +19,7 @@ const themes = {
       color: _var.secondaryColor,
     },
     menu: {
-      menuContent: _var.grayLightColor,
+      menuContent: _var.bgSubmenu,
       // icon: _var.primaryColor,
       hover: {
         // backgroundColor: _var.primaryColor,
@@ -111,7 +111,7 @@ export const Toolbox = () => {
       '& > span': { width: 7, height: 7 },
     }),
     subMenuContent: ({ level }) => ({
-      backgroundColor: level === 0 ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.4 : 1) : 'transparent',
+      backgroundColor: level === 0 ? hexToRgba(themes[theme].menu.menuContent, !collapsed ? 0.7 : 1) : 'transparent',
       overflow: 'visible!important',
       width: collapsed ? 'min-content' : undefined,
       minWidth: '200px',

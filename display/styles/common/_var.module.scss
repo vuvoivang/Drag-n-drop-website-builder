@@ -43,6 +43,9 @@ $color-gray-dark: #878787;
 $color-white: #ffffff;
 $color-black: #000000;
 
+$color-bg-submenu: #fcf9ff;
+
+
 :export {
   // primary
   primaryColor: $color-primary;
@@ -81,4 +84,5 @@ $color-black: #000000;
 
   whiteColor: $color-white;
   blackColor: $color-black;
+  bgSubmenu: $color-bg-submenu;
 }
