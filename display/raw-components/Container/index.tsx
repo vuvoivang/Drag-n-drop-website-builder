@@ -25,11 +25,12 @@ export const Container = (props: Partial<ContainerProps>) => {
     width,
     height,
     className,
+    maxWidth,
   } = props;
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   return (
     <div
-      className={cx([className, 'flex container', styledClassNamesValues])}
+      className={cx([className, 'flex custom-container', styledClassNamesValues])}
       style={{
         justifyContent,
         // @ts-ignore
@@ -44,6 +45,7 @@ export const Container = (props: Partial<ContainerProps>) => {
         boxShadow: shadow === 0 ? 'none' : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
         borderRadius: `${radius}px`,
         flex: fillSpace === 'yes' ? 1 : 'unset',
+        maxWidth,
       }}
     >
       {children}

@@ -39,13 +39,14 @@ export const CraftContainer: UserComponent<ContainerProps> = (props: Partial<Con
     radius,
     children,
     styledClassNames,
+    maxWidth,
   } = props;
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const { id } = useNode();
   return (
     <Resizer
-      propKey={{ width: 'width', height: 'height' }}
-      className={cx(['flex container', styledClassNamesValues])}
+      propKey={{ width: 'width', height: 'height', maxWidth: 'maxWidth' }}
+      className={cx(['flex custom-container', styledClassNamesValues])}
       style={{
         justifyContent,
         flexDirection,
