@@ -452,15 +452,15 @@ export const DEFAULT_PROP_KEYS = {
   flexDirection: {
     propKey: 'flexDirection',
     type: 'radio',
-    label: 'Flex Direction',
+    label: 'Content Direction',
     radioChildren: [
       {
         value: 'row',
-        label: 'Row',
+        label: 'Horizontal',
       },
       {
         value: 'column',
-        label: 'Column',
+        label: 'Vertical',
       },
     ],
   },
