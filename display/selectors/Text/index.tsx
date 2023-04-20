@@ -36,7 +36,7 @@ export const CraftText: UserComponent<TextProps> = ({
   return (
     <ContentEditable
       innerRef={connect}
-      html={text} // innerHTML of the editable div
+      html={text?.type === "dynamic" ? text?.value : text} // innerHTML of the editable div
       disabled={!enabled}
       onChange={(e) => {
         setProp((prop) => {

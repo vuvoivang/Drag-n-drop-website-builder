@@ -4,7 +4,7 @@ export type TextProps = Partial<{
   fontWeight: string;
   color: Record<'r' | 'g' | 'b' | 'a', string>;
   shadow: number;
-  text: string;
+  text: any;
   margin: string[];
   styledClassNames: Record<string, any>;
   className: string;

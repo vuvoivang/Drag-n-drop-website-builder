@@ -1,0 +1,22 @@
+#form-dialog-connect-data-content{
+    padding-top: 16px;
+    min-height: 400px;
+    & > p {
+        margin-bottom: 24px;
+        font-weight: 500;
+    }
+    & > div:nth-child(2){
+        margin-bottom: 48px;
+    }
+    .MuiFormLabel-root.Mui-focused {
+        color: #1976d2 !important;
+    }
+    .MuiIconButton-root{
+        padding: 0;
+    }
+    .MuiInputBase-root.Mui-disabled{
+        color: rgba(0, 0, 0, 0.38);
+        cursor: default;
+        background-color: rgba(103, 116, 131, 0.28);
+    }
+}
