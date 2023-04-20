@@ -1,20 +1,56 @@
 import { useNode, useEditor } from 'libs/core/src';
 import { ROOT_NODE } from 'libs/utils/src';
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 import ArrowUp from '../../public/icons/arrow-up.svg';
 import Delete from '../../public/icons/delete.svg';
 import Move from '../../public/icons/move.svg';
+import Link from '@mui/icons-material/TrendingUp';
 import _var from '../styles/common/_var.module.scss';
+import {
+  Tooltip,
+  Button as MaterialButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from '@material-ui/core';
+
+import { Autocomplete, TextField } from '@mui/material';
+import { MOCK_COLLECTIONS, MOCK_DOCUMENTS } from 'display/mock/dynamic-data';
+import { lighten, darken } from '@mui/system';
+import { createFilterOptions } from '@mui/material/Autocomplete';
+
+
+const GroupHeader = styled('div')({
+  position: 'sticky',
+  top: '-8px',
+  padding: '4px 10px',
+  color: _var.secondaryColor,
+  backgroundColor:
+    lighten(_var.secondaryColor, 0.85),
+});
+
+const GroupItems = styled('ul')({
+  padding: 0,
+});
 
 const IndicatorDiv = styled.div`
   height: 30px;
   margin-top: -29px;
-  font-size: 12px;
-  line-height: 12px;
-
+  font-size: 14px;
+  line-height: 14px;
+  .link{
+    font-size: 20px;
+    line-height: 20px;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
   svg {
     fill: ${_var.whiteColor};
     width: 15px;
@@ -48,6 +84,8 @@ export const RenderNode = ({ render }) => {
     deletable,
     connectors: { drag },
     parent,
+    actions: { setProp },
+    propTextValue,
   } = useNode((node) => ({
     isHover: node.events.hovered,
     dom: node.dom,
@@ -55,7 +93,7 @@ export const RenderNode = ({ render }) => {
     moveable: query.node(node.id).isDraggable(),
     deletable: query.node(node.id).isDeletable(),
     parent: node.data.parent,
-    props: node.data.props,
+    propTextValue: node.data.props?.text,
   }));
 
   const { isShownAllIndicator } = useEditor((state) => ({
@@ -95,52 +133,189 @@ export const RenderNode = ({ render }) => {
       document.querySelector('.craftjs-renderer').removeEventListener('scroll', scroll);
     };
   }, [scroll]);
+
+
+
+  const [openDialogConnectData, setOpenDialogConnectData] = useState(false);
+  const [collections, setCollections] = useState(MOCK_COLLECTIONS);
+  const [documents, setDocuments] = useState(MOCK_DOCUMENTS);
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [selectedDocument, setSelectedDocument] = useState(null);
+
+
+  const handleCloseDialogConnectData = () => {
+    setOpenDialogConnectData(false);
+  };
+  const handleConnectData = () => {
+    handleCloseDialogConnectData();
+    setProp((props) => {
+      props.text = {
+        type: "dynamic",
+        value: selectedDocument.label,
+        collectionId: selectedCollection.value,
+        documentId: selectedDocument.value.slice(0, Number(selectedDocument.value.indexOf('-'))),
+      };
+    });
+  }
+
+  const collectionOptions = collections?.map((item) => {
+    return {
+      value: item.id,
+      label: item.name,
+    }
+  });
+
+  const documentOptions = documents?.filter(item => item.collectionId === selectedCollection?.value).map((item) => {
+    return Object.entries(item.data).map(([key, value]) => {
+      return ({
+        value: `${item.id}-${key}`,
+        label: value,
+        key,
+      })
+    })
+  }).flat();
+
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    ignoreCase: true,
+    ignoreAccents: true,
+    trim: true,
+  });
+
+  useEffect(() => {
+    if (!selectedCollection) {
+      setSelectedDocument(null);
+    }
+  }, [selectedCollection])
+
   return (
     <>
       {isHover || isActive || isShownAllIndicator
         ? ReactDOM.createPortal(
-            <IndicatorDiv
-              ref={currentRef}
-              className='px-2 py-2 text-white bg-blue-500 fixed flex items-center'
-              style={{
-                left: getPos(dom).left,
-                top: getPos(dom).top,
-                zIndex: 9999,
-              }}
-            >
-              <h2 className='flex-1'>{name}</h2>
-              <p className='text-sm text-yellow-300 mr-4 ml-2'>{id}</p>
-              {moveable ? (
-                <Btn className='mr-2 cursor-move' ref={drag}>
-                  <Move />
-                </Btn>
-              ) : null}
-              {!id.startsWith(ROOT_NODE) && (
+          <IndicatorDiv
+            ref={currentRef}
+            className='px-2 py-2 text-white bg-blue-500 fixed flex items-center'
+            style={{
+              left: getPos(dom).left,
+              top: getPos(dom).top,
+              zIndex: 9999,
+            }}
+          >
+            <h2 className='flex-1'>{name}</h2>
+            <p className='text-sm text-yellow-300 mr-4 ml-2'>{id}</p>
+            {moveable ? (
+              <Btn className='mr-2 cursor-move' ref={drag}>
+                <Move />
+              </Btn>
+            ) : null}
+            {!id.startsWith(ROOT_NODE) && (
+              <Btn
+                className='mr-2 cursor-pointer'
+                onClick={() => {
+                  actions.selectNode(parent);
+                }}
+              >
+                <ArrowUp />
+              </Btn>
+            )}
+            {deletable ? (
+              <Btn
+                className='mr-2 cursor-pointer'
+                onMouseDown={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  actions.delete(id);
+                }}
+              >
+                <Delete />
+              </Btn>
+            ) : null}
+            {propTextValue !== undefined ? (
+              <Tooltip title='Connect Data'>
                 <Btn
-                  className='mr-2 cursor-pointer'
-                  onClick={() => {
-                    actions.selectNode(parent);
-                  }}
-                >
-                  <ArrowUp />
-                </Btn>
-              )}
-              {deletable ? (
-                <Btn
-                  className='cursor-pointer'
+                  className='link cursor-pointer'
                   onMouseDown={(e: React.MouseEvent) => {
                     e.stopPropagation();
-                    actions.delete(id);
+                    setOpenDialogConnectData(true);
                   }}
                 >
-                  <Delete />
+                  <Link />
                 </Btn>
-              ) : null}
-            </IndicatorDiv>,
-            document.querySelector('.page-container') // create inside the page container, but still in component tree (triggered by onClick...)
-          )
+              </Tooltip>
+            ) : null}
+          </IndicatorDiv>,
+          document.querySelector('.page-container') // create inside the page container, but still in component tree (triggered by onClick...)
+        )
         : null}
       {render}
+
+      {/* Dialog connect data for text */}
+
+      <Dialog open={openDialogConnectData} onClose={handleCloseDialogConnectData} aria-labelledby='form-dialog-connect-data-title' id="form-dialog-connect-data">
+        <DialogTitle >Connect Data From Your Database</DialogTitle>
+        <DialogContent id='form-dialog-connect-data-content'>
+          <DialogContentText>Choose your data's value from your collections</DialogContentText>
+
+          <Autocomplete
+            disablePortal
+            id="collections-autocomplete"
+            options={collectionOptions}
+            sx={{ width: 300 }}
+            onChange={(_, newValue) => { setSelectedCollection(newValue); }}
+            value={selectedCollection}
+            renderInput={(params) => <TextField {...params} label="Collection"
+              // @ts-ignore
+              filterOptions={filterOptions} />}
+          />
+
+          <Autocomplete
+            id="documents-autocomplete"
+            value={selectedDocument}
+            options={documentOptions.sort((a, b) => (a.value < b.value ? -1 : 1))}
+            disabled={!selectedCollection}
+            groupBy={(option) => (option.value.slice(0, Number(option.value.indexOf('-'))) as any)}
+            getOptionLabel={(option) => (`(${option.key}) ${option.label.length > 47 ? `${option.label?.slice(0, 47)}...` : option.label}` as any)}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Choose data from documents" />}
+            renderGroup={(params) => (
+              <li key={params.key}>
+                <GroupHeader>Document {params.group}</GroupHeader>
+                <GroupItems>{params.children}</GroupItems>
+              </li>
+            )}
+            onChange={(_, newValue) => {
+              setSelectedDocument(newValue);
+            }}
+            filterOptions={filterOptions}
+          />
+
+        </DialogContent>
+        <DialogActions>
+          <MaterialButton
+            onClick={handleCloseDialogConnectData}
+            style={{
+              backgroundColor: _var.redColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 0 10px 0',
+            }}
+          >
+            Cancel
+          </MaterialButton>
+          <MaterialButton
+            onClick={handleConnectData}
+            style={{
+              backgroundColor: _var.greenColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 14px 10px 10px',
+            }}
+          >
+            Done
+          </MaterialButton>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

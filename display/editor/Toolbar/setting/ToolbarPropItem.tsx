@@ -300,16 +300,16 @@ export const ToolbarPropItem = ({
               // set image url to value
               const fileImage = imageList[0]?.file;
               const formData = new FormData();
-              formData.append('file', fileImage);
+              formData.append('image', fileImage);
 
               try {
-                  await axios.post('https://gencode.azurewebsites.net/api/upload/image_component', formData, {
+                  await axios.post('http://file-mgt-buildify.azurewebsites.net/upload/image', formData, {
                     headers: {
                       'Content-Type': 'multipart/form-data',
                     }
                   }).then((res: any) => {
                     if(res?.code === 0){
-                      handleSetPropValue(res?.data?.file, type);
+                      handleSetPropValue(res?.url, type);
                     }
                   });
                  

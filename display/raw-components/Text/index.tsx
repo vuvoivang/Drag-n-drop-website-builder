@@ -31,7 +31,7 @@ export const Text = ({
         fontWeight,
       }}
     >
-      {text}
+      {text?.type === "dynamic" ? text?.value : text}
     </Typography>
   );
 };

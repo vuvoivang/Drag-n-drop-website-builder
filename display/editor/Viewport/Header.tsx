@@ -261,6 +261,10 @@ export const Header = () => {
     }
   };
 
+  const handleGoToAdminDatabase = () => {
+    window.open('http://localhost:3000/dynamic-data', '_blank');
+  }
+
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
       <div className='items-center flex w-full pl-4 justify-space-between'>
@@ -393,6 +397,14 @@ export const Header = () => {
             }}
           >
             {!isShownAllIndicator ? ' Show indicators' : 'Hide indicators'}
+          </Btn>
+          
+          <Btn
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-500 ${loadingGenCode ? 'disabled' : ''}`}
+            onClick={handleGoToAdminDatabase}
+          >
+            {loadingGenCode && <CircularProgress size={20}/>}
+            My Database
           </Btn>
 
           <Btn
