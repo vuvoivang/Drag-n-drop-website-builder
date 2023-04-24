@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Logo from '../public/images/logo.webp';
 import Image from 'next/image';
+import userService from 'services/user';
 
 
 function Copyright(props) {
@@ -35,9 +36,19 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const body = {
+      username: data.get('username'),
       password: data.get('password'),
+      fullName: data.get('fullName'),
+      email: data.get('email'),
+    } as any;
+    userService.signUp(body).then(resp => {
+      if(!resp.msg) {
+        // success notify
+        // navigate to sign in page
+      }
+    }).catch((err) => {
+      console.log(err);
     });
   };
 

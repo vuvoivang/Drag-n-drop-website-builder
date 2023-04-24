@@ -240,34 +240,14 @@ export const Header = () => {
       console.log({ nodes, pages });
 
       // call api
-      // builderService.genCode({
-      //   nodes, pages
-      // })
-      //   .then((res) => {
-      //     console.log('result data', res.data);
-      //     if(res.data?.url) window.location.href = res.data.url;
-      //   }).catch((err) => {
-      //     console.log(err);
-      //   });
-      const srcCodeUrl = await axios
-        .post(
-          'https://gencode.azurewebsites.net/api/gen-react-code',
-          {
-            nodes,
-            pages,
-          },
-          {
-            headers: { 'Content-Type': 'application/json' },
-          }
-        )
+      builderService.genCode({
+        nodes, pages
+      })
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          return res.data?.url;
+          if(res.url) window.location.href = res.url;
         }).catch((err) => {
           console.log(err);
         });
-      if (srcCodeUrl) window.location.href = srcCodeUrl;
     } finally {
       setLoadingGenCode(false);
     }

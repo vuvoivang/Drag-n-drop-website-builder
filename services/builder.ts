@@ -10,11 +10,7 @@ const uploadImage = (image: File) => {
 };
 
 const genCode = (data: { nodes: Array<Node>; pages: Array<PageData> }) => {
-  return fetchWithBuildifyToken('https://gencode.azurewebsites.net/api/gen-react-code', 'POST', data, {
-    'Sec-Fetch-Dest': 'empty',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'cross-site',
-  });
+  return fetchWithBuildifyToken('gen-code-service/api/gen-react-code', 'POST', data);
 };
 
 const builderService = {

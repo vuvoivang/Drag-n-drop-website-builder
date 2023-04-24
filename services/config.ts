@@ -1,3 +1,4 @@
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
 /**
  * Performs a fetch request with the given method and data, use key 'buildify-token' in localStorage
  * @param {string} url - The url to fetch
@@ -8,11 +9,12 @@
  */
 
 export const fetchWithBuildifyToken = (
-  url: string,
+  path: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   data?: any,
   extendHeaders?: any
 ) => {
+  const url = path.includes('http') ? path : API_BASE_URL + path;
   const token = localStorage.getItem('buildify-token') || '';
   if (method === 'GET') {
     const fetchUrl = data ? url + '?' + new URLSearchParams(data).toString() : url;
@@ -20,7 +22,7 @@ export const fetchWithBuildifyToken = (
       method,
       headers: {
         ...extendHeaders,
-        'buildify-token': token,
+        'Authorization': token,
       },
     })
       .then((response) => {
@@ -34,12 +36,12 @@ export const fetchWithBuildifyToken = (
         // handle error
       });
   } else {
-    const headers = { 'Content-Type': 'application/json', ...extendHeaders, 'buildify-token': token };
+    const headers = { 'Content-Type': 'application/json', ...extendHeaders, 'Authorization': token };
     let body = data;
     if (headers['Content-Type'] === 'multipart/form-data') {
       delete headers['Content-Type'];
     } else {
-        body = JSON.stringify(data);
+      body = JSON.stringify(data);
     }
     return fetch(url, {
       method,

@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../public/images/logo.webp';
 import Image from 'next/image';
+import userService from 'services/user';
 
 function Copyright(props: any) {
   return (
@@ -34,9 +35,14 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const body = {
+      username: data.get('username'),
       password: data.get('password'),
+    } as any;
+    userService.signIn(body).then(resp => {
+      if(resp.token) localStorage.setItem('buildify-token', resp.token);
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
@@ -55,7 +61,7 @@ export default function SignIn() {
           <Avatar sx={{ width: 100, height: 100, m: 1, bgcolor: 'white' }}>
             <Image src={Logo} alt="Logo" />
           </Avatar>
-          <Typography style={{ fontSize: 25, color: "#1652f5"}} component="h1" variant="h5">
+          <Typography style={{ fontSize: 25, color: "#1652f5" }} component="h1" variant="h5">
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -87,13 +93,13 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 , py: 1 }}
+              sx={{ mt: 3, mb: 2, py: 1 }}
               style={{ backgroundColor: "#1652f5" }}            >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                
+
               </Grid>
               <Grid item>
                 <Link href="/sign-up" variant="body2">
