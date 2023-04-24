@@ -1,4 +1,4 @@
-import { useEditor } from 'libs/core/src';
+import { PageData, useEditor } from 'libs/core/src';
 import {
   Tooltip,
   // FormControl,
@@ -35,6 +35,7 @@ import Image from 'next/image';
 
 import _var from '../../styles/common/_var.module.scss';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import builderService from 'services/builder';
 
 
 const HeaderDiv = styled.div<any>`
@@ -98,6 +99,20 @@ function addPageReducer(state, action) {
   }
   throw Error('Unknown action.');
 }
+
+export type PageData = {
+  path: string;
+  name: string;
+};
+export type Node = {
+  id: string;
+  type: string;
+  props: string;
+  displayName: string;
+  hidden: boolean;
+  children: Array<string>;
+  pagePath: string;
+};
 
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
@@ -188,31 +203,19 @@ export const Header = () => {
   const handleGenerateCode = async () => {
     setLoadingGenCode(true);
     try {
-      type Page = {
-        path: string;
-        name: string;
-      };
-      type Node = {
-        id: string;
-        type: string;
-        props: string;
-        displayName: string;
-        hidden: boolean;
-        children: Array<string>;
-        pagePath: string;
-      };
-      let pages = new Array<Page>();
+
+      let pages = new Array<PageData>();
       let nodes = new Array<Node>();
-  
+
       // get pages info
       for (const page of query.getState().pageOptions.pages) {
         pages.push({ path: page.path, name: page.name });
       }
-  
+
       // get nodes info
-  
+
       let serializeNodes = query.getSerializedNodes();
-  
+
       for (const id in serializeNodes) {
         let serializeNode = serializeNodes[id];
         let type = serializeNode.type;
@@ -220,7 +223,7 @@ export const Header = () => {
         if (typeof type === 'object' && type.resolvedName) {
           typeName = type.resolvedName;
         } else continue;
-  
+
         let node: Node = {
           id: id,
           type: typeName.replace('Craft', ''),
@@ -230,13 +233,22 @@ export const Header = () => {
           children: serializeNode.nodes,
           pagePath: serializeNode.page,
         };
-  
+
         nodes.push(node);
       }
-  
+
       console.log({ nodes, pages });
-  
+
       // call api
+      // builderService.genCode({
+      //   nodes, pages
+      // })
+      //   .then((res) => {
+      //     console.log('result data', res.data);
+      //     if(res.data?.url) window.location.href = res.data.url;
+      //   }).catch((err) => {
+      //     console.log(err);
+      //   });
       const srcCodeUrl = await axios
         .post(
           'https://gencode.azurewebsites.net/api/gen-react-code',
@@ -255,7 +267,7 @@ export const Header = () => {
         }).catch((err) => {
           console.log(err);
         });
-      if(srcCodeUrl) window.location.href = srcCodeUrl;
+      if (srcCodeUrl) window.location.href = srcCodeUrl;
     } finally {
       setLoadingGenCode(false);
     }
@@ -398,12 +410,11 @@ export const Header = () => {
           >
             {!isShownAllIndicator ? ' Show indicators' : 'Hide indicators'}
           </Btn>
-          
+
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-500 ${loadingGenCode ? 'disabled' : ''}`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-500`}
             onClick={handleGoToAdminDatabase}
           >
-            {loadingGenCode && <CircularProgress size={20}/>}
             My Database
           </Btn>
 
@@ -411,7 +422,7 @@ export const Header = () => {
             className={`ml-2 transition cursor-pointer btn-gen-code bg-sky-600 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={async () => await handleGenerateCode()}
           >
-            {loadingGenCode && <CircularProgress size={20}/>}
+            {loadingGenCode && <CircularProgress size={20} />}
             Generate Code
           </Btn>
         </div>
