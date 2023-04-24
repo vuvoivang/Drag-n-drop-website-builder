@@ -6,12 +6,32 @@ html,
 body {
   font-family: 'acumin-pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  color: rgb(75, 75, 75);
-  background: #e0e0e0;
+  /* color: rgb(75, 75, 75);
+  background: #e0e0e0; */
 }
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/range-slider.css';
+@import 'additional-styles/toggle-switch.css';
+@import 'additional-styles/theme.css';
 
 @tailwind utilities;
 
+/* Additional Tailwind directives: https://tailwindcss.com/docs/functions-and-directives/#responsive */
+@layer utilities {
+  .rtl {
+      direction: rtl;
+  }
+}
+
+/* See Alpine.js: https://github.com/alpinejs/alpine#x-cloak */
+[x-cloak=""] {
+  display: none;
+}
+.page-container{
+  color: #4b4b4b;
+  background: #e0e0e0;
+}
 .component-selected {
   @apply relative;
 }
@@ -81,6 +101,6 @@ body {
   color: #fff !important;
 }
 
-.MuiFormLabel-root.Mui-focused {
+/* .MuiFormLabel-root.Mui-focused {
   color: #fff !important;
-}
+} */
