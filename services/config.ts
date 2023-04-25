@@ -16,7 +16,7 @@ export const fetchWithBuildifyToken = (
 ) => {
   const url = path.includes('http') ? path : API_BASE_URL + path;
   const token = localStorage.getItem('buildify-token') || '';
-  if (method === 'GET') {
+  if (method === 'GET' || method === 'DELETE') {
     const fetchUrl = data ? url + '?' + new URLSearchParams(data).toString() : url;
     return fetch(fetchUrl, {
       method,

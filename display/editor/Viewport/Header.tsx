@@ -35,7 +35,7 @@ import Image from 'next/image';
 
 import _var from '../../styles/common/_var.module.scss';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import builderService from 'services/builder';
+import genCodeService from 'services/gen-code';
 
 
 const HeaderDiv = styled.div<any>`
@@ -240,7 +240,7 @@ export const Header = () => {
       console.log({ nodes, pages });
 
       // call api
-      builderService.genCode({
+      genCodeService.genCode({
         nodes, pages
       })
         .then((res) => {

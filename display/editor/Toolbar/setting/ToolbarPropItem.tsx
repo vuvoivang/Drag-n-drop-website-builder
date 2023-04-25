@@ -15,7 +15,7 @@ import { PLACEHOLDER_IMAGE_URL, STYLED_CLASSNAMES_KEY } from 'display/constants'
 import { LightTooltip } from 'display/shared/components/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import _var from '../../../styles/common/_var.module.scss';
-import builderService from 'services/builder';
+import fileMgtService from 'services/file-mgt';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
 
@@ -303,7 +303,7 @@ export const ToolbarPropItem = ({
               formData.append('image', fileImage);
 
               try {
-                  builderService.uploadImage(fileImage).then((res: any) => {
+                  fileMgtService.uploadImage(fileImage).then((res: any) => {
                     if(res?.code === 0){
                       handleSetPropValue(res?.url, type);
                     }
@@ -312,7 +312,6 @@ export const ToolbarPropItem = ({
               } catch (err) {
                 console.log('Err upload image', err);
               }
-              // handleSetPropValue(imageList[0]?.dataURL, type);
             }}
             acceptType={['jpg', 'gif', 'png']}
           >
