@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    {"source": "/admin/:match*", "destination": "https://admin-buildify.vercel.app/:match*"},
-    {"source": "/:match*", "destination": "https://buildify.vercel.app/:match*"}
+    {"source": "/admin/:path*", "destination": "https://admin-buildify.vercel.app/:path*"},
+    {"source": "/:path*", "destination": "https://buildify.vercel.app/:path*"}
   ]
 }
