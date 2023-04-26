@@ -40,7 +40,11 @@ export default function SignIn() {
       password: data.get('password'),
     } as any;
     userService.signIn(body).then(resp => {
-      if(resp.token) localStorage.setItem('buildify-token', resp.token);
+      if (resp.token) {
+        alert('Sign in successfully, build your website now!!');
+        window.location.href = '/builder'; 
+        localStorage.setItem('buildify-token', resp.token);
+      }
     }).catch((err) => {
       console.log(err);
     });

@@ -254,7 +254,7 @@ export const Header = () => {
   };
 
   const handleGoToAdminDatabase = () => {
-    window.open('http://localhost:3000/dynamic-data', '_blank');
+    window.location.href = '/admin/dynamic-data';
   }
 
   return (

@@ -45,7 +45,9 @@ export default function SignUp() {
     userService.signUp(body).then(resp => {
       if(!resp.msg) {
         // success notify
+        alert('Sign up successfully, sign in now!!');
         // navigate to sign in page
+        window.location.href = '/sign-in';
       }
     }).catch((err) => {
       console.log(err);

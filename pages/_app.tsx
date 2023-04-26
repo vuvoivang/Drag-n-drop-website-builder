@@ -1,11 +1,17 @@
 import React from 'react';
+import Head from 'next/head'
 
 import '../styles/app.css';
 import '../display/styles/app.scss';
 import '../display/styles/custom-setting.scss';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return <>
+    <Head>
+      <title>Buildify</title>
+    </Head>
+    <Component {...pageProps} />
+  </>;
 }
 
 // Only uncomment this method if you have blocking data requirements for

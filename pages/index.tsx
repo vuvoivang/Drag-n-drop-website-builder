@@ -1,8 +1,3 @@
-export const metadata = {
-    title: 'Home - Open PRO',
-    description: 'Page description',
-}
-
 import Hero from 'landing/components/hero'
 import Features from 'landing/components/features'
 import Newsletter from 'landing/components/newsletter'
