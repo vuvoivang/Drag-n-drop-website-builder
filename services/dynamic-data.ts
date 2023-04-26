@@ -19,7 +19,7 @@ const getCollection = (id: string) => {
   });
 };
 
-const getCollectionList = () => {
+const getDynamicData = () => {
   return fetchWithBuildifyToken('/dynamic-data-service/api/collection/list', 'GET');
 };
 
@@ -61,7 +61,7 @@ const deleteDocument = (id: string) => {
 
 const dynamicDataService = {
   getCollection,
-  getCollectionList,
+  getDynamicData,
   addCollection,
   updateCollection,
   deleteCollection,

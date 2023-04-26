@@ -1,6 +1,6 @@
 import { ERROR_RESOLVER_NOT_AN_OBJECT, HISTORY_ACTIONS } from '@libs/utils';
 import { pickBy } from 'lodash';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import invariant from 'tiny-invariant';
 
 import { EditorContext } from './EditorContext';
@@ -8,6 +8,7 @@ import { useEditorStore } from './store';
 
 import { Events } from '../events';
 import { Options } from '../interfaces';
+import dynamicDataService from 'services/dynamic-data';
 
 /**
  * A React Component that provides the Editor context
@@ -20,6 +21,9 @@ export const Editor: React.FC<Partial<Options>> = ({
   enabled,
   indicator,
 }) => {
+  const [collections, setCollections] = useState([]);
+  const [documents, setDocuments] = useState([]);
+
   // we do not want to warn the user if no resolver was supplied
   if (resolver !== undefined) {
     invariant(typeof resolver === 'object' && !Array.isArray(resolver), ERROR_RESOLVER_NOT_AN_OBJECT);
@@ -75,6 +79,23 @@ export const Editor: React.FC<Partial<Options>> = ({
       }
     );
   }, [context]);
+
+  useEffect(() => {
+    // dynamicDataService.deleteCollection('7');
+    // call api
+    try {
+      dynamicDataService.getDynamicData().then((resp: any) => {
+        if (resp?.collections) {
+          setCollections(resp.collections);
+        }
+        if (resp?.documents) {
+          setDocuments(resp.documents);
+        }
+      });
+    } catch (err) {
+      console.log('Err get dynamic data', err);
+    }
+  }, [])
 
   return context ? (
     <EditorContext.Provider value={context}>

@@ -3,7 +3,7 @@ import { fetchWithBuildifyToken } from './config';
 const uploadImage = (image: File) => {
   const formData = new FormData();
   formData.append('image', image);
-  return fetchWithBuildifyToken('file-mgt-service/upload/image', 'POST', formData, {
+  return fetchWithBuildifyToken('file-mgt-service/api/upload/image', 'POST', formData, {
     'Content-Type': 'multipart/form-data',
   });
 };
