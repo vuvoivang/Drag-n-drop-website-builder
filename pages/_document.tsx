@@ -1,4 +1,4 @@
-import Document, { Html, Main, NextScript, DocumentContext } from 'next/document';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 import React from 'react';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
@@ -32,6 +32,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <Head>
+          <title>Website builder</title>
+        </Head>
         <body>
           <Main />
           <NextScript />
