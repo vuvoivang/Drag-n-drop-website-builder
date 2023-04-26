@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import HeroImage from 'public/images/hero.png'
+import HeroImage from 'public/images/Hero.png'
 
 export default function Hero() {
 
