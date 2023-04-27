@@ -8,13 +8,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../public/images/logo.webp';
 import Image from 'next/image';
 import userService from 'services/user';
+import toastMessage from 'utils/toast';
+import useAppNavigate from 'hooks/useAppNavigate';
 
 function Copyright(props: any) {
   return (
@@ -32,6 +33,7 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const navigate = useAppNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +42,15 @@ export default function SignIn() {
       password: data.get('password'),
     } as any;
     userService.signIn(body).then(resp => {
-      if(resp.token) localStorage.setItem('buildify-token', resp.token);
+      if (resp.token) {
+        localStorage.setItem('buildify-token', resp.token);
+
+        toastMessage.success("Sign in successfully, build your website now!!", {
+          onClose: () => {
+            navigate('/builder');
+          }
+        });
+      } else toastMessage.error('Sign in failed, please try again later!');
     }).catch((err) => {
       console.log(err);
     });
@@ -52,10 +62,10 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginTop: 8,
           }}
         >
           <Avatar sx={{ width: 100, height: 100, m: 1, bgcolor: 'white' }}>
@@ -74,11 +84,13 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
+              inputProps={{ className: "input-material" }}
             />
             <TextField
               margin="normal"
               required
               fullWidth
+              inputProps={{ className: "input-material" }}
               name="password"
               label="Password"
               type="password"

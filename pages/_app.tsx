@@ -1,11 +1,20 @@
 import React from 'react';
+import Head from 'next/head'
 
 import '../styles/app.css';
 import '../display/styles/app.scss';
 import '../display/styles/custom-setting.scss';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return <>
+    <Head>
+      <title>Buildify</title>
+    </Head>
+    <Component {...pageProps} />
+    <ToastContainer />
+  </>;
 }
 
 // Only uncomment this method if you have blocking data requirements for

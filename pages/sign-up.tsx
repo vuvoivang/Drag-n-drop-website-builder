@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../public/images/logo.webp';
 import Image from 'next/image';
 import userService from 'services/user';
+import toastMessage from 'utils/toast';
+import useAppNavigate from 'hooks/useAppNavigate';
 
 
 function Copyright(props) {
@@ -42,11 +44,15 @@ export default function SignUp() {
       fullName: data.get('fullName'),
       email: data.get('email'),
     } as any;
+    const navigate = useAppNavigate();
     userService.signUp(body).then(resp => {
-      if(!resp.msg) {
-        // success notify
-        // navigate to sign in page
-      }
+      if (!resp.msg) {
+        toastMessage.success("Sign up successfully, sign in now!!", {
+          onClose: () => {
+            navigate('/sign-in');
+          }
+        });
+      } else toastMessage.error('Sign up failed, please try again later!');
     }).catch((err) => {
       console.log(err);
     });
@@ -58,22 +64,24 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'space-between',
+            height: '100%',
           }}
         >
           <Avatar sx={{ width: 100, height: 100, m: 1, bgcolor: 'white' }}>
             <Image src={Logo} alt="Logo" />
           </Avatar>
-          <Typography style={{ fontSize: 25, color: "#1652f5"}} component="h1" variant="h5">
+          <Typography style={{ fontSize: 25, color: "#1652f5" }} component="h1" variant="h5">
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-                
+              <Grid item xs={12} sm={6}>
+
                 <TextField
                   name="fullName"
                   required
@@ -81,9 +89,11 @@ export default function SignUp() {
                   id="fullName"
                   label="Full Name"
                   autoFocus
+                  inputProps={{ className: "input-material" }}
+
                 />
               </Grid>
-              
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -91,18 +101,22 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  inputProps={{ className: "input-material" }}
+
                 />
               </Grid>
-            <Grid item xs={12}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="username"
                   label="Username"
                   name="username"
+                  inputProps={{ className: "input-material" }}
+
                 />
               </Grid>
-              
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -112,6 +126,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  inputProps={{ className: "input-material" }}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -120,9 +136,11 @@ export default function SignUp() {
                   fullWidth
                   name="confirmPassword"
                   label="Confirm Password"
-                  type="confirmPassword"
+                  type="password"
                   id="confirmPassword"
                   autoComplete="new-password"
+                  inputProps={{ className: "input-material" }}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -136,7 +154,7 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 , py: 1 }}
+              sx={{ mt: 3, mb: 2, py: 1 }}
               style={{ backgroundColor: "#1652f5" }}
 
             >
