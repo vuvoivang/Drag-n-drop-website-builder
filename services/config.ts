@@ -22,7 +22,8 @@ export const fetchWithBuildifyToken = (
       method,
       headers: {
         ...extendHeaders,
-        'Authorization': token,
+        Authorization: token,
+        'Referrer-Policy': 'unsafe-url',
       },
     })
       .then((response) => {
@@ -36,7 +37,12 @@ export const fetchWithBuildifyToken = (
         // handle error
       });
   } else {
-    const headers = { 'Content-Type': 'application/json', ...extendHeaders, 'Authorization': token };
+    const headers = {
+      'Content-Type': 'application/json',
+      ...extendHeaders,
+      Authorization: token,
+      'Referrer-Policy': 'unsafe-url',
+    };
     let body = data;
     if (headers['Content-Type'] === 'multipart/form-data') {
       delete headers['Content-Type'];

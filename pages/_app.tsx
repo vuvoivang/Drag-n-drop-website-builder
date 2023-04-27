@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps }) {
   return <>
     <Head>
-      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       <title>Buildify</title>
     </Head>
     <Component {...pageProps} />
