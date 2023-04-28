@@ -240,7 +240,7 @@ export const Header = () => {
       console.log({ nodes, pages });
 
       // call api
-      genCodeService.genCode({
+      await genCodeService.genCode({
         nodes, pages
       })
         .then((res) => {
@@ -400,7 +400,7 @@ export const Header = () => {
 
           <Btn
             className={`ml-2 transition cursor-pointer btn-gen-code bg-sky-600 ${loadingGenCode ? 'disabled' : ''}`}
-            onClick={async () => await handleGenerateCode()}
+            onClick={handleGenerateCode}
           >
             {loadingGenCode && <CircularProgress size={20} />}
             Generate Code
