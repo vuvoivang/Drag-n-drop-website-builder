@@ -2,7 +2,7 @@ import { Node, PageData } from 'display/editor/Viewport/Header';
 import { fetchWithBuildifyToken } from './config';
 
 const genCode = (data: { nodes: Array<Node>; pages: Array<PageData> }) => {
-  return fetchWithBuildifyToken('gen-code-service/api/gen-react-code', 'POST', data);
+  return fetchWithBuildifyToken('https://gen-code-service.buildify.asia/api/gen-react-code', 'POST', data);
 };
 
 const genCodeService = {
