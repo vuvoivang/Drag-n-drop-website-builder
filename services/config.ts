@@ -1,4 +1,3 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
 /**
  * Performs a fetch request with the given method and data, use key 'buildify-token' in localStorage
  * @param {string} url - The url to fetch
@@ -9,12 +8,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
  */
 
 export const fetchWithBuildifyToken = (
-  path: string,
+  url: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   data?: any,
   extendHeaders?: any
 ) => {
-  const url = path.includes('http') ? path : API_BASE_URL + path;
   const token = localStorage.getItem('buildify-token') || '';
   if (method === 'GET' || method === 'DELETE') {
     const fetchUrl = data ? url + '?' + new URLSearchParams(data).toString() : url;
