@@ -45,6 +45,7 @@ export type EditorState = {
   handlers: CoreEventHandlers;
   indicator: Indicator;
   pageOptions: PageOptions;
+  database: Database;
 };
 
 export type ConnectedEditor<S = null> = useInternalEditorReturnType<S>;
@@ -57,3 +58,8 @@ export type PageData = {
   path: string;
   name: string;
 };
+
+export interface Database {
+  collections: any[];
+  documents: any[];
+}

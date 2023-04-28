@@ -250,5 +250,9 @@ export function QueryMethods(state: EditorState) {
     getState() {
       return state;
     },
+
+    getDatabase() {
+      return state.database;
+    },
   };
 }

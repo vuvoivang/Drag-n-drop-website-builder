@@ -72,9 +72,12 @@ const Btn = styled.a`
 
 export const RenderNode = ({ render }) => {
   const { id } = useNode();
-  const { actions, query, isActive } = useEditor((_, query) => ({
+  const { actions, query, isActive, database } = useEditor((_, query) => ({
     isActive: query.getEvent('selected').contains(id),
+    database: query.getDatabase(),
   }));
+
+  console.log(database);
 
   const {
     isHover,

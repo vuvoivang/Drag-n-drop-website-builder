@@ -41,6 +41,10 @@ export const editorInitialState: EditorState = {
       },
     ],
   },
+  database: {
+    collections: [],
+    documents: [],
+  },
 };
 
 export const ActionMethodsWithConfig = {

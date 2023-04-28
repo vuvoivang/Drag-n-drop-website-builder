@@ -21,8 +21,6 @@ export const Editor: React.FC<Partial<Options>> = ({
   enabled,
   indicator,
 }) => {
-  const [collections, setCollections] = useState([]);
-  const [documents, setDocuments] = useState([]);
 
   // we do not want to warn the user if no resolver was supplied
   if (resolver !== undefined) {
@@ -81,16 +79,10 @@ export const Editor: React.FC<Partial<Options>> = ({
   }, [context]);
 
   useEffect(() => {
-    // dynamicDataService.deleteCollection('7');
     // call api
     try {
       dynamicDataService.getDynamicData().then((resp: any) => {
-        if (resp?.collections) {
-          setCollections(resp.collections);
-        }
-        if (resp?.documents) {
-          setDocuments(resp.documents);
-        }
+        context.actions.setDatabase(resp);
       });
     } catch (err) {
       console.log('Err get dynamic data', err);

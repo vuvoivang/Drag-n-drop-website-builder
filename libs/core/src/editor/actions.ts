@@ -497,6 +497,14 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     addChildren(id: NodeId, childrenId: NodeId) {
       state.nodes[id].data.nodes = [...state.nodes[id].data.nodes, childrenId];
     },
+
+    /**
+     * Set database
+     * @param newDatase
+     */
+     setDatabase(newDatase) {
+      state.database = {...newDatase};
+    },
   };
 };
 
