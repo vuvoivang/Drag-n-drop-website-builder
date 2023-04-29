@@ -77,7 +77,6 @@ export const RenderNode = ({ render }) => {
     database: query.getDatabase(),
   }));
 
-  console.log(database);
 
   const {
     isHover,
@@ -140,11 +139,15 @@ export const RenderNode = ({ render }) => {
 
 
   const [openDialogConnectData, setOpenDialogConnectData] = useState(false);
-  const [collections, setCollections] = useState(MOCK_COLLECTIONS);
-  const [documents, setDocuments] = useState(MOCK_DOCUMENTS);
+  const [collections, setCollections] = useState([]);
+  const [documents, setDocuments] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [selectedDocument, setSelectedDocument] = useState(null);
 
+  useEffect(()=>{
+    setCollections(database.collections);
+    setDocuments(database.documents);
+  }, [database]);
 
   const handleCloseDialogConnectData = () => {
     setOpenDialogConnectData(false);
