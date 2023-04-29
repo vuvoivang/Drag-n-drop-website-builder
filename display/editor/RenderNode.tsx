@@ -276,7 +276,7 @@ export const RenderNode = ({ render }) => {
           <Autocomplete
             id="documents-autocomplete"
             value={selectedDocument}
-            options={documentOptions.sort((a, b) => (a.value < b.value ? -1 : 1))}
+            options={documentOptions?.sort((a, b) => (a.value < b.value ? -1 : 1))}
             disabled={!selectedCollection}
             groupBy={(option) => (option.value.slice(0, Number(option.value.indexOf('-'))) as any)}
             getOptionLabel={(option) => (`(${option.key}) ${option.label.length > 47 ? `${option.label?.slice(0, 47)}...` : option.label}` as any)}
