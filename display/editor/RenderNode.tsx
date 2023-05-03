@@ -155,6 +155,7 @@ export const RenderNode = ({ render }) => {
       props.text = {
         type: "dynamic",
         value: selectedDocument.label,
+        key: selectedDocument.key,
         collectionId: selectedCollection.value,
         documentId: selectedDocument.value.slice(0, Number(selectedDocument.value.indexOf('-'))),
       };
