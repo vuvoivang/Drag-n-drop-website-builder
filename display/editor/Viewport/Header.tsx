@@ -37,7 +37,6 @@ import _var from '../../styles/common/_var.module.scss';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import genCodeService from 'services/gen-code';
 
-
 const HeaderDiv = styled.div<any>`
   width: 100%;
   height: 48px;
@@ -111,6 +110,7 @@ export type Node = {
   displayName: string;
   hidden: boolean;
   children: Array<string>;
+  linkedNodes: Array<string>;
   pagePath: string;
 };
 
@@ -203,7 +203,6 @@ export const Header = () => {
   const handleGenerateCode = async () => {
     setLoadingGenCode(true);
     try {
-
       let pages = new Array<PageData>();
       let nodes = new Array<Node>();
 
@@ -228,8 +227,11 @@ export const Header = () => {
           id: id,
           type: typeName.replace('Craft', ''),
           props: JSON.stringify(serializeNode.props),
-          displayName: serializeNode.custom?.displayName ? serializeNode.custom?.displayName : serializeNode.displayName,
+          displayName: serializeNode.custom?.displayName
+            ? serializeNode.custom?.displayName
+            : serializeNode.displayName,
           hidden: serializeNode.hidden,
+          linkedNodes: Object.values(serializeNode.linkedNodes),
           children: serializeNode.nodes,
           pagePath: serializeNode.page,
         };
@@ -240,12 +242,15 @@ export const Header = () => {
       console.log({ nodes, pages });
 
       // call api
-      await genCodeService.genCode({
-        nodes, pages
-      })
+      await genCodeService
+        .genCode({
+          nodes,
+          pages,
+        })
         .then((res) => {
-          if(res.url) window.location.href = res.url;
-        }).catch((err) => {
+          if (res.url) window.location.href = res.url;
+        })
+        .catch((err) => {
           console.log(err);
         });
     } finally {
@@ -255,7 +260,7 @@ export const Header = () => {
 
   const handleGoToAdminDatabase = () => {
     window.open('/admin/dynamic-data', '_blank');
-  }
+  };
 
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
