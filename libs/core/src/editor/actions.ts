@@ -79,7 +79,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     iterateChildren(tree.rootNodeId, parentId);
 
     if (!parentId) {
-      invariant(tree.rootNodeId === ROOT_NODE, 'Cannot add non-root Node without a parent');
+      invariant(tree.rootNodeId.startsWith(ROOT_NODE), 'Cannot add non-root Node without a parent');
 
       return;
     }

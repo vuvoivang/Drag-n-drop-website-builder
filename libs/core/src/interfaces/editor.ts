@@ -46,6 +46,7 @@ export type EditorState = {
   indicator: Indicator;
   pageOptions: PageOptions;
   database: Database;
+  theme: Theme;
 };
 
 export type ConnectedEditor<S = null> = useInternalEditorReturnType<S>;
@@ -63,3 +64,5 @@ export interface Database {
   collections: any[];
   documents: any[];
 }
+
+export type Theme = Record<string,any>;
