@@ -1,9 +1,12 @@
+import { generateUrlByService } from 'services';
 import { fetchWithBuildifyToken } from './config';
+
+const SERVICE_NAME = 'file-mgt-service';
 
 const uploadImage = (image: File) => {
   const formData = new FormData();
   formData.append('image', image);
-  return fetchWithBuildifyToken('file-mgt-service/api/upload/image', 'POST', formData, {
+  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'upload/image'), 'POST', formData, {
     'Content-Type': 'multipart/form-data',
   });
 };

@@ -35,6 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const navigate = useAppNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,7 +45,6 @@ export default function SignUp() {
       fullName: data.get('fullName'),
       email: data.get('email'),
     } as any;
-    const navigate = useAppNavigate();
     userService.signUp(body).then(resp => {
       if (!resp.msg) {
         toastMessage.success("Sign up successfully, sign in now!!", {
