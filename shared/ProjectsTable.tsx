@@ -21,6 +21,8 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import Box from '@mui/material/Box';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import { visuallyHidden } from '@mui/utils';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -88,43 +90,137 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     );
 }
 
+
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+type Order = 'asc' | 'desc';
+
+function getComparator<Key extends keyof any>(
+    order: Order,
+    orderBy: Key,
+): (
+    a: { [key in Key]: number | string },
+    b: { [key in Key]: number | string },
+) => number {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
+// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
+// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
+// with exampleArray.slice().sort(exampleComparator)
+function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) {
+            return order;
+        }
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
+interface EnhancedTableProps {
+    numSelected: number;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof PROJECT) => void;
+    order: Order;
+    orderBy: string;
+    rowCount: number;
+}
 const useStyles = makeStyles({
     table: {
         minWidth: 650
     }
 });
+function EnhancedTableHead(props: EnhancedTableProps) {
+    const { order, orderBy, onRequestSort } =
+        props;
+    const createSortHandler =
+        (property: keyof PROJECT) => (event: React.MouseEvent<unknown>) => {
+            onRequestSort(event, property);
+        };
+
+
+    return (
+        <TableHead >
+            <TableRow>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} sortDirection={orderBy === 'name' ? order : false}>
+
+                    <TableSortLabel
+                        active={orderBy === 'name'}
+                        direction={orderBy === 'name' ? order : 'asc'}
+                        onClick={createSortHandler('name')}
+                    >Name
+                    </TableSortLabel>
+                    {orderBy === 'name' ? (
+                        <Box component="span" sx={visuallyHidden}>
+                            {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                        </Box>
+                    ) : null}
+                </TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right" sortDirection={orderBy === 'type' ? order : false}>
+                    <TableSortLabel
+                        active={orderBy === 'type'}
+                        direction={orderBy === 'type' ? order : 'asc'}
+                        onClick={createSortHandler('type')}
+                    >Type
+                    </TableSortLabel>
+                    {orderBy === 'type' ? (
+                        <Box component="span" sx={visuallyHidden}>
+                            {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                        </Box>
+                    ) : null}
+                </TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Created Time</TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Updated Time</TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Operations</TableCell>
+            </TableRow>
+        </TableHead>)
+}
 
 const originalRows = [
     { name: "Buildify Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Example buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify3 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify6 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Example buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify3 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify6 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Example buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify3 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify6 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Example buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify3 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify6 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Example buildify2 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify3 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
     { name: "Buildify6 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
-    { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 }
+    { name: "Buildify5 Landing", type: 0, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
+    { name: "Buildify4 Blog", type: 1, createdTime: new Date().getTime() + Math.random() * 1000000, updatedTime: new Date().getTime() + Math.random() * 1000000 },
 ];
 
 function formatDate(date) {
@@ -143,7 +239,11 @@ function formatDate(date) {
 }
 
 export default function ProjectsTable() {
-    const [rows, setRows] = useState(originalRows);
+    const [rows, setRows] = useState<PROJECT[]>(originalRows as any);
+    const [order, setOrder] = React.useState<Order>('asc');
+    const [orderBy, setOrderBy] = React.useState<keyof PROJECT>('name');
+    const [selected, setSelected] = React.useState<readonly string[]>([]);
+
     const [searched, setSearched] = useState<string>("");
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -171,7 +271,7 @@ export default function ProjectsTable() {
         const filteredRows = originalRows.filter((row) => {
             return row.name.toLowerCase().includes(searchedVal.toLowerCase());
         });
-        setRows(filteredRows);
+        setRows([...filteredRows] as any);
     };
 
     const cancelSearch = () => {
@@ -191,6 +291,37 @@ export default function ProjectsTable() {
         console.log('here');
     }
 
+
+    const handleRequestSort = (
+        _: React.MouseEvent<unknown>,
+        property: keyof PROJECT,
+    ) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
+    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.checked) {
+            const newSelected = rows.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
+    };
+
+    const visibleRows = React.useMemo(
+        () => {
+            const sortedData = stableSort(rows, getComparator(order, orderBy)).slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage,
+            )
+            return sortedData;
+        },
+        [rows, order, orderBy, page, rowsPerPage],
+    );
+
+
     return (
         <div id="projects-table">
             <Paper>
@@ -205,55 +336,49 @@ export default function ProjectsTable() {
                 </div>
                 <div className="mt-4">
                     <Table stickyHeader className={classes.table} aria-label="simple table">
-                        <TableHead >
-                            <TableRow>
-                                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }}>Name</TableCell>
-                                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Type</TableCell>
-                                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Created Time</TableCell>
-                                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Updated Time</TableCell>
-                                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Operations</TableCell>
-                            </TableRow>
-                        </TableHead>
+                        <EnhancedTableHead numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onRequestSort={handleRequestSort}
+                            rowCount={rows.length} />
                         <TableBody>
-                            {(rowsPerPage > 0
-                                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                : rows).map((row) => (
-                                    <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="right">{MAPPING_PROJECT_TYPE_TO_STRING[row.type]}</TableCell>
-                                        <TableCell align="right">{formatDate(row.createdTime)}</TableCell>
-                                        <TableCell align="right">{formatDate(row.updatedTime)}</TableCell>
+                            {(visibleRows).map((row) => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="right">{MAPPING_PROJECT_TYPE_TO_STRING[row.type]}</TableCell>
+                                    <TableCell align="right">{formatDate(row.createdTime)}</TableCell>
+                                    <TableCell align="right">{formatDate(row.updatedTime)}</TableCell>
 
-                                        <TableCell align="right">
-                                            <Tooltip title='Continue Build' arrow>
+                                    <TableCell align="right">
+                                        <Tooltip title='Continue Build' arrow>
 
-                                                <IconButton onClick={() => onGoToBuildProject(row)}>
-                                                    <CallMissedOutgoingIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title='Edit' arrow >
-                                                <IconButton onClick={() => onEditProject(row)}>
-                                                    <ModeEditIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <IconButton onClick={() => onGoToBuildProject(row)}>
+                                                <CallMissedOutgoingIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title='Edit' arrow >
+                                            <IconButton onClick={() => onEditProject(row)}>
+                                                <ModeEditIcon />
+                                            </IconButton>
+                                        </Tooltip>
 
-                                            <Tooltip title='Delete' arrow>
+                                        <Tooltip title='Delete' arrow>
 
-                                                <IconButton onClick={() => onDeleteProject(row)}>
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <IconButton onClick={() => onDeleteProject(row)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Tooltip>
 
 
 
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                             {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
+                                <TableRow style={{ height: 77 * emptyRows }}>
+                                    <TableCell colSpan={5} />
                                 </TableRow>
                             )}
                         </TableBody>
@@ -263,7 +388,6 @@ export default function ProjectsTable() {
                                 <TablePagination
                                     rowsPerPageOptions={[5, 10, 20, { label: 'All', value: -1 }]}
                                     colSpan={8}
-
                                     count={rows.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}

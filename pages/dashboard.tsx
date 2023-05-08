@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Logo from 'public/images/logo.webp';
 import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
-import Table from 'shared/ProjectsTable';
+import ProjectsTable from 'shared/ProjectsTable';
 import _var from '../display/styles/common/_var.module.scss';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -23,13 +23,13 @@ export default function LandingPage() {
             </div>
             <div>
                 <div className='flex justify-between pt-4'>
-                    <h2 className='text-3xl font-bold' style={{color: _var.primaryColor}}>List project</h2>
-                    <Button className='btn btn-primary' variant="contained" style={{color: _var.whiteColor, padding: '8px 16px', backgroundColor: _var.blueDarkColor, paddingLeft: 8}} color='secondary' onClick={()=> {
+                    <h2 className='text-3xl font-bold' style={{ color: _var.primaryColor }}>My projects</h2>
+                    <Button className='btn btn-primary' variant="contained" style={{ color: _var.whiteColor, padding: '8px 16px', backgroundColor: _var.blueDarkColor, paddingLeft: 8 }} color='secondary' onClick={() => {
 
-                    }}><AddIcon size="small"/> <span style={{marginLeft: 4, textTransform: "capitalize"}}>{' '} New project</span></Button>
+                    }}><AddIcon /> <span style={{ marginLeft: 4, textTransform: "capitalize" }}>{' '} New project</span></Button>
                 </div>
                 <div className='mt-8'>
-                    <Table />
+                    <ProjectsTable />
                 </div>
             </div>
         </div>
