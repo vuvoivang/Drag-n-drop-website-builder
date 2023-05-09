@@ -5,9 +5,12 @@ import React, { useEffect } from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { Toolbox } from './Toolbox';
+import { PROJECT } from 'services/user';
 
-// @ts-ignore
-export const Viewport: React.FC = ({ children }) => {
+type ViewportProps = {
+  children?: React.ReactNode;
+}
+export const Viewport: React.FC<ViewportProps> = ({ children }) => {
   const {
     enabled,
     connectors,

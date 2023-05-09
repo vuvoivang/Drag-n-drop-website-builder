@@ -1,6 +1,6 @@
 import { ERROR_RESOLVER_NOT_AN_OBJECT, HISTORY_ACTIONS } from '@libs/utils';
 import { pickBy } from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import invariant from 'tiny-invariant';
 
 import { EditorContext } from './EditorContext';

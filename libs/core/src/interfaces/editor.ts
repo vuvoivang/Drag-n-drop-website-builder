@@ -27,6 +27,7 @@ export type Options = {
     actionPerformed: Delete<PatchListenerAction<EditorState, typeof ActionMethodsWithConfig>, 'patches'>,
     query: QueryCallbacksFor<typeof QueryMethods>
   ) => void;
+  children?: React.ReactNode;
 };
 
 export type Resolver = Record<string, string | React.ElementType>;

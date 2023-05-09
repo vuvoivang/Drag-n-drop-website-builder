@@ -3,12 +3,13 @@ import { getCurrentRootNodeId } from '@libs/core';
 import React, { useEffect, useRef } from 'react';
 
 import { useInternalEditor } from '../editor/useInternalEditor';
-import { SerializedNodes } from '../interfaces';
+import { SerializedData } from '../interfaces';
 import { NodeElement } from '../nodes/NodeElement';
 
 export type Frame = {
   json?: string;
-  data?: string | SerializedNodes;
+  data?: string | SerializedData;
+  children?: React.ReactNode;
 };
 
 const RenderRootNode = () => {
