@@ -16,7 +16,7 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 
 import cx from 'classnames';
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
@@ -36,6 +36,10 @@ import Image from 'next/image';
 import _var from '../../styles/common/_var.module.scss';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import genCodeService from 'services/gen-code';
+import { useRouter } from 'next/router';
+import userService from 'services/user';
+import toastMessage from 'utils/toast';
+import { ProjectContext } from 'pages/builder/[id]';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -127,6 +131,8 @@ export const Header = () => {
   const [loadingGenCode, setLoadingGenCode] = useState(false);
 
   const [deletingPagePath, setDeletingPagePath] = useState('');
+
+  const { project } = useContext(ProjectContext);
 
   const {
     enabled,
@@ -262,6 +268,23 @@ export const Header = () => {
     window.open('/admin/dynamic-data', '_blank');
   };
 
+  const handleSaveProject = () => {
+    const json = query.serialize();
+    const compressString = (lz.encodeBase64(lz.compress(json)));
+    userService.updateProject({
+      ...project,
+      compressString,
+      updatedTime: new Date().getTime(),
+    }).then(resp => {
+      if (resp.msg) {
+        toastMessage.error('Save project failed');
+      } else toastMessage.success('Save project successfully');
+    }).catch((err) => {
+        console.log(err);
+        toastMessage.error('Save project failed');
+    });
+  };
+
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
       <div className='items-center flex w-full pl-4 justify-space-between'>
@@ -394,6 +417,13 @@ export const Header = () => {
             }}
           >
             {!isShownAllIndicator ? ' Show indicators' : 'Hide indicators'}
+          </Btn>
+
+          <Btn
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-black`}
+            onClick={handleSaveProject}
+          >
+            Save
           </Btn>
 
           <Btn

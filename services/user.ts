@@ -42,17 +42,15 @@ const signOut = () => {
   return localStorage.removeItem('buildify-token');
 };
 
-const getProjectById = (data: { id: number }): PROJECT => {
-  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'GET', data) as unknown as PROJECT;
+const getProjectById = (data: { id: string }): Promise<PROJECT> => {
+  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'GET', data) as unknown as Promise<PROJECT>;
 };
 
-const getListProject = (): { projects: PROJECT[] } => {
-  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project/list'), 'GET') as unknown as {
-    projects: PROJECT[];
-  };
+const getListProject = (): Promise<{ Projects: PROJECT[] }> => {
+  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project/list'), 'GET') as unknown as Promise<{ Projects: PROJECT[] }>;
 };
 
-const createNewProject = (data: { name: string; type: number; createdTime: number }) => {
+const createNewProject = (data: { name: string; type: number; createdTime: number, updatedTime: number }) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'POST', data);
 };
 
@@ -60,7 +58,7 @@ const updateProject = (data: PROJECT) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'PUT', data);
 };
 
-const deleteProject = (data: { id: number }) => {
+const deleteProject = (data: { id: string }) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'DELETE', data);
 };
 

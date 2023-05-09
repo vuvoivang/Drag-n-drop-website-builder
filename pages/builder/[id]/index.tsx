@@ -1,12 +1,12 @@
 import { Editor, Frame, Element } from 'libs/core/src';
 import { createMuiTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Viewport, RenderNode } from '../display/editor';
-import { Custom1, OnlyButtons } from '../display/selectors/Custom1';
-import { Custom2, Custom2VideoDrop } from '../display/selectors/Custom2';
-import { Custom3, Custom3BtnDrop } from '../display/selectors/Custom3';
+import { Viewport, RenderNode } from '../../../display/editor';
+import { Custom1, OnlyButtons } from '../../../display/selectors/Custom1';
+import { Custom2, Custom2VideoDrop } from '../../../display/selectors/Custom2';
+import { Custom3, Custom3BtnDrop } from '../../../display/selectors/Custom3';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 
 import {
@@ -19,6 +19,10 @@ import {
   CraftPopup,
   CraftAnchor,
 } from 'display/selectors';
+import userService, { PROJECT } from 'services/user';
+import { useRouter } from 'next/router';
+import lz from 'lzutf8';
+
 
 const theme = createMuiTheme({
   typography: {
@@ -26,12 +30,28 @@ const theme = createMuiTheme({
   },
 });
 
+export const ProjectContext = React.createContext({});
+
+
 function Builder() {
+  const router = useRouter();
+  const [project, setProject] = useState<PROJECT>();
+  const currentProductId = router.query?.id as string;
+  useEffect(() => {
+    userService.getProjectById({ id: currentProductId }).then(resp => {
+      if (resp?.id) {
+        setProject(resp);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, [currentProductId]);
+
   return (
     <ThemeProvider theme={theme}>
       <ProSidebarProvider>
         <div className='h-full'>
-          <Editor
+          {project?.id && <ProjectContext.Provider value={{ project, setProject }}><Editor
             resolver={{
               CraftContainer,
               CraftText,
@@ -51,8 +71,9 @@ function Builder() {
             enabled={false}
             onRender={RenderNode}
           >
-            <Viewport>
-              <Frame>
+            <Viewport >
+              <Frame data={lz.decompress(lz.decodeBase64(project.compressString))}>
+
                 <Element
                   canvas
                   is={CraftContainer}
@@ -388,9 +409,10 @@ function Builder() {
                     custom={{ displayName: "Popup" }}
                     ></Element> */}
                 </Element>
+
               </Frame>
             </Viewport>
-          </Editor>
+          </Editor></ProjectContext.Provider>}
         </div>
       </ProSidebarProvider>
       ;

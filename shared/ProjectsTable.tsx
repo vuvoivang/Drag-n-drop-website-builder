@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -23,7 +23,19 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
+import { useEffectOnce } from "@libs/utils";
+import userService from "services/user";
+import toastMessage from "utils/toast";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    TextField,
+    Button as MaterialButton,
 
+} from '@material-ui/core';
 interface TablePaginationActionsProps {
     count: number;
     page: number;
@@ -239,7 +251,7 @@ function formatDate(date) {
 }
 
 export default function ProjectsTable() {
-    const [rows, setRows] = useState<PROJECT[]>(originalRows as any);
+    const [rows, setRows] = useState<PROJECT[]>([]);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PROJECT>('name');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -247,6 +259,9 @@ export default function ProjectsTable() {
     const [searched, setSearched] = useState<string>("");
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState(false);
+    const [deletingProject, setDeletingProject] = useState<PROJECT>({} as PROJECT);
+
     const classes = useStyles();
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -284,7 +299,7 @@ export default function ProjectsTable() {
     }
 
     const onDeleteProject = (project: PROJECT) => {
-        console.log('here');
+        handleDeleteProjectSelectItem(project);
     }
 
     const onGoToBuildProject = (project: PROJECT) => {
@@ -321,7 +336,47 @@ export default function ProjectsTable() {
         [rows, order, orderBy, page, rowsPerPage],
     );
 
+    useEffectOnce(() => {
+        userService.getListProject().then(resp => {
+            if (resp.Projects) {
+                setRows(resp.Projects);
+            } else toastMessage.error('Something went wrong, please try again later!');
+        }).catch((err) => {
+            console.log(err);
+            toastMessage.error('Something went wrong, please try again later!');
+        });
+    })
 
+    const handleCloseDialogConfirmDelete = () => {
+        setOpenDialogConfirmDelete(false);
+        setDeletingProject({} as any);
+    };
+
+    const handleDeletePageDialog = () => {
+        userService.deleteProject({
+            id: deletingProject.id
+          }).then(resp => {
+            if (resp.msg) {
+              toastMessage.error('Delete project failed');
+              setRows([...rows.filter((row) => row.id !== deletingProject.id)]);
+              setDeletingProject({} as any);
+            } else toastMessage.success('Delete project successfully');
+          }).catch((err) => {
+              console.log(err);
+              toastMessage.error('Delete project failed');
+          });
+        handleCloseDialogConfirmDelete();
+    };
+
+    const handleDeleteProjectSelectItem = (project) => {
+        setDeletingProject(project);
+    };
+
+    useEffect(() => {
+        if (deletingProject?.id) {
+          setOpenDialogConfirmDelete(true);
+        }
+      }, [deletingProject]);
     return (
         <div id="projects-table">
             <Paper>
@@ -407,6 +462,31 @@ export default function ProjectsTable() {
                 </div>
             </Paper>
             <br />
+
+
+            <Dialog
+                open={openDialogConfirmDelete}
+                aria-labelledby='delete-page-dialog-title'
+                aria-describedby='delete-page-dialog-description'
+            >
+                <DialogTitle id='delete-page-dialog-title'>
+                    Delete {visibleRows.find((el) => el.id === deletingProject.id)?.name} project
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id='delete-page-dialog-description'>
+                        This action cannot be undone. Delete this page will permanently delete all its elements you've designed. Are
+                        you sure you want to delete?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <MaterialButton onClick={handleCloseDialogConfirmDelete} color='secondary'>
+                        Cancel
+                    </MaterialButton>
+                    <MaterialButton onClick={handleDeletePageDialog} color='primary'>
+                        Sure
+                    </MaterialButton>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
