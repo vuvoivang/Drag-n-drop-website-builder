@@ -108,3 +108,7 @@ body {
 .input-material {
   padding: 16.5px 14px;
 }
+
+.Toastify__toast-container--top-center{
+  min-width: 400px;
+}

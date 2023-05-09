@@ -44,12 +44,12 @@ export default function LandingPage() {
 
         userService.createNewProject(data).then(resp => {
             if (resp.id) {
-                toastMessage.success('Create project successfully, build your website now!!');
+                toastMessage.success('Create project successfully, build your website now');
                 router.push(`/builder/${resp.id}`);
-            } else toastMessage.error('Create project failed, please try again later!');
+            } else toastMessage.error('Create project failed, please try again later');
         }).catch((err) => {
             console.log(err);
-            toastMessage.error('Create project failed, please try again later!');
+            toastMessage.error('Create project failed, please try again later');
         });
     };
     return (

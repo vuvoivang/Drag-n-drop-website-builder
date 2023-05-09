@@ -47,12 +47,12 @@ export default function SignUp() {
     } as any;
     userService.signUp(body).then(resp => {
       if (!resp.msg) {
-        toastMessage.success("Sign up successfully, sign in now!!", {
+        toastMessage.success("Sign up successfully, sign in now", {
           onClose: () => {
             navigate('/sign-in');
           }
         });
-      } else toastMessage.error('Sign up failed, please try again later!');
+      } else toastMessage.error('Sign up failed, please try again later');
     }).catch((err) => {
       console.log(err);
     });

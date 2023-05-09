@@ -45,12 +45,12 @@ export default function SignIn() {
       if (resp.token) {
         localStorage.setItem('buildify-token', resp.token);
 
-        toastMessage.success("Sign in successfully, build your website now!!", {
+        toastMessage.success("Sign in successfully, build your website now", {
           onClose: () => {
-            navigate('/builder');
+            navigate('/dashboard');
           }
         });
-      } else toastMessage.error('Sign in failed, please try again later!');
+      } else toastMessage.error('Sign in failed, please try again later');
     }).catch((err) => {
       console.log(err);
     });

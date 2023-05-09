@@ -36,6 +36,7 @@ import {
     Button as MaterialButton,
 
 } from '@material-ui/core';
+import { useRouter } from "next/router";
 interface TablePaginationActionsProps {
     count: number;
     page: number;
@@ -263,6 +264,7 @@ export default function ProjectsTable() {
     const [deletingProject, setDeletingProject] = useState<PROJECT>({} as PROJECT);
 
     const classes = useStyles();
+    const router = useRouter();
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -303,7 +305,7 @@ export default function ProjectsTable() {
     }
 
     const onGoToBuildProject = (project: PROJECT) => {
-        console.log('here');
+        router.push(`/builder/${project.id}`);
     }
 
 
@@ -314,15 +316,6 @@ export default function ProjectsTable() {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
-    };
-
-    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
     };
 
     const visibleRows = React.useMemo(
@@ -340,10 +333,10 @@ export default function ProjectsTable() {
         userService.getListProject().then(resp => {
             if (resp.Projects) {
                 setRows(resp.Projects);
-            } else toastMessage.error('Something went wrong, please try again later!');
+            } else toastMessage.error('Something went wrong, please try again later');
         }).catch((err) => {
             console.log(err);
-            toastMessage.error('Something went wrong, please try again later!');
+            toastMessage.error('Something went wrong, please try again later');
         });
     })
 
@@ -356,11 +349,12 @@ export default function ProjectsTable() {
         userService.deleteProject({
             id: deletingProject.id
           }).then(resp => {
-            if (resp.msg) {
-              toastMessage.error('Delete project failed');
-              setRows([...rows.filter((row) => row.id !== deletingProject.id)]);
+            if (!resp.msg) {
+              toastMessage.success('Delete project successfully')
+              const newRows = [...rows.filter((row) => row.id !== deletingProject.id)];
+              setRows(newRows);
               setDeletingProject({} as any);
-            } else toastMessage.success('Delete project successfully');
+            } else toastMessage.error('Delete project failed');
           }).catch((err) => {
               console.log(err);
               toastMessage.error('Delete project failed');
