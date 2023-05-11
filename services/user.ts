@@ -9,11 +9,11 @@ export type PROJECT = {
   compressString: string;
   createdTime: number;
   updatedTime: number;
-  type: number;
+  type: string;
 };
 export enum PROJECT_TYPE {
-  LANDING,
-  CMS,
+  LANDING = 'LANDING',
+  CMS = 'CMS',
 }
 export const MAPPING_PROJECT_TYPE_TO_STRING = {
   [PROJECT_TYPE.LANDING]: 'Landing Page',
@@ -46,8 +46,8 @@ const getProjectById = (data: { id: string }): Promise<PROJECT> => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project'), 'GET', data) as unknown as Promise<PROJECT>;
 };
 
-const getListProject = (): Promise<{ Projects: PROJECT[] }> => {
-  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project/list'), 'GET') as unknown as Promise<{ Projects: PROJECT[] }>;
+const getListProject = (): Promise<{ projects: PROJECT[] }> => {
+  return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'project/list'), 'GET') as unknown as Promise<{ projects: PROJECT[] }>;
 };
 
 const createNewProject = (data: { name: string; type: number; createdTime: number, updatedTime: number }) => {

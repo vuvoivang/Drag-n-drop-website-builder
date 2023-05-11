@@ -23,6 +23,38 @@
       fill: var.$color-blue;
     }
   }
+
+  .action-ic-right {
+    margin-right: 16px;
+    cursor: pointer;
+    svg {
+      width: 25px;
+      height: 25px;
+      fill: #0594f9;
+      * {
+        // color: var.$color-blue;
+        // fill: var.$color-blue;
+      }
+    }
+    &.debug{
+      svg {
+        * {
+          fill: #0594f9;
+        }
+      }
+    }
+    &.load{
+     
+      svg {
+        width: 20px;
+        height: 20px;
+        // * {
+        //   fill: #0594f9;
+        // }
+      }
+    }
+  }
+
   .page-select {
     min-width: 120px;
     color: var.$color-primary-text !important;

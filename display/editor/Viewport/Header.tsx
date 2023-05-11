@@ -1,4 +1,4 @@
-import { PageData, useEditor } from 'libs/core/src';
+import { useEditor } from 'libs/core/src';
 import {
   Tooltip,
   // FormControl,
@@ -25,6 +25,12 @@ import Checkmark from '../../../public/icons/check.svg';
 import Customize from '../../../public/icons/customize.svg';
 import RedoSvg from '../../../public/icons/toolbox/redo.svg';
 import UndoSvg from '../../../public/icons/toolbox/undo.svg';
+import DebugSvg from '../../../public/icons/toolbox/debug.svg';
+import CopyStateSvg from '../../../public/icons/toolbox/copy-state.svg';
+import LoadStateSvg from '../../../public/icons/toolbox/load-state.svg';
+import ShowSvg from '../../../public/icons/toolbox/show.svg';
+import HideSvg from '../../../public/icons/toolbox/hide.svg';
+
 import Logo from '../../../public/images/logo.webp';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -76,7 +82,7 @@ const Btn = styled.a`
   &.btn-gen-code {
     color: ${_var.whiteColor};
     &:hover {
-      background-color: ${_var.blueDarkColor};
+      background-color: ${_var.greenDarkColor};
     }
   }
 `;
@@ -132,6 +138,7 @@ export const Header = () => {
 
   const [deletingPagePath, setDeletingPagePath] = useState('');
 
+  //@ts-ignore
   const { project } = useContext(ProjectContext);
 
   const {
@@ -280,8 +287,8 @@ export const Header = () => {
         toastMessage.error('Save project failed');
       } else toastMessage.success('Save project successfully');
     }).catch((err) => {
-        console.log(err);
-        toastMessage.error('Save project failed');
+      console.log(err);
+      toastMessage.error('Save project failed');
     });
   };
 
@@ -363,64 +370,85 @@ export const Header = () => {
         )}
         <div className='flex-1 flex' />
 
-        <div className='actions-group flex'>
-          <Btn
-            className={cx([
-              'transition cursor-pointer',
-              {
-                '': enabled,
-                'bg-gray-50': !enabled,
-              },
-            ])}
-            onClick={() => {
-              actions.setOptions((options) => (options.enabled = !enabled));
-            }}
-          >
-            {enabled ? <Checkmark /> : <Customize />}
-            {enabled ? 'Finish Editing' : 'Edit'}
-          </Btn>
+        <div className='actions-group flex items-center'>
+          <Tooltip title={enabled ? 'Finish Editing' : 'Edit'} placement='bottom'>
+            <a
+              className='action-ic-right'
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                actions.setOptions((options) => (options.enabled = !enabled));
+              }}
+            >
+              {enabled ? <Checkmark /> : <Customize />}
+            </a>
+          </Tooltip>
+
+          <Tooltip title='Debug' placement='bottom'>
+            <a
+              className='action-ic-right debug'
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                console.log(
+                  'Node tree',
+                  query.getSerializedNodes(),
+                  'length',
+                  Object.keys(query.getSerializedNodes()).length
+                );
+                console.log('State', query.getState());
+                console.log('Serialized data', query.serialize());
+              }}
+            >
+              <DebugSvg />
+            </a>
+          </Tooltip>
+
+          <Tooltip title='Copy current state' placement='bottom'>
+            <a
+              className='action-ic-right'
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                const json = query.serialize();
+                copy(lz.encodeBase64(lz.compress(json)));
+              }}
+            >
+              <CopyStateSvg />
+            </a>
+          </Tooltip>
+
+          <Tooltip title='Load state' placement='bottom'>
+            <a
+              className='action-ic-right load'
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={() => setOpenDialogLoadState(true)}
+            >
+              <LoadStateSvg />
+            </a>
+          </Tooltip>
+
+          <Tooltip title={!isShownAllIndicator ? 'Show indicators' : 'Hide indicators'} placement='bottom'>
+            <a
+              className='action-ic-right'
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                actions.setOptions((options) => (options.isShownAllIndicator = !isShownAllIndicator));
+              }}
+            >
+              {isShownAllIndicator ? <ShowSvg /> : <HideSvg />}
+            </a>
+          </Tooltip>
 
           <Btn
-            className='ml-2 transition cursor-pointer'
-            onClick={() => {
-              console.log(
-                'Node tree',
-                query.getSerializedNodes(),
-                'length',
-                Object.keys(query.getSerializedNodes()).length
-              );
-              console.log('State', query.getState());
-              console.log('Serialized data', query.serialize());
-            }}
-          >
-            Debug
-          </Btn>
-
-          <Btn
-            className='ml-2 transition cursor-pointer'
-            onClick={() => {
-              const json = query.serialize();
-              copy(lz.encodeBase64(lz.compress(json)));
-            }}
-          >
-            Copy state
-          </Btn>
-
-          <Btn className='ml-2 transition cursor-pointer' onClick={() => setOpenDialogLoadState(true)}>
-            Load state
-          </Btn>
-
-          <Btn
-            className='ml-2 transition cursor-pointer'
-            onClick={() => {
-              actions.setOptions((options) => (options.isShownAllIndicator = !isShownAllIndicator));
-            }}
-          >
-            {!isShownAllIndicator ? ' Show indicators' : 'Hide indicators'}
-          </Btn>
-
-          <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-black`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-gray-500`}
             onClick={handleSaveProject}
           >
             Save
@@ -430,7 +458,7 @@ export const Header = () => {
             className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-500`}
             onClick={handleGoToAdminDatabase}
           >
-            My Database
+            Database
           </Btn>
 
           <Btn

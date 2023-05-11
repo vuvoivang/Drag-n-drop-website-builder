@@ -331,8 +331,8 @@ export default function ProjectsTable() {
 
     useEffectOnce(() => {
         userService.getListProject().then(resp => {
-            if (resp.Projects) {
-                setRows(resp.Projects);
+            if (resp.projects) {
+                setRows(resp.projects);
             } else toastMessage.error('Something went wrong, please try again later');
         }).catch((err) => {
             console.log(err);
