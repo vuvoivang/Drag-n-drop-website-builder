@@ -4,7 +4,7 @@ import { generateUrlByService } from 'services';
 
 const SERVICE_NAME = 'gen-code-service';
 
-const genCode = (data: { nodes: Array<Node>; pages: Array<PageData> }) => {
+const genCode = (data: { nodes: Array<Node>; pages: Array<PageData>, theme: Record<string, any>, projectId: string }) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'gen-react-code'), 'POST', data);
 };
 

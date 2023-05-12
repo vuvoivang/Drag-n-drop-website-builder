@@ -9,6 +9,7 @@ import { useEditorStore } from './store';
 import { Events } from '../events';
 import { Options } from '../interfaces';
 import dynamicDataService from 'services/dynamic-data';
+import { ProjectContext } from 'pages/builder/[id]';
 
 /**
  * A React Component that provides the Editor context
@@ -78,16 +79,18 @@ export const Editor: React.FC<Partial<Options>> = ({
     );
   }, [context]);
 
+  //@ts-ignore
+  const { project } = useContext(ProjectContext);
   useEffect(() => {
     // call api
     try {
-      dynamicDataService.getDynamicData().then((resp: any) => {
+      dynamicDataService.getDynamicData(project?.id).then((resp: any) => {
         context.actions.setDatabase(resp);
       });
     } catch (err) {
       console.log('Err get dynamic data', err);
     }
-  }, [])
+  }, [project?.id])
 
   return context ? (
     <EditorContext.Provider value={context}>

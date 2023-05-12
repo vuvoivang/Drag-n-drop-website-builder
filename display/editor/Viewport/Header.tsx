@@ -259,6 +259,8 @@ export const Header = () => {
         .genCode({
           nodes,
           pages,
+          projectId: project?.id,
+          theme: {},
         })
         .then((res) => {
           if (res.url) window.location.href = res.url;
@@ -272,7 +274,7 @@ export const Header = () => {
   };
 
   const handleGoToAdminDatabase = () => {
-    window.open('/admin/dynamic-data', '_blank');
+    window.open(`/admin/dynamic-data?project_id=${project?.id}`, '_blank');
   };
 
   const handleSaveProject = () => {
