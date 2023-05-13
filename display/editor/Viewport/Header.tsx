@@ -49,7 +49,7 @@ import { ProjectContext } from 'pages/builder/[id]';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
-  height: 48px;
+  // height: 48px;
   z-index: 0;
   position: relative;
   padding: 0px 10px;
@@ -89,7 +89,8 @@ const Btn = styled.a`
 
 const PageFormControl = styled(FormControl)`
   min-width: 180px;
-  margin: 16px;
+  // margin: 16px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: row !important;
 `;
