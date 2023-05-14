@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from 'public/images/logo.webp';
+import Logo from 'public/images/logo.png';
 
 export default function Footer() {
   return (
@@ -16,13 +16,13 @@ export default function Footer() {
                 {/* Logo */}
                 <a href='/' className='block flex items-center' aria-label='Buildify'>
                   <Image src={Logo} width={60} height={60} alt='Buildify' />
-                  <span className='self-center text-2xl font-bold whitespace-nowrap text-stone-600'>Buildify</span>
+                  <span className='self-center text-2xl font-bold whitespace-nowrap text-indigo-500 ml-2'>Buildify</span>
                 </a>
               </div>
-              <div className='text-gray-600'>
+              {/* <div className='text-gray-600'>
                 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for
                 previewing layouts and visual mockups.
-              </div>
+              </div> */}
             </div>
 
             {/* 2nd, 3rd and 4th blocks */}
@@ -32,17 +32,17 @@ export default function Footer() {
                 <h6 className='text-gray-950 font-medium mb-1'>Products</h6>
                 <ul>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Web Studio
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       DynamicBox Flex
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Programming Forms
                     </a>
                   </li>
@@ -54,27 +54,27 @@ export default function Footer() {
                 <h6 className='text-gray-950 font-medium mb-1'>Resources</h6>
                 <ul>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Nostrud exercitation
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Visual mockups
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Nostrud exercitation
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Visual mockups
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Nostrud exercitation
                     </a>
                   </li>
@@ -86,27 +86,27 @@ export default function Footer() {
                 <h6 className='text-gray-950 font-medium mb-1'>Company</h6>
                 <ul>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Consectetur adipiscing
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Labore et dolore
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Consectetur adipiscing
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Labore et dolore
                     </a>
                   </li>
                   <li className='mb-1'>
-                    <a href='/' className='text-gray-600 hover:text-white transition duration-150 ease-in-out'>
+                    <a href='/' className='text-gray-600 hover:text-blue-500 transition duration-150 ease-in-out'>
                       Consectetur adipiscing
                     </a>
                   </li>

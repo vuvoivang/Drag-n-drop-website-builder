@@ -6,8 +6,8 @@ export default function Blocks() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 mb-4">The majority our customers do not understand their workflows.</h2>
-            <p className="text-xl text-gray-600">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h2 className="h2 mb-4">Ready to take your website to the next level?</h2>
+            <p className="text-xl text-gray-600">Our website builder offers a variety of advanced features, including integration with third-party apps and built-in analytics tools.</p>
           </div>
 
           {/* Items */}

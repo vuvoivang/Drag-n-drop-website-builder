@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import Logo from '../public/images/logo.webp';
+import Logo from '../public/images/logo.png';
 import Image from 'next/image';
 import userService from 'services/user';
 import toastMessage from 'utils/toast';

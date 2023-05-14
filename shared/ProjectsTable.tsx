@@ -397,8 +397,8 @@ export default function ProjectsTable() {
                                         {row.name}
                                     </TableCell>
                                     <TableCell align="right">{MAPPING_PROJECT_TYPE_TO_STRING[row.type]}</TableCell>
-                                    <TableCell align="right">{formatDate(row.createdTime)}</TableCell>
-                                    <TableCell align="right">{formatDate(row.updatedTime)}</TableCell>
+                                    <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.createdTime)}</TableCell>
+                                    <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.updatedTime)}</TableCell>
 
                                     <TableCell align="right">
                                         <Tooltip title='Continue Build' arrow>

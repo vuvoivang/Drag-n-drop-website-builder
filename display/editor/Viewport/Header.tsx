@@ -31,7 +31,7 @@ import LoadStateSvg from '../../../public/icons/toolbox/load-state.svg';
 import ShowSvg from '../../../public/icons/toolbox/show.svg';
 import HideSvg from '../../../public/icons/toolbox/hide.svg';
 
-import Logo from '../../../public/images/logo.webp';
+import Logo from '../../../public/images/logo.png';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { LightTooltip } from 'display/shared/components/Tooltip';
@@ -297,10 +297,10 @@ export const Header = () => {
 
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
-      <div className='items-center flex w-full pl-4 justify-space-between'>
+      <div className='items-center flex w-full pl-4 justify-space-between py-2'>
         <a href='/' className='logo-container flex items-center' style={{ width: '200px' }}>
-          <Image className='header-logo' src={Logo} alt='Our Logo' height={48} width={80} />
-          <span className='self-center text-xl font-bold whitespace-nowrap text-stone-600'>Buildify</span>
+          <Image className='header-logo' src={Logo} alt='Our Logo' height={40} width={40} />
+          <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
         </a>
         {/* Form add new page  */}
         <PageFormControl className='pt-4'>

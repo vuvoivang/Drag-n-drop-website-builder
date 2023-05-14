@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Logo from '../public/images/logo.webp';
+import Logo from '../public/images/logo.png';
 import Image from 'next/image';
 import userService from 'services/user';
 import toastMessage from 'utils/toast';
@@ -53,6 +53,7 @@ export default function SignIn() {
       } else toastMessage.error('Sign in failed, please try again later');
     }).catch((err) => {
       console.log(err);
+      toastMessage.error('Sign in failed, please try again later');
     });
   };
 

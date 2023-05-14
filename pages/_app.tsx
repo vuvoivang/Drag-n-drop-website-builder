@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   return <>
     <Head>
       <title>Buildify</title>
+      <link rel="shortcut icon" href="/favicon.png" />
     </Head>
     <Component {...pageProps} />
     <ToastContainer />
