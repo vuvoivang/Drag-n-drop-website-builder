@@ -135,7 +135,7 @@ export const Sidebar = () => {
   };
   const tabsStyle = useStyleTabs({});
 
-  const { width: widthSidebar, enableResize } = useResize({ minWidth: 220, initialWidth: 300, direction: "rtl" });
+  const { width: widthSidebar, enableResize, isResizing } = useResize({ minWidth: 220, initialWidth: 300, direction: "rtl" });
 
   return (
     <SidebarDiv enabled={enabled} className='sidebar transition w-2 relative' style={{width: widthSidebar}}>
@@ -189,7 +189,7 @@ export const Sidebar = () => {
         </SidebarItem>
       </div>
       <div
-        className="resizable-line"
+        className={`resizable-line ${isResizing ? 'resizing' : ''} `}
         onMouseDown={enableResize}
       />
     </SidebarDiv>

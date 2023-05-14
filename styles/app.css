@@ -121,7 +121,7 @@ body {
   cursor: col-resize;
           
 }
-.resizable-line:hover{
+.resizable-line:hover, .resizing{
   background-color: rgb(210, 210, 212);
   width: 6px;
   right: -6px;

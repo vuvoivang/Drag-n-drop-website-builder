@@ -7,8 +7,9 @@ type UseResizeProps = {
 }
 
 type UseResizeReturn = {
-  width: number
-  enableResize: () => void
+  width: number;
+  enableResize: () => void;
+  isResizing: boolean;
 }
 
 const useResize = ({
@@ -46,7 +47,7 @@ const useResize = ({
     }
   }, [disableResize, resize])
 
-  return { width, enableResize }
+  return { width, enableResize, isResizing }
 }
 
 export default useResize;

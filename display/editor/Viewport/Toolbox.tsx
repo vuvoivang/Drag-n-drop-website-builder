@@ -82,7 +82,7 @@ export const Toolbox = () => {
   }));
   const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
   const [theme, setTheme] = React.useState<Theme>('light');
-  const { width: widthToolBox, enableResize } = useResize({ minWidth: 200, initialWidth: 350 });
+  const { width: widthToolBox, enableResize, isResizing } = useResize({ minWidth: 200, initialWidth: 350 });
 
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -212,7 +212,7 @@ export const Toolbox = () => {
         )}
       </div>
       <div
-        className="resizable-line"
+        className={`resizable-line ${isResizing ? 'resizing' : ''} `}
         onMouseDown={enableResize}
       />
     </div>

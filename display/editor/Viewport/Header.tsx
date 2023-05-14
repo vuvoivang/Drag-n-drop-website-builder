@@ -458,14 +458,14 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-500`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-600`}
             onClick={handleGoToAdminDatabase}
           >
             Database
           </Btn>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-sky-600 ${loadingGenCode ? 'disabled' : ''}`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-green-500 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={handleGenerateCode}
           >
             {loadingGenCode && <CircularProgress size={20} />}
