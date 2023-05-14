@@ -212,14 +212,7 @@ export const Toolbox = () => {
         )}
       </div>
       <div
-        style={{ 
-          position: 'absolute',
-          width: '2px',
-          top: '0',
-          right: '-1px',
-          bottom: '0',
-          cursor: 'col-resize'
-        }}
+        className="resizable-line"
         onMouseDown={enableResize}
       />
     </div>

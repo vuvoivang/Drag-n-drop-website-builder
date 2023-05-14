@@ -189,14 +189,7 @@ export const Sidebar = () => {
         </SidebarItem>
       </div>
       <div
-        style={{ 
-          position: 'absolute',
-          width: '2px',
-          top: '0',
-          left: '-1px',
-          bottom: '0',
-          cursor: 'col-resize'
-        }}
+        className="resizable-line"
         onMouseDown={enableResize}
       />
     </SidebarDiv>

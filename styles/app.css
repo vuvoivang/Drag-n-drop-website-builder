@@ -112,3 +112,17 @@ body {
 .Toastify__toast-container--top-center{
   min-width: 400px;
 }
+.resizable-line{
+  position: absolute;
+  width: 2px;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  cursor: col-resize;
+          
+}
+.resizable-line:hover{
+  background-color: rgb(210, 210, 212);
+  width: 6px;
+  right: -6px;
+}
