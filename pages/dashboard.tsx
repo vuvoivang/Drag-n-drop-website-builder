@@ -56,7 +56,7 @@ export default function LandingPage() {
         <div className="min-h-screen transition w-full px-32 pb-4">
             <div className='items-end flex w-full pl-4 justify-between py-4' style={{ borderBottom: '1px solid rgba(51,48,60,.12)' }}>
                 <a href='/' className='logo-container flex items-center' style={{ width: '200px' }}>
-                    <Image className='header-logo' src={Logo} alt='Our Logo' height={80} width={80} />
+                    <Image className='header-logo' src={Logo} alt='Our Logo' height={50} width={50} />
                     <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
                 </a>
                 <Avatar />

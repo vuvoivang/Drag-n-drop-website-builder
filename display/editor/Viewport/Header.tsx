@@ -90,7 +90,7 @@ const Btn = styled.a`
 const PageFormControl = styled(FormControl)`
   min-width: 180px;
   // margin: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   display: flex;
   flex-direction: row !important;
 `;
@@ -303,7 +303,7 @@ export const Header = () => {
           <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
         </a>
         {/* Form add new page  */}
-        <PageFormControl className='pt-4'>
+        <PageFormControl className='pt-2'>
           <div className='add-page-container flex items-center'>
             <LightTooltip title='Add new page'>
               <AddCircleIcon

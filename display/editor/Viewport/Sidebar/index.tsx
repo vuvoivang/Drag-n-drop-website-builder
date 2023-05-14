@@ -10,9 +10,10 @@ import CustomizeIcon from '../../../../public/icons/customize.svg';
 import LayerIcon from '../../../../public/icons/layers.svg';
 import { Toolbar } from '../../Toolbar';
 import _var from '../../../styles/common/_var.module.scss';
+import useResize from 'hooks/useResize';
 
 export const SidebarDiv = styled.div<{ enabled: boolean }>`
-  min-width: 320px;
+  // min-width: 320px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
   background: ${_var.whiteColor};
   margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
@@ -134,8 +135,10 @@ export const Sidebar = () => {
   };
   const tabsStyle = useStyleTabs({});
 
+  const { width: widthSidebar, enableResize } = useResize({ minWidth: 220, initialWidth: 300, direction: "rtl" });
+
   return (
-    <SidebarDiv enabled={enabled} className='sidebar transition w-2'>
+    <SidebarDiv enabled={enabled} className='sidebar transition w-2 relative' style={{width: widthSidebar}}>
       <div className='flex flex-col h-full'>
         <Tabs
           value={currentTab}
@@ -185,6 +188,17 @@ export const Sidebar = () => {
           <Toolbar type='events' />
         </SidebarItem>
       </div>
+      <div
+        style={{ 
+          position: 'absolute',
+          width: '2px',
+          top: '0',
+          left: '-1px',
+          bottom: '0',
+          cursor: 'col-resize'
+        }}
+        onMouseDown={enableResize}
+      />
     </SidebarDiv>
   );
 };

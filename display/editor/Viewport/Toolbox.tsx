@@ -10,6 +10,7 @@ import { default as ArrowLeft } from '@mui/icons-material/KeyboardDoubleArrowLef
 import { default as ArrowRight } from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import Button from '@material-ui/core/Button';
 import { ExpandablePanel } from 'display/shared/components/ExpansionPanel';
+import useResize from 'hooks/useResize';
 type Theme = 'light' | 'dark';
 
 const themes = {
@@ -81,6 +82,7 @@ export const Toolbox = () => {
   }));
   const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
   const [theme, setTheme] = React.useState<Theme>('light');
+  const { width: widthToolBox, enableResize } = useResize({ minWidth: 200, initialWidth: 350 });
 
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,11 +173,12 @@ export const Toolbox = () => {
     // width: collapsed ? 'auto' : '280px',
     //   }
     // }
+    className='relative'
     >
       <div
         style={{
           display: 'flex',
-          height: 'calc(100% - 80px)',
+          height: 'calc(100% - 86px)',
           direction: 'ltr',
         }}
         className={`toolbox ${collapsed ? 'collapsed' : ''}`}
@@ -185,7 +188,7 @@ export const Toolbox = () => {
           backgroundColor={themes[theme].sidebar.backgroundColor}
           rootStyles={{
             color: themes[theme].sidebar.color,
-            width: collapsed ? undefined : '350px',
+            width: collapsed ? undefined : widthToolBox,
           }}
         >
           {DEFAULT_VARIANTS?.map((itemExpansion) => {
@@ -208,6 +211,17 @@ export const Toolbox = () => {
           </div>
         )}
       </div>
+      <div
+        style={{ 
+          position: 'absolute',
+          width: '2px',
+          top: '0',
+          right: '-1px',
+          bottom: '0',
+          cursor: 'col-resize'
+        }}
+        onMouseDown={enableResize}
+      />
     </div>
   );
 };

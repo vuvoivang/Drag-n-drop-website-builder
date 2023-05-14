@@ -83,7 +83,7 @@ export default function SignIn() {
               id="username"
               label="Username"
               name="username"
-              autoComplete="username"
+              autoComplete="off"
               autoFocus
               inputProps={{ className: "input-material" }}
             />
@@ -96,7 +96,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="off"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

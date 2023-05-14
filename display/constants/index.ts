@@ -5,7 +5,7 @@ export const PLACEHOLDER_IMAGE_URL =
 
 
   export enum DYNAMIC_DATA_TYPE {
-    STRING = 'string',
-    NUMBER = 'number',
+    STRING = 1,
+    NUMBER = 2,
   }
   
