@@ -254,5 +254,9 @@ export function QueryMethods(state: EditorState) {
     getDatabase() {
       return state.database;
     },
+
+    getTheme() {
+      return state.theme;
+    },
   };
 }

@@ -11,6 +11,7 @@ import {
   DialogActions,
   TextField,
   MenuItem,
+  Grid,
 } from '@material-ui/core';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
@@ -18,7 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import cx from 'classnames';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { defaultTheme, ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
+import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -46,7 +47,7 @@ import { useRouter } from 'next/router';
 import userService from 'services/user';
 import toastMessage from 'utils/toast';
 import { ProjectContext } from 'pages/builder/[id]';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -154,6 +155,7 @@ export const Header = () => {
     isShownAllIndicator = false,
     pages,
     currentPage,
+    theme: defaultTheme,
   } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     canUndo: query.history.canUndo(),
@@ -161,10 +163,12 @@ export const Header = () => {
     isShownAllIndicator: state.options.isShownAllIndicator,
     pages: state.pageOptions.pages,
     currentPage: state.pageOptions.currentPage,
+    theme: query.getTheme(),
   }));
-
-  const { control, register } = useForm({
-    defaultValue: defaultTheme,
+  const { control, register, formState: { errors }, handleSubmit } = useForm({
+    defaultValues: {
+      theme: Object.entries(defaultTheme).map(([key, value]) => ({ key, value })),
+    },
   });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
@@ -318,10 +322,10 @@ export const Header = () => {
   const handleCloseDialogTheme = () => {
     setOpenDialogTheme(false);
   };
-  const handleUpdateTheme = () => {
+  const handleUpdateTheme = (data) => {
+    const themeObject = data.theme?.reduce((res, item) => ({ ...res, [item.key]: item.value }), {});
+    actions.setTheme(themeObject);
     handleCloseDialogTheme();
-    actions.setTheme(addPage);
-
   };
 
 
@@ -631,55 +635,83 @@ export const Header = () => {
       {/* Dialog theme */}
 
       <Dialog open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
-        <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin='dense'
-            id='path'
-            label='Page Path'
-            type='text'
-            fullWidth
-            onChange={(e) => {
-              dispatch({ type: 'UPDATE_PATH', data: e.target.value });
-            }}
-          />
-          <TextField
-            margin='dense'
-            id='name'
-            label='Page Name'
-            type='text'
-            fullWidth
-            onChange={(e) => {
-              dispatch({ type: 'UPDATE_NAME', data: e.target.value });
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <MaterialButton
-            onClick={handleCloseDialogTheme}
-            style={{
-              backgroundColor: _var.redColor,
-              color: _var.whiteColor,
-              padding: '6px',
-              borderRadius: '6px',
-              margin: '10px 0 10px 0',
-            }}
-          >
-            Cancel
-          </MaterialButton>
-          <MaterialButton
-            onClick={handleUpdateTheme}
-            style={{
-              backgroundColor: _var.greenColor,
-              color: _var.whiteColor,
-              padding: '6px',
-              borderRadius: '6px',
-              margin: '10px 14px 10px 10px',
-            }}
-          >
-            Done
-          </MaterialButton>
-        </DialogActions>
+        <form onSubmit={handleSubmit(handleUpdateTheme)}>
+          <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
+          <DialogContent style={{ width: 800 }}>
+            {fields.map((item, index) => (
+              <Grid key={item.id} container spacing={1}>
+                <Grid item xs={6}> <Controller
+                  control={control}
+                  name={`theme.${index}.key`}
+                  rules={{ required: "Please fill in name of theme's property" }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Name"
+                      margin="dense"
+                      // required
+                      error={!!errors?.theme?.[index]?.key}
+                      helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
+                    />
+                  )}
+                /></Grid>
+                <Grid item xs={6}>
+                  <Controller
+                    control={control}
+                    name={`theme.${index}.value`}
+                    rules={{ required: "Please fill in value of theme's property" }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        label="Value"
+                        margin="dense"
+                        // required
+                        error={!!errors?.theme?.[index]?.value}
+                        helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
+                      />
+
+                    )}
+                  />
+                </Grid>
+                <button type="button" onClick={() => remove(index)}>Delete</button>
+              </Grid>
+            ))}
+            <button
+              type="button"
+              onClick={() => append({ key: "", value: "" })}
+            >
+              append
+            </button>
+          </DialogContent>
+          <DialogActions>
+            <MaterialButton
+              onClick={handleCloseDialogTheme}
+              style={{
+                backgroundColor: _var.redColor,
+                color: _var.whiteColor,
+                padding: '6px',
+                borderRadius: '6px',
+                margin: '10px 0 10px 0',
+              }}
+            >
+              Cancel
+            </MaterialButton>
+            <MaterialButton
+              style={{
+                backgroundColor: _var.greenColor,
+                color: _var.whiteColor,
+                padding: '6px',
+                borderRadius: '6px',
+                margin: '10px 14px 10px 10px',
+              }}
+              type="submit"
+            >
+              Done
+            </MaterialButton>
+          </DialogActions>
+        </form>
       </Dialog>
     </HeaderDiv>
   );
