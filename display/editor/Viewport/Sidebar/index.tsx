@@ -189,7 +189,7 @@ export const Sidebar = () => {
         </SidebarItem>
       </div>
       <div
-        className={`resizable-line ${isResizing ? 'resizing' : ''} `}
+        className={`resizable-line left ${isResizing ? 'resizing' : ''} `}
         onMouseDown={enableResize}
       />
     </SidebarDiv>

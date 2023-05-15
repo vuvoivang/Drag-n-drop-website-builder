@@ -126,3 +126,11 @@ body {
   width: 6px;
   right: -6px;
 }
+.resizable-line.left{
+  left: -1px;
+}
+.resizable-line.left:hover{
+  background-color: rgb(210, 210, 212);
+  width: 6px;
+  left: -6px;
+}
