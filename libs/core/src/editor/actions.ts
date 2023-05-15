@@ -505,6 +505,14 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
      setDatabase(newDatase) {
       state.database = {...newDatase};
     },
+
+    /**
+     * Set theme
+     * @param newTheme
+     */
+     setTheme(newTheme) {
+      state.theme = {...newTheme};
+    },
   };
 };
 

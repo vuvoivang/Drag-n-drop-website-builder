@@ -1,4 +1,4 @@
-import { SerializedNode } from '@libs/interfaces';
+import { SerializedNode, Theme } from '@libs/interfaces';
 
 export const ROOT_NODE = 'ROOT';
 export const DEPRECATED_ROOT_NODE = 'canvas-ROOT';
@@ -111,4 +111,17 @@ export const serializedPopupNodeForPage: SerializedNode = {
   parent: undefined,
   linkedNodes: {},
   page: '/',
+};
+
+export const defaultTheme: Theme = {
+  primaryColor: '#1652f5',
+  primaryTextColor: '#1652f5',
+  secondaryColor: '#000000',
+  secondaryTextColor: '#000000',
+  colorRed: '#ea3347',
+  colorWhite: '#ffffff',
+  fontWeightNormal: 400,
+  fontWeightBold: 600,
+  fontSizeNormal: '14px',
+  fontSizeHeading1: '14px',
 };

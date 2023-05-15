@@ -18,7 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import cx from 'classnames';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
+import { defaultTheme, ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -46,6 +46,7 @@ import { useRouter } from 'next/router';
 import userService from 'services/user';
 import toastMessage from 'utils/toast';
 import { ProjectContext } from 'pages/builder/[id]';
+import { useFieldArray, useForm } from 'react-hook-form';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -127,6 +128,8 @@ export type Node = {
 
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
+  const [openDialogTheme, setOpenDialogTheme] = useState(false);
+
   const [addPage, dispatch] = useReducer(addPageReducer, {
     path: '',
     name: '',
@@ -159,6 +162,14 @@ export const Header = () => {
     pages: state.pageOptions.pages,
     currentPage: state.pageOptions.currentPage,
   }));
+
+  const { control, register } = useForm({
+    defaultValue: defaultTheme,
+  });
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    control,
+    name: "theme",
+  });
 
   const handleChangePage = (event) => {
     actions.setCurrentPage(event.target.value as string);
@@ -294,6 +305,25 @@ export const Header = () => {
       toastMessage.error('Save project failed');
     });
   };
+
+
+
+  const clickOpenDialogAddTheme = () => {
+    handleClickOpenDialogTheme();
+  };
+
+  const handleClickOpenDialogTheme = () => {
+    setOpenDialogTheme(true);
+  };
+  const handleCloseDialogTheme = () => {
+    setOpenDialogTheme(false);
+  };
+  const handleUpdateTheme = () => {
+    handleCloseDialogTheme();
+    actions.setTheme(addPage);
+
+  };
+
 
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
@@ -451,10 +481,17 @@ export const Header = () => {
           </Tooltip>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-gray-500`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600`}
             onClick={handleSaveProject}
           >
             Save
+          </Btn>
+
+          <Btn
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-fuchsia-500`}
+            onClick={handleClickOpenDialogTheme}
+          >
+            Theme
           </Btn>
 
           <Btn
@@ -465,7 +502,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-green-500 ${loadingGenCode ? 'disabled' : ''}`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={handleGenerateCode}
           >
             {loadingGenCode && <CircularProgress size={20} />}
@@ -586,6 +623,61 @@ export const Header = () => {
           </MaterialButton>
           <MaterialButton onClick={handleDeletePageDialog} color='primary'>
             Sure
+          </MaterialButton>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Dialog theme */}
+
+      <Dialog open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
+        <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin='dense'
+            id='path'
+            label='Page Path'
+            type='text'
+            fullWidth
+            onChange={(e) => {
+              dispatch({ type: 'UPDATE_PATH', data: e.target.value });
+            }}
+          />
+          <TextField
+            margin='dense'
+            id='name'
+            label='Page Name'
+            type='text'
+            fullWidth
+            onChange={(e) => {
+              dispatch({ type: 'UPDATE_NAME', data: e.target.value });
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <MaterialButton
+            onClick={handleCloseDialogTheme}
+            style={{
+              backgroundColor: _var.redColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 0 10px 0',
+            }}
+          >
+            Cancel
+          </MaterialButton>
+          <MaterialButton
+            onClick={handleUpdateTheme}
+            style={{
+              backgroundColor: _var.greenColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 14px 10px 10px',
+            }}
+          >
+            Done
           </MaterialButton>
         </DialogActions>
       </Dialog>
