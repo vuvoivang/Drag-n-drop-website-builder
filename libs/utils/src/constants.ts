@@ -113,15 +113,31 @@ export const serializedPopupNodeForPage: SerializedNode = {
   page: '/',
 };
 
+export enum THEME_TYPE_VALUE {
+  COLOR = 'color',
+  NUMBER = 'number',
+}
+
+export const ThemeTypeOptions = [
+  {
+    value: THEME_TYPE_VALUE.COLOR,
+    label: 'Color',
+  },
+  {
+    value: THEME_TYPE_VALUE.NUMBER,
+    label: 'Number',
+  },
+];
+
 export const defaultTheme: Theme = {
-  primaryColor: '#1652f5',
-  primaryTextColor: '#1652f5',
-  secondaryColor: '#000000',
-  secondaryTextColor: '#000000',
-  colorRed: '#ea3347',
-  colorWhite: '#ffffff',
-  fontWeightNormal: 400,
-  fontWeightBold: 600,
-  fontSizeNormal: '14px',
-  fontSizeHeading1: '14px',
+  primaryColor: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  primaryTextColor: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  secondaryColor: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  secondaryTextColor: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  colorRed: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  colorWhite: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
+  fontWeightNormal: { value: 400, type: THEME_TYPE_VALUE.NUMBER },
+  fontWeightBold: { value: 600, type: THEME_TYPE_VALUE.NUMBER },
+  fontSizeNormal: { value: 14, type: THEME_TYPE_VALUE.NUMBER },
+  fontSizeHeading1: { value: 14, type: THEME_TYPE_VALUE.NUMBER },
 };

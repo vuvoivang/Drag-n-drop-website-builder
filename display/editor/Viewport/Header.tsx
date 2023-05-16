@@ -19,7 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import cx from 'classnames';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
+import { ROOT_PATH, THEME_TYPE_VALUE, ThemeTypeOptions, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -48,6 +48,9 @@ import userService from 'services/user';
 import toastMessage from 'utils/toast';
 import { ProjectContext } from 'pages/builder/[id]';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { ToolbarTextInput } from '../Toolbar';
+import { ColorInput } from './ColorInput';
+import { camelToTitle } from 'utils/text';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -127,6 +130,7 @@ export type Node = {
   pagePath: string;
 };
 
+
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
   const [openDialogTheme, setOpenDialogTheme] = useState(false);
@@ -165,9 +169,9 @@ export const Header = () => {
     currentPage: state.pageOptions.currentPage,
     theme: query.getTheme(),
   }));
-  const { control, register, formState: { errors }, handleSubmit } = useForm({
+  const { control, register, formState: { errors }, handleSubmit, watch } = useForm({
     defaultValues: {
-      theme: Object.entries(defaultTheme).map(([key, value]) => ({ key, value })),
+      theme: Object.entries(defaultTheme).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
     },
   });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
@@ -308,12 +312,6 @@ export const Header = () => {
       console.log(err);
       toastMessage.error('Save project failed');
     });
-  };
-
-
-
-  const clickOpenDialogAddTheme = () => {
-    handleClickOpenDialogTheme();
   };
 
   const handleClickOpenDialogTheme = () => {
@@ -640,7 +638,7 @@ export const Header = () => {
           <DialogContent style={{ width: 800 }}>
             {fields.map((item, index) => (
               <Grid key={item.id} container spacing={1}>
-                <Grid item xs={6}> <Controller
+                <Grid item xs={5}> <Controller
                   control={control}
                   name={`theme.${index}.key`}
                   rules={{ required: "Please fill in name of theme's property" }}
@@ -656,31 +654,84 @@ export const Header = () => {
                     />
                   )}
                 /></Grid>
-                <Grid item xs={6}>
+                <Grid item xs={2}>
+
                   <Controller
+                    control={control}
+                    name={`theme.${index}.type`}
+                    rules={{ required: "Please fill in name of theme's property" }}
+                    render={({ field }) => (
+                      <>
+                        <label htmlFor="current-theme" className="block mb-2">Type</label>
+                        <Select
+                          inputProps={{
+                            name: 'current-theme-select',
+                            id: 'current-theme',
+                          }}
+                          className='theme-select global-select'
+                          // renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+                          {...field}
+                        >
+                          {ThemeTypeOptions.map((otp) => (
+                            <MenuItem key={otp.value} value={otp.value} className='custom-menu-item'>
+                              {otp.label}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </>
+                    )}
+                  />
+
+
+                </Grid>
+                <Grid item xs={5}>
+                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER &&
+                    <Controller
+                      control={control}
+                      name={`theme.${index}.value`}
+                      rules={{ required: "Please fill in value of theme's property" }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Value"
+                          margin="dense"
+                          type='number'
+                          disabled={!watch(`theme.${index}.type`)}
+                          // required
+                          error={!!errors?.theme?.[index]?.value}
+                          helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
+                        />
+
+                      )}
+                    />}
+
+                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && <Controller
                     control={control}
                     name={`theme.${index}.value`}
                     rules={{ required: "Please fill in value of theme's property" }}
                     render={({ field }) => (
-                      <TextField
+                      <ColorInput
+                        type='color'
                         {...field}
-                        fullWidth
                         label="Value"
-                        margin="dense"
-                        // required
-                        error={!!errors?.theme?.[index]?.value}
-                        helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
                       />
 
                     )}
-                  />
+                  />}
+
+                  {!watch(`theme.${index}.type`) && <TextField fullWidth
+                    disabled
+                    value='Please select type'
+                  />}
+
                 </Grid>
                 <button type="button" onClick={() => remove(index)}>Delete</button>
               </Grid>
             ))}
             <button
               type="button"
-              onClick={() => append({ key: "", value: "" })}
+              onClick={() => append({ key: "", value: "", type: "" })}
             >
               append
             </button>
