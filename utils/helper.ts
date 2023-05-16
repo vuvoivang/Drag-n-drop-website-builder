@@ -14,3 +14,16 @@ export const getDeepValueProps = (propsObject) => {
       });
     return propsObject;
 }
+export const handleInputAppTitleCase = (e, MAX_LENGTH) => {
+  // transform capitalize first letter of each word
+  let newValue = e.target.value
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  if (newValue.length > MAX_LENGTH) {
+    newValue = newValue.slice(0, MAX_LENGTH);
+  }
+
+  e.target.value = newValue;
+};
