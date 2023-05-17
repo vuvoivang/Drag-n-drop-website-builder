@@ -1,4 +1,4 @@
-import { useMethods, SubscriberAndCallbacksFor, PatchListener, ROOT_PATH } from 'libs/utils/src';
+import { useMethods, SubscriberAndCallbacksFor, PatchListener, ROOT_PATH, defaultTheme } from 'libs/utils/src';
 
 import { ActionMethods } from './actions';
 import { QueryMethods } from './query';
@@ -45,8 +45,7 @@ export const editorInitialState: EditorState = {
     collections: [],
     documents: [],
   },
-  theme: {
-  },
+  theme: defaultTheme,
 };
 
 export const ActionMethodsWithConfig = {
@@ -63,7 +62,7 @@ export const ActionMethodsWithConfig = {
     /**
      * On every undo/redo, we remove events pointing to deleted Nodes
      */
-    Object.keys(state.events).forEach((eventName: NodeEventTypes) => {
+    (Object.keys(state.events) as unknown as NodeEventTypes[]).forEach((eventName: NodeEventTypes) => {
       const nodeIds = Array.from(state.events[eventName] || []);
 
       nodeIds.forEach((id) => {
@@ -79,7 +78,7 @@ export const ActionMethodsWithConfig = {
     Object.keys(state.nodes).forEach((id) => {
       const node = state.nodes[id];
 
-      Object.keys(node.events).forEach((eventName: NodeEventTypes) => {
+      (Object.keys(node.events) as unknown as NodeEventTypes[]).forEach((eventName: NodeEventTypes) => {
         const isEventActive = !!node.events[eventName];
 
         if (isEventActive && state.events[eventName] && !state.events[eventName].has(node.id)) {

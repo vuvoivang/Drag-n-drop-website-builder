@@ -145,6 +145,7 @@ export function QueryMethods(state: EditorState) {
       return JSON.stringify({
         nodes: this.getSerializedNodes(),
         pages: state.pageOptions.pages,
+        theme: this.getTheme(),
       });
     },
 
@@ -253,6 +254,10 @@ export function QueryMethods(state: EditorState) {
 
     getDatabase() {
       return state.database;
+    },
+
+    getTheme() {
+      return state.theme;
     },
   };
 }

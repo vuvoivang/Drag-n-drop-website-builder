@@ -11,6 +11,7 @@ import {
   DialogActions,
   TextField,
   MenuItem,
+  Grid,
 } from '@material-ui/core';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
@@ -18,7 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import cx from 'classnames';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ROOT_PATH, serializedContainerRootNodeForPage } from 'libs/utils/src';
+import { ROOT_PATH, THEME_TYPE_VALUE, ThemeTypeOptions, serializedContainerRootNodeForPage } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -46,6 +47,11 @@ import { useRouter } from 'next/router';
 import userService from 'services/user';
 import toastMessage from 'utils/toast';
 import { ProjectContext } from 'pages/builder/[id]';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { ToolbarTextInput } from '../Toolbar';
+import { ColorInput } from './ColorInput';
+import { camelToTitle } from 'utils/text';
+import { handleInputAppTitleCase } from 'utils/helper';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -125,8 +131,11 @@ export type Node = {
   pagePath: string;
 };
 
+
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
+  const [openDialogTheme, setOpenDialogTheme] = useState(false);
+
   const [addPage, dispatch] = useReducer(addPageReducer, {
     path: '',
     name: '',
@@ -151,6 +160,7 @@ export const Header = () => {
     isShownAllIndicator = false,
     pages,
     currentPage,
+    theme: defaultTheme,
   } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     canUndo: query.history.canUndo(),
@@ -158,7 +168,17 @@ export const Header = () => {
     isShownAllIndicator: state.options.isShownAllIndicator,
     pages: state.pageOptions.pages,
     currentPage: state.pageOptions.currentPage,
+    theme: query.getTheme(),
   }));
+  const { control, register, formState: { errors }, handleSubmit, watch } = useForm({
+    defaultValues: {
+      theme: Object.entries(defaultTheme).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
+    },
+  });
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    control,
+    name: "theme",
+  });
 
   const handleChangePage = (event) => {
     actions.setCurrentPage(event.target.value as string);
@@ -294,6 +314,19 @@ export const Header = () => {
       toastMessage.error('Save project failed');
     });
   };
+
+  const handleClickOpenDialogTheme = () => {
+    setOpenDialogTheme(true);
+  };
+  const handleCloseDialogTheme = () => {
+    setOpenDialogTheme(false);
+  };
+  const handleUpdateTheme = (data) => {
+    const themeObject = data.theme?.reduce((res, item) => ({ ...res, [item.key]: item.value }), {});
+    actions.setTheme(themeObject);
+    handleCloseDialogTheme();
+  };
+
 
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
@@ -451,10 +484,17 @@ export const Header = () => {
           </Tooltip>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-gray-500`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600`}
             onClick={handleSaveProject}
           >
             Save
+          </Btn>
+
+          <Btn
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-fuchsia-500`}
+            onClick={handleClickOpenDialogTheme}
+          >
+            Theme
           </Btn>
 
           <Btn
@@ -465,7 +505,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-green-500 ${loadingGenCode ? 'disabled' : ''}`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={handleGenerateCode}
           >
             {loadingGenCode && <CircularProgress size={20} />}
@@ -588,6 +628,143 @@ export const Header = () => {
             Sure
           </MaterialButton>
         </DialogActions>
+      </Dialog>
+
+
+      {/* Dialog theme */}
+
+      <Dialog open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
+        <form onSubmit={handleSubmit(handleUpdateTheme)}>
+          <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
+          <DialogContent style={{ width: 800 }}>
+            {fields.map((item, index) => (
+              <Grid key={item.id} container spacing={1}>
+                <Grid item xs={5}> <Controller
+                  control={control}
+                  name={`theme.${index}.key`}
+                  rules={{ required: "Please fill in name of theme's property" }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Name"
+                      margin="dense"
+                      // required
+                      error={!!errors?.theme?.[index]?.key}
+                      helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
+                      onInput={e => handleInputAppTitleCase(e)}
+                    />
+                  )}
+                /></Grid>
+                <Grid item xs={2}>
+
+                  <Controller
+                    control={control}
+                    name={`theme.${index}.type`}
+                    rules={{ required: "Please fill in name of theme's property" }}
+                    render={({ field }) => (
+                      <>
+                        <label htmlFor="current-theme" className="block mb-2">Type</label>
+                        <Select
+                          inputProps={{
+                            name: 'current-theme-select',
+                            id: 'current-theme',
+                          }}
+                          className='theme-select global-select'
+                          // renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+                          {...field}
+                        >
+                          {ThemeTypeOptions.map((otp) => (
+                            <MenuItem key={otp.value} value={otp.value} className='custom-menu-item'>
+                              {otp.label}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </>
+                    )}
+                  />
+
+
+                </Grid>
+                <Grid item xs={5}>
+                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER &&
+                    <Controller
+                      control={control}
+                      name={`theme.${index}.value`}
+                      rules={{ required: "Please fill in value of theme's property" }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Value"
+                          margin="dense"
+                          type='number'
+                          disabled={!watch(`theme.${index}.type`)}
+                          // required
+                          error={!!errors?.theme?.[index]?.value}
+                          helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
+                        />
+
+                      )}
+                    />}
+
+                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && <Controller
+                    control={control}
+                    name={`theme.${index}.value`}
+                    rules={{ required: "Please fill in value of theme's property" }}
+                    render={({ field }) => (
+                      <ColorInput
+                        type='color'
+                        {...field}
+                        label="Value"
+                      />
+
+                    )}
+                  />}
+
+                  {!watch(`theme.${index}.type`) && <TextField fullWidth
+                    disabled
+                    value='Please select type'
+                  />}
+
+                </Grid>
+                <button type="button" onClick={() => remove(index)}>Delete</button>
+              </Grid>
+            ))}
+            <button
+              type="button"
+              onClick={() => append({ key: "", value: "", type: "" })}
+            >
+              append
+            </button>
+          </DialogContent>
+          <DialogActions>
+            <MaterialButton
+              onClick={handleCloseDialogTheme}
+              style={{
+                backgroundColor: _var.redColor,
+                color: _var.whiteColor,
+                padding: '6px',
+                borderRadius: '6px',
+                margin: '10px 0 10px 0',
+              }}
+            >
+              Cancel
+            </MaterialButton>
+            <MaterialButton
+              style={{
+                backgroundColor: _var.greenColor,
+                color: _var.whiteColor,
+                padding: '6px',
+                borderRadius: '6px',
+                margin: '10px 14px 10px 10px',
+              }}
+              type="submit"
+            >
+              Done
+            </MaterialButton>
+          </DialogActions>
+        </form>
       </Dialog>
     </HeaderDiv>
   );

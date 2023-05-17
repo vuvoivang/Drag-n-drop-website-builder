@@ -8,6 +8,7 @@ import { ButtonSettings } from './setting';
 import cx from 'classnames';
 import { CraftText } from '../Text';
 import { ButtonEvents } from './event';
+import { WithThemeAndDatabase } from '@libs/utils';
 
 export const craftConfig = {
   displayName: 'Button',
@@ -18,7 +19,7 @@ export const craftConfig = {
   },
 };
 
-export const CraftButton: UserComponent<ButtonProps> = (props: any) => {
+export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (props: WithThemeAndDatabase<ButtonProps>) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({

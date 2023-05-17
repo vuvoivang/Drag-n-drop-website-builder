@@ -9,6 +9,7 @@ import { AnchorEvents } from './event';
 import { CLICK_TYPE } from 'display/raw-components/constant';
 import { StyledAnchor } from 'display/raw-components/Anchor/styled';
 import { AnchorSettings } from './setting';
+import { WithThemeAndDatabase } from '@libs/utils';
 
 export const craftConfig = {
   displayName: 'Anchor',
@@ -19,7 +20,7 @@ export const craftConfig = {
   },
 };
 
-export const CraftAnchor: UserComponent<AnchorProps> = (props: any) => {
+export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (props: WithThemeAndDatabase<AnchorProps>) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({

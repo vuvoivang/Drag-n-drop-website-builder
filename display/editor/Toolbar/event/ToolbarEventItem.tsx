@@ -46,7 +46,6 @@ export type ToolbarEventItemProps = Partial<{
   index: number;
   children: React.ReactNode;
   type: string | string[];
-  styledCustomOptions: Option | Array<Option>;
   checkboxChildren: Array<Option>;
   radioChildren: Array<Option>;
   selectchildren: Array<Option>;
@@ -65,7 +64,6 @@ export const ToolbarEventItem = ({
   full = false,
   eventKey,
   type: inputType,
-  styledCustomOptions = [],
   onChange,
   index,
   ...props

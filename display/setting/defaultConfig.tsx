@@ -1,3 +1,4 @@
+import { THEME_TYPE_VALUE } from '@libs/utils';
 import { capitalize, weightDescription } from 'utils/text';
 
 export const DEFAULT_SECTIONS = {
@@ -344,6 +345,7 @@ export const DEFAULT_PROP_KEYS = {
     propKey: 'background',
     type: 'bg',
     label: 'Background',
+    themeTypes: [THEME_TYPE_VALUE.COLOR],
   },
   width: {
     propKey: 'width',
