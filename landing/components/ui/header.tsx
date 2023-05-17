@@ -3,7 +3,7 @@ import MobileMenu from './mobile-menu';
 import Logo from 'public/images/logo.png';
 import Image from 'next/image';
 
-export default function Header() {
+export default function Header({ user }) {
   return (
     <header className='absolute w-full z-30 pt-2'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6'>
@@ -21,18 +21,23 @@ export default function Header() {
           <nav className=''>
             {/* Desktop sign in links */}
             <ul className='flex grow justify-end flex-wrap items-center'>
-              <li>
+              {user?.id ? <Link href='/dashboard'>
+                <a className='btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3'>
+                  Dashboard
+                </a>
+              </Link> : <><li>
                 <Link href='/sign-in'>
                   <a className='btn-sm text-purple-600 hover:text-gray-200 px-4 flex items-center transition duration-150 ease-in-out hover:bg-gray-600'>
                     Sign in
                   </a>
                 </Link>
               </li>
-              <li>
-                <Link href='/sign-up'>
-                  <a className='btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3'>Sign up</a>
-                </Link>
-              </li>
+                <li>
+                  <Link href='/sign-up'>
+                    <a className='btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3'>Sign up</a>
+                  </Link>
+                </li></>}
+
             </ul>
           </nav>
 
