@@ -51,6 +51,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { ToolbarTextInput } from '../Toolbar';
 import { ColorInput } from './ColorInput';
 import { camelToTitle } from 'utils/text';
+import { handleInputAppTitleCase } from 'utils/helper';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -651,6 +652,7 @@ export const Header = () => {
                       // required
                       error={!!errors?.theme?.[index]?.key}
                       helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
+                      onInput={e => handleInputAppTitleCase(e)}
                     />
                   )}
                 /></Grid>

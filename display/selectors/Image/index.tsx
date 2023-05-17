@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import { ImageSettings } from './setting';
 import { UserComponent } from '@libs/interfaces';
+import { WithThemeAndDatabase } from '@libs/utils';
 
 export const craftConfig = {
   displayName: 'Image',
@@ -15,7 +16,7 @@ export const craftConfig = {
   },
 };
 
-export const CraftImage: UserComponent<ImageProps> = (props: any) => {
+export const CraftImage: UserComponent<WithThemeAndDatabase<ImageProps>> = (props: WithThemeAndDatabase<ImageProps>) => {
   const { width, height, src, alt, className, ...otherProps } = props;
 
   return (

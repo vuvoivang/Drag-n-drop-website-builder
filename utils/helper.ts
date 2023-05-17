@@ -1,5 +1,7 @@
-export const getDeepValueProps = (propsObject) => {
-    // const propsObject = {...props};
+import { WithThemeAndDatabase } from "@libs/utils";
+
+export const getDeepValueProps = <T>(props: WithThemeAndDatabase<T>) => {
+    const propsObject = {...props};
     Object.keys(propsObject).forEach((key) => {
         if(key === 'children') return;
         const currentValue = propsObject[key];
@@ -12,9 +14,9 @@ export const getDeepValueProps = (propsObject) => {
           }
         } else return;
       });
-    return propsObject;
+    return propsObject as T;
 }
-export const handleInputAppTitleCase = (e, MAX_LENGTH) => {
+export const handleInputAppTitleCase = (e, MAX_LENGTH = 50) => {
   // transform capitalize first letter of each word
   let newValue = e.target.value
     .split(" ")

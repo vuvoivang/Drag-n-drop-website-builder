@@ -23,7 +23,7 @@ export const craftConfig = {
   },
 };
 
-export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>> = (props: Partial<ContainerProps>) => {
+export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>> = (props: Partial<WithThemeAndDatabase<ContainerProps>>) => {
   props = {
     ...defaultProps,
     ...props,

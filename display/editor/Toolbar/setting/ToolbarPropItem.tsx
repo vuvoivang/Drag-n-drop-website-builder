@@ -1,4 +1,4 @@
-import { useNode } from 'libs/core/src';
+import { useEditor, useNode } from 'libs/core/src';
 import { Grid, Slider, RadioGroup, MenuItem, FormGroup } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -16,6 +16,8 @@ import { LightTooltip } from 'display/shared/components/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import _var from '../../../styles/common/_var.module.scss';
 import fileMgtService from 'services/file-mgt';
+import { THEME_TYPE_VALUE } from '@libs/utils';
+import { camelToTitle } from 'utils/text';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
 
@@ -87,10 +89,12 @@ export type ToolbarPropItemProps = Partial<{
   radioChildren: Array<Option>;
   selectchildren: Array<Option>;
   onChange: (value: any) => any;
+  themeTypes: THEME_TYPE_VALUE | THEME_TYPE_VALUE[];
 }>;
 enum CUSTOM_STYLE {
   DEFAULT = 'DEFAULT',
   STYLED_SUGGESTION = 'SUGGESTION',
+  THEME = 'THEME',
 }
 
 const useMenuItemStyles = makeStyles({
@@ -107,6 +111,7 @@ export const ToolbarPropItem = ({
   styledCustomOptions = [],
   onChange,
   index,
+  themeTypes = [],
   ...props
 }: ToolbarPropItemProps) => {
   const menuItemClasses = useMenuItemStyles({});
@@ -124,6 +129,7 @@ export const ToolbarPropItem = ({
     }
     return setProp(callbackSetProps, timeout);
   };
+  const { theme } = useEditor((_, query) => ({ theme: query.getTheme() }));
   const {
     actions: { setProp },
     propValue,
@@ -138,12 +144,23 @@ export const ToolbarPropItem = ({
     : propStyledClassNameValue;
   const listType = Array.isArray(inputType) ? inputType : [inputType];
   const listStyledCustomOptions = Array.isArray(styledCustomOptions) ? styledCustomOptions : [styledCustomOptions];
+  const arrThemeTypes = Array.isArray(themeTypes) ? themeTypes : [themeTypes];
+  const listThemeOptions = Object.entries(theme).filter(([_, valueTheme]) => arrThemeTypes.includes(valueTheme.type)).map(([key, valueTheme]) => ({
+    value: {
+      type: 'theme',
+      key,
+      value: valueTheme?.value,
+    },
+    label: camelToTitle(key),
+  }));
   const [customStyle, setCustomStyle] = useState<string>(
-    styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : CUSTOM_STYLE.DEFAULT
+    styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : value?.type ? CUSTOM_STYLE.THEME : CUSTOM_STYLE.DEFAULT
   );
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const isDisabledDefault = customStyle !== CUSTOM_STYLE.DEFAULT;
   const isDisabledStyledSuggestion = customStyle !== CUSTOM_STYLE.STYLED_SUGGESTION;
+  const isDisabledTheme = customStyle !== CUSTOM_STYLE.THEME;
+
 
   useEffect(() => {
     if (isFirstLoad) {
@@ -151,11 +168,11 @@ export const ToolbarPropItem = ({
       setIsFirstLoad(false);
       return;
     }
-    if (customStyle === CUSTOM_STYLE.DEFAULT) {
-      // set default prop value
+    if (customStyle === CUSTOM_STYLE.DEFAULT || customStyle === CUSTOM_STYLE.THEME) {
       // clear class value
       handleSetPropClassName('');
-    } else {
+
+    } else if (customStyle === CUSTOM_STYLE.STYLED_SUGGESTION) {
       // keep state default to switch again
       // and set default value for styled class
       handleSetPropClassName(`custom-${listStyledCustomOptions[0].value}`);
@@ -210,13 +227,14 @@ export const ToolbarPropItem = ({
   };
 
   const handleRenderInputSetting = (type) => {
+    const normalizedValue = value?.type === 'theme' ? value?.value : value;
     return (
       <>
         {['text', 'color', 'bg', 'number'].includes(type) ? (
           <ToolbarTextInput
             {...props}
             type={type}
-            value={value}
+            value={normalizedValue}
             disabled={isDisabledDefault}
             onChange={(value) => {
               handleSetPropValue(value, type);
@@ -226,7 +244,7 @@ export const ToolbarPropItem = ({
           <>
             <SliderStyled
               disabled={isDisabledDefault}
-              value={parseInt(value) || 0}
+              value={parseInt(normalizedValue) || 0}
               onChange={
                 ((_, value: number) => {
                   handleSetPropValue(value, type);
@@ -237,7 +255,7 @@ export const ToolbarPropItem = ({
         ) : type === 'radio' ? (
           <>
             <RadioGroup
-              value={value || 0}
+              value={normalizedValue || 0}
               onChange={(e) => {
                 const newValue = e.target.value;
                 handleSetPropValue(newValue, type);
@@ -263,7 +281,7 @@ export const ToolbarPropItem = ({
                   name={option.value}
                   label={option.label}
                   disabled={isDisabledDefault}
-                  checked={!!value[option.value]}
+                  checked={!!normalizedValue[option.value]}
                   onChange={(e) => {
                     const newValue = {
                       name: e.target.value,
@@ -277,7 +295,7 @@ export const ToolbarPropItem = ({
           </>
         ) : type === 'select' ? (
           <ToolbarDropdown
-            value={value || ''}
+            value={normalizedValue || ''}
             renderValue={(value) => {
               const option = props.selectchildren?.find((option) => option.value === value);
               return option?.label || 'Select value';
@@ -294,7 +312,7 @@ export const ToolbarPropItem = ({
           </ToolbarDropdown>
         ) : type === 'imageUpload' ? (
           <ImageUploading
-            value={[value] || ['']}
+            value={[normalizedValue] || ['']}
             onChange={async (imageList: ImageListType) => {
               // call api upload image
               // set image url to value
@@ -303,12 +321,12 @@ export const ToolbarPropItem = ({
               formData.append('image', fileImage);
 
               try {
-                  fileMgtService.uploadImage(fileImage).then((res: any) => {
-                    if(res?.code === 0){
-                      handleSetPropValue(res?.url, type);
-                    }
-                  });
-                 
+                fileMgtService.uploadImage(fileImage).then((res: any) => {
+                  if (res?.code === 0) {
+                    handleSetPropValue(res?.url, type);
+                  }
+                });
+
               } catch (err) {
                 console.log('Err upload image', err);
               }
@@ -360,7 +378,7 @@ export const ToolbarPropItem = ({
         {props.label && <h4 className='text-sm text-primary'>{props.label}</h4>}
 
         <div className='toolbar-item-setting-container p-4 pb-0'>
-          {listStyledCustomOptions.length > 0 ? ( // radio group to choose how to use style
+          {[...listStyledCustomOptions, ...listThemeOptions].length > 0 ? ( // radio group to choose how to use style
             <RadioGroup
               value={customStyle}
               onChange={(e) => {
@@ -416,6 +434,39 @@ export const ToolbarPropItem = ({
                         />
                       ))}
                     </RadioGroup>
+                  </div>
+                </>
+              )}
+
+              {listThemeOptions.length > 0 && (
+                <>
+                  <ToolbarRadio value={CUSTOM_STYLE.THEME} label={'Use from theme'} />
+                  <div
+                    style={{
+                      opacity: isDisabledTheme ? 0.5 : 1,
+                    }}
+                    className='p-4 pt-0'
+                  >
+                    <LightTooltip title='Apply value from your theme, will be changed if you change theme'>
+                      <h4 className='text-sm text-black my-2'>Choose your theme's name</h4>
+                    </LightTooltip>
+
+                    <ToolbarDropdown
+                      value={value || ''}
+                      renderValue={(value) => {
+                        const option = listThemeOptions?.find((option) => option.value?.key === value?.key);
+                        return option?.label || 'Select value';
+                      }}
+                      onChange={(value) => handleSetPropValue(JSON.parse(value), 'select')}
+                      disabled={isDisabledTheme}
+                      {...props}
+                    >
+                      {listThemeOptions?.map((option) => (
+                        <MenuItem key={option.value?.value} value={JSON.stringify(option.value)} disabled={isDisabledTheme} classes={menuItemClasses}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </ToolbarDropdown>
                   </div>
                 </>
               )}
