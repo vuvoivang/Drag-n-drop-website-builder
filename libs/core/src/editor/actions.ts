@@ -220,8 +220,10 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
 
     deserialize(input: SerializedData | string) {
       const dehydratedData = typeof input == 'string' ? JSON.parse(input) : input;
+      console.log('dehydratedData', dehydratedData);
       const dehydratedNodes = dehydratedData.nodes;
       const dehydratedPages = dehydratedData.pages;
+      const dehydratedTheme = dehydratedData.theme;
       const nodePairs = Object.keys(dehydratedNodes).map((id) => {
         let nodeId = id;
 
@@ -234,6 +236,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
 
       this.replaceNodes(fromEntries(nodePairs));
       this.replacePageOptions(dehydratedPages, ROOT_PATH);
+      this.setTheme(dehydratedTheme);
     },
 
     addNewNodeWithSerializedData(input: SerializedNode | string, id) {
@@ -522,6 +525,7 @@ export const ActionMethods = (state: EditorState, query: QueryCallbacksFor<typeo
     // Note: Beware: advanced method! You most likely don't need to use this
     // TODO: fix parameter types and cleanup the method
     setState(cb: (state: EditorState, actions: Delete<CallbacksFor<typeof Methods>, 'history'>) => void) {
+      // @ts-ignore
       const { history, ...actions } = this;
 
       // We pass the other actions as the second parameter, so that devs could still make use of the predefined actions

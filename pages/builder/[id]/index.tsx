@@ -405,11 +405,11 @@ function Builder() {
             onRender={RenderNode}
           >
             <Viewport >
-              {/* <Frame data={lz.decompress(lz.decodeBase64(project.compressString))}>
-              </Frame> */}
-              <Frame>
-                {DEFAULT_PAGE}
+              <Frame data={lz.decompress(lz.decodeBase64(project.compressString))}>
               </Frame>
+              {/* <Frame>
+                {DEFAULT_PAGE}
+              </Frame> */}
             </Viewport>
           </Editor></ProjectContext.Provider>}
         </div>
