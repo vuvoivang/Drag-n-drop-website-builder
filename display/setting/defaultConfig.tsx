@@ -227,6 +227,7 @@ export const DEFAULT_PROP_KEYS = {
         label: '18px',
       },
     ],
+    themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   textAlign: {
     propKey: 'textAlign',
@@ -265,6 +266,7 @@ export const DEFAULT_PROP_KEYS = {
         label: 'Bold',
       },
     ],
+    themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   margin: [
     {
@@ -340,6 +342,7 @@ export const DEFAULT_PROP_KEYS = {
     propKey: 'color',
     type: 'color',
     label: 'Text',
+    themeTypes: [THEME_TYPE_VALUE.COLOR],
   },
   background: {
     propKey: 'background',
@@ -351,11 +354,13 @@ export const DEFAULT_PROP_KEYS = {
     propKey: 'width',
     type: 'text',
     label: 'Width',
+    themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   height: {
     propKey: 'height',
     type: 'text',
     label: 'Height',
+    themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   padding: [
     {
@@ -423,6 +428,8 @@ export const DEFAULT_PROP_KEYS = {
           label: 'Medium',
         },
       ],
+      themeTypes: [THEME_TYPE_VALUE.NUMBER],
+
     },
   ],
   buttonStyle: {
@@ -445,6 +452,7 @@ export const DEFAULT_PROP_KEYS = {
     type: 'slider',
     label: 'Radius',
     full: true,
+    themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   shadow: {
     propKey: 'shadow',
@@ -555,11 +563,15 @@ export const DEFAULT_PROP_KEYS = {
     propKey: 'borderColor',
     type: 'color',
     label: 'Border',
+    themeTypes: [THEME_TYPE_VALUE.COLOR],
+
   },
   borderColorFocus: {
     propKey: 'borderColorFocus',
     type: 'color',
     label: 'Border focus',
+    themeTypes: [THEME_TYPE_VALUE.COLOR],
+
   },
   type: {
     propKey: 'type',
