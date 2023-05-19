@@ -11,8 +11,8 @@ export const ExpandablePanel = ({ title, Icon, children }: any) => {
               <Grid item xs={12} className='flex items-center'>
                 {Icon && <Icon className='panel-icon' style={{
                         fill: 'currentColor',
-                        width: '30px',
-                        height: '30px',
+                        width: '35px',
+                        height: '35px',
                         marginRight: 5,
                       }}/>}
                 <h5 className='text-md text-secondary text-left font-large text-dark-gray expansion-title'>{title}</h5>

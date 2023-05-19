@@ -52,6 +52,10 @@ import { ToolbarTextInput } from '../Toolbar';
 import { ColorInput } from './ColorInput';
 import { camelToTitle } from 'utils/text';
 import { handleInputAppTitleCase } from 'utils/helper';
+import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import Icon from '@material-ui/core/Icon';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -484,10 +488,17 @@ export const Header = () => {
           </Tooltip>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-neutral-600`}
             onClick={handleSaveProject}
           >
             Save
+          </Btn>
+
+          <Btn
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-neutral-600`}
+            onClick={handleGoToAdminDatabase}
+          >
+            Database
           </Btn>
 
           <Btn
@@ -498,14 +509,7 @@ export const Header = () => {
           </Btn>
 
           <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-600`}
-            onClick={handleGoToAdminDatabase}
-          >
-            Database
-          </Btn>
-
-          <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-emerald-600 ${loadingGenCode ? 'disabled' : ''}`}
+            className={`ml-2 transition cursor-pointer btn-gen-code bg-purple-600 ${loadingGenCode ? 'disabled' : ''}`}
             onClick={handleGenerateCode}
           >
             {loadingGenCode && <CircularProgress size={20} />}
@@ -633,110 +637,134 @@ export const Header = () => {
 
       {/* Dialog theme */}
 
-      <Dialog open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
+      <Dialog maxWidth={'md'} id="dialog-theme" open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
         <form onSubmit={handleSubmit(handleUpdateTheme)}>
           <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
-          <DialogContent style={{ width: 800 }}>
-            {fields.map((item, index) => (
-              <Grid key={item.id} container spacing={1}>
-                <Grid item xs={5}> <Controller
-                  control={control}
-                  name={`theme.${index}.key`}
-                  rules={{ required: "Please fill in name of theme's property" }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      fullWidth
-                      label="Name"
-                      margin="dense"
-                      // required
-                      error={!!errors?.theme?.[index]?.key}
-                      helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
-                      onInput={e => handleInputAppTitleCase(e)}
-                    />
-                  )}
-                /></Grid>
-                <Grid item xs={2}>
-
-                  <Controller
+          <DialogContent style={{ paddingRight: 32 }}>
+            <Box sx={{ flexGrow: 1, width: 800 }}>
+              {fields.map((item, index) => (
+                <Grid style={{ borderBottom: "1px solid rgba(51,48,60,.15)", marginBottom: 8 }} key={item.id} container spacing={4} direction="row"
+                  alignContent="center"
+                  alignItems="center" component="div">
+                  <Grid item xs={5}> <Controller
                     control={control}
-                    name={`theme.${index}.type`}
+                    name={`theme.${index}.key`}
                     rules={{ required: "Please fill in name of theme's property" }}
                     render={({ field }) => (
                       <>
-                        <label htmlFor="current-theme" className="block mb-2">Type</label>
-                        <Select
-                          inputProps={{
-                            name: 'current-theme-select',
-                            id: 'current-theme',
-                          }}
-                          className='theme-select global-select'
-                          // renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+                        <label htmlFor={`theme.${index}.key`} className="block mb-2">Name</label>
+                        <TextField
                           {...field}
-                        >
-                          {ThemeTypeOptions.map((otp) => (
-                            <MenuItem key={otp.value} value={otp.value} className='custom-menu-item'>
-                              {otp.label}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </>
+                          fullWidth
+                          // label="Name"
+                          margin="dense"
+                          // required
+                          error={!!errors?.theme?.[index]?.key}
+                          helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
+                          onInput={e => handleInputAppTitleCase(e)}
+                        /></>
                     )}
-                  />
+                  /></Grid>
+                  <Grid item style={{width: 120}}>
 
-
-                </Grid>
-                <Grid item xs={5}>
-                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER &&
                     <Controller
+                      control={control}
+                      name={`theme.${index}.type`}
+                      rules={{ required: "Please fill in name of theme's property" }}
+                      render={({ field }) => (
+                        <>
+                          <label htmlFor={`theme.${index}.type`} className="block mb-3">Type</label>
+                          <Select
+                            // inputProps={{
+                            //   name: 'current-theme-select',
+                            //   id: 'current-theme',
+                            // }}
+                            className='theme-select global-select theme-select'
+                            // renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+                            {...field}
+                          >
+                            {ThemeTypeOptions.map((otp) => (
+                              <MenuItem key={otp.value} value={otp.value} className='custom-menu-item'>
+                                {otp.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </>
+                      )}
+                    />
+
+
+                  </Grid>
+                  <Grid item xs={4}>
+                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER &&
+                      <Controller
+                        control={control}
+                        name={`theme.${index}.value`}
+                        rules={{ required: "Please fill in value of theme's property" }}
+                        render={({ field }) => (
+                          <>
+                            <label htmlFor={`theme.${index}.type`} className="block mb-2">Value</label>
+                            <TextField
+                              {...field}
+                              fullWidth
+                              // label="Value"
+                              margin="dense"
+                              type='number'
+                              inputProps={{ style: { textAlign: 'center'}}}
+                              disabled={!watch(`theme.${index}.type`)}
+                              // required
+                              error={!!errors?.theme?.[index]?.value}
+                              helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
+                            />
+                          </>
+
+
+                        )}
+                      />}
+
+                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && <Controller
                       control={control}
                       name={`theme.${index}.value`}
                       rules={{ required: "Please fill in value of theme's property" }}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          fullWidth
-                          label="Value"
-                          margin="dense"
-                          type='number'
-                          disabled={!watch(`theme.${index}.type`)}
-                          // required
-                          error={!!errors?.theme?.[index]?.value}
-                          helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
-                        />
+                        <>
+                          <label htmlFor={`theme.${index}.value`} className="block mb-2">Value</label>
+                          <ColorInput
+                            type='color'
+                            {...field}
+                          // label="Value"
+                          />
+                        </>
 
                       )}
                     />}
 
-                  {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && <Controller
-                    control={control}
-                    name={`theme.${index}.value`}
-                    rules={{ required: "Please fill in value of theme's property" }}
-                    render={({ field }) => (
-                      <ColorInput
-                        type='color'
-                        {...field}
-                        label="Value"
-                      />
+                    {!watch(`theme.${index}.type`) && <><label htmlFor={`theme.${index}.value`} className="block mb-2">Value</label><TextField fullWidth
+                      disabled
+                      value='Please select type'
+                    /></>}
 
-                    )}
-                  />}
+                  </Grid>
 
-                  {!watch(`theme.${index}.type`) && <TextField fullWidth
-                    disabled
-                    value='Please select type'
-                  />}
+                  <Grid item xs={1}>
 
+                    <button className='text-red-600' type="button" onClick={() => remove(index)}><DeleteIcon /></button>
+                  </Grid>
+                  <br />
                 </Grid>
-                <button type="button" onClick={() => remove(index)}>Delete</button>
-              </Grid>
-            ))}
-            <button
-              type="button"
-              onClick={() => append({ key: "", value: "", type: "" })}
-            >
-              append
-            </button>
+              ))}
+              <Btn
+                type="button"
+                onClick={() => append({ key: "", value: "", type: "" })}
+                className={`transition cursor-pointer btn-gen-code bg-fuchsia-500 w-fit hover:bg-fuchsia-700`}
+                style={{marginLeft: 0, marginTop: 16}}
+              >
+                <AddIcon style={{ fill: "white", width: 20, height: 20 }} />
+                Add theme property
+              </Btn>
+            </Box>
+
+
           </DialogContent>
           <DialogActions>
             <MaterialButton

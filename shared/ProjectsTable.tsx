@@ -285,7 +285,7 @@ export default function ProjectsTable() {
     };
 
     const requestSearch = (searchedVal: string) => {
-        const filteredRows = originalRows.filter((row) => {
+        const filteredRows = rows?.filter((row) => {
             return row.name.toLowerCase().includes(searchedVal.toLowerCase());
         });
         setRows([...filteredRows] as any);
@@ -407,11 +407,11 @@ export default function ProjectsTable() {
                                                 <CallMissedOutgoingIcon />
                                             </IconButton>
                                         </Tooltip>
-                                        <Tooltip title='Edit' arrow >
+                                        {/* <Tooltip title='Edit' arrow >
                                             <IconButton onClick={() => onEditProject(row)}>
                                                 <ModeEditIcon />
                                             </IconButton>
-                                        </Tooltip>
+                                        </Tooltip> */}
 
                                         <Tooltip title='Delete' arrow>
 

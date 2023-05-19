@@ -2,6 +2,7 @@ import Link from 'next/link';
 import MobileMenu from './mobile-menu';
 import Logo from 'public/images/logo.png';
 import Image from 'next/image';
+import Avatar from '@mui/material/Avatar';
 
 export default function Header({ user }) {
   return (
@@ -21,11 +22,11 @@ export default function Header({ user }) {
           <nav className=''>
             {/* Desktop sign in links */}
             <ul className='flex grow justify-end flex-wrap items-center'>
-              {user?.id ? <Link href='/dashboard'>
-                <a className='btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3'>
+              {user?.username ? <><Link href='/dashboard'>
+                <a className='btn-sm text-white bg-blue-500 hover:bg-blue-700 ml-3'>
                   Dashboard
                 </a>
-              </Link> : <><li>
+              </Link> <div className='flex ml-10 items-center'><Avatar /> <span className='ml-4 fs-sm font-medium'><span className='text-blue-700 fs-sm'>{user.fullName}</span></span></div></> : <><li>
                 <Link href='/sign-in'>
                   <a className='btn-sm text-purple-600 hover:text-gray-200 px-4 flex items-center transition duration-150 ease-in-out hover:bg-gray-600'>
                     Sign in

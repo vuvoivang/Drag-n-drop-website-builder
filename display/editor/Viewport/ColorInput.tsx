@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     borderRadius: '100px',
     border: 'none',
     margin: 0,
-    marginTop: 7,
+    // marginTop: 7,
     position: 'relative',
   },
   input: {
@@ -118,7 +118,7 @@ export const ColorInput = ({
         onChange={(e) => {
           setInternalValue(e.target.value);
         }}
-        margin='dense'
+        // margin='dense'
         variant='filled'
         InputProps={{
           classes,

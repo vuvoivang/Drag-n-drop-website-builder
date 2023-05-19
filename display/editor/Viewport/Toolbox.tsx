@@ -107,6 +107,10 @@ export const Toolbox = () => {
         height: '100%',
         fill: 'currentColor',
       },
+      width: 30,
+      minWidth: 30,
+      height: 30,
+      lineHeight: '30px',
     },
     SubMenuExpandIcon: ({ open }) => ({
       color: open ? _var.primaryColor : _var.secondaryColor,

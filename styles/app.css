@@ -134,3 +134,8 @@ body {
   width: 6px;
   left: -6px;
 }
+
+.MuiFormLabel-root.Mui-focused{
+  font-size: 14px;
+  line-height: 16px;
+}
