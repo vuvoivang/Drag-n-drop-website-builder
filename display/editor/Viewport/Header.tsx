@@ -51,7 +51,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { ToolbarTextInput } from '../Toolbar';
 import { ColorInput } from './ColorInput';
 import { camelToTitle } from 'utils/text';
-import { handleInputAppTitleCase } from 'utils/helper';
+import { handleInputAppTitleCase, preprocessingNodes } from 'utils/helper';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -164,7 +164,7 @@ export const Header = () => {
     isShownAllIndicator = false,
     pages,
     currentPage,
-    theme: defaultTheme,
+    theme: themeValues,
   } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     canUndo: query.history.canUndo(),
@@ -176,7 +176,7 @@ export const Header = () => {
   }));
   const { control, register, formState: { errors }, handleSubmit, watch } = useForm({
     defaultValues: {
-      theme: Object.entries(defaultTheme).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
+      theme: Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
     },
   });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
@@ -248,7 +248,6 @@ export const Header = () => {
       for (const page of query.getState().pageOptions.pages) {
         pages.push({ path: page.path, name: page.name });
       }
-
       // get nodes info
 
       let serializeNodes = query.getSerializedNodes();
@@ -277,6 +276,8 @@ export const Header = () => {
         nodes.push(node);
       }
 
+      nodes = preprocessingNodes(nodes);
+
       console.log({ nodes, pages });
 
       // call api
@@ -285,7 +286,7 @@ export const Header = () => {
           nodes,
           pages,
           projectId: project?.id,
-          theme: {},
+          theme: themeValues,
         })
         .then((res) => {
           if (res.url) window.location.href = res.url;
