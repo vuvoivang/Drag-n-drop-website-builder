@@ -12,8 +12,8 @@ export type PROJECT = {
   type: string;
 };
 export enum PROJECT_TYPE {
-  LANDING = 'LANDING',
-  CMS = 'CMS',
+  LANDING = 1,
+  CMS = 2,
 }
 export const MAPPING_PROJECT_TYPE_TO_STRING = {
   [PROJECT_TYPE.LANDING]: 'Landing Page',

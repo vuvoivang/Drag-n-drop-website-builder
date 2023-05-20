@@ -16,10 +16,10 @@ import {
     Button as MaterialButton,
 
 } from '@material-ui/core';
-import userService from 'services/user';
+import userService, { PROJECT_TYPE } from 'services/user';
 import toastMessage from 'utils/toast';
 import { useRouter } from 'next/router';
-export default function LandingPage() {
+export default function DashBoard() {
     const [openDialogNewProject, setOpenModalNewProject] = useState(false);
 
     const [project, setProject] = useState({
@@ -89,13 +89,13 @@ export default function LandingPage() {
                     <h2 className='mt-8 mb-4 fs-sm'>Type of your project:</h2>
                     <div className='flex'>
                         <label className="mb-4 mr-6 inline-block">
-                            <input type="radio" name="type" value={'1'} defaultChecked id="1" onChange={(e) => { setProject((project) => ({ ...project, type: Number(e.target.value) })) }} />
+                            <input type="radio" name="type" value={PROJECT_TYPE.LANDING} defaultChecked id="1" onChange={(e) => { setProject((project) => ({ ...project, type: Number(e.target.value) })) }} />
                             <img src="https://moosend.com/wp-content/uploads/2019/03/Lemon-Squeezy-landing-page-example.png" alt="Option 1" width={268} />
                             <div className="text-center mt-2 fs-sm">Landing</div>
                         </label>
 
                         <label className="mb-4 inline-block">
-                            <input type="radio" name="type" value={'2'} id="2" onChange={(e) => setProject((project) => ({ ...project, type: Number(e.target.value) }))} />
+                            <input type="radio" name="type" value={PROJECT_TYPE.CMS} id="2" onChange={(e) => setProject((project) => ({ ...project, type: Number(e.target.value) }))} />
                             <img src="https://images04.nicepage.com/feature/583347/blog-category.jpg" alt="Option 1" width={240} />
                             <div className="text-center mt-2 fs-sm">Blog</div>
                         </label>
