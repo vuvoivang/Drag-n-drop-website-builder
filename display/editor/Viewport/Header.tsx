@@ -1,4 +1,4 @@
-import { useEditor } from 'libs/core/src';
+import { Theme, useEditor } from 'libs/core/src';
 import {
   Tooltip,
   // FormControl,
@@ -249,11 +249,14 @@ export const Header = () => {
     try {
       let pages = new Array<PageData>();
       let nodes = new Array<Node>();
-
+      let theme: string;
       // get pages info
       for (const page of query.getState().pageOptions.pages) {
         pages.push({ path: page.path, name: page.name });
       }
+      // get theme
+      theme = JSON.stringify(themeValues);
+
       // get nodes info
 
       let serializeNodes = query.getSerializedNodes();
@@ -281,7 +284,7 @@ export const Header = () => {
         nodes.push(node);
       }
 
-      console.log({ nodes, pages });
+      console.log({ nodes, pages, theme });
 
       // call api
       await genCodeService
@@ -289,7 +292,7 @@ export const Header = () => {
           nodes,
           pages,
           projectId: project?.id,
-          theme: themeValues,
+          theme,
         })
         .then((res) => {
           if (res.url) window.location.href = res.url;
