@@ -50,7 +50,7 @@ import { ProjectContext } from 'pages/builder/[id]';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { ToolbarTextInput } from '../Toolbar';
 import { ColorInput } from './ColorInput';
-import { camelToTitle } from 'utils/text';
+import { camelToTitle, titleToCamelize } from 'utils/text';
 import { handleInputAppTitleCase, preprocessingNodes } from 'utils/helper';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -174,11 +174,17 @@ export const Header = () => {
     currentPage: state.pageOptions.currentPage,
     theme: query.getTheme(),
   }));
-  const { control, register, formState: { errors }, handleSubmit, watch } = useForm({
+  const { control, register, setValue, formState: { errors }, handleSubmit, watch, resetField } = useForm({
     defaultValues: {
       theme: Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
     },
   });
+  useEffect(() => {
+    // resetField('theme', {
+    //   defaultValue: Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type }))
+    // })
+    setValue('theme', Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })));
+  }, [themeValues])
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
     name: "theme",
@@ -327,7 +333,13 @@ export const Header = () => {
     setOpenDialogTheme(false);
   };
   const handleUpdateTheme = (data) => {
-    const themeObject = data.theme?.reduce((res, item) => ({ ...res, [item.key]: item.value }), {});
+    const themeObject = data.theme?.reduce((res, item) => ({
+      ...res, [titleToCamelize(item.key)]: {
+        value: item.value,
+        type: item.type,
+      }
+    }), {});
+
     actions.setTheme(themeObject);
     handleCloseDialogTheme();
   };
@@ -666,7 +678,7 @@ export const Header = () => {
                         /></>
                     )}
                   /></Grid>
-                  <Grid item style={{width: 120}}>
+                  <Grid item style={{ width: 120 }}>
 
                     <Controller
                       control={control}
@@ -711,7 +723,7 @@ export const Header = () => {
                               // label="Value"
                               margin="dense"
                               type='number'
-                              inputProps={{ style: { textAlign: 'center'}}}
+                              inputProps={{ style: { textAlign: 'center' } }}
                               disabled={!watch(`theme.${index}.type`)}
                               // required
                               error={!!errors?.theme?.[index]?.value}
@@ -758,7 +770,7 @@ export const Header = () => {
                 type="button"
                 onClick={() => append({ key: "", value: "", type: "" })}
                 className={`transition cursor-pointer btn-gen-code bg-fuchsia-500 w-fit hover:bg-fuchsia-700`}
-                style={{marginLeft: 0, marginTop: 16}}
+                style={{ marginLeft: 0, marginTop: 16 }}
               >
                 <AddIcon style={{ fill: "white", width: 20, height: 20 }} />
                 Add theme property

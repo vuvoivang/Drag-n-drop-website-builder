@@ -45,7 +45,7 @@ export const editorInitialState: EditorState = {
     collections: [],
     documents: [],
   },
-  theme: defaultTheme,
+  theme: {},
 };
 
 export const ActionMethodsWithConfig = {
