@@ -28,7 +28,7 @@ export const serializeComp = (data: Pick<NodeData, 'type' | 'isCanvas' | 'props'
         }
         return serializeComp(child, resolver);
       });
-    } else if (prop.type) {
+    } else if (prop.type && !['dynamic-data', 'theme'].includes(prop.type)) {
       result[key] = serializeComp(prop, resolver);
     } else {
       result[key] = prop;
@@ -45,7 +45,6 @@ export const serializeComp = (data: Pick<NodeData, 'type' | 'isCanvas' | 'props'
 
 export const serializeNode = (data: Omit<NodeData, 'event'>, resolver: Resolver): SerializedNode => {
   const { type, props, isCanvas, name, ...nodeData } = data;
-
   const reducedComp = serializeComp({ type, isCanvas, props }, resolver);
 
   return {

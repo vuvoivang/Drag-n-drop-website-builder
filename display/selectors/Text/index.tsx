@@ -5,6 +5,7 @@ import { TextProps } from '../../raw-components/Text/props';
 import cx from 'classnames';
 import { TextSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Text/props';
+import { getDeepValueProps } from 'utils/helper';
 
 export const craftConfig = {
   displayName: 'Text',
@@ -13,18 +14,32 @@ export const craftConfig = {
     settings: TextSettings,
   },
 };
-export const CraftText: UserComponent<TextProps> = ({
-  fontSize,
-  textAlign,
-  fontWeight,
-  color,
-  shadow,
-  text,
-  margin,
-  styledClassNames,
-  tagName,
-  nestedPropKey = '',
-}: Partial<TextProps>) => {
+export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) => {
+  const {
+    fontSize,
+    textAlign,
+    fontWeight,
+    color,
+    shadow,
+    text,
+    margin,
+    styledClassNames,
+    tagName,
+    nestedPropKey = '',
+  } = getDeepValueProps(props);
+  // const {
+  //   fontSize,
+  //   textAlign,
+  //   fontWeight,
+  //   color,
+  //   shadow,
+  //   text,
+  //   margin,
+  //   styledClassNames,
+  //   tagName,
+  //   nestedPropKey = '',
+  // } = props;
+  // console.log(props);
   const {
     connectors: { connect },
     setProp,

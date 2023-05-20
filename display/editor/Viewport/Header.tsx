@@ -51,7 +51,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { ToolbarTextInput } from '../Toolbar';
 import { ColorInput } from './ColorInput';
 import { camelToTitle, titleToCamelize } from 'utils/text';
-import { handleInputAppTitleCase, preprocessingNodes } from 'utils/helper';
+import { clearValueThemeAndDynamicData, handleInputAppTitleCase } from 'utils/helper';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -257,7 +257,6 @@ export const Header = () => {
       // get nodes info
 
       let serializeNodes = query.getSerializedNodes();
-
       for (const id in serializeNodes) {
         let serializeNode = serializeNodes[id];
         let type = serializeNode.type;
@@ -269,7 +268,7 @@ export const Header = () => {
         let node: Node = {
           id: id,
           type: typeName.replace('Craft', ''),
-          props: JSON.stringify(serializeNode.props),
+          props: JSON.stringify(clearValueThemeAndDynamicData(serializeNode.props)),
           displayName: serializeNode.custom?.displayName
             ? serializeNode.custom?.displayName
             : serializeNode.displayName,
@@ -281,8 +280,6 @@ export const Header = () => {
 
         nodes.push(node);
       }
-
-      nodes = preprocessingNodes(nodes);
 
       console.log({ nodes, pages });
 

@@ -1,5 +1,4 @@
 import { WithThemeAndDatabase } from "@libs/utils";
-import { Node } from "display/editor/Viewport/Header";
 
 export const getDeepValueProps = <T>(props: WithThemeAndDatabase<T>) => {
     const propsObject = {...props};
@@ -30,27 +29,28 @@ export const handleInputAppTitleCase = (e, MAX_LENGTH = 50) => {
 
   e.target.value = newValue;
 };
-export const preprocessingNodes = (nodes: Node[]) => {
-  const deepClonedNodes: Node[] = JSON.parse(JSON.stringify(nodes));
-  deepClonedNodes.forEach((node) => {
-    clearValueThemeAndDynamicData(node.data.props);
-  })
-  return deepClonedNodes;
-}
+// export const preprocessingNodes = (nodes: Node[]) => {
+//   const deepClonedNodes: Node[] = JSON.parse(JSON.stringify(nodes));
+//   deepClonedNodes.forEach((node) => {
+//     clearValueThemeAndDynamicData(node.data.props);
+//   })
+//   return deepClonedNodes;
+// }
 
 export const clearValueThemeAndDynamicData = (props) => {
-  Object.keys(props).forEach((key) => {
+  const clonedNodeProps = JSON.parse(JSON.stringify(props));
+  Object.keys(clonedNodeProps).forEach((key) => {
     if(key === 'children') return;
-    const currentValue = props[key];
+    const currentValue = clonedNodeProps[key];
     if (typeof currentValue === "object" && currentValue !== null) {
       // is not null object
       if (currentValue.type === "dynamic-data" || currentValue.type === "theme") {
-        delete props[key].value;
+        delete clonedNodeProps[key].value;
       } else {
-        clearValueThemeAndDynamicData(props[key]);
+        clearValueThemeAndDynamicData(clonedNodeProps[key]);
       }
     } else return;
   });
   
-  return props;
+  return clonedNodeProps;
 }
