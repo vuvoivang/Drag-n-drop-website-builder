@@ -24,7 +24,7 @@ export default function DashBoard() {
 
     const [project, setProject] = useState({
         name: '',
-        type: -1,
+        type: PROJECT_TYPE.UNKNOWN,
     });
     const router = useRouter();
 
