@@ -8,9 +8,14 @@ import Footer from 'landing/components/ui/footer'
 import Header from 'landing/components/ui/header'
 import { useEffect, useState } from 'react'
 import userService from 'services/user'
-
+type UserInfo = {
+    avatarUrl: string;
+    username: string;
+    fullName: string;
+    email: string;
+}
 export default function LandingPage() {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<UserInfo>();
     let userToken = '';
     if (typeof window !== 'undefined') {
         userToken = localStorage?.getItem('buildify-token')
@@ -23,7 +28,7 @@ export default function LandingPage() {
     }, []);
 
     useEffect(() => {
-        userService.getInfo().then(resp => {
+        userService.getInfo().then((resp: UserInfo) => {
             if (resp.username) setUser(resp);
         }).catch((err) => {
             console.log(err);

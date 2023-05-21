@@ -12,6 +12,7 @@ export type PROJECT = {
   type: string;
 };
 export enum PROJECT_TYPE {
+  UNKNOWN = -1,
   LANDING = 1,
   CMS = 2,
 }
