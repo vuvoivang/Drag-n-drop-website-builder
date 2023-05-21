@@ -68,6 +68,11 @@ const Btn = styled.a`
     top: -50%;
     left: -50%;
   }
+  &.connected{
+    svg {
+      fill: ${_var.yellowColor};
+    }
+  }
 `;
 
 export const RenderNode = ({ render }) => {
@@ -144,7 +149,7 @@ export const RenderNode = ({ render }) => {
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [selectedDocument, setSelectedDocument] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCollections(database.collections);
     setDocuments(database.documents);
   }, [database]);
@@ -156,7 +161,7 @@ export const RenderNode = ({ render }) => {
     handleCloseDialogConnectData();
     setProp((props) => {
       props.text = {
-        type: "dynamic",
+        type: "dynamic-data",
         value: selectedDocument.label,
         key: selectedDocument.key,
         collectionId: selectedCollection.value,
@@ -239,7 +244,7 @@ export const RenderNode = ({ render }) => {
             {propTextValue !== undefined ? (
               <Tooltip title='Connect Data'>
                 <Btn
-                  className='link cursor-pointer'
+                  className={`link cursor-pointer ${propTextValue?.type === "dynamic-data" ? "connected" : ""}`}
                   onMouseDown={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     setOpenDialogConnectData(true);

@@ -344,24 +344,20 @@ export const Header = () => {
     handleCloseDialogTheme();
   };
 
-
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
       <div className='items-center flex w-full pl-4 justify-space-between py-2'>
-        <a href='/' className='logo-container flex items-center' style={{ width: '200px' }}>
-          <Image className='header-logo' src={Logo} alt='Our Logo' height={40} width={40} />
-          <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
-        </a>
+        <div className='logo-container flex items-center' style={{ width: '200px' }}>
+          <a href='/' className='flex items-center'>
+            <Image className='header-logo' src={Logo} alt='Our Logo' height={47} width={47} />
+            {/* <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span> */}
+          </a>
+          <h2 className='text-indigo-950 text-xl ml-4'>{project.name}</h2>
+        </div>
+
         {/* Form add new page  */}
         <PageFormControl className='pt-2'>
           <div className='add-page-container flex items-center'>
-            <LightTooltip title='Add new page'>
-              <AddCircleIcon
-                className='cursor-pointer mr-3 text-green-500'
-                onClick={clickOpenDialogAddNewPage}
-                fontSize='small'
-              />
-            </LightTooltip>
             <Select
               value={currentPage}
               onChange={handleChangePage}
@@ -389,6 +385,13 @@ export const Header = () => {
                 </MenuItem>
               ))}
             </Select>
+            <LightTooltip title='Add new page'>
+              <AddCircleIcon
+                className='cursor-pointer ml-2 text-green-500'
+                onClick={clickOpenDialogAddNewPage}
+                fontSize='small'
+              />
+            </LightTooltip>
           </div>
         </PageFormControl>
 

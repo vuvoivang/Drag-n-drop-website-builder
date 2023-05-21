@@ -44,6 +44,7 @@ $color-white: #ffffff;
 $color-black: #000000;
 
 $color-bg-submenu: #fcf9ff;
+$color-yellow: #fff200;
 
 
 :export {
@@ -85,4 +86,6 @@ $color-bg-submenu: #fcf9ff;
   whiteColor: $color-white;
   blackColor: $color-black;
   bgSubmenu: $color-bg-submenu;
+  yellowColor: $color-yellow;
+
 }
