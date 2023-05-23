@@ -28,6 +28,7 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
     ...defaultProps,
     ...props,
   };
+  const { children } = props;
   const {
     flexDirection,
     alignItems,
@@ -39,7 +40,6 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
     margin,
     shadow,
     radius,
-    children,
     styledClassNames,
   } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
