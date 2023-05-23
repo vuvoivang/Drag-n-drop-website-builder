@@ -34,6 +34,7 @@ import {
 import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
+import { mappingDocumentsToCollections } from 'utils/helper';
 
 const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   /** Helper functions */
@@ -506,7 +507,12 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
      * @param newDatase
      */
      setDatabase(newDatase) {
-      state.database = {...newDatase};
+      const { documents, collections } = newDatase;
+      const mappingDatabase = mappingDocumentsToCollections(collections, documents);
+      state.database = {
+        database: newDatase,
+        mappingDatabase,
+      };
     },
 
     /**

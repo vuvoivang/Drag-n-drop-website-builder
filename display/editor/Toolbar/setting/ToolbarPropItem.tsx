@@ -457,7 +457,10 @@ export const ToolbarPropItem = ({
                         const option = listThemeOptions?.find((option) => option.value?.key === value?.key);
                         return option?.label || "Select theme's name";
                       }}
-                      onChange={(value) => handleSetPropValue(JSON.parse(value), 'select')}
+                      onChange={(value) => {
+                        const { type, key } = JSON.parse(value);
+                        handleSetPropValue({ type, key }, 'select')
+                      }}
                       disabled={isDisabledTheme}
                       {...props}
                     >

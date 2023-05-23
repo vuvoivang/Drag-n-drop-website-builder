@@ -10,6 +10,7 @@ import { CLICK_TYPE } from 'display/raw-components/constant';
 import { StyledAnchor } from 'display/raw-components/Anchor/styled';
 import { AnchorSettings } from './setting';
 import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Anchor',
@@ -43,7 +44,7 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (pr
     onClick,
     nestedPropKey,
     ...otherProps
-  } = props;
+  } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
 
   const { pageNavigate, absoluteUrlNavigate, href, clickType } = events;

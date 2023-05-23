@@ -5,6 +5,8 @@ import { YoutubeDiv } from '../../raw-components/Video/styled';
 
 import { VideoSettings } from './setting';
 import { defaultProps, VideoProps } from 'display/raw-components/Video/props';
+import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Video',
@@ -13,7 +15,7 @@ export const craftConfig = {
     settings: VideoSettings,
   },
 };
-export const CraftVideo: UserComponent<VideoProps> = (props: any) => {
+export const CraftVideo: UserComponent<WithThemeAndDatabase<VideoProps>> = (props: WithThemeAndDatabase<VideoProps>) => {
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
@@ -23,7 +25,7 @@ export const CraftVideo: UserComponent<VideoProps> = (props: any) => {
     selected: node.events.selected,
   }));
 
-  const { videoId, width, height, className } = props;
+  const { videoId, width, height, className } = useGetValuesFromReferencedProps(props);
 
   return (
     <YoutubeDiv className={className} ref={connect} enabled={enabled} width={width} height={height}>

@@ -8,7 +8,7 @@ export type ConditionallyMergeRecordTypes<C, S extends Record<string, any>> = C 
 export type ThemeProp = {
   type: string;
   name: string;
-  value: any;
+  value?: any;
 }
 
 
@@ -18,7 +18,7 @@ export type DatabaseProp = {
   collectionId: number;
   documentId: number;
   key: string;
-  value: any;
+  value?: any;
 }
 
 export type WithThemeAndDatabase<T> = {

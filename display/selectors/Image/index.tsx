@@ -7,6 +7,7 @@ import cx from 'classnames';
 import { ImageSettings } from './setting';
 import { UserComponent } from '@libs/interfaces';
 import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Image',
@@ -17,7 +18,7 @@ export const craftConfig = {
 };
 
 export const CraftImage: UserComponent<WithThemeAndDatabase<ImageProps>> = (props: WithThemeAndDatabase<ImageProps>) => {
-  const { width, height, src, alt, className, ...otherProps } = props;
+  const { width, height, src, alt, className, ...otherProps } = useGetValuesFromReferencedProps(props);
 
   return (
     <Resizer propKey={{ width: 'width', height: 'height' }}>

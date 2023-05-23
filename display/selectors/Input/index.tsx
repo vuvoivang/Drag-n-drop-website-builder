@@ -7,6 +7,8 @@ import { StyledInput } from '../../raw-components/Input/styled';
 import { InputProps } from '../../raw-components/Input/props';
 import { InputSetting } from './setting';
 import { defaultProps } from 'display/raw-components/Input/props';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
+import { WithThemeAndDatabase } from '@libs/utils';
 
 export const craftConfig = {
   displayName: 'Input',
@@ -16,17 +18,17 @@ export const craftConfig = {
   },
 };
 
-export const CraftInput: UserComponent<InputProps> = (props: any) => {
+export const CraftInput: UserComponent<WithThemeAndDatabase<InputProps>> = (props: WithThemeAndDatabase<InputProps>) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
     selected: node.events.selected,
   }));
-
-  const { styledClassNames, type, placeholder, inputOptions, className, ...otherProps } = props;
+  const { styledClassNames, type, placeholder, inputOptions, className, ...otherProps } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const { required, readonly } = inputOptions;
   return (
+    // @ts-ignore
     <StyledInput
       ref={connect}
       className={cx([

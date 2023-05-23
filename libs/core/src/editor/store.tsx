@@ -29,7 +29,7 @@ export const editorInitialState: EditorState = {
         store,
         isMultiSelectEnabled: (e: MouseEvent) => !!e.metaKey,
       }),
-    normalizeNodes: () => {},
+    normalizeNodes: () => { },
     isShownAllIndicator: false,
   },
   pageOptions: {
@@ -42,8 +42,11 @@ export const editorInitialState: EditorState = {
     ],
   },
   database: {
-    collections: [],
-    documents: [],
+    database: {
+      collections: [],
+      documents: [],
+    },
+    mappingDatabase: {},
   },
   theme: {},
 };

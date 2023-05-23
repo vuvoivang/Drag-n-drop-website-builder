@@ -27,7 +27,7 @@ const getDynamicData = (projectId: string) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'collection/list'), 'GET', { projectId });
 };
 
-const getCollectionMap = (projectId: string) => {
+const getMappingDynamicData = (projectId: string) => {
   return fetchWithBuildifyToken(generateUrlByService(SERVICE_NAME, 'collection/map'), 'GET', { projectId });
 };
 
@@ -69,7 +69,7 @@ const deleteDocument = (id: string) => {
 
 const dynamicDataService = {
   getCollection,
-  getCollectionMap,
+  getMappingDynamicData,
   getDynamicData,
   addCollection,
   updateCollection,
