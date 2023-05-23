@@ -5,8 +5,7 @@ import { TextProps } from '../../raw-components/Text/props';
 import cx from 'classnames';
 import { TextSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Text/props';
-import { getDeepValueProps } from 'utils/helper';
-import { cloneDeep } from 'lodash';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Text',
@@ -27,20 +26,8 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
     styledClassNames,
     tagName,
     nestedPropKey = '',
-  } = getDeepValueProps(cloneDeep(props));
-  // const {
-  //   fontSize,
-  //   textAlign,
-  //   fontWeight,
-  //   color,
-  //   shadow,
-  //   text,
-  //   margin,
-  //   styledClassNames,
-  //   tagName,
-  //   nestedPropKey = '',
-  // } = props;
-  // console.log(props);
+  } = useGetValuesFromReferencedProps(props);
+  
   const {
     connectors: { connect },
     setProp,
@@ -49,14 +36,13 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
     enabled: state.options.enabled,
   }));
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
-  const currentText = text?.type === "dynamic-data" ? text?.value : text;
   return (
     <ContentEditable
       innerRef={connect}
-      html={currentText} // innerHTML of the editable div
+      html={text} // innerHTML of the editable div
       disabled={!enabled}
       onChange={(e) => {
-        if(e.target.value === currentText) return;
+        if(e.target.value === text) return;
         setProp((prop) => {
           if (nestedPropKey) {
             prop[nestedPropKey].text = e.target.value;

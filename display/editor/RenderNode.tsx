@@ -158,7 +158,7 @@ export const RenderNode = ({ render }) => {
     setProp((props) => {
       props.text = {
         type: "dynamic-data",
-        value: selectedDocument.label,
+        // value: selectedDocument.label,
         key: selectedDocument.key,
         collectionId: selectedCollection.value,
         documentId: selectedDocument.value.slice(0, Number(selectedDocument.value.indexOf('-'))),

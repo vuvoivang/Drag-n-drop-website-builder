@@ -253,7 +253,11 @@ export function QueryMethods(state: EditorState) {
     },
 
     getDatabase() {
-      return state.database;
+      return state.database.database;
+    },
+
+    getMappingDatabase() {
+      return state.database.mappingDatabase;
     },
 
     getTheme() {

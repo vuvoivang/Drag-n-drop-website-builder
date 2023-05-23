@@ -10,6 +10,8 @@ import { PopupEvents } from './event';
 import { CraftButton } from '../Button';
 import { CraftText } from '../Text';
 import { CraftContainer } from '../Container';
+import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Popup',
@@ -23,7 +25,7 @@ export const craftConfig = {
   },
 };
 
-export const CraftPopup: UserComponent<PopupProps> = (props: any) => {
+export const CraftPopup: UserComponent<WithThemeAndDatabase<PopupProps>> = (props: WithThemeAndDatabase<PopupProps>) => {
   const {
     id,
     connectors: { connect },
@@ -43,7 +45,7 @@ export const CraftPopup: UserComponent<PopupProps> = (props: any) => {
     containerActionsComponent,
     styledClassNames,
     events,
-  } = props;
+  } = useGetValuesFromReferencedProps(props);
 
   const { showPopup } = events;
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();

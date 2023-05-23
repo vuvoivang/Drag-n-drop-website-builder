@@ -8,8 +8,8 @@ import { defaultProps } from '../../raw-components/Container/props';
 import { ContainerSettings } from './setting';
 import { UserComponent } from '@libs/interfaces';
 import { useNode } from '@libs/hooks';
-import { getDeepValueProps } from 'utils/helper';
 import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Container',
@@ -28,6 +28,7 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
     ...defaultProps,
     ...props,
   };
+  const { children } = props;
   const {
     flexDirection,
     alignItems,
@@ -39,10 +40,8 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
     margin,
     shadow,
     radius,
-    children,
     styledClassNames,
-    maxWidth,
-  } = getDeepValueProps(props);
+  } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const { id } = useNode();
   return (

@@ -62,8 +62,11 @@ export type PageData = {
 };
 
 export interface Database {
-  collections: any[];
-  documents: any[];
+  database: {
+    collections: any[];
+    documents: any[];
+  };
+  mappingDatabase: Record<number, any>;
 }
 
-export type Theme = Record<string,any>;
+export type Theme = Record<string, any>;

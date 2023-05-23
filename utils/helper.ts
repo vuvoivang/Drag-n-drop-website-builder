@@ -58,3 +58,41 @@ export const clearValueThemeAndDynamicData = (props) => {
   
   return clonedNodeProps;
 }
+
+export const getValuesFromReferencedPropsObject = (propsObject, database, theme) => {
+  Object.keys(propsObject).forEach((key) => {
+    const currentValue = propsObject[key];
+
+    if (typeof currentValue === "object" && currentValue !== null) {
+      // is not null object
+      if (currentValue.type === "dynamic-data") {
+        propsObject[key] = database?.[currentValue.collectionId]?.documents?.[currentValue.documentId]?.data?.[currentValue.key];
+      } else if (currentValue.type === "theme") {
+        // get theme value
+        propsObject[key] = theme[currentValue.key].value;
+      } else {
+        getValuesFromReferencedPropsObject(propsObject[key], database, theme);
+      }
+    }
+  });
+};
+export const mappingDocumentsToCollections = (collections, documents) => {
+  const mappingDocumentsByCollectionsIds = documents.reduce((acc, document) => {
+    const { collectionId } = document;
+    if (!acc[collectionId]) {
+      acc[collectionId] = {};
+    }
+    acc[collectionId][document.id] = (document);
+    return acc;
+  }, {});
+  return collections.reduce((res, collection) => {
+    const { id } = collection;
+    return {
+      ...res,
+      [id]: {
+        ...collection,
+        documents: mappingDocumentsByCollectionsIds[id],
+      },
+    };
+  }, {});
+};

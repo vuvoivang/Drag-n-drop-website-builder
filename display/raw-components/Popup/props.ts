@@ -14,6 +14,9 @@ export type PopupProps = Partial<{
   containerActionsComponent: ContainerProps;
   styledClassNames: Record<string, any>;
   className: string;
+  events: {
+    showPopup: boolean;
+  }
 }>;
 
 export const defaultProps: PopupProps = {

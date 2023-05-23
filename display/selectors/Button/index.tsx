@@ -9,6 +9,7 @@ import cx from 'classnames';
 import { CraftText } from '../Text';
 import { ButtonEvents } from './event';
 import { WithThemeAndDatabase } from '@libs/utils';
+import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const craftConfig = {
   displayName: 'Button',
@@ -38,7 +39,7 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
     onClick,
     nestedPropKey,
     ...otherProps
-  } = props;
+  } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   const handleNavigate = () => {
     if (events.pageNavigate || events.absoluteUrlNavigate) {
