@@ -19,6 +19,7 @@ import {
 import userService, { PROJECT_TYPE } from 'services/user';
 import toastMessage from 'utils/toast';
 import { useRouter } from 'next/router';
+import AvatarZone from 'shared/AvatarZone';
 export default function DashBoard() {
     const [openDialogNewProject, setOpenModalNewProject] = useState(false);
 
@@ -59,7 +60,7 @@ export default function DashBoard() {
                     <Image className='header-logo' src={Logo} alt='Our Logo' height={50} width={50} />
                     <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
                 </a>
-                <Avatar />
+                <AvatarZone user={{ fullName: 'Võ Hoàng Vũ' }} />
             </div>
             <div>
                 <div className='flex justify-between pt-4'>
