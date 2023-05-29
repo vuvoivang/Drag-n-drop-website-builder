@@ -130,14 +130,14 @@ export const ThemeTypeOptions = [
 ];
 
 export const defaultTheme: Theme = {
-  primaryColor: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  primaryTextColor: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  secondaryColor: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  secondaryTextColor: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  colorRed: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  colorWhite: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR },
-  fontWeightNormal: { value: 400, type: THEME_TYPE_VALUE.NUMBER },
-  fontWeightBold: { value: 600, type: THEME_TYPE_VALUE.NUMBER },
-  fontSizeNormal: { value: 14, type: THEME_TYPE_VALUE.NUMBER },
-  fontSizeHeading1: { value: 14, type: THEME_TYPE_VALUE.NUMBER },
+  1: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryColor' },
+  2: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryTextColor', },
+  3: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryColor', },
+  4: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryTextColor', },
+  5: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorRed', },
+  6: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorWhite', },
+  7: { value: 400, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightNormal', },
+  8: { value: 600, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightBold', },
+  9: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeNormal', },
+  10: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeHeading1', },
 };

@@ -68,5 +68,5 @@ export interface Database {
   };
   mappingDatabase: Record<number, any>;
 }
-
-export type Theme = Record<string, any>;
+type ThemeItemId = number;
+export type Theme = Record<ThemeItemId, any>;

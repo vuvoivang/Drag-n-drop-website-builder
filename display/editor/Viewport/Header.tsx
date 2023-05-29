@@ -176,14 +176,14 @@ export const Header = () => {
   }));
   const { control, register, setValue, formState: { errors }, handleSubmit, watch, resetField } = useForm({
     defaultValues: {
-      theme: Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })),
+      theme: Object.entries(themeValues).map(([id, { value, type, key }]) => ({ key: camelToTitle(key), value, type, id: Number(id) })),
     },
   });
   useEffect(() => {
     // resetField('theme', {
-    //   defaultValue: Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type }))
+    //   defaultValue: Object.entries(themeValues).map(([id,{ value, type, key }]) => ({ key: camelToTitle(key), value, type }))
     // })
-    setValue('theme', Object.entries(themeValues).map(([key, { value, type }]) => ({ key: camelToTitle(key), value, type })));
+    setValue('theme', Object.entries(themeValues).map(([id, { value, type, key }]) => ({ key: camelToTitle(key), value, type, id: Number(id) })));
   }, [themeValues])
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
@@ -334,15 +334,17 @@ export const Header = () => {
   };
   const handleUpdateTheme = (data) => {
     const themeObject = data.theme?.reduce((res, item) => ({
-      ...res, [titleToCamelize(item.key)]: {
+      ...res, [item.id]: {
         value: item.value,
         type: item.type,
+        key: titleToCamelize(item.key),
       }
     }), {});
 
     actions.setTheme(themeObject);
     handleCloseDialogTheme();
   };
+  const nextIdTheme = Number(Object.keys(themeValues)[Object.keys(themeValues).length - 1]) + 1;
 
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
@@ -771,7 +773,7 @@ export const Header = () => {
               ))}
               <Btn
                 type="button"
-                onClick={() => append({ key: "", value: "", type: "" })}
+                onClick={() => append({ key: "", value: "", type: "", id: nextIdTheme })}
                 className={`transition cursor-pointer btn-gen-code bg-fuchsia-500 w-fit hover:bg-fuchsia-700`}
                 style={{ marginLeft: 0, marginTop: 16 }}
               >

@@ -145,11 +145,11 @@ export const ToolbarPropItem = ({
   const listType = Array.isArray(inputType) ? inputType : [inputType];
   const listStyledCustomOptions = Array.isArray(styledCustomOptions) ? styledCustomOptions : [styledCustomOptions];
   const arrThemeTypes = Array.isArray(themeTypes) ? themeTypes : [themeTypes];
-  const listThemeOptions = Object.entries(theme).filter(([_, valueTheme]) => arrThemeTypes.includes(valueTheme.type)).map(([key]) => ({
+  const listThemeOptions = Object.entries(theme).filter(([_, valueTheme]) => arrThemeTypes.includes(valueTheme.type)).map(([id, { key }]) => ({
     value: {
       type: 'theme',
-      key,
-      // value: valueTheme?.value,
+      // key,
+      id: Number(id),
     },
     label: camelToTitle(key),
   }));
@@ -227,7 +227,7 @@ export const ToolbarPropItem = ({
   };
 
   const handleRenderInputSetting = (type) => {
-    const normalizedValue = value?.type === 'theme' ? theme[value.key].value : value;
+    const normalizedValue = value?.type === 'theme' ? theme[value.id].value : value;
     return (
       <>
         {['text', 'color', 'bg', 'number'].includes(type) ? (
@@ -454,7 +454,7 @@ export const ToolbarPropItem = ({
                     <ToolbarDropdown
                       value={value || ''}
                       renderValue={(value) => {
-                        const option = listThemeOptions?.find((option) => option.value?.key === value?.key);
+                        const option = listThemeOptions?.find((option) => option.value?.id === value?.id);
                         return option?.label || "Select theme's name";
                       }}
                       onChange={(value) => {
@@ -464,7 +464,7 @@ export const ToolbarPropItem = ({
                       {...props}
                     >
                       {listThemeOptions?.map((option) => (
-                        <MenuItem key={option.value?.key} value={JSON.stringify(option.value)} disabled={isDisabledTheme} classes={menuItemClasses}>
+                        <MenuItem key={option.value?.id} value={JSON.stringify(option.value)} disabled={isDisabledTheme} classes={menuItemClasses}>
                           {option.label}
                         </MenuItem>
                       ))}
