@@ -132,10 +132,11 @@ export const RenderNode = ({ render }) => {
   }, [dom, getPos]);
 
   useEffect(() => {
-    document.querySelector('.craftjs-renderer').addEventListener('scroll', scroll);
+    const craftjsRenderer = document.querySelector('.page-container');
+    craftjsRenderer?.addEventListener('scroll', scroll);
 
     return () => {
-      document.querySelector('.craftjs-renderer').removeEventListener('scroll', scroll);
+      craftjsRenderer?.removeEventListener('scroll', scroll);
     };
   }, [scroll]);
 
