@@ -130,14 +130,14 @@ export const ThemeTypeOptions = [
 ];
 
 export const defaultTheme: Theme = {
-  1: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryColor' },
-  2: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryTextColor', },
-  3: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryColor', },
-  4: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryTextColor', },
-  5: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorRed', },
-  6: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorWhite', },
-  7: { value: 400, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightNormal', },
-  8: { value: 600, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightBold', },
-  9: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeNormal', },
-  10: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeHeading1', },
+  1: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryColor', refNodes: {} },
+  2: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryTextColor', refNodes: {} },
+  3: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryColor', refNodes: {} },
+  4: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryTextColor', refNodes: {} },
+  5: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorRed', refNodes: {} },
+  6: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorWhite', refNodes: {} },
+  7: { value: 400, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightNormal', refNodes: {} },
+  8: { value: 600, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightBold', refNodes: {} },
+  9: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeNormal', refNodes: {} },
+  10: { value: 14, type: THEME_TYPE_VALUE.NUMBER, key: 'fontSizeHeading1', refNodes: {} },
 };

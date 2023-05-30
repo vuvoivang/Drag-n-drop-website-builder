@@ -176,14 +176,14 @@ export const Header = () => {
   }));
   const { control, register, setValue, formState: { errors }, handleSubmit, watch, resetField } = useForm({
     defaultValues: {
-      theme: Object.entries(themeValues).map(([id, { value, type, key }]) => ({ key: camelToTitle(key), value, type, id: Number(id) })),
+      theme: Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type, id: Number(id), refNodes })),
     },
   });
   useEffect(() => {
     // resetField('theme', {
-    //   defaultValue: Object.entries(themeValues).map(([id,{ value, type, key }]) => ({ key: camelToTitle(key), value, type }))
+    //   defaultValue: Object.entries(themeValues).map(([id,{ value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type }))
     // })
-    setValue('theme', Object.entries(themeValues).map(([id, { value, type, key }]) => ({ key: camelToTitle(key), value, type, id: Number(id) })));
+    setValue('theme', Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type, id: Number(id), refNodes })));
   }, [themeValues])
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
@@ -345,7 +345,18 @@ export const Header = () => {
     handleCloseDialogTheme();
   };
   const nextIdTheme = Number(Object.keys(themeValues)[Object.keys(themeValues).length - 1]) + 1;
-
+  const isDisabledDeleteTheme = (id): boolean => Object.keys(themeValues[id]?.refNodes || {}).length > 0;
+  const renderDeleteButtonThemeItem = (idx) => {
+    const themeId = watch(`theme.${idx}.id`);
+    const isDisabled = isDisabledDeleteTheme(themeId);
+    const txtToolTip = `Unable to delete, these nodes is using it: ${Object.keys(themeValues?.[themeId]?.refNodes).join(', ')}`;
+    return isDisabled ?
+      <LightTooltip title={txtToolTip}>
+        <button className='text-gray-400' type="button" disabled><DeleteIcon /></button>
+      </LightTooltip>
+      :
+      <button className="text-red-600" type="button" onClick={() => remove(idx)}><DeleteIcon /></button>
+  }
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
       <div className='items-center flex w-full pl-4 justify-space-between py-2'>
@@ -765,15 +776,14 @@ export const Header = () => {
                   </Grid>
 
                   <Grid item xs={1}>
-
-                    <button className='text-red-600' type="button" onClick={() => remove(index)}><DeleteIcon /></button>
+                    {renderDeleteButtonThemeItem(index)}
                   </Grid>
                   <br />
                 </Grid>
               ))}
               <Btn
                 type="button"
-                onClick={() => append({ key: "", value: "", type: "", id: nextIdTheme })}
+                onClick={() => append({ key: "", value: "", type: "", id: nextIdTheme, refNodes: {} })}
                 className={`transition cursor-pointer btn-gen-code bg-fuchsia-500 w-fit hover:bg-fuchsia-700`}
                 style={{ marginLeft: 0, marginTop: 16 }}
               >

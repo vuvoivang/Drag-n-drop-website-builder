@@ -18,6 +18,7 @@ import _var from '../../../styles/common/_var.module.scss';
 import fileMgtService from 'services/file-mgt';
 import { THEME_TYPE_VALUE } from '@libs/utils';
 import { camelToTitle } from 'utils/text';
+import { cloneDeep } from 'lodash';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
 
@@ -129,8 +130,9 @@ export const ToolbarPropItem = ({
     }
     return setProp(callbackSetProps, timeout);
   };
-  const { theme } = useEditor((_, query) => ({ theme: query.getTheme() }));
+  const { theme, actions: { setTheme } } = useEditor((_, query) => ({ theme: query.getTheme() }));
   const {
+    id: nodeId,
     actions: { setProp },
     propValue,
     propStyledClassNameValue,
@@ -225,6 +227,24 @@ export const ToolbarPropItem = ({
       setPropKeyValueWithPropertyName(newValue.name, newValue.checked);
     }
   };
+  const getPropKeyReferenceTheme = () => {
+    const curPropKey = nestedPropKey ? `${propKey}${nestedPropKey}` : propKey;
+    const refPropKey = Array.isArray(propValue) ? `${curPropKey}${index}` : curPropKey;
+    return refPropKey;
+  }
+  const handleSetPropTheme = (value) => {
+    const { type, id } = JSON.parse(value);
+    handleSetPropValue({ type, id }, 'select');
+
+    // update reference nodes with theme
+    const refPropKey = getPropKeyReferenceTheme();
+    const newTheme = cloneDeep(theme);
+    const currentRefNodesInTheme = newTheme[id].refNodes?.[nodeId];
+    if (!currentRefNodesInTheme) {
+      newTheme[id].refNodes = {...newTheme[id].refNodes, [nodeId]: [refPropKey]};
+    } else newTheme[id].refNodes[nodeId] = new Set([...currentRefNodesInTheme, refPropKey]);
+    setTheme(newTheme);
+  }
 
   const handleRenderInputSetting = (type) => {
     const normalizedValue = value?.type === 'theme' ? theme[value.id].value : value;
@@ -457,9 +477,7 @@ export const ToolbarPropItem = ({
                         const option = listThemeOptions?.find((option) => option.value?.id === value?.id);
                         return option?.label || "Select theme's name";
                       }}
-                      onChange={(value) => {
-                        handleSetPropValue(JSON.parse(value), 'select')
-                      }}
+                      onChange={handleSetPropTheme}
                       disabled={isDisabledTheme}
                       {...props}
                     >
