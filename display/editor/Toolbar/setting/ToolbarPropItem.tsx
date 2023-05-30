@@ -3,7 +3,7 @@ import { Grid, Slider, RadioGroup, MenuItem, FormGroup } from '@material-ui/core
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
 import { withStyles } from '@material-ui/core/styles';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 
 import { ToolbarDropdown } from '../ToolbarDropdown';
@@ -21,7 +21,13 @@ import { camelToTitle } from 'utils/text';
 import { cloneDeep } from 'lodash';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
-
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value; //assign the value of ref to the argument
+  }, [value]); //this code will run when the value of 'value' changes
+  return ref.current; //in the end, return the current ref value.
+}
 const SliderStyled = withStyles({
   root: {
     color: _var.secondaryColor,
@@ -125,12 +131,15 @@ export const ToolbarPropItem = ({
   };
 
   const setCurrentProp = (callbackSetProps, timeout?) => {
+    if (previousValue && previousValue?.type === 'theme' && value?.type !== 'theme') {
+      removeReferencedPropKeyOfNodeFromTheme(nodeId, getPropKeyReferenceTheme());
+    }
     if (nestedPropKey) {
       return setProp((props) => callbackSetProps(props[nestedPropKey]), timeout);
     }
     return setProp(callbackSetProps, timeout);
   };
-  const { theme, actions: { setTheme } } = useEditor((_, query) => ({ theme: query.getTheme() }));
+  const { theme, actions: { setTheme, removeReferencedPropKeyOfNodeFromTheme } } = useEditor((_, query) => ({ theme: query.getTheme() }));
   const {
     id: nodeId,
     actions: { setProp },
@@ -155,15 +164,12 @@ export const ToolbarPropItem = ({
     },
     label: camelToTitle(key),
   }));
-  const [customStyle, setCustomStyle] = useState<string>(
-    styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : value?.type ? CUSTOM_STYLE.THEME : CUSTOM_STYLE.DEFAULT
-  );
+  const [customStyle, setCustomStyle] = useState<string>(CUSTOM_STYLE.DEFAULT);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const isDisabledDefault = customStyle !== CUSTOM_STYLE.DEFAULT;
   const isDisabledStyledSuggestion = customStyle !== CUSTOM_STYLE.STYLED_SUGGESTION;
   const isDisabledTheme = customStyle !== CUSTOM_STYLE.THEME;
-
-
+  const previousValue = usePrevious(value);
   useEffect(() => {
     if (isFirstLoad) {
       // prevent set value when first load
@@ -180,6 +186,10 @@ export const ToolbarPropItem = ({
       handleSetPropClassName(`custom-${listStyledCustomOptions[0].value}`);
     }
   }, [customStyle]);
+
+  useEffect(() => {
+    setCustomStyle(styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : value?.type ? CUSTOM_STYLE.THEME : CUSTOM_STYLE.DEFAULT)
+  }, [styledClassNameValue]);
 
   const handleSetPropClassName = (className: string) => {
     setCurrentProp((props: any) => {
@@ -241,7 +251,7 @@ export const ToolbarPropItem = ({
     const newTheme = cloneDeep(theme);
     const currentRefNodesInTheme = newTheme[id].refNodes?.[nodeId];
     if (!currentRefNodesInTheme) {
-      newTheme[id].refNodes = {...newTheme[id].refNodes, [nodeId]: [refPropKey]};
+      newTheme[id].refNodes = { ...newTheme[id].refNodes, [nodeId]: [refPropKey] };
     } else newTheme[id].refNodes[nodeId] = new Set([...currentRefNodesInTheme, refPropKey]);
     setTheme(newTheme);
   }
