@@ -35,6 +35,7 @@ import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
 import { mappingDocumentsToCollections } from 'utils/helper';
+import { cloneDeep } from 'lodash';
 
 const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   /** Helper functions */
@@ -216,6 +217,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
       targets.forEach(({ node }) => {
         invariant(!query.node(node.id).isTopLevelNode(), ERROR_DELETE_TOP_LEVEL_NODE);
         deleteNode(node.id);
+        this.removeReferencedNodeFromTheme(node.id);
       });
     },
 
@@ -522,6 +524,36 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
      setTheme(newTheme) {
       state.theme = {...newTheme};
     },
+
+    /**
+     * Remove all referenced nodeId from theme
+     * @param nodeId
+     */
+     removeReferencedNodeFromTheme(nodeId: string) {
+      const newTheme = cloneDeep(state.theme);
+      Object.values(newTheme).forEach((themeItem) => {
+        if(themeItem.refNodes?.[nodeId]) {
+          delete themeItem.refNodes?.[nodeId];
+        }
+      })
+      state.theme = newTheme;
+     },
+
+     /**
+     * Remove all referenced propKey of nodeId from theme
+     * @param nodeId
+     * @param propKey
+     */
+      removeReferencedPropKeyOfNodeFromTheme(nodeId: string, propKey: string) {
+        const newTheme = cloneDeep(state.theme);
+        Object.values(newTheme).forEach((themeItem) => {
+          if(themeItem.refNodes?.[nodeId]) {
+            themeItem.refNodes[nodeId] = themeItem.refNodes?.[nodeId]?.filter((curPropKey) => curPropKey!==propKey);
+          }
+        });
+        state.theme = newTheme;
+      }
+    
   };
 };
 

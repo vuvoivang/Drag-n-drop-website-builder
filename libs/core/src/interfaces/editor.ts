@@ -69,4 +69,10 @@ export interface Database {
   mappingDatabase: Record<number, any>;
 }
 type ThemeItemId = number;
-export type Theme = Record<ThemeItemId, any>;
+type ReferencedPropKey = string;
+export type Theme = Record<ThemeItemId, {
+  value: any;
+  type: string;
+  key: string;
+  refNodes: Record<NodeId, ReferencedPropKey[]>;
+}>;
