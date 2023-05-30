@@ -1,4 +1,5 @@
 import { WithThemeAndDatabase } from "@libs/utils";
+import { REMOVED_DYNAMIC_DATA_TEXT_INFORM } from "display/raw-components/constant";
 
 export const getDeepValueProps = <T>(props: WithThemeAndDatabase<T>) => {
     const propsObject = props;
@@ -66,7 +67,7 @@ export const getValuesFromReferencedPropsObject = (propsObject, database, theme)
     if (typeof currentValue === "object" && currentValue !== null) {
       // is not null object
       if (currentValue.type === "dynamic-data") {
-        propsObject[key] = database?.[currentValue.collectionId]?.documents?.[currentValue.documentId]?.data?.[currentValue.key];
+        propsObject[key] = database?.[currentValue.collectionId]?.documents?.[currentValue.documentId]?.data?.[currentValue.key] || REMOVED_DYNAMIC_DATA_TEXT_INFORM;
       } else if (currentValue.type === "theme") {
         // get theme value
         propsObject[key] = theme[currentValue.id].value;

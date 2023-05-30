@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { TextSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Text/props';
 import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
+import { REMOVED_DYNAMIC_DATA_TEXT_INFORM } from 'display/raw-components/constant';
 
 export const craftConfig = {
   displayName: 'Text',
@@ -36,6 +37,7 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
     enabled: state.options.enabled,
   }));
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
+  const isDeprecatedTextDynamicData = props.text?.type === "dynamic-data" && text === REMOVED_DYNAMIC_DATA_TEXT_INFORM;
   return (
     <ContentEditable
       innerRef={connect}
@@ -52,7 +54,7 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
         }, 500);
       }} // use true to disable editing
       tagName={tagName} // Use a custom HTML tag (uses a div by default)
-      className={cx(styledClassNamesValues)}
+      className={cx(styledClassNamesValues, isDeprecatedTextDynamicData && 'blink_item')}
       style={{
         width: '100%',
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,

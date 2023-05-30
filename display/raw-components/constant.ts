@@ -6,3 +6,5 @@ export enum CLICK_TYPE {
   POP_UP = 'popup',
   HREF = 'href',
 }
+
+export const REMOVED_DYNAMIC_DATA_TEXT_INFORM = "Inform: removed dynamic data, please update";

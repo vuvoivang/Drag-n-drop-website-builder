@@ -139,3 +139,14 @@ body {
   font-size: 14px;
   line-height: 16px;
 }
+
+.blink_item {
+  animation: blinker 1.5s linear infinite;
+  color: red!important;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
