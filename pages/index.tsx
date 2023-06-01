@@ -30,8 +30,10 @@ export default function LandingPage() {
     useEffect(() => {
         userService.getInfo().then((resp: UserInfo) => {
             if (resp.username) setUser(resp);
+            else setUser({} as UserInfo);
         }).catch((err) => {
             console.log(err);
+            setUser({} as UserInfo);
         });
     }, [userToken]);
 

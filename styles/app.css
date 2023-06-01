@@ -150,3 +150,28 @@ body {
     opacity: 0;
   }
 }
+.avt-dashboard .name{
+  margin-right: 8px;
+}
+#dashboard-account-menu ul{
+  display: flex;
+  flex-direction: column;
+}
+#dashboard-account-menu ul li{
+  padding: 6px 16px;
+  display: block;
+  width: 132px;
+  display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.account-menu ul li .MuiListItemIcon-root{
+  min-width: 30px !important;
+}

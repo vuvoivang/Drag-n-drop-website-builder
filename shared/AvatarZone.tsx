@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-export default function AvatarZone({ user }) {
+export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,10 +32,10 @@ export default function AvatarZone({ user }) {
         window.location.href = '/profile';
     }
     return (
-        <React.Fragment>
+        <div className={classNameAvt}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <div className='flex ml-10 items-center'>
-                    <span className='fs-sm font-medium'><span className='text-blue-700 fs-sm'>{userFullName}</span></span>
+                    <span className='fs-sm font-medium name'><span className='text-blue-700 fs-sm'>{userFullName}</span></span>
                     <Tooltip title="Account settings">
                         <IconButton
                             onClick={handleClick}
@@ -53,7 +53,8 @@ export default function AvatarZone({ user }) {
             </Box>
             <Menu
                 anchorEl={anchorEl}
-                id="account-menu"
+                id={`${menuId}`}
+                className="account-menu"
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
@@ -85,11 +86,11 @@ export default function AvatarZone({ user }) {
                 }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                disableScrollLock 
+                disableScrollLock
             >
                 <MenuItem href='/dashboard' onClick={goToDashboard}>
                     <ListItemIcon>
-                        <DashboardIcon fontSize="small" />
+                        <DashboardIcon fontSize="medium" />
                     </ListItemIcon>
                     Dashboard
                 </MenuItem>
@@ -100,7 +101,7 @@ export default function AvatarZone({ user }) {
                     Profile
                 </MenuItem>
 
-                <Divider style={{marginTop: 4, marginBottom: 4}}/>
+                <Divider style={{ marginTop: 4, marginBottom: 4 }} />
 
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
@@ -109,6 +110,6 @@ export default function AvatarZone({ user }) {
                     Logout
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </div>
     );
 }

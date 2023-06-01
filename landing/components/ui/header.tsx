@@ -22,7 +22,7 @@ export default function Header({ user }) {
           {/* Desktop navigation */}
           <nav className=''>
             {/* Desktop sign in links */}
-            <ul className='flex grow justify-end flex-wrap items-center'>
+            {user && <ul className='flex grow justify-end flex-wrap items-center'>
               {user?.username ? <AvatarZone user={user}/> : <><li>
                   <Link href='/sign-in'>
                     <a className='btn-sm text-purple-600 hover:text-gray-200 px-4 flex items-center transition duration-150 ease-in-out hover:bg-gray-600'>
@@ -36,7 +36,7 @@ export default function Header({ user }) {
                   </Link>
                 </li></>}
 
-            </ul>
+            </ul>}
           </nav>
 
           <MobileMenu />

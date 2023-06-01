@@ -60,7 +60,7 @@ export default function DashBoard() {
                     <Image className='header-logo' src={Logo} alt='Our Logo' height={50} width={50} />
                     <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
                 </a>
-                <AvatarZone user={{ fullName: 'Võ Hoàng Vũ' }} />
+                <AvatarZone menuId="dashboard-account-menu" classNameAvt='avt-dashboard' user={{ fullName: 'Võ Hoàng Vũ' }} />
             </div>
             <div>
                 <div className='flex justify-between pt-4'>
