@@ -349,7 +349,7 @@ export const Header = () => {
   const renderDeleteButtonThemeItem = (idx) => {
     const themeId = watch(`theme.${idx}.id`);
     const isDisabled = isDisabledDeleteTheme(themeId);
-    const txtToolTip = `Unable to delete, these nodes is using it: ${Object.keys(themeValues?.[themeId]?.refNodes).join(', ')}`;
+    const txtToolTip = isDisabled && `Unable to delete, these nodes is using it: ${Object.keys(themeValues?.[themeId]?.refNodes).join(', ')}`;
     return isDisabled ?
       <LightTooltip title={txtToolTip}>
         <button className='text-gray-400' type="button" disabled><DeleteIcon /></button>

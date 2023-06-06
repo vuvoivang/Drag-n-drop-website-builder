@@ -42,7 +42,6 @@ export default function DashBoard() {
             createdTime: currentTimestamp,
             updatedTime: currentTimestamp,
         }
-
         userService.createNewProject(data).then(resp => {
             if (resp.id) {
                 toastMessage.success('Create project successfully, build your website now');
@@ -64,7 +63,7 @@ export default function DashBoard() {
             </div>
             <div>
                 <div className='flex justify-between pt-4'>
-                    <h2 className='text-3xl font-bold' style={{ color: _var.primaryColor }}>My projects</h2>
+                    <h2 className='text-3xl' >My projects</h2>
                     <Button className='btn btn-primary' variant="contained" style={{ color: _var.whiteColor, padding: '8px 16px', backgroundColor: _var.blueDarkColor, paddingLeft: 8 }} color='secondary' onClick={handleClickOpenDialogNewProject}><AddIcon /> <span style={{ marginLeft: 4, textTransform: "capitalize" }}>{' '} New project</span></Button>
                 </div>
                 <div className='mt-8'>

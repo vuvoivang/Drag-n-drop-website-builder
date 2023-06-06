@@ -167,7 +167,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead >
             <TableRow>
-                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} sortDirection={orderBy === 'name' ? order : false}>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#dedeff' }} sortDirection={orderBy === 'name' ? order : false}>
 
                     <TableSortLabel
                         active={orderBy === 'name'}
@@ -181,7 +181,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         </Box>
                     ) : null}
                 </TableCell>
-                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right" sortDirection={orderBy === 'type' ? order : false}>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#dedeff' }} align="right" sortDirection={orderBy === 'type' ? order : false}>
                     <TableSortLabel
                         active={orderBy === 'type'}
                         direction={orderBy === 'type' ? order : 'asc'}
@@ -194,9 +194,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         </Box>
                     ) : null}
                 </TableCell>
-                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Created Time</TableCell>
-                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Updated Time</TableCell>
-                <TableCell style={{ fontSize: 15, backgroundColor: '#eaeaf7' }} align="right">Operations</TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#dedeff' }} align="right">Created Time</TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#dedeff' }} align="right">Updated Time</TableCell>
+                <TableCell style={{ fontSize: 15, backgroundColor: '#dedeff' }} align="right">Operations</TableCell>
             </TableRow>
         </TableHead>)
 }
@@ -464,11 +464,11 @@ export default function ProjectsTable() {
                 aria-describedby='delete-page-dialog-description'
             >
                 <DialogTitle id='delete-page-dialog-title'>
-                    Delete {visibleRows.find((el) => el.id === deletingProject.id)?.name} project
+                    Delete "{visibleRows.find((el) => el.id === deletingProject.id)?.name}" project
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id='delete-page-dialog-description'>
-                        This action cannot be undone. Delete this page will permanently delete all its elements you've designed. Are
+                        This action can't be reversed. Delete this project will permanently delete all its user interface you've designed before. Are
                         you sure you want to delete?
                     </DialogContentText>
                 </DialogContent>

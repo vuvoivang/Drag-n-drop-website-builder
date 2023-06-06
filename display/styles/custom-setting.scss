@@ -1,5 +1,9 @@
 #app-container {
   // app container in client
+  [id^=ROOT]{
+    min-width: 200px !important;
+  }
+
   .custom {
     // margin
     &-mt-4 {

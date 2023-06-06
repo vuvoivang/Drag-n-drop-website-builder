@@ -182,7 +182,7 @@ export const Toolbox = () => {
       <div
         style={{
           display: 'flex',
-          height: 'calc(100% - 86px)',
+          height: 'calc(100% - 94px)',
           direction: 'ltr',
         }}
         className={`toolbox ${collapsed ? 'collapsed' : ''}`}
