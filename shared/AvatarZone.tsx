@@ -29,7 +29,7 @@ export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
         window.location.href = '/dashboard';
     }
     const goToProfile = () => {
-        window.location.href = '/profile';
+        window.location.href = '/admin/profile';
     }
     return (
         <div className={classNameAvt}>
