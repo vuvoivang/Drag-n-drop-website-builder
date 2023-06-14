@@ -20,8 +20,14 @@ import userService, { PROJECT_TYPE } from 'services/user';
 import toastMessage from 'utils/toast';
 import { useRouter } from 'next/router';
 import AvatarZone from 'shared/AvatarZone';
+import { UserInfo } from 'pages';
 export default function DashBoard() {
     const [openDialogNewProject, setOpenModalNewProject] = useState(false);
+    const [user, setUser] = useState<UserInfo>();
+    let userToken = '';
+    if (typeof window !== 'undefined') {
+        userToken = localStorage?.getItem('buildify-token');
+    }
 
     const [project, setProject] = useState({
         name: '',
@@ -52,6 +58,16 @@ export default function DashBoard() {
             toastMessage.error('Create project failed, please try again later');
         });
     };
+
+    useEffect(() => {
+        userService.getInfo().then((resp: UserInfo) => {
+            if (resp.username) setUser(resp);
+            else setUser({} as UserInfo);
+        }).catch((err) => {
+            console.log(err);
+            setUser({} as UserInfo);
+        });
+    }, [userToken]);
     return (
         <div className="min-h-screen transition w-full px-32 pb-4">
             <div className='items-end flex w-full pl-4 justify-between py-4' style={{ borderBottom: '1px solid rgba(51,48,60,.12)' }}>
@@ -59,7 +75,7 @@ export default function DashBoard() {
                     <Image className='header-logo' src={Logo} alt='Our Logo' height={50} width={50} />
                     <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
                 </a>
-                <AvatarZone menuId="dashboard-account-menu" classNameAvt='avt-dashboard' user={{ fullName: 'Võ Hoàng Vũ' }} />
+                {user?.username  && <AvatarZone menuId="dashboard-account-menu" classNameAvt='avt-dashboard' user={user} />}
             </div>
             <div>
                 <div className='flex justify-between pt-4'>

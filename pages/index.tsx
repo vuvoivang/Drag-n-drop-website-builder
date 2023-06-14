@@ -8,7 +8,7 @@ import Footer from 'landing/components/ui/footer'
 import Header from 'landing/components/ui/header'
 import { useEffect, useState } from 'react'
 import userService from 'services/user'
-type UserInfo = {
+export type UserInfo = {
     avatarUrl: string;
     username: string;
     fullName: string;
