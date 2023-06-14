@@ -20,6 +20,7 @@ export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
         setAnchorEl(null);
     };
     const userFullName = user.fullName;
+    const avatarUrl = user.avatarUrl;
     const firstLetterName = userFullName.charAt(userFullName.lastIndexOf(' ') + 1);
     const handleLogout = () => {
         localStorage.removeItem('buildify-token');
@@ -29,7 +30,7 @@ export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
         window.location.href = '/dashboard';
     }
     const goToProfile = () => {
-        window.location.href = '/profile';
+        window.location.href = '/admin/profile';
     }
     return (
         <div className={classNameAvt}>
@@ -45,7 +46,7 @@ export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            <Avatar >{firstLetterName}</Avatar>
+                            {avatarUrl ? <Avatar src={avatarUrl}/> : <Avatar >{firstLetterName}</Avatar>}
                         </IconButton>
                     </Tooltip>
 
