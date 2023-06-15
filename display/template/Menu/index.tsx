@@ -428,10 +428,11 @@ export const MenuTemplateConfig = [
         {
           type: Image,
           overwriteProps: {
-            height: '20px',
-            width: '60px',
+            height: 'auto',
+            width: 'auto',
             className: 'cursor-move',
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6o1MyYtFMFxk-9c62sOBJGi51LqxvlU4b1WKeTwqjOTu3aNdtJ83ITrp7Q0vEGn_f8zU&usqp=CAU',
+            src: 'https://www.ctda.hcmus.edu.vn/wp-content/uploads/2022/03/FIT-logo_dat_kem_voi_logo_truong.png',
+            objectFit: 'contain',
           },
         },
         {
@@ -557,7 +558,8 @@ export const MenuTemplateConfig = [
             height: '60px',
             width: '120px',
             className: 'cursor-move',
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6o1MyYtFMFxk-9c62sOBJGi51LqxvlU4b1WKeTwqjOTu3aNdtJ83ITrp7Q0vEGn_f8zU&usqp=CAU',
+            src: 'https://www.ctda.hcmus.edu.vn/wp-content/uploads/2022/03/FIT-logo_dat_kem_voi_logo_truong.png',
+            objectFit: 'contain',
           },
         },
         {
