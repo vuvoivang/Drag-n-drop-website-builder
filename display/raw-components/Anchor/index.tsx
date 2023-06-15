@@ -5,7 +5,7 @@ import { Text } from '../Text';
 import { AnchorProps, defaultProps } from './props';
 
 import { StyledAnchor } from './styled';
-export const Anchor = React.forwardRef((props: AnchorProps, ref: any) => {
+export const Anchor = (props: AnchorProps) => {
   const {
     text,
     textComponent,
@@ -38,7 +38,6 @@ export const Anchor = React.forwardRef((props: AnchorProps, ref: any) => {
 
   return (
     <StyledAnchor
-      ref={ref}
       className={cx([
         className,
         'anchor rounded w-full px-4 py-2 mt-4',
@@ -61,6 +60,6 @@ export const Anchor = React.forwardRef((props: AnchorProps, ref: any) => {
       />
     </StyledAnchor>
   );
-});
+};
 
 Anchor.defaultProps = defaultProps;

@@ -3,7 +3,6 @@ import React from 'react';
 
 import { StyledInput } from './styled';
 
-import { InputProps } from './props';
 import { defaultProps } from './props';
 
 export const Input = (props: any) => {
