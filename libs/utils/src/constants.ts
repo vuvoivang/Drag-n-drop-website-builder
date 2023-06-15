@@ -74,7 +74,6 @@ export const serializedContainerRootNodeForPage: SerializedNode = {
     shadow: 0,
     radius: 0,
     width: '100%',
-    maxWidth: '1280px',
     height: 'auto',
     styledClassNames: {},
   },

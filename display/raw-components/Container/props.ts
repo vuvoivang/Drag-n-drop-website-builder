@@ -18,7 +18,6 @@ export type ContainerProps = Partial<{
   radius: number;
   styledClassNames?: Record<string, string>;
   className?: string;
-  maxWidth: string;
 }>;
 export const defaultProps: ContainerProps = {
   flexDirection: 'column',
@@ -34,5 +33,4 @@ export const defaultProps: ContainerProps = {
   width: '100%',
   height: 'auto',
   styledClassNames: {},
-  maxWidth: '1280px',
 };
