@@ -46,7 +46,7 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
   const { id } = useNode();
   return (
     <Resizer
-      propKey={{ width: 'width', height: 'height', maxWidth: 'maxWidth' }}
+      propKey={{ width: 'width', height: 'height' }}
       className={cx(['flex custom-container', styledClassNamesValues])}
       style={{
         justifyContent,
