@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import { ContainerProps } from './props';
 import { defaultProps } from './props';
-import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';
 
 export const Container = (props: Partial<ContainerProps>) => {
   props = {
@@ -27,7 +26,7 @@ export const Container = (props: Partial<ContainerProps>) => {
     height,
     className,
     maxWidth,
-  } = useGetValuesFromReferencedProps(props);
+  } = props;
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
   return (
     <div
