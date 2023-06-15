@@ -267,7 +267,8 @@ export const Header = () => {
         if (typeof type === 'object' && type.resolvedName) {
           typeName = type.resolvedName;
         } else continue;
-
+        serializeNode.props.id = id;
+        
         let node: Node = {
           id: id,
           type: typeName.replace('Craft', ''),
