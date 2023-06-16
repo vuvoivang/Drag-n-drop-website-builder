@@ -59,8 +59,8 @@ export const Viewport: React.FC<ViewportProps> = ({ children }) => {
             <div className='relative flex-col flex items-center pt-8' id='app-container'>
               {children}
             </div>
-            <div className={'flex items-center justify-center w-full pt-6 fw-bold text-white'}>
-              <a href='#'>HCMUS - Software Architecture</a>
+            <div className={'flex items-center justify-center w-full pt-6 fw-bold'}>
+              <a href='https://hcmus.edu.vn/'>HCMUS - Software Architecture</a>
             </div>
           </div>
         </div>
