@@ -36,9 +36,10 @@ export const BannerTemplateConfig = [
         {
           type: Image,
           overwriteProps: {
-            height: '80px',
+            height: '120px',
             width: '100%',
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6o1MyYtFMFxk-9c62sOBJGi51LqxvlU4b1WKeTwqjOTu3aNdtJ83ITrp7Q0vEGn_f8zU&usqp=CAU',
+            src: 'https://images.pexels.com/photos/7846473/pexels-photo-7846473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            radius: 2,
           },
         },
         {
@@ -79,9 +80,10 @@ export const BannerTemplateConfig = [
         {
           type: CraftImage,
           overwriteProps: {
-            height: '200px',
+            height: '300px',
             width: '100%',
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6o1MyYtFMFxk-9c62sOBJGi51LqxvlU4b1WKeTwqjOTu3aNdtJ83ITrp7Q0vEGn_f8zU&usqp=CAU',
+            src: 'https://images.pexels.com/photos/7846473/pexels-photo-7846473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            radius: 2,
           },
         },
         {
