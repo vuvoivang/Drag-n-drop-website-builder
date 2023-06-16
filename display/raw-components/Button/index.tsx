@@ -5,7 +5,7 @@ import { Text } from '../Text';
 import { ButtonProps, defaultProps } from './props';
 
 import { StyledButton } from './styled';
-export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
+export const Button = (props: ButtonProps) => {
   const {
     text,
     textComponent,
@@ -38,7 +38,6 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
 
   return (
     <StyledButton
-      ref={ref}
       className={cx([
         className,
         'button rounded w-full px-4 py-2 mt-4',
@@ -60,6 +59,6 @@ export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
       />
     </StyledButton>
   );
-});
+};
 
 Button.defaultProps = defaultProps;
