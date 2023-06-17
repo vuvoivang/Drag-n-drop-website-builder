@@ -38,7 +38,7 @@ export const BannerTemplateConfig = [
           overwriteProps: {
             height: '120px',
             width: '100%',
-            src: 'https://images.pexels.com/photos/7846473/pexels-photo-7846473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            src: 'https://images.unsplash.com/photo-1686740172488-6a680069affb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
             radius: 2,
           },
         },
@@ -82,7 +82,7 @@ export const BannerTemplateConfig = [
           overwriteProps: {
             height: '300px',
             width: '100%',
-            src: 'https://images.pexels.com/photos/7846473/pexels-photo-7846473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            src: 'https://images.unsplash.com/photo-1686740172488-6a680069affb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
             radius: 2,
           },
         },
