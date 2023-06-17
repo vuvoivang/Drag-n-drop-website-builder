@@ -1,5 +1,5 @@
 import { THEME_TYPE_VALUE } from '@libs/utils';
-import { capitalize, weightDescription } from 'utils/text';
+import { capitalize, weightDescription } from 'display/utils/text';
 
 export const DEFAULT_SECTIONS = {
   typography: {
