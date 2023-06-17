@@ -7,7 +7,7 @@ import TestimonialImage03 from 'public/images/testimonial-03.jpg'
 export default function Testimonials() {
   return (
     <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="py-6 md:pt-20 border-t border-gray-800">
 
           {/* Section header */}
