@@ -6,7 +6,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import _var from '../styles/common/_var.module.scss';
 
-import { isPercentage, pxToPercent, percentToPx, getElementDimensions } from '../../utils/numToMeasurement';
+import { isPercentage, pxToPercent, percentToPx, getElementDimensions } from '../utils/numToMeasurement';
 
 const Indicators = styled.div<{ bound?: 'row' | 'column' }>`
   position: absolute;

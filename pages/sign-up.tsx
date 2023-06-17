@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../public/images/logo.png';
 import Image from 'next/image';
 import userService from 'services/user';
-import toastMessage from 'utils/toast';
+import toastMessage from 'display/utils/toast';
 import useAppNavigate from 'hooks/useAppNavigate';
 
 

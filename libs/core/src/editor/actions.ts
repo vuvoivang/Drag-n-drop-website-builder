@@ -34,7 +34,7 @@ import {
 import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
-import { mappingDocumentsToCollections } from 'utils/helper';
+import { mappingDocumentsToCollections } from 'display/utils/helper';
 import { cloneDeep } from 'lodash';
 
 const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {

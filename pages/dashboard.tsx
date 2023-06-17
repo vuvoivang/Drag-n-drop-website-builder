@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Logo from 'public/images/logo.png';
 import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
-import ProjectsTable from 'shared/ProjectsTable';
+import ProjectsTable from 'components/projects-table';
 import _var from '../display/styles/common/_var.module.scss';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -17,9 +17,9 @@ import {
 
 } from '@material-ui/core';
 import userService, { PROJECT_TYPE } from 'services/user';
-import toastMessage from 'utils/toast';
+import toastMessage from 'display/utils/toast';
 import { useRouter } from 'next/router';
-import AvatarZone from 'shared/AvatarZone';
+import AvatarZone from 'components/avatar-zone';
 import { UserInfo } from 'pages';
 export default function DashBoard() {
     const [openDialogNewProject, setOpenModalNewProject] = useState(false);

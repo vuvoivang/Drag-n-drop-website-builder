@@ -25,7 +25,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import { useEffectOnce } from "@libs/utils";
 import userService from "services/user";
-import toastMessage from "utils/toast";
+import toastMessage from "display/utils/toast";
 import {
     Dialog,
     DialogTitle,

@@ -3,7 +3,7 @@ import MobileMenu from './mobile-menu';
 import Logo from 'public/images/logo.png';
 import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
-import AvatarZone from 'shared/AvatarZone';
+import AvatarZone from 'components/avatar-zone';
 
 export default function Header({ user }) {
   return (

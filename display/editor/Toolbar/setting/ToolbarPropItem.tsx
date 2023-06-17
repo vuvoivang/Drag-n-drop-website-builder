@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import _var from '../../../styles/common/_var.module.scss';
 import fileMgtService from 'services/file-mgt';
 import { THEME_TYPE_VALUE } from '@libs/utils';
-import { camelToTitle } from 'utils/text';
+import { camelToTitle } from 'display/utils/text';
 import { cloneDeep } from 'lodash';
 
 const iOSBoxShadow = '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';

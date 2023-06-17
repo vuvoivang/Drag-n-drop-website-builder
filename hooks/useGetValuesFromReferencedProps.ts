@@ -1,5 +1,5 @@
 import { useEditor } from '@libs/hooks';
-import { getValuesFromReferencedPropsObject } from './../utils/helper';
+import { getValuesFromReferencedPropsObject } from '../display/utils/helper';
 import { cloneDeep } from 'lodash';
 import { WithThemeAndDatabase } from '@libs/utils';
 
