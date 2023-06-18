@@ -45,7 +45,7 @@ export default function Hero() {
               <Image
                 src={HeroImage}
                 width={1080}
-                height={470}
+                height={597}
                 alt="Hero"
                 priority
               />
