@@ -75,7 +75,7 @@ export default function DashBoard() {
                     <Image className='header-logo' src={Logo} alt='Our Logo' height={50} width={50} />
                     <span className='self-center text-xl font-bold whitespace-nowrap ml-2 text-indigo-500'>Buildify</span>
                 </a>
-                {user?.username  && <AvatarZone menuId="dashboard-account-menu" classNameAvt='avt-dashboard' user={user} />}
+                {user?.username && <AvatarZone menuId="dashboard-account-menu" classNameAvt='avt-dashboard' user={user} />}
             </div>
             <div>
                 <div className='flex justify-between pt-4'>
@@ -106,13 +106,13 @@ export default function DashBoard() {
                     <div className='flex'>
                         <label className="mb-4 mr-6 inline-block">
                             <input type="radio" name="type" value={PROJECT_TYPE.LANDING} defaultChecked id="1" onChange={(e) => { setProject((project) => ({ ...project, type: Number(e.target.value) })) }} />
-                            <img src="https://moosend.com/wp-content/uploads/2019/03/Lemon-Squeezy-landing-page-example.png" alt="Option 1" width={268} />
+                            <img src="https://img.freepik.com/free-vector/flat-design-ui-ux-landing-page_52683-72187.jpg?w=1800&t=st=1687051597~exp=1687052197~hmac=2b039fc892970cf34e1945633b216b0e064272a92575e48066f23d809e22436b" alt="Option 1" width={268} />
                             <div className="text-center mt-2 fs-sm">Landing</div>
                         </label>
 
                         <label className="mb-4 inline-block">
                             <input type="radio" name="type" value={PROJECT_TYPE.CMS} id="2" onChange={(e) => setProject((project) => ({ ...project, type: Number(e.target.value) }))} />
-                            <img src="https://images04.nicepage.com/feature/583347/blog-category.jpg" alt="Option 1" width={240} />
+                            <img src="https://img.freepik.com/free-photo/technology-communication-icons-symbols-concept_53876-120314.jpg?w=1480&t=st=1687051773~exp=1687052373~hmac=934a898267829352164c2ce7cb428eb10bcf5b1fe7ce7ebb4ab50e148a312456" alt="Option 1" width={240} />
                             <div className="text-center mt-2 fs-sm">Blog</div>
                         </label>
                     </div>
