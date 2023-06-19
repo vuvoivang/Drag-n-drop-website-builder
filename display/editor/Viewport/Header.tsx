@@ -129,12 +129,11 @@ export type Node = {
   type: string;
   props: string;
   displayName: string;
-  hidden: boolean;
+  hidden?: boolean;
   children: Array<string>;
   linkedNodes: Array<string>;
   pagePath: string;
 };
-
 
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
@@ -174,20 +173,43 @@ export const Header = () => {
     currentPage: state.pageOptions.currentPage,
     theme: query.getTheme(),
   }));
-  const { control, register, setValue, formState: { errors }, handleSubmit, watch, resetField } = useForm({
+  const {
+    control,
+    register,
+    setValue,
+    formState: { errors },
+    handleSubmit,
+    watch,
+    resetField,
+  } = useForm({
     defaultValues: {
-      theme: Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type, id: Number(id), refNodes })),
+      theme: Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({
+        key: camelToTitle(key),
+        value,
+        type,
+        id: Number(id),
+        refNodes,
+      })),
     },
   });
   useEffect(() => {
     // resetField('theme', {
     //   defaultValue: Object.entries(themeValues).map(([id,{ value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type }))
     // })
-    setValue('theme', Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({ key: camelToTitle(key), value, type, id: Number(id), refNodes })));
-  }, [themeValues])
+    setValue(
+      'theme',
+      Object.entries(themeValues).map(([id, { value, type, key, refNodes }]) => ({
+        key: camelToTitle(key),
+        value,
+        type,
+        id: Number(id),
+        refNodes,
+      }))
+    );
+  }, [themeValues]);
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
-    name: "theme",
+    name: 'theme',
   });
 
   const handleChangePage = (event) => {
@@ -268,7 +290,9 @@ export const Header = () => {
           typeName = type.resolvedName;
         } else continue;
         serializeNode.props.id = id;
-        
+
+        if (serializeNode.hidden) continue; // no need to send hidden
+
         let node: Node = {
           id: id,
           type: typeName.replace('Craft', ''),
@@ -276,7 +300,7 @@ export const Header = () => {
           displayName: serializeNode.custom?.displayName
             ? serializeNode.custom?.displayName
             : serializeNode.displayName,
-          hidden: serializeNode.hidden,
+          // hidden: serializeNode.hidden,
           linkedNodes: Object.values(serializeNode.linkedNodes),
           children: serializeNode.nodes,
           pagePath: serializeNode.page,
@@ -312,19 +336,22 @@ export const Header = () => {
 
   const handleSaveProject = () => {
     const json = query.serialize();
-    const compressString = (lz.encodeBase64(lz.compress(json)));
-    userService.updateProject({
-      ...project,
-      compressString,
-      updatedTime: new Date().getTime(),
-    }).then(resp => {
-      if (resp.msg) {
+    const compressString = lz.encodeBase64(lz.compress(json));
+    userService
+      .updateProject({
+        ...project,
+        compressString,
+        updatedTime: new Date().getTime(),
+      })
+      .then((resp) => {
+        if (resp.msg) {
+          toastMessage.error('Save project failed');
+        } else toastMessage.success('Save project successfully');
+      })
+      .catch((err) => {
+        console.log(err);
         toastMessage.error('Save project failed');
-      } else toastMessage.success('Save project successfully');
-    }).catch((err) => {
-      console.log(err);
-      toastMessage.error('Save project failed');
-    });
+      });
   };
 
   const handleClickOpenDialogTheme = () => {
@@ -334,13 +361,17 @@ export const Header = () => {
     setOpenDialogTheme(false);
   };
   const handleUpdateTheme = (data) => {
-    const themeObject = data.theme?.reduce((res, item) => ({
-      ...res, [item.id]: {
-        value: item.value,
-        type: item.type,
-        key: titleToCamelize(item.key),
-      }
-    }), {});
+    const themeObject = data.theme?.reduce(
+      (res, item) => ({
+        ...res,
+        [item.id]: {
+          value: item.value,
+          type: item.type,
+          key: titleToCamelize(item.key),
+        },
+      }),
+      {}
+    );
 
     actions.setTheme(themeObject);
     handleCloseDialogTheme();
@@ -350,14 +381,21 @@ export const Header = () => {
   const renderDeleteButtonThemeItem = (idx) => {
     const themeId = watch(`theme.${idx}.id`);
     const isDisabled = isDisabledDeleteTheme(themeId);
-    const txtToolTip = isDisabled && `Unable to delete, these nodes is using it: ${Object.keys(themeValues?.[themeId]?.refNodes).join(', ')}`;
-    return isDisabled ?
+    const txtToolTip =
+      isDisabled &&
+      `Unable to delete, these nodes is using it: ${Object.keys(themeValues?.[themeId]?.refNodes).join(', ')}`;
+    return isDisabled ? (
       <LightTooltip title={txtToolTip}>
-        <button className='text-gray-400' type="button" disabled><DeleteIcon /></button>
+        <button className='text-gray-400' type='button' disabled>
+          <DeleteIcon />
+        </button>
       </LightTooltip>
-      :
-      <button className="text-red-600" type="button" onClick={() => remove(idx)}><DeleteIcon /></button>
-  }
+    ) : (
+      <button className='text-red-600' type='button' onClick={() => remove(idx)}>
+        <DeleteIcon />
+      </button>
+    );
+  };
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
       <div className='items-center flex w-full pl-4 justify-space-between py-2'>
@@ -517,10 +555,7 @@ export const Header = () => {
             </a>
           </Tooltip>
 
-          <Btn
-            className={`ml-2 transition cursor-pointer btn-gen-code bg-neutral-600`}
-            onClick={handleSaveProject}
-          >
+          <Btn className={`ml-2 transition cursor-pointer btn-gen-code bg-neutral-600`} onClick={handleSaveProject}>
             Save
           </Btn>
 
@@ -664,46 +699,65 @@ export const Header = () => {
         </DialogActions>
       </Dialog>
 
-
       {/* Dialog theme */}
 
-      <Dialog maxWidth={'md'} id="dialog-theme" open={openDialogTheme} onClose={handleCloseDialogTheme} aria-labelledby='form-dialog-title'>
+      <Dialog
+        maxWidth={'md'}
+        id='dialog-theme'
+        open={openDialogTheme}
+        onClose={handleCloseDialogTheme}
+        aria-labelledby='form-dialog-title'
+      >
         <form onSubmit={handleSubmit(handleUpdateTheme)}>
           <DialogTitle id='form-dialog-title'>Theme information</DialogTitle>
           <DialogContent style={{ paddingRight: 32 }}>
             <Box sx={{ flexGrow: 1, width: 800 }}>
               {fields.map((item, index) => (
-                <Grid style={{ borderBottom: "1px solid rgba(51,48,60,.15)", marginBottom: 8 }} key={item.id} container spacing={4} direction="row"
-                  alignContent="center"
-                  alignItems="center" component="div">
-                  <Grid item xs={5}> <Controller
-                    control={control}
-                    name={`theme.${index}.key`}
-                    rules={{ required: "Please fill in name of theme's property" }}
-                    render={({ field }) => (
-                      <>
-                        <label htmlFor={`theme.${index}.key`} className="block mb-2">Name</label>
-                        <TextField
-                          {...field}
-                          fullWidth
-                          // label="Name"
-                          margin="dense"
-                          // required
-                          error={!!errors?.theme?.[index]?.key}
-                          helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
-                          onInput={e => handleInputAppTitleCase(e)}
-                        /></>
-                    )}
-                  /></Grid>
+                <Grid
+                  style={{ borderBottom: '1px solid rgba(51,48,60,.15)', marginBottom: 8 }}
+                  key={item.id}
+                  container
+                  spacing={4}
+                  direction='row'
+                  alignContent='center'
+                  alignItems='center'
+                  component='div'
+                >
+                  <Grid item xs={5}>
+                    {' '}
+                    <Controller
+                      control={control}
+                      name={`theme.${index}.key`}
+                      rules={{ required: "Please fill in name of theme's property" }}
+                      render={({ field }) => (
+                        <>
+                          <label htmlFor={`theme.${index}.key`} className='block mb-2'>
+                            Name
+                          </label>
+                          <TextField
+                            {...field}
+                            fullWidth
+                            // label="Name"
+                            margin='dense'
+                            // required
+                            error={!!errors?.theme?.[index]?.key}
+                            helperText={errors?.theme?.[index]?.key && `${errors.theme?.[index]?.key.message}`}
+                            onInput={(e) => handleInputAppTitleCase(e)}
+                          />
+                        </>
+                      )}
+                    />
+                  </Grid>
                   <Grid item style={{ width: 120 }}>
-
                     <Controller
                       control={control}
                       name={`theme.${index}.type`}
                       rules={{ required: "Please fill in name of theme's property" }}
                       render={({ field }) => (
                         <>
-                          <label htmlFor={`theme.${index}.type`} className="block mb-3">Type</label>
+                          <label htmlFor={`theme.${index}.type`} className='block mb-3'>
+                            Type
+                          </label>
                           <Select
                             // inputProps={{
                             //   name: 'current-theme-select',
@@ -722,23 +776,23 @@ export const Header = () => {
                         </>
                       )}
                     />
-
-
                   </Grid>
                   <Grid item xs={4}>
-                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER &&
+                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.NUMBER && (
                       <Controller
                         control={control}
                         name={`theme.${index}.value`}
                         rules={{ required: "Please fill in value of theme's property" }}
                         render={({ field }) => (
                           <>
-                            <label htmlFor={`theme.${index}.type`} className="block mb-2">Value</label>
+                            <label htmlFor={`theme.${index}.type`} className='block mb-2'>
+                              Value
+                            </label>
                             <TextField
                               {...field}
                               fullWidth
                               // label="Value"
-                              margin="dense"
+                              margin='dense'
                               type='number'
                               inputProps={{ style: { textAlign: 'center' } }}
                               disabled={!watch(`theme.${index}.type`)}
@@ -747,33 +801,38 @@ export const Header = () => {
                               helperText={errors?.theme?.[index]?.value && `${errors.theme?.[index]?.value.message}`}
                             />
                           </>
-
-
                         )}
-                      />}
+                      />
+                    )}
 
-                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && <Controller
-                      control={control}
-                      name={`theme.${index}.value`}
-                      rules={{ required: "Please fill in value of theme's property" }}
-                      render={({ field }) => (
-                        <>
-                          <label htmlFor={`theme.${index}.value`} className="block mb-2">Value</label>
-                          <ColorInput
-                            type='color'
-                            {...field}
-                          // label="Value"
-                          />
-                        </>
+                    {watch(`theme.${index}.type`) === THEME_TYPE_VALUE.COLOR && (
+                      <Controller
+                        control={control}
+                        name={`theme.${index}.value`}
+                        rules={{ required: "Please fill in value of theme's property" }}
+                        render={({ field }) => (
+                          <>
+                            <label htmlFor={`theme.${index}.value`} className='block mb-2'>
+                              Value
+                            </label>
+                            <ColorInput
+                              type='color'
+                              {...field}
+                              // label="Value"
+                            />
+                          </>
+                        )}
+                      />
+                    )}
 
-                      )}
-                    />}
-
-                    {!watch(`theme.${index}.type`) && <><label htmlFor={`theme.${index}.value`} className="block mb-2">Value</label><TextField fullWidth
-                      disabled
-                      value='Please select type'
-                    /></>}
-
+                    {!watch(`theme.${index}.type`) && (
+                      <>
+                        <label htmlFor={`theme.${index}.value`} className='block mb-2'>
+                          Value
+                        </label>
+                        <TextField fullWidth disabled value='Please select type' />
+                      </>
+                    )}
                   </Grid>
 
                   <Grid item xs={1}>
@@ -783,17 +842,15 @@ export const Header = () => {
                 </Grid>
               ))}
               <Btn
-                type="button"
-                onClick={() => append({ key: "", value: "", type: "", id: nextIdTheme, refNodes: {} })}
+                type='button'
+                onClick={() => append({ key: '', value: '', type: '', id: nextIdTheme, refNodes: {} })}
                 className={`transition cursor-pointer btn-gen-code bg-fuchsia-500 w-fit hover:bg-fuchsia-700`}
                 style={{ marginLeft: 0, marginTop: 16 }}
               >
-                <AddIcon style={{ fill: "white", width: 20, height: 20 }} />
+                <AddIcon style={{ fill: 'white', width: 20, height: 20 }} />
                 Add theme property
               </Btn>
             </Box>
-
-
           </DialogContent>
           <DialogActions>
             <MaterialButton
@@ -816,7 +873,7 @@ export const Header = () => {
                 borderRadius: '6px',
                 margin: '10px 14px 10px 10px',
               }}
-              type="submit"
+              type='submit'
             >
               Done
             </MaterialButton>
