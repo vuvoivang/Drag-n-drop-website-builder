@@ -227,6 +227,20 @@ export const DEFAULT_PROP_KEYS = {
         label: '18px',
       },
     ],
+    styledCustomOptions: [
+      {
+        value: 'fs-small',
+        label: 'Small',
+      },
+      {
+        value: 'fs-medium',
+        label: 'Medium',
+      },
+      {
+        value: 'fs-large',
+        label: 'Large',
+      },
+    ],
     themeTypes: [THEME_TYPE_VALUE.NUMBER],
   },
   textAlign: {
