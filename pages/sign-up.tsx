@@ -2,7 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -17,7 +16,12 @@ import Image from 'next/image';
 import userService from 'services/user';
 import toastMessage from 'display/utils/toast';
 import useAppNavigate from 'hooks/useAppNavigate';
-
+import { useForm } from "react-hook-form";
+import { FormTextField } from 'components/form-text-field';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 function Copyright(props) {
   return (
@@ -36,17 +40,32 @@ const theme = createTheme();
 
 export default function SignUp() {
   const navigate = useAppNavigate();
-  const handleSubmit = (event) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  };
+
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+
+  const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const { control, handleSubmit, watch, setError } = useForm({ mode: "onChange" });
+  const onSubmitSignUpForm = data => {
     const body = {
-      username: data.get('username'),
-      password: data.get('password'),
-      fullName: data.get('fullName'),
-      email: data.get('email'),
+      username: data['username'],
+      password: data['password'],
+      fullName: data['fullName'],
+      email: data['email'],
     } as any;
     userService.signUp(body).then(resp => {
-      if (!resp.msg) {
+      if (!resp?.msg) {
         toastMessage.success("Sign up successfully, sign in now", {
           onClose: () => {
             navigate('/sign-in');
@@ -55,9 +74,13 @@ export default function SignUp() {
       } else toastMessage.error('Sign up failed, please try again later');
     }).catch((err) => {
       console.log(err);
+      const ERROR_CODE_USERNAME_EXIST = 3;
+      if (err?.code === ERROR_CODE_USERNAME_EXIST) {
+        setError('username', { type: 'server validate', message: 'Username already exists, please choose another one' }, { shouldFocus: true });
+      }
     });
   };
-
+  const watchPassword = watch('password');
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -78,68 +101,115 @@ export default function SignUp() {
           <Typography style={{ fontSize: 25, color: "#1652f5" }} component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit(onSubmitSignUpForm)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
 
-                <TextField
+                <FormTextField
                   name="fullName"
+                  control={control}
+
+                  rules={{ required: "Full name is required" }}
                   required
                   fullWidth
                   id="fullName"
                   label="Full Name"
                   autoFocus
-                  inputProps={{ className: "input-material" }}
+
 
                 />
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <TextField
+                <FormTextField
+                  control={control}
+                  rules={{ required: "Email address is required" }}
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  inputProps={{ className: "input-material" }}
+
 
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <FormTextField
+                  control={control}
+                  rules={{ required: "Username is required", minLength: { value: 6, message: 'Username must be at least 6 characters long.' } }}
                   required
                   fullWidth
                   id="username"
                   label="Username"
                   name="username"
-                  inputProps={{ className: "input-material" }}
+
 
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
+                <FormTextField
+                  control={control}
+                  rules={{ required: "Password is required", minLength: { value: 8, message: 'Password must be at least 8 characters long.' } }}
                   required
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
+
                   id="password"
                   autoComplete="new-password"
-                  inputProps={{ className: "input-material" }}
+                  InputProps={{
+                    // className: "input-material",
+                    endAdornment:
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                          size='small'
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                  }}
 
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <FormTextField
+                  control={control}
+                  rules={{
+                    required: "Confirm password is required",
+                    minLength: {
+                      value: 8, message: 'Confirm password must be at least 8 characters long.',
+                    },
+                    validate: (value) => value === watchPassword || "Confirm password must be identical to the password"
+                  }
+                  }
                   required
                   fullWidth
                   name="confirmPassword"
                   label="Confirm Password"
-                  type="password"
                   id="confirmPassword"
                   autoComplete="new-password"
-                  inputProps={{ className: "input-material" }}
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  InputProps={{
+                    // className: "input-material",
+                    endAdornment:
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowConfirmPassword}
+                          onMouseDown={handleMouseDownConfirmPassword}
+                          edge="end"
+                          size='small'
+                        >
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                  }}
 
                 />
               </Grid>
