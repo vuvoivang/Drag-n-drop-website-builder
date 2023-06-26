@@ -40,7 +40,7 @@ export const Button = (props: ButtonProps) => {
     <StyledButton
       className={cx([
         className,
-        'button rounded w-full px-4 py-2 mt-4',
+        'button rounded w-full px-4 py-2',
         {
           'shadow-lg': props.buttonStyle === 'full',
         },

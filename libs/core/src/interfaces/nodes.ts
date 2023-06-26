@@ -11,6 +11,7 @@ export type UserComponentConfig<T> = {
   props: Partial<T>;
   custom: Record<string, any>;
   isCanvas: boolean;
+  isResizable: boolean;
 
   // TODO: Deprecate
   name: string;
@@ -49,6 +50,8 @@ export type NodeData = {
   name: string;
   displayName: string;
   isCanvas: boolean;
+  isResizable: boolean;
+
   parent: NodeId;
   linkedNodes: Record<string, NodeId>;
   nodes: NodeId[];

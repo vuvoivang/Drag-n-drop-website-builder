@@ -620,7 +620,7 @@ export const Header = () => {
             <li><b>Name</b>: specific name for page, use as a title.
               <br /> For example: "Example".</li>
           </ul>
-          <Box component="form" sx={{ mt: 1 }}>
+          <Box component="form" className='new-page-form' sx={{ mt: 1 }}>
             <FormTextField
               control={controlAddPage}
               rules={{

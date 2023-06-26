@@ -180,6 +180,20 @@ body {
   width: 50px !important;
   height: 50px !important;
 }
-.input-project-name input{
-  padding: 14px;
+.input-project-name input, .new-page-form input {
+  padding: 12px;
+}
+
+.new-page-form input {
+  padding: 12px;
+}
+
+:focus-visible{
+  /* outline: 1px solid #22578d; */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, .35);
+}
+
+.custom-container{
+  min-width: fit-content;
 }

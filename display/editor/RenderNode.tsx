@@ -24,6 +24,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import { MOCK_COLLECTIONS, MOCK_DOCUMENTS } from 'display/mock/dynamic-data';
 import { lighten, darken } from '@mui/system';
 import { createFilterOptions } from '@mui/material/Autocomplete';
+import { Resizer } from 'display/selectors/Resizer';
 
 const GroupHeader = styled('div')({
   position: 'sticky',
@@ -74,6 +75,16 @@ const Btn = styled.a`
   }
 `;
 
+export const calculateResizerProps = (props) => {
+  const {
+    margin,
+  } = props;
+
+  return {
+    margin: margin?.length > 0 && `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
+  }
+}
+
 export const RenderNode = ({ render }) => {
   const { id } = useNode();
   const { actions, query, isActive, database } = useEditor((_, query) => ({
@@ -91,6 +102,8 @@ export const RenderNode = ({ render }) => {
     parent,
     actions: { setProp },
     propTextValue,
+    isResizable,
+    nodeProps,
   } = useNode((node) => ({
     isHover: node.events.hovered,
     dom: node.dom,
@@ -99,6 +112,8 @@ export const RenderNode = ({ render }) => {
     deletable: query.node(node.id).isDeletable(),
     parent: node.data.parent,
     propTextValue: node.data.props?.text,
+    isResizable: node.data.isResizable,
+    nodeProps: node.data.props,
   }));
 
   const { isShownAllIndicator } = useEditor((state) => ({
@@ -204,74 +219,78 @@ export const RenderNode = ({ render }) => {
     <>
       {isHover || isActive || isShownAllIndicator
         ? ReactDOM.createPortal(
-            <IndicatorDiv
-              ref={currentRef}
-              className='px-2 py-2 text-white bg-blue-500 fixed flex items-center'
-              style={{
-                left: getPos(dom).left,
-                top: getPos(dom).top,
-                zIndex: 9999,
-              }}
-            >
-              <h2 className='flex-1'>{name}</h2>
-              <p className='text-sm text-yellow-300 mr-4 ml-2'>{id}</p>
-              {moveable ? (
-                <Btn className='mr-2 cursor-move' ref={drag}>
-                  <Move />
-                </Btn>
-              ) : null}
-              {!id.startsWith(ROOT_NODE) && (
+          <IndicatorDiv
+            ref={currentRef}
+            className='px-2 py-2 text-white bg-blue-500 fixed flex items-center'
+            style={{
+              left: getPos(dom).left,
+              top: getPos(dom).top,
+              zIndex: 9999,
+            }}
+          >
+            <h2 className='flex-1'>{name}</h2>
+            <p className='text-sm text-yellow-300 mr-4 ml-2'>{id}</p>
+            {moveable ? (
+              <Btn className='mr-2 cursor-move' ref={drag}>
+                <Move />
+              </Btn>
+            ) : null}
+            {!id.startsWith(ROOT_NODE) && (
+              <Btn
+                className='mr-2 cursor-pointer'
+                onClick={() => {
+                  const {
+                    data: { type, props },
+                  } = query.node(id).get();
+                  actions.add(query.createNode(React.createElement(type, props)), parent);
+                }}
+              >
+                <Clone />
+              </Btn>
+            )}
+            {!id.startsWith(ROOT_NODE) && (
+              <Btn
+                className='mr-2 cursor-pointer'
+                onClick={() => {
+                  actions.selectNode(parent);
+                }}
+              >
+                <ArrowUp />
+              </Btn>
+            )}
+            {deletable ? (
+              <Btn
+                className='mr-2 cursor-pointer'
+                onMouseDown={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  actions.delete(id);
+                }}
+              >
+                <Delete />
+              </Btn>
+            ) : null}
+            {propTextValue !== undefined ? (
+              <Tooltip title='Connect Data'>
                 <Btn
-                  className='mr-2 cursor-pointer'
-                  onClick={() => {
-                    const {
-                      data: { type, props },
-                    } = query.node(id).get();
-                    actions.add(query.createNode(React.createElement(type, props)), parent);
-                  }}
-                >
-                  <Clone />
-                </Btn>
-              )}
-              {!id.startsWith(ROOT_NODE) && (
-                <Btn
-                  className='mr-2 cursor-pointer'
-                  onClick={() => {
-                    actions.selectNode(parent);
-                  }}
-                >
-                  <ArrowUp />
-                </Btn>
-              )}
-              {deletable ? (
-                <Btn
-                  className='mr-2 cursor-pointer'
+                  className={`link cursor-pointer ${propTextValue?.type === "dynamic-data" ? "connected" : ""}`}
                   onMouseDown={(e: React.MouseEvent) => {
                     e.stopPropagation();
-                    actions.delete(id);
+                    setOpenDialogConnectData(true);
                   }}
                 >
-                  <Delete />
+                  <Link />
                 </Btn>
-              ) : null}
-              {propTextValue !== undefined ? (
-                <Tooltip title='Connect Data'>
-                  <Btn
-                    className={`link cursor-pointer ${propTextValue?.type === "dynamic-data" ? "connected" : ""}`}
-                    onMouseDown={(e: React.MouseEvent) => {
-                      e.stopPropagation();
-                      setOpenDialogConnectData(true);
-                    }}
-                  >
-                    <Link />
-                  </Btn>
-                </Tooltip>
-              ) : null}
-            </IndicatorDiv>,
-            document.querySelector('.page-container') // create inside the page container, but still in component tree (triggered by onClick...)
-          )
+              </Tooltip>
+            ) : null}
+          </IndicatorDiv>,
+          document.querySelector('.page-container') // create inside the page container, but still in component tree (triggered by onClick...)
+        )
         : null}
-      {render}
+
+      {
+        isResizable && nodeProps?.width && nodeProps?.height ? <Resizer propKey={{ width: 'width', height: 'height' }} style={calculateResizerProps(nodeProps)}>{render} </Resizer> : render
+      }
+
 
       {/* Dialog connect data for text */}
 

@@ -52,6 +52,7 @@ export const serializedContainerRootNodeForPage: SerializedNode = {
     resolvedName: 'CraftContainer',
   },
   isCanvas: true,
+  isResizable: false,
   props: {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -93,6 +94,7 @@ export const serializedPopupNodeForPage: SerializedNode = {
     resolvedName: 'CraftPopup',
   },
   isCanvas: false,
+  isResizable: false,
   props: {
     flexDirection: 'column',
     alignItems: 'flex-start',

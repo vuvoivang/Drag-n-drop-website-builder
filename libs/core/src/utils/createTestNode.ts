@@ -8,6 +8,7 @@ export const createTestNode = (id, data = {}, config: any = {}) => {
       custom: {},
       hidden: false,
       isCanvas: false,
+      isResizable: false,
       nodes: [],
       linkedNodes: {},
       ...data,

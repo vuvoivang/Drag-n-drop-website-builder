@@ -15,22 +15,21 @@ export const craftConfig = {
   related: {
     settings: ImageSettings,
   },
+  isResizable: true,
 };
 
 export const CraftImage: UserComponent<WithThemeAndDatabase<ImageProps>> = (props: WithThemeAndDatabase<ImageProps>) => {
   const { width, height, src, alt, className, ...otherProps } = useGetValuesFromReferencedProps(props);
 
   return (
-    <Resizer propKey={{ width: 'width', height: 'height' }}>
-      <StyledImage
-        className={cx([className, 'image cursor-pointer'])}
-        src={src}
-        alt={alt}
-        width={'100%'}
-        height={'100%'}
-        {...otherProps}
-      />
-    </Resizer>
+    <StyledImage
+      className={cx([className, 'image cursor-pointer'])}
+      src={src}
+      alt={alt}
+      width={'100%'}
+      height={'100%'}
+      {...otherProps}
+    />
   );
 };
 
