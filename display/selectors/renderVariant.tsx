@@ -7,6 +7,8 @@ export type ConfigVariant = Array<{
   Icon: any;
   subItems: Array<MenuItemProps>;
 }>;
+
+
 export type MenuItemProps = {
   CraftElement?: any;
   ViewElement?: any;
@@ -17,6 +19,8 @@ export type MenuItemProps = {
   subItems?: Array<MenuItemProps & { isSubmenu: boolean }>;
   isTemplate?: boolean;
 };
+
+
 const generateConfigSections = (configVariant) => configVariant;
 
 export const renderMenuItems = (configVariant: ConfigVariant, fnCreateCraftItem) => {
@@ -87,7 +91,6 @@ const renderSubItems = (subItems: Array<MenuItemProps & { isSubmenu: boolean }>,
                 <div
                   className='flex justify-center'
                   ref={(ref) => {
-                    // template: multiple craft nodes => use original jsx to parse
                     if (isTemplate) fnCreateCraftItem(ref, CraftElement);
                     else fnCreateCraftItem(ref, <CraftElement {...overwritePropsCraft} />);
                   }}

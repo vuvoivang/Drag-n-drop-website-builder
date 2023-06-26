@@ -35,7 +35,7 @@ export default function AvatarZone({ user, classNameAvt = '', menuId = '' }) {
     return (
         <div className={classNameAvt}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <div className='flex ml-10 items-center'>
+                <div className='flex ml-10 items-center avatar-zone'>
                     <span className='fs-sm font-medium name'><span className='text-blue-700 fs-sm'>{userFullName}</span></span>
                     <Tooltip title="Account settings">
                         <IconButton

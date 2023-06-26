@@ -175,8 +175,11 @@ body {
 .account-menu ul li .MuiListItemIcon-root{
   min-width: 30px !important;
 }
-.MuiAvatar-root{
+.avatar-zone .MuiAvatar-root{
   border: 1px solid #b0aeae;
   width: 50px !important;
   height: 50px !important;
+}
+.input-project-name input{
+  padding: 14px;
 }

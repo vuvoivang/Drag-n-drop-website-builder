@@ -16,18 +16,24 @@ import {
     Button as MaterialButton,
 
 } from '@material-ui/core';
-import userService, { PROJECT_TYPE } from 'services/user';
+import userService, { PROJECT, PROJECT_TYPE } from 'services/user';
 import toastMessage from 'display/utils/toast';
 import { useRouter } from 'next/router';
 import AvatarZone from 'components/avatar-zone';
 import { UserInfo } from 'pages';
+import { FormTextField } from 'components/form-text-field';
+import { useForm } from 'react-hook-form';
+import { useEffectOnce } from '@libs/utils';
 export default function DashBoard() {
     const [openDialogNewProject, setOpenModalNewProject] = useState(false);
     const [user, setUser] = useState<UserInfo>();
+    const [projects, setProjects] = useState<PROJECT[]>();
+
     let userToken = '';
     if (typeof window !== 'undefined') {
         userToken = localStorage?.getItem('buildify-token');
     }
+    const { control, handleSubmit } = useForm({ mode: "onChange" });
 
     const [project, setProject] = useState({
         name: '',
@@ -41,7 +47,7 @@ export default function DashBoard() {
     const handleCloseDialogNewProject = () => {
         setOpenModalNewProject(false);
     };
-    const handleAddNewProject = () => {
+    const handleAddNewProject = (_) => {
         const currentTimestamp = new Date().getTime();
         const data = {
             ...project,
@@ -68,6 +74,17 @@ export default function DashBoard() {
             setUser({} as UserInfo);
         });
     }, [userToken]);
+
+    useEffectOnce(() => {
+        userService.getListProject().then(resp => {
+            if (resp.projects) {
+                setProjects(resp.projects);
+            } else toastMessage.error('Something went wrong, please try again later');
+        }).catch((err) => {
+            console.log(err);
+            toastMessage.error('Something went wrong, please try again later');
+        });
+    })
     return (
         <div className="min-h-screen transition w-full px-32 pb-4">
             <div className='items-end flex w-full pl-4 justify-between py-4' style={{ borderBottom: '1px solid rgba(51,48,60,.12)' }}>
@@ -83,7 +100,7 @@ export default function DashBoard() {
                     <Button className='btn btn-primary' variant="contained" style={{ color: _var.whiteColor, padding: '8px 16px', backgroundColor: _var.blueDarkColor, paddingLeft: 8 }} color='secondary' onClick={handleClickOpenDialogNewProject}><AddIcon /> <span style={{ marginLeft: 4, textTransform: "capitalize" }}>{' '} New project</span></Button>
                 </div>
                 <div className='mt-8'>
-                    <ProjectsTable />
+                    {projects && <ProjectsTable projects={projects} />}
                 </div>
             </div>
 
@@ -91,16 +108,25 @@ export default function DashBoard() {
             <Dialog id="dialog-new-project" open={openDialogNewProject} onClose={handleCloseDialogNewProject} aria-labelledby='form-dialog-title'>
                 <DialogTitle id='form-dialog-title'>Project Information</DialogTitle>
                 <DialogContent style={{ width: 600 }}>
-                    <DialogContentText style={{ fontSize: 14 }}>Your project's name must be unique</DialogContentText>
-                    <TextField
-                        margin='dense'
-                        label='Name'
-                        type='text'
-                        fullWidth
-                        onChange={(e) => {
-                            setProject((project) => ({ ...project, name: e.target.value }))
-                        }}
-                    />
+                    <DialogContentText style={{ fontSize: 14 }}>Your project name must be unique</DialogContentText>
+                    <form>
+                        <FormTextField
+                            name="name"
+                            control={control}
+                            className="input-project-name"
+                            rules={{
+                                required: "Project name is required",
+                                validate: (value) => (projects?.length === 0 || !projects.find((item) => item.name === value)) || "Project name is already existed"
+                            }}
+                            margin='dense'
+                            label='Name'
+                            type='text'
+                            fullWidth
+                            onChange={(e) => {
+                                setProject((project) => ({ ...project, name: e.target.value }))
+                            }}
+                        />
+                    </form>
 
                     <h2 className='mt-8 mb-4 fs-sm'>Type of your project:</h2>
                     <div className='flex'>
@@ -132,7 +158,7 @@ export default function DashBoard() {
                         Cancel
                     </MaterialButton>
                     <MaterialButton
-                        onClick={handleAddNewProject}
+                        onClick={handleSubmit(handleAddNewProject)}
                         style={{
                             backgroundColor: _var.greenColor,
                             color: _var.whiteColor,

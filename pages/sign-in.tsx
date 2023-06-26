@@ -2,7 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -16,6 +15,12 @@ import Image from 'next/image';
 import userService from 'services/user';
 import toastMessage from 'display/utils/toast';
 import useAppNavigate from 'hooks/useAppNavigate';
+import { useForm } from 'react-hook-form';
+import { FormTextField } from 'components/form-text-field';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 function Copyright(props: any) {
   return (
@@ -34,12 +39,21 @@ const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useAppNavigate();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  };
+
+  const { control, handleSubmit, watch, setError } = useForm({ mode: "onChange" });
+
+  const onSubmitSignInForm = data => {
     const body = {
-      username: data.get('username'),
-      password: data.get('password'),
+      username: data['username'],
+      password: data['password'],
     } as any;
     userService.signIn(body).then(resp => {
       if (resp.token) {
@@ -75,8 +89,11 @@ export default function SignIn() {
           <Typography style={{ fontSize: 25, color: "#1652f5" }} component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+          <Box component="form" onSubmit={handleSubmit(onSubmitSignInForm)} sx={{ mt: 1 }}>
+            <FormTextField
+              control={control}
+              rules={{ required: "Username is required", minLength: { value: 6, message: 'Username must be at least 6 characters long.' } }}
+
               margin="normal"
               required
               fullWidth
@@ -85,18 +102,34 @@ export default function SignIn() {
               name="username"
               autoComplete="off"
               autoFocus
-              inputProps={{ className: "input-material" }}
             />
-            <TextField
+            <FormTextField
+              control={control}
+              rules={{ required: "Password is required", minLength: { value: 8, message: 'Password must be at least 8 characters long.' } }}
               margin="normal"
               required
               fullWidth
-              inputProps={{ className: "input-material" }}
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="off"
+
+              InputProps={{
+                // className: "input-material",
+                endAdornment:
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                      size='small'
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
