@@ -56,6 +56,7 @@ import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Icon from '@material-ui/core/Icon';
+import { FormTextField } from 'components/form-text-field';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -115,6 +116,11 @@ function addPageReducer(state, action) {
     return {
       ...state,
       name: action.data,
+    };
+  } else if (action.type === 'RESET') {
+    return {
+      path: '',
+      name: '',
     };
   }
   throw Error('Unknown action.');
@@ -216,6 +222,23 @@ export const Header = () => {
     actions.setCurrentPage(event.target.value as string);
   };
 
+
+  const {
+    control: controlAddPage,
+    handleSubmit: handleSubmitAddPage,
+    reset: resetAddPage,
+  } = useForm({
+    mode: 'onChange',
+  });
+
+  const onSubmitAddPageForm = data => {
+    const body = {
+      path: data['path'],
+      name: data['name'],
+    } as any;
+    handleAddPage(body);
+  };
+
   const clickOpenDialogAddNewPage = () => {
     handleClickOpenDialogNewPage();
   };
@@ -225,21 +248,23 @@ export const Header = () => {
   };
   const handleCloseDialogNewPage = () => {
     setOpenDialogNewPage(false);
+    resetAddPage();
+    dispatch({ type: 'RESET' });
   };
-  const handleAddPage = () => {
+  const handleAddPage = (body) => {
     handleCloseDialogNewPage();
-    actions.addNewPage(addPage);
+    actions.addNewPage(body);
 
     // add new container root node for new page
     const newContainerRootNodeInNewPage = {
       ...serializedContainerRootNodeForPage,
-      page: addPage.path,
+      page: body.path,
     };
-    const rootNodeIdInNewPage = `ROOT_${addPage.path.slice(1)}`;
+    const rootNodeIdInNewPage = `ROOT_${body.path.slice(1)}`;
     actions.addNewNodeWithSerializedData(newContainerRootNodeInNewPage, rootNodeIdInNewPage);
 
     setTimeout(() => {
-      actions.setCurrentPage(addPage.path);
+      actions.setCurrentPage(body.path);
     }, 500);
   };
   const handleDeletePageSelectItem = (path) => {
@@ -587,33 +612,49 @@ export const Header = () => {
 
       <Dialog open={openDialogNewPage} onClose={handleCloseDialogNewPage} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>New Page Information</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Enter new path and name for your page:</DialogContentText>
+        <DialogContent style={{ width: 600, height: 300 }}>
+          {/* <DialogContentText>Enter new path and name for your page:</DialogContentText> */}
           <ul className='dialog-new-page'>
-            <li>Path: specific path for pages' routing, must start with /. Ex: /example</li>
-            <li>Name: specific name for corresponding page, use as title. Ex: Example</li>
+            <li><b>Path</b>: specific path for page's routing, must start with "/"".
+              <br /> For example: "/example".</li>
+            <li><b>Name</b>: specific name for page, use as a title.
+              <br /> For example: "Example".</li>
           </ul>
-
-          <TextField
-            margin='dense'
-            id='path'
-            label='Page Path'
-            type='text'
-            fullWidth
-            onChange={(e) => {
-              dispatch({ type: 'UPDATE_PATH', data: e.target.value });
-            }}
-          />
-          <TextField
-            margin='dense'
-            id='name'
-            label='Page Name'
-            type='text'
-            fullWidth
-            onChange={(e) => {
-              dispatch({ type: 'UPDATE_NAME', data: e.target.value });
-            }}
-          />
+          <Box component="form" sx={{ mt: 1 }}>
+            <FormTextField
+              control={controlAddPage}
+              rules={{
+                required: "Path is required",
+                validate: (value) => (pages?.length === 0 || !pages.find((item) => item.path === value)) || "Path is already existed",
+                pattern: { value: /^\/.*/, message: 'Path must start with "/" character' }
+              }}
+              name="path"
+              margin='dense'
+              id='path'
+              label='Page Path'
+              type='text'
+              fullWidth
+              onChange={(e) => {
+                dispatch({ type: 'UPDATE_PATH', data: e.target.value });
+              }}
+            />
+            <FormTextField
+              control={controlAddPage}
+              rules={{
+                required: "Name is required",
+                validate: (value) => (pages?.length === 0 || !pages.find((item) => item.name === value)) || "Name is already existed"
+              }}
+              margin='dense'
+              name="name"
+              id='name'
+              label='Page Name'
+              type='text'
+              fullWidth
+              onChange={(e) => {
+                dispatch({ type: 'UPDATE_NAME', data: e.target.value });
+              }}
+            />
+          </Box>
         </DialogContent>
         <DialogActions>
           <MaterialButton
@@ -629,7 +670,7 @@ export const Header = () => {
             Cancel
           </MaterialButton>
           <MaterialButton
-            onClick={handleAddPage}
+            onClick={handleSubmitAddPage(onSubmitAddPageForm)}
             style={{
               backgroundColor: _var.greenColor,
               color: _var.whiteColor,
@@ -818,7 +859,7 @@ export const Header = () => {
                             <ColorInput
                               type='color'
                               {...field}
-                              // label="Value"
+                            // label="Value"
                             />
                           </>
                         )}
