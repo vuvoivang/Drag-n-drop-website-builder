@@ -89,3 +89,10 @@ html {
   color: var.$color-secondary -text;
   font-size: 14px;
 }
+
+.layer-name h2 {
+  &:focus-visible{
+    outline: 1px auto #0581ff;
+  }
+  padding-left: 4px;
+}

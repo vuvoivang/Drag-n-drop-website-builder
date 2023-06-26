@@ -18,6 +18,7 @@ export const craftConfig = {
     settings: ButtonSettings,
     events: ButtonEvents,
   },
+  isResizable: true,
 };
 
 export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (props: WithThemeAndDatabase<ButtonProps>) => {
@@ -38,6 +39,9 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
     events,
     onClick,
     nestedPropKey,
+    margin, // unused for resizable
+    width, // unused for resizable
+    height, // unused for resizable
     ...otherProps
   } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
@@ -51,7 +55,7 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
     <StyledButton
       ref={connect}
       className={cx([
-        'rounded w-full px-4 py-2 mt-4',
+        'rounded w-full px-4 py-2',
         {
           'shadow-lg': props.buttonStyle === 'full',
         },

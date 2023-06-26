@@ -24,6 +24,7 @@ export function createNode(newNode: FreshNode, normalize?: (node: Node) => void)
       custom: {},
       parent: null,
       isCanvas: false,
+      isResizable: false,
       hidden: false,
       nodes: [],
       linkedNodes: {},
@@ -123,6 +124,10 @@ export function createNode(newNode: FreshNode, normalize?: (node: Node) => void)
         node.related[comp] = () =>
           React.createElement(NodeProvider, relatedNodeContext, React.createElement(userComponentConfig.related[comp]));
       });
+    }
+
+    if (userComponentConfig.isResizable !== undefined && userComponentConfig.isResizable !== null) {
+      node.data.isResizable = userComponentConfig.isResizable;
     }
   }
 

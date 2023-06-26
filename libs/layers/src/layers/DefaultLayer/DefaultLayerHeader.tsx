@@ -63,7 +63,7 @@ const Hide = styled.a<{ selected: boolean; isHidden: boolean }>`
     width: 100%;
     height: 100%;
     object-fit: contain;
-    opacity: ${(props) => (props.isHidden ? 0.2 : 1)};
+    opacity: ${(props) => (props.isHidden ? 0.6 : 1)};
   }
   &:after {
     content: ' ';
