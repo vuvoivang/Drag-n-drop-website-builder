@@ -120,9 +120,9 @@ function getComparator<Key extends keyof any>(
     order: Order,
     orderBy: Key,
 ): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
+        a: { [key in Key]: number | string },
+        b: { [key in Key]: number | string },
+    ) => number {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
@@ -251,8 +251,8 @@ function formatDate(date) {
     return `${padL(dt.getDate())}/${padL(dt.getMonth() + 1)}/${dt.getFullYear()} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`;
 }
 
-export default function ProjectsTable() {
-    const [rows, setRows] = useState<PROJECT[]>([]);
+export default function ProjectsTable({ projects }) {
+    const [rows, setRows] = useState<PROJECT[]>(projects);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PROJECT>('name');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -329,16 +329,7 @@ export default function ProjectsTable() {
         [rows, order, orderBy, page, rowsPerPage],
     );
 
-    useEffectOnce(() => {
-        userService.getListProject().then(resp => {
-            if (resp.projects) {
-                setRows(resp.projects);
-            } else toastMessage.error('Something went wrong, please try again later');
-        }).catch((err) => {
-            console.log(err);
-            toastMessage.error('Something went wrong, please try again later');
-        });
-    })
+    useEffect(() => { setRows(projects) }, [projects?.length])
 
     const handleCloseDialogConfirmDelete = () => {
         setOpenDialogConfirmDelete(false);
@@ -348,17 +339,17 @@ export default function ProjectsTable() {
     const handleDeletePageDialog = () => {
         userService.deleteProject({
             id: deletingProject.id
-          }).then(resp => {
+        }).then(resp => {
             if (!resp.msg) {
-              toastMessage.success('Delete project successfully')
-              const newRows = [...rows.filter((row) => row.id !== deletingProject.id)];
-              setRows(newRows);
-              setDeletingProject({} as any);
+                toastMessage.success('Delete project successfully')
+                const newRows = [...rows.filter((row) => row.id !== deletingProject.id)];
+                setRows(newRows);
+                setDeletingProject({} as any);
             } else toastMessage.error('Delete project failed');
-          }).catch((err) => {
-              console.log(err);
-              toastMessage.error('Delete project failed');
-          });
+        }).catch((err) => {
+            console.log(err);
+            toastMessage.error('Delete project failed');
+        });
         handleCloseDialogConfirmDelete();
     };
 
@@ -368,9 +359,11 @@ export default function ProjectsTable() {
 
     useEffect(() => {
         if (deletingProject?.id) {
-          setOpenDialogConfirmDelete(true);
+            setOpenDialogConfirmDelete(true);
         }
-      }, [deletingProject]);
+    }, [deletingProject]);
+
+
     return (
         <div id="projects-table">
             <Paper>

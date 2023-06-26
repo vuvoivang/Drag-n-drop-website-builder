@@ -24,16 +24,14 @@ export const fetchWithBuildifyToken = (
         'Referrer-Policy': 'unsafe-url',
       },
     })
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
-          throw new Error(response.statusText);
+          const parsedError = await response.json();
+          return Promise.reject(parsedError);
         }
 
         return response.json();
       })
-      .catch((error) => {
-        // handle error
-      });
   } else {
     const headers = {
       'Content-Type': 'application/json',
@@ -52,15 +50,14 @@ export const fetchWithBuildifyToken = (
       headers,
       body,
     })
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
-          throw new Error(response.statusText);
+          const parsedError = await response.json();
+          return Promise.reject(parsedError);
         }
 
         return response.json();
       })
-      .catch((error) => {
-        // handle error
-      });
+      
   }
 };
