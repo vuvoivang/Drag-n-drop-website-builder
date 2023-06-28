@@ -49,7 +49,7 @@ export const Viewport: React.FC<ViewportProps> = ({ children }) => {
         <div className='page-container flex flex-1 h-full flex-col px-8 overflow-auto'>
           <div
             className={cx([
-              'craftjs-renderer flex-1 h-full w-full transition pb-8',
+              'craftjs-renderer flex-1 w-full transition pb-8',
               {
                 'bg-renderer-gray': enabled,
               },
@@ -59,7 +59,7 @@ export const Viewport: React.FC<ViewportProps> = ({ children }) => {
             <div className='relative flex-col flex items-center pt-8' id='app-container'>
               {children}
             </div>
-            <div className={'flex items-center justify-center w-full pt-6 fw-bold'}>
+            <div style={{ height: 200 }} className={'flex items-center justify-center w-full pt-6 fw-bold'}>
               <a href='https://hcmus.edu.vn/'>HCMUS - Software Architecture</a>
             </div>
           </div>

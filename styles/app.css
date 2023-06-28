@@ -197,3 +197,7 @@ body {
 /* .custom-container{
   min-width: fit-content;
 } */
+
+.craftjs-renderer{
+  height: fit-content;
+}
