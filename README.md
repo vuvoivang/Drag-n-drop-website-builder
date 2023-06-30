@@ -1,12 +1,16 @@
-# KTPM-Website-Builder
+# Buildify
 
 ## Live demo
 
-website: [ktpm-website-builder.vercel.app](https://ktpm-website-builder.vercel.app/)
+website: [buildify.vercel.app](https://buildify.vercel.app/)
 
 ## Installation
 
-```
-yarn install
-yarn start
-```
+# download packages
+npm install
+
+# Run dev local
+npm start
+
+# Building and deploying in production
+npm run build
