@@ -4,11 +4,13 @@
 
 website: [buildify.vercel.app](https://buildify.vercel.app/)
 
-## download packages
+## Installation
+
+### download packages
 npm install
 
-## run dev local
+### run dev local
 npm start
 
-## building and deploying in production
+### building and deploying in production
 npm run build
