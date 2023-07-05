@@ -14,6 +14,7 @@ import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReference
 export const craftConfig = {
   displayName: 'Container',
   props: defaultProps,
+  isCanvas: true,
   rules: {
     canDrag: () => true,
     canMoveIn: () => true,
