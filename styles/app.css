@@ -189,9 +189,9 @@ body {
 }
 
 :focus-visible{
-  /* outline: 1px solid #22578d; */
+  outline: 1px solid #22578d;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, .35);
+  /* box-shadow: 0 0 0 1px rgba(0, 123, 255, .35); */
 }
 
 /* .custom-container{

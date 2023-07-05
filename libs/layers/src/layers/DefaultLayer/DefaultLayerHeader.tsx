@@ -144,7 +144,7 @@ export const DefaultLayerHeader: React.FC = () => {
           <div className='layer-name'>
             <EditableLayerName />
           </div>
-          <div>
+          <div className="ml-2">
             {children && children.length ? (
               <Expand expanded={expanded} onMouseDown={() => toggleLayer()}>
                 <Arrow />

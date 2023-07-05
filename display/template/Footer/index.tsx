@@ -21,7 +21,7 @@ export const FooterTemplateConfig = [
         width: '100%',
         height: 'auto',
         padding: ['4', '4', '4', '4'],
-        margin: ['0', '0', '16', '0'],
+        margin: ['0', '0', '0', '0'],
         className: 'cursor-move',
       },
       children: [
@@ -189,7 +189,7 @@ export const FooterTemplateConfig = [
         width: '100%',
         height: 'auto',
         padding: ['16', '16', '16', '16'],
-        margin: ['0', '0', '16', '0'],
+        margin: ['0', '0', '0', '0'],
       },
       children: [
         {
@@ -200,8 +200,8 @@ export const FooterTemplateConfig = [
             justifyContent: 'center',
             width: '33%',
             height: 'auto',
-            padding: ['16', '16', '16', '16'],
-            margin: ['0', '0', '8', '0'],
+            padding: ['8', '8', '8', '8'],
+            margin: ['0', '0', '0', '0'],
           },
           children: [
             {
@@ -272,7 +272,7 @@ export const FooterTemplateConfig = [
             width: '33%',
             height: 'auto',
             padding: ['16', '16', '16', '16'],
-            margin: ['0', '0', '8', '0'],
+            margin: ['0', '0', '0', '0'],
           },
           children: [
             {

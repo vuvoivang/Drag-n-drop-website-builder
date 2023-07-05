@@ -637,6 +637,7 @@ export const Header = () => {
               onChange={(e) => {
                 dispatch({ type: 'UPDATE_PATH', data: e.target.value });
               }}
+              style={{ marginBottom: 20 }}
             />
             <FormTextField
               control={controlAddPage}
