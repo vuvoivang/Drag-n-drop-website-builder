@@ -16,7 +16,7 @@ export const SidebarDiv = styled.div<{ enabled: boolean }>`
   // min-width: 320px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
   background: ${_var.whiteColor};
-  margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
+  margin-right: ${(props) => (props.enabled ? 0 : -300)}px;
 `;
 // const CarbonAdsContainer = styled.div`
 //   width: 100%;

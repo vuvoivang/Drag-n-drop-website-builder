@@ -172,12 +172,10 @@ export const Toolbox = () => {
 
   return (
     <div
-    // style={
-    //   {
-    // width: collapsed ? 'auto' : '280px',
-    //   }
-    // }
-    className='relative'
+      style={{
+          marginLeft: enabled ? '0' : '-350px',
+        }}
+      className='relative'
     >
       <div
         style={{
