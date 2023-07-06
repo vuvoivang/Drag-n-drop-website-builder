@@ -10,6 +10,12 @@ export const LayerMethods = (state: LayerState) => ({
     }
 
     if (id) {
+      if(!state.layers[id].event) {
+        state.layers[id].event = {
+          selected: false,
+          hovered: false,
+        }
+      }
       state.layers[id].event[eventType] = true;
       state.events[eventType] = id;
     } else {
