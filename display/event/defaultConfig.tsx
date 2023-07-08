@@ -35,13 +35,13 @@ export const DEFAULT_SECTIONS = {
 
 export const DEFAULT_EVENT_KEYS = {
   pageNavigate: {
-    eventKey: 'navigate',
+    eventKey: 'pageNavigate',
     type: ['select'],
     label: 'Choose page to navigate',
     full: true,
   },
   absoluteUrlNavigate: {
-    eventKey: 'navigate',
+    eventKey: 'absoluteUrlNavigate',
     type: ['text'],
     label: "What's the web address (URL)?",
     full: true,
