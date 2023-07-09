@@ -16,6 +16,7 @@ import {
   CraftImage,
   CraftPopup,
   CraftAnchor,
+  CraftMap,
 } from 'display/selectors';
 import userService, { PROJECT } from 'services/user';
 import { useRouter } from 'next/router';
@@ -58,6 +59,7 @@ function Builder() {
               CraftButton,
               CraftAnchor,
               CraftPopup,
+              CraftMap,
             }}
             enabled={false}
             onRender={RenderNode}
