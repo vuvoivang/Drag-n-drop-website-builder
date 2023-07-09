@@ -238,11 +238,9 @@ export const RenderNode = ({ render }) => {
             {!id.startsWith(ROOT_NODE) && (
               <Btn
                 className='mr-2 cursor-pointer'
-                onClick={() => {
-                  const {
-                    data: { type, props },
-                  } = query.node(id).get();
-                  actions.add(query.createNode(React.createElement(type, props)), parent);
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  actions.clone(id);
                 }}
               >
                 <Clone />

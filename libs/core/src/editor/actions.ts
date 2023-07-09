@@ -6,12 +6,14 @@ import {
   QueryCallbacksFor,
   ERROR_NOPARENT,
   ERROR_DELETE_TOP_LEVEL_NODE,
+  ERROR_CLONE_TOP_LEVEL_NODE,
   CallbacksFor,
   Delete,
   ERROR_NOT_IN_RESOLVER,
   ROOT_PATH,
 } from 'libs/utils/src';
 import invariant from 'tiny-invariant';
+import React from 'react';
 
 import { QueryMethods } from './query';
 
@@ -140,6 +142,28 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     delete state.nodes[id];
   };
 
+  const cloneNode = (id: NodeId, parentId: NodeId) => {
+    const targetNode = state.nodes[id],
+      parentNode = state.nodes[targetNode.data.parent];
+
+    const newNode = query.createNode(React.createElement(targetNode.data.type, targetNode.data.props));
+    addNodeTreeToParent(
+      {
+        nodes: {
+          [newNode.id]: newNode,
+        },
+        rootNodeId: newNode.id,
+      },
+      parentId,
+      { type: 'child', index: parentNode.data.nodes.indexOf(id) }
+    );
+
+    if (targetNode.data.nodes) {
+      // we deep clone here
+      [...targetNode.data.nodes].forEach((childId) => cloneNode(childId, newNode.id));
+    }
+  };
+
   return {
     /**
      * @private
@@ -218,6 +242,22 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
         invariant(!query.node(node.id).isTopLevelNode(), ERROR_DELETE_TOP_LEVEL_NODE);
         deleteNode(node.id);
         this.removeReferencedNodeFromTheme(node.id);
+      });
+    },
+
+    /**
+     * clone a Node
+     * @param id
+     */
+    clone(selector: NodeSelector<NodeSelectorType.Id>) {
+      const targets = getNodesFromSelector(state.nodes, selector, {
+        existOnly: true,
+        idOnly: true,
+      });
+
+      targets.forEach(({ node }) => {
+        invariant(!query.node(node.id).isTopLevelNode(), ERROR_CLONE_TOP_LEVEL_NODE);
+        cloneNode(node.id, node.data.parent);
       });
     },
 
@@ -508,7 +548,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
      * Set database
      * @param newDatase
      */
-     setDatabase(newDatase) {
+    setDatabase(newDatase) {
       const { documents, collections } = newDatase;
       const mappingDatabase = mappingDocumentsToCollections(collections, documents);
       state.database = {
@@ -521,39 +561,38 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
      * Set theme
      * @param newTheme
      */
-     setTheme(newTheme) {
-      state.theme = {...newTheme};
+    setTheme(newTheme) {
+      state.theme = { ...newTheme };
     },
 
     /**
      * Remove all referenced nodeId from theme
      * @param nodeId
      */
-     removeReferencedNodeFromTheme(nodeId: string) {
+    removeReferencedNodeFromTheme(nodeId: string) {
       const newTheme = cloneDeep(state.theme);
       Object.values(newTheme).forEach((themeItem) => {
-        if(themeItem.refNodes?.[nodeId]) {
+        if (themeItem.refNodes?.[nodeId]) {
           delete themeItem.refNodes?.[nodeId];
         }
-      })
+      });
       state.theme = newTheme;
-     },
+    },
 
-     /**
+    /**
      * Remove all referenced propKey of nodeId from theme
      * @param nodeId
      * @param propKey
      */
-      removeReferencedPropKeyOfNodeFromTheme(nodeId: string, propKey: string) {
-        const newTheme = cloneDeep(state.theme);
-        Object.values(newTheme).forEach((themeItem) => {
-          if(themeItem.refNodes?.[nodeId]) {
-            themeItem.refNodes[nodeId] = themeItem.refNodes?.[nodeId]?.filter((curPropKey) => curPropKey!==propKey);
-          }
-        });
-        state.theme = newTheme;
-      }
-    
+    removeReferencedPropKeyOfNodeFromTheme(nodeId: string, propKey: string) {
+      const newTheme = cloneDeep(state.theme);
+      Object.values(newTheme).forEach((themeItem) => {
+        if (themeItem.refNodes?.[nodeId]) {
+          themeItem.refNodes[nodeId] = themeItem.refNodes?.[nodeId]?.filter((curPropKey) => curPropKey !== propKey);
+        }
+      });
+      state.theme = newTheme;
+    },
   };
 };
 
