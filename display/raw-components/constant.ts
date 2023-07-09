@@ -8,3 +8,5 @@ export enum CLICK_TYPE {
 }
 
 export const REMOVED_DYNAMIC_DATA_TEXT_INFORM = "Inform: removed dynamic data, please update";
+
+export const DEFAULT_GG_MAP_KEY = "AIzaSyB4pscFe6yW_7SzJpKnV-6naNZYFaJIytc";

@@ -13,6 +13,7 @@ import FooterSvg from '../../public/icons/toolbox/footer.svg';
 import BannerSvg from '../../public/icons/toolbox/banner.svg';
 import ProductSvg from '../../public/icons/toolbox/product.svg';
 import ContentSvg from '../../public/icons/toolbox/content.svg';
+import MapSvg from '../../public/icons/toolbox/map.svg';
 
 import {
   CraftButton,
@@ -22,6 +23,7 @@ import {
   CraftInput,
   CraftImage,
   CraftAnchor,
+  CraftMap,
 } from 'display/selectors';
 
 import { Container, Button, Text, Image, Video, Input, Anchor } from 'display/raw-components';
@@ -33,6 +35,7 @@ import { FooterTemplateConfig } from 'display/template/Footer';
 import { BannerTemplateConfig } from 'display/template/Banner';
 import { ProductTemplateConfig } from 'display/template/Product';
 import { ContentTemplateConfig } from 'display/template/Content';
+import { Map } from 'display/raw-components/Map';
 
 export const DEFAULT_VARIANTS: ConfigVariant = [
   {
@@ -1396,6 +1399,64 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
                 href: 'https://www.google.com.vn/',
                 clickType: 'href',
               },
+            },
+          },
+        ],
+      },
+      {
+        label: 'Map',
+        Icon: MapSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '800px',
+              height: '400px',
+            },
+            overwritePropsView: {
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '800px',
+              height: '400px',
+              zoom: 8,
+            },
+            overwritePropsView: {
+              zoom: 8,
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '200px',
+              height: '400px',
+              zoom: 8,
+            },
+            overwritePropsView: {
+              zoom: 8,
+              width: '200px',
+              height: '400px',
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '200px',
+              height: '400px',
+            },
+            overwritePropsView: {
+              width: '200px',
+              height: '400px',
             },
           },
         ],

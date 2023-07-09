@@ -205,6 +205,14 @@ export const DEFAULT_SECTIONS = {
     props: ['background', 'color', 'buttonStyle'],
     items: ['background', 'color', 'buttonStyle'],
   },
+  map: {
+    title: 'Config',
+    props: ['zoom', 'lng', 'lat', 'googleMapKey'],
+    summary: ({ zoom, lng, lat }: any) => {
+      return `Zoom ${zoom || ''}, ${lng || ''}, ${lat || ''}`;
+    },
+    items: ['zoom', 'longitude', 'latitude', 'googleMapKey'],
+  },
 };
 
 export const DEFAULT_PROP_KEYS = {
@@ -733,5 +741,25 @@ export const DEFAULT_PROP_KEYS = {
         label: 'Superscript text',
       },
     ],
+  },
+  googleMapKey: {
+    propKey: 'googleMapKey',
+    type: ['text'],
+    label: 'Google Map key',
+  },
+  zoom: {
+    propKey: 'zoom',
+    type: ['slider', 'text'],
+    label: 'Zoom value',
+  },
+  longitude: {
+    propKey: 'lng',
+    type: ['slider', 'text'],
+    label: 'Longitude',
+  },
+  latitude: {
+    propKey: 'lat',
+    type: ['slider', 'text'],
+    label: 'Latitude',
   },
 };
