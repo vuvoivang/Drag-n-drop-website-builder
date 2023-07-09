@@ -28,6 +28,7 @@ export const ERROR_INFINITE_CANVAS =
 export const ERROR_CANNOT_DRAG = 'The node has specified a canDrag() rule that prevents it from being dragged';
 export const ERROR_INVALID_NODE_ID = 'Invalid parameter Node Id specified';
 export const ERROR_DELETE_TOP_LEVEL_NODE = 'Attempting to delete a top-level Node';
+export const ERROR_CLONE_TOP_LEVEL_NODE = 'Attempting to clone a top-level Node';
 
 export const ERROR_RESOLVER_NOT_AN_OBJECT = `Resolver in <Editor /> has to be an object. For (de)serialization Craft.js needs a list of all the User Components. 
     
@@ -132,9 +133,19 @@ export const ThemeTypeOptions = [
 
 export const defaultTheme: Theme = {
   1: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryColor', refNodes: {} },
-  2: { value: { r: '22', g: '82', b: '245', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'primaryTextColor', refNodes: {} },
+  2: {
+    value: { r: '22', g: '82', b: '245', a: '1' },
+    type: THEME_TYPE_VALUE.COLOR,
+    key: 'primaryTextColor',
+    refNodes: {},
+  },
   3: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryColor', refNodes: {} },
-  4: { value: { r: '0', g: '0', b: '0', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'secondaryTextColor', refNodes: {} },
+  4: {
+    value: { r: '0', g: '0', b: '0', a: '1' },
+    type: THEME_TYPE_VALUE.COLOR,
+    key: 'secondaryTextColor',
+    refNodes: {},
+  },
   5: { value: { r: '234', g: '51', b: '71', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorRed', refNodes: {} },
   6: { value: { r: '255', g: '255', b: '255', a: '1' }, type: THEME_TYPE_VALUE.COLOR, key: 'colorWhite', refNodes: {} },
   7: { value: 400, type: THEME_TYPE_VALUE.NUMBER, key: 'fontWeightNormal', refNodes: {} },
