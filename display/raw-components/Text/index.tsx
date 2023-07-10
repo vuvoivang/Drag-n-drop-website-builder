@@ -8,6 +8,7 @@ export const Text = ({
   fontSize,
   textAlign,
   fontWeight,
+  fontStyle,
   color,
   shadow,
   text,
@@ -29,6 +30,7 @@ export const Text = ({
         fontSize: `${fontSize}px`,
         textShadow: `0px 0px 2px rgba(0,0,0,${(shadow || 0) / 100})`,
         fontWeight,
+        fontStyle,
       }}
     >
       {text?.type === "dynamic-data" ? text?.value : text}

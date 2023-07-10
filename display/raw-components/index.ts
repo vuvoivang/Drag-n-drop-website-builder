@@ -6,3 +6,5 @@ export { Input } from './Input';
 export { Video } from './Video';
 export { Popup } from './Popup';
 export { Anchor } from './Anchor';
+export { Textarea } from './Textarea';
+export { Code } from './Code';

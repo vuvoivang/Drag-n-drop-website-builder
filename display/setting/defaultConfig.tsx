@@ -205,6 +205,41 @@ export const DEFAULT_SECTIONS = {
     props: ['background', 'color', 'buttonStyle'],
     items: ['background', 'color', 'buttonStyle'],
   },
+  map: {
+    title: 'Config',
+    props: ['zoom', 'lng', 'lat', 'googleMapKey'],
+    summary: ({ zoom, lng, lat }: any) => {
+      return `Zoom ${zoom || ''}, ${lng || ''}, ${lat || ''}`;
+    },
+    items: ['zoom', 'longitude', 'latitude', 'googleMapKey'],
+  },
+  textareaColors: {
+    title: 'Colors',
+    props: ['background', 'color', 'borderColor'],
+    summary: ({ background, color, borderColor }: any) => {
+      return (
+        <div className='flex flex-row-reverse'>
+          <div
+            style={{
+              color: color && `rgba(${Object.values(color)})`,
+              background: background && `rgba(${Object.values(background)})`,
+              borderColor: borderColor && `rgba(${Object.values(borderColor)})`,
+              borderWidth: '1px',
+              borderStyle: 'solid',
+            }}
+            className='text-white w-full text-center'
+          >
+            T
+          </div>
+        </div>
+      );
+    },
+    items: ['background', 'color', 'borderColor', 'borderColorFocus'],
+  },
+  textareaOptions: {
+    title: 'Options',
+    items: ['textareaOptions'],
+  },
 };
 
 export const DEFAULT_PROP_KEYS = {
@@ -646,6 +681,21 @@ export const DEFAULT_PROP_KEYS = {
       },
     ],
   },
+  textareaOptions: {
+    propKey: 'textareaOptions',
+    type: ['checkbox'],
+    label: 'Other options',
+    checkboxChildren: [
+      {
+        value: 'required',
+        label: 'Require field',
+      },
+      {
+        value: 'readonly',
+        label: 'Read only',
+      },
+    ],
+  },
   src: {
     propKey: 'src',
     type: ['imageUpload', 'text'],
@@ -732,6 +782,30 @@ export const DEFAULT_PROP_KEYS = {
         value: 'sup',
         label: 'Superscript text',
       },
+      {
+        value: 'blockquote',
+        label: 'Quote',
+      },
     ],
+  },
+  googleMapKey: {
+    propKey: 'googleMapKey',
+    type: ['text'],
+    label: 'Google Map key',
+  },
+  zoom: {
+    propKey: 'zoom',
+    type: ['slider', 'text'],
+    label: 'Zoom value',
+  },
+  longitude: {
+    propKey: 'lng',
+    type: ['slider', 'text'],
+    label: 'Longitude',
+  },
+  latitude: {
+    propKey: 'lat',
+    type: ['slider', 'text'],
+    label: 'Latitude',
   },
 };

@@ -13,6 +13,9 @@ import FooterSvg from '../../public/icons/toolbox/footer.svg';
 import BannerSvg from '../../public/icons/toolbox/banner.svg';
 import ProductSvg from '../../public/icons/toolbox/product.svg';
 import ContentSvg from '../../public/icons/toolbox/content.svg';
+import MapSvg from '../../public/icons/toolbox/map.svg';
+import TextareaSvg from '../../public/icons/toolbox/text-area.svg';
+import CodeSvg from '../../public/icons/toolbox/code.svg';
 
 import {
   CraftButton,
@@ -22,9 +25,12 @@ import {
   CraftInput,
   CraftImage,
   CraftAnchor,
+  CraftMap,
+  CraftTextarea,
+  CraftCode,
 } from 'display/selectors';
 
-import { Container, Button, Text, Image, Video, Input, Anchor } from 'display/raw-components';
+import { Container, Button, Text, Image, Video, Input, Anchor, Textarea, Code } from 'display/raw-components';
 import { ConfigVariant } from './renderVariant';
 import { Element } from '@libs/nodes';
 import { IntroductionTemplateConfig, MenuTemplateConfig } from 'display/template';
@@ -33,6 +39,7 @@ import { FooterTemplateConfig } from 'display/template/Footer';
 import { BannerTemplateConfig } from 'display/template/Banner';
 import { ProductTemplateConfig } from 'display/template/Product';
 import { ContentTemplateConfig } from 'display/template/Content';
+import { Map } from 'display/raw-components/Map';
 
 export const DEFAULT_VARIANTS: ConfigVariant = [
   {
@@ -44,7 +51,7 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
         subItems: [
           {
             isSubmenu: true,
-            label: 'Text',
+            label: 'Status Text',
             subItems: [
               {
                 isSubmenu: false,
@@ -348,6 +355,86 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
                   text: "I'm a paragraph. Click here to add your own text and edit me. It's easy.",
                 },
               },
+            ],
+          },
+          {
+            isSubmenu: true,
+            label: 'Blockquote',
+            subItems: [
+              {
+                isSubmenu: false,
+                CraftElement: CraftText,
+                ViewElement: Text,
+                overwritePropsCraft: {
+                  fontSize: '14',
+                  tagName: 'blockquote',
+                  text: "I'm a blockquote. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                  fontStyle: 'italic',
+                },
+                overwritePropsView: {
+                  fontSize: '14',
+                  tagName: 'blockquote',
+                  text: "I'm a blockquote. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                  fontStyle: 'italic',
+                },
+              },
+
+            ],
+          },
+          {
+            isSubmenu: true,
+            label: 'Subscript',
+            subItems: [
+              {
+                isSubmenu: false,
+                CraftElement: CraftText,
+                ViewElement: Text,
+                overwritePropsCraft: {
+                  fontSize: '12',
+                  tagName: 'sub',
+                  text: "I'm a subscript. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                },
+                overwritePropsView: {
+                  fontSize: '12',
+                  tagName: 'sub',
+                  text: "I'm a subscript. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                },
+              },
+
+            ],
+          },
+          {
+            isSubmenu: true,
+            label: 'Superscript',
+            subItems: [
+              {
+                isSubmenu: false,
+                CraftElement: CraftText,
+                ViewElement: Text,
+                overwritePropsCraft: {
+                  fontSize: '12',
+                  tagName: 'sup',
+                  text: "I'm a superscript. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                },
+                overwritePropsView: {
+                  fontSize: '12',
+                  tagName: 'sup',
+                  text: "I'm a superscript. Click here to add your own text and edit me. It's easy.",
+                  fontWeight: '400',
+                  color: { r: '119', g: '119', b: '119', a: '1' },
+                },
+              },
+
             ],
           },
         ],
@@ -1399,6 +1486,162 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             },
           },
         ],
+      },
+      {
+        label: 'Map',
+        Icon: MapSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '800px',
+              height: '400px',
+            },
+            overwritePropsView: {
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '800px',
+              height: '400px',
+              zoom: 8,
+            },
+            overwritePropsView: {
+              zoom: 8,
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '200px',
+              height: '400px',
+              zoom: 8,
+            },
+            overwritePropsView: {
+              zoom: 8,
+              width: '200px',
+              height: '400px',
+            },
+          },
+          {
+            isSubmenu: false,
+            CraftElement: CraftMap,
+            ViewElement: Map,
+            overwritePropsCraft: {
+              width: '200px',
+              height: '400px',
+            },
+            overwritePropsView: {
+              width: '200px',
+              height: '400px',
+            },
+          },
+        ],
+      },
+      {
+        label: 'Textarea',
+        Icon: TextareaSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftTextarea,
+            ViewElement: Textarea,
+            overwritePropsCraft: {
+              height: '48px',
+              width: 'auto',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+              placeholder: 'text value',
+            },
+            overwritePropsView: {
+              height: '48px',
+              width: 'auto',
+              inputOptions: { readonly: true },
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+              placeholder: 'text value',
+            },
+          },
+        ]
+      },
+      {
+        label: 'Code',
+        Icon: CodeSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftCode,
+            ViewElement: Code,
+            overwritePropsCraft: {
+              height: '48px',
+              width: 'auto',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+              placeholder: 'text value',
+              text:
+              `<!DOCTYPE html>
+              <html>
+                <body>
+            
+                  <h2>JavaScript Number</h2>
+            
+                  <p>The toFixed()</p>
+                  <p>For working with money.</p>
+            
+                  <p id="demo"></p>
+            
+                  <script>
+                    let x = 9.656;
+                    document.innerHTML =
+                      x.toFixed(0) + "<br>" +
+                      x.toFixed(2) + "<br>" +
+                      x.toFixed(4) + "<br>" +
+                      x.toFixed(6);
+                  </script>
+            
+                </body>
+              </html>`
+            },
+            overwritePropsView: {
+              height: '48px',
+              width: 'auto',
+              inputOptions: { readonly: true },
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+              placeholder: 'text value',
+              text:
+                `<!DOCTYPE html>
+  <html>
+    <body>
+
+      <h2>JavaScript Number</h2>
+
+      <p>The toFixed()</p>
+      <p>For working with money.</p>
+
+      <p id="demo"></p>
+
+      <script>
+        let x = 9.656;
+        document.innerHTML =
+          x.toFixed(0) + "<br>" +
+          x.toFixed(2) + "<br>" +
+          x.toFixed(4) + "<br>" +
+          x.toFixed(6);
+      </script>
+
+    </body>
+  </html>`
+            },
+          },
+        ]
       },
     ],
     Icon: ElementSvg,

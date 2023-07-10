@@ -21,6 +21,7 @@
     "copy-to-clipboard": "^3.3.3",
     "cssnano": "4.1.10",
     "debounce": "1.2.0",
+    "google-map-react": "^2.2.1",
     "lzutf8": "0.5.5",
     "material-ui-search-bar": "^1.0.0",
     "next": "12",
