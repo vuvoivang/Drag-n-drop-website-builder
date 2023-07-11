@@ -1,0 +1,3 @@
+[submodule "display/raw-components"]
+	path = display/raw-components
+	url = https://github.com/vuvoivang/my-components.git
