@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Resizer } from '../Resizer';
-import { ContainerProps } from '../../raw-components/Container/props';
+import { ContainerProps } from 'display/raw-components/Container/props';
 import cx from 'classnames';
 
-import { defaultProps } from '../../raw-components/Container/props';
+import { defaultProps } from 'display/raw-components/Container/props';
 import { ContainerSettings } from './setting';
 import { UserComponent } from '@libs/interfaces';
 import { useNode } from '@libs/hooks';

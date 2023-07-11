@@ -1,6 +1,6 @@
 import { defaultProps, ImageProps } from 'display/raw-components/Image/props';
 import React from 'react';
-import { StyledImage } from '../../raw-components/Image/styled';
+import { StyledImage } from 'display/raw-components/Image/styled';
 import { Resizer } from '../Resizer';
 import cx from 'classnames';
 

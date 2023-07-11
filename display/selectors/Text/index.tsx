@@ -1,7 +1,7 @@
 import { useNode, useEditor, UserComponent } from 'libs/core/src';
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
-import { TextProps } from '../../raw-components/Text/props';
+import { TextProps } from 'display/raw-components/Text/props';
 import cx from 'classnames';
 import { TextSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Text/props';

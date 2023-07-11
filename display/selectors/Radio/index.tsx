@@ -2,9 +2,9 @@ import { UserComponent, useEditor, useNode } from 'libs/core/src';
 import cx from 'classnames';
 import React from 'react';
 
-import { StyledRadio } from '../../raw-components/Radio/styled';
+import { StyledRadio } from 'display/raw-components/Radio/styled';
 
-import { RadioProps } from '../../raw-components/Radio/props';
+import { RadioProps } from 'display/raw-components/Radio/props';
 import { RadioSetting } from './setting';
 import { defaultProps } from 'display/raw-components/Radio/props';
 import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';

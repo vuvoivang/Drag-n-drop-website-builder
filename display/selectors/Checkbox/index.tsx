@@ -2,9 +2,9 @@ import { UserComponent, useEditor, useNode } from 'libs/core/src';
 import cx from 'classnames';
 import React from 'react';
 
-import { StyledCheckbox } from '../../raw-components/Checkbox/styled';
+import { StyledCheckbox } from 'display/raw-components/Checkbox/styled';
 
-import { CheckboxProps } from '../../raw-components/Checkbox/props';
+import { CheckboxProps } from 'display/raw-components/Checkbox/props';
 import { CheckboxSetting } from './setting';
 import { defaultProps } from 'display/raw-components/Checkbox/props';
 import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';

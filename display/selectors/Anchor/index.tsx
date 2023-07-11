@@ -1,8 +1,8 @@
 import { useEditor, useNode } from '@libs/hooks';
 import { UserComponent } from '@libs/interfaces';
 import React from 'react';
-import { AnchorProps } from '../../raw-components/Anchor/props';
-import { defaultProps } from '../../raw-components/Anchor/props';
+import { AnchorProps } from 'display/raw-components/Anchor/props';
+import { defaultProps } from 'display/raw-components/Anchor/props';
 import cx from 'classnames';
 import { CraftText } from '../Text';
 import { AnchorEvents } from './event';

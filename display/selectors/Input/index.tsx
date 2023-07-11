@@ -2,9 +2,9 @@ import { UserComponent, useNode } from 'libs/core/src';
 import cx from 'classnames';
 import React from 'react';
 
-import { StyledInput } from '../../raw-components/Input/styled';
+import { StyledInput } from 'display/raw-components/Input/styled';
 
-import { InputProps } from '../../raw-components/Input/props';
+import { InputProps } from 'display/raw-components/Input/props';
 import { InputSetting } from './setting';
 import { defaultProps } from 'display/raw-components/Input/props';
 import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';

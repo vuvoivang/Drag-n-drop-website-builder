@@ -2,9 +2,9 @@ import { UserComponent, useNode } from 'libs/core/src';
 import cx from 'classnames';
 import React from 'react';
 
-import { StyledTextarea } from '../../raw-components/Textarea/styled';
+import { StyledTextarea } from 'display/raw-components/Textarea/styled';
 
-import { TextareaProps } from '../../raw-components/Textarea/props';
+import { TextareaProps } from 'display/raw-components/Textarea/props';
 import { TextareaSetting } from './setting';
 import { defaultProps } from 'display/raw-components/Textarea/props';
 import { useGetValuesFromReferencedProps } from 'hooks/useGetValuesFromReferencedProps';

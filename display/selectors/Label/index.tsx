@@ -1,7 +1,7 @@
 import { useNode, useEditor, UserComponent } from 'libs/core/src';
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
-import { LabelProps } from '../../raw-components/Label/props';
+import { LabelProps } from 'display/raw-components/Label/props';
 import cx from 'classnames';
 import { LabelSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Label/props';

@@ -1,6 +1,6 @@
 import { useNode, useEditor, UserComponent } from 'libs/core/src';
 import React from 'react';
-import { CodeProps } from '../../raw-components/Code/props';
+import { CodeProps } from 'display/raw-components/Code/props';
 import cx from 'classnames';
 import { CodeSettings } from './setting';
 import { defaultProps } from 'display/raw-components/Code/props';

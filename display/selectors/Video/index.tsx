@@ -1,7 +1,7 @@
 import { useNode, useEditor, UserComponent } from 'libs/core/src';
 import React from 'react';
 import YouTube from 'react-youtube';
-import { YoutubeDiv } from '../../raw-components/Video/styled';
+import { YoutubeDiv } from 'display/raw-components/Video/styled';
 
 import { VideoSettings } from './setting';
 import { defaultProps, VideoProps } from 'display/raw-components/Video/props';
