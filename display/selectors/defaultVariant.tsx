@@ -16,6 +16,9 @@ import ContentSvg from '../../public/icons/toolbox/content.svg';
 import MapSvg from '../../public/icons/toolbox/map.svg';
 import TextareaSvg from '../../public/icons/toolbox/text-area.svg';
 import CodeSvg from '../../public/icons/toolbox/code.svg';
+import LabelSvg from '../../public/icons/toolbox/label.svg';
+import CheckboxSvg from '../../public/icons/toolbox/checkbox.svg';
+import RadioSvg from '../../public/icons/toolbox/radio.svg';
 
 import {
   CraftButton,
@@ -28,9 +31,14 @@ import {
   CraftMap,
   CraftTextarea,
   CraftCode,
+  CraftLabel,
+  CraftCheckbox,
+  CraftRadio,
 } from 'display/selectors';
 
-import { Container, Button, Text, Image, Video, Input, Anchor, Textarea, Code } from 'display/raw-components';
+import {
+  Container, Button, Text, Image, Video, Input, Anchor, Textarea, Code, Label, Checkbox, Radio, Map,
+} from 'display/raw-components';
 import { ConfigVariant } from './renderVariant';
 import { Element } from '@libs/nodes';
 import { IntroductionTemplateConfig, MenuTemplateConfig } from 'display/template';
@@ -39,7 +47,6 @@ import { FooterTemplateConfig } from 'display/template/Footer';
 import { BannerTemplateConfig } from 'display/template/Banner';
 import { ProductTemplateConfig } from 'display/template/Product';
 import { ContentTemplateConfig } from 'display/template/Content';
-import { Map } from 'display/raw-components/Map';
 
 export const DEFAULT_VARIANTS: ConfigVariant = [
   {
@@ -1642,6 +1649,69 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
             },
           },
         ]
+      },
+      {
+        label: 'Label',
+        Icon: LabelSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftLabel,
+            ViewElement: Label,
+            overwritePropsCraft: {
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+            overwritePropsView: {
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+          },
+        ]
+      },
+      {
+        label: 'Checkbox',
+        Icon: CheckboxSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftCheckbox,
+            ViewElement: Checkbox,
+            overwritePropsCraft: {
+              height: '30px',
+              width: '30px',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+            overwritePropsView: {
+              height: '30px',
+              width: '30px',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+          },
+        ],
+      },
+      {
+        label: 'Radio',
+        Icon: RadioSvg,
+        subItems: [
+          {
+            isSubmenu: false,
+            CraftElement: CraftRadio,
+            ViewElement: Radio,
+            overwritePropsCraft: {
+              height: '30px',
+              width: '30px',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+            overwritePropsView: {
+              height: '30px',
+              width: '30px',
+              fontWeight: '400',
+              borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
+            },
+          },
+        ],
       },
     ],
     Icon: ElementSvg,

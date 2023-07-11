@@ -1,23 +1,24 @@
 import { DEFAULT_PROP_KEYS, DEFAULT_SECTIONS } from './defaultConfig';
 import { ConfigSetting } from './RenderSetting';
 
-const generateDefaultItems = (defaultItems) => {
+const generateDefaultItems = (defaultItems, contextDataForItems) => {
   return defaultItems.map((item) => {
+    const contextDataThisItem = contextDataForItems[item] || {};
     if (typeof item === 'string') {
-      return DEFAULT_PROP_KEYS[item];
+      return { ...DEFAULT_PROP_KEYS[item], ...contextDataThisItem };
     } else if (typeof item === 'object') {
       const { propKey, index } = item;
-      return DEFAULT_PROP_KEYS[propKey][index];
+      return { ...DEFAULT_PROP_KEYS[propKey][index], ...contextDataThisItem };
     }
   });
 };
 
-export const generateConfigSections = (configSetting: ConfigSetting) => {
+export const generateConfigSections = (configSetting: ConfigSetting, contextDataForItems: any) => {
   const { sections } = configSetting;
   const generatedSections = sections.map((section) => {
     if (typeof section === 'string') {
       const { items: defaultItems } = DEFAULT_SECTIONS[section];
-      const generatedDefaultItems = generateDefaultItems(defaultItems);
+      const generatedDefaultItems = generateDefaultItems(defaultItems, contextDataForItems);
       return {
         ...DEFAULT_SECTIONS[section],
         items: generatedDefaultItems,
@@ -28,7 +29,7 @@ export const generateConfigSections = (configSetting: ConfigSetting) => {
         const { items: defaultItems, ...otherDefaultSectionProps } = DEFAULT_SECTIONS[sectionName];
 
         // get the default items from the default config
-        const generatedDefaultItems = generateDefaultItems(defaultItems);
+        const generatedDefaultItems = generateDefaultItems(defaultItems, contextDataForItems);
         let finalItems = [];
         if (!items || items.length === 0) {
           // no new items from config, use default

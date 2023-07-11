@@ -178,6 +178,14 @@ export const DEFAULT_SECTIONS = {
     title: 'Options',
     items: ['inputOptions'],
   },
+  inputName: {
+    title: 'Name',
+    items: ['name'],
+  },
+  for: {
+    title: 'For',
+    items: ['for'],
+  },
   radius: {
     title: 'Decoration',
     props: ['radius'],
@@ -807,5 +815,15 @@ export const DEFAULT_PROP_KEYS = {
     propKey: 'lat',
     type: ['slider', 'text'],
     label: 'Latitude',
+  },
+  name: {
+    propKey: 'name',
+    type: ['text'],
+    label: 'Name',
+  },
+  for: {
+    propKey: 'for',
+    type: ['select'],
+    label: 'For',
   },
 };

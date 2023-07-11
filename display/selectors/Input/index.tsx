@@ -20,6 +20,7 @@ export const craftConfig = {
 
 export const CraftInput: UserComponent<WithThemeAndDatabase<InputProps>> = (props: WithThemeAndDatabase<InputProps>) => {
   const {
+    id,
     connectors: { connect },
   } = useNode((node) => ({
     selected: node.events.selected,
@@ -43,6 +44,7 @@ export const CraftInput: UserComponent<WithThemeAndDatabase<InputProps>> = (prop
       required={required}
       placeholder={placeholder}
       readOnly={readonly}
+      id={id}
       {...otherProps}
     />
   );

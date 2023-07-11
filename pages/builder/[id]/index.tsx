@@ -19,6 +19,9 @@ import {
   CraftMap,
   CraftTextarea,
   CraftCode,
+  CraftLabel,
+  CraftCheckbox,
+  CraftRadio,
 } from 'display/selectors';
 import userService, { PROJECT } from 'services/user';
 import { useRouter } from 'next/router';
@@ -64,6 +67,9 @@ function Builder() {
               CraftMap,
               CraftTextarea,
               CraftCode,
+              CraftLabel,
+              CraftCheckbox,
+              CraftRadio,
             }}
             enabled={false}
             onRender={RenderNode}

@@ -9,3 +9,6 @@ export { CraftAnchor } from './Anchor';
 export { CraftMap } from './Map';
 export { CraftTextarea } from './Textarea';
 export { CraftCode } from './Code';
+export { CraftLabel } from './Label';
+export { CraftCheckbox } from './Checkbox';
+export { CraftRadio } from './Radio';
