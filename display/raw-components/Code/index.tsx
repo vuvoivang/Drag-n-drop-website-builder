@@ -19,7 +19,7 @@ export const Code = ({
   return (
     <pre className='d-block'>
       <code
-        className={cx([className, 'text', styledClassNamesValues])}
+        className={cx([className, 'block', styledClassNamesValues])}
         style={{
           width: '100%',
           margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,

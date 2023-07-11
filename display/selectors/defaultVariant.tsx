@@ -1586,28 +1586,28 @@ export const DEFAULT_VARIANTS: ConfigVariant = [
               borderColorFocus: { r: '3', g: '123', b: '255', a: '1' },
               placeholder: 'text value',
               text:
-              `<!DOCTYPE html>
-              <html>
-                <body>
-            
-                  <h2>JavaScript Number</h2>
-            
-                  <p>The toFixed()</p>
-                  <p>For working with money.</p>
-            
-                  <p id="demo"></p>
-            
-                  <script>
-                    let x = 9.656;
-                    document.innerHTML =
-                      x.toFixed(0) + "<br>" +
-                      x.toFixed(2) + "<br>" +
-                      x.toFixed(4) + "<br>" +
-                      x.toFixed(6);
-                  </script>
-            
-                </body>
-              </html>`
+                `<!DOCTYPE html>
+<html>
+  <body>
+
+    <h2>JavaScript Number</h2>
+
+    <p>The toFixed()</p>
+    <p>For working with money.</p>
+
+    <p id="demo"></p>
+
+    <script>
+      let x = 9.656;
+      document.innerHTML =
+        x.toFixed(0) + "<br>" +
+        x.toFixed(2) + "<br>" +
+        x.toFixed(4) + "<br>" +
+        x.toFixed(6);
+    </script>
+
+  </body>
+</html>`
             },
             overwritePropsView: {
               height: '48px',

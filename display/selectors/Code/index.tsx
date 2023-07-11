@@ -52,7 +52,7 @@ export const CraftCode: UserComponent<CodeProps> = (props: Partial<CodeProps>) =
             }
           }, 500);
         }}
-        className={cx(styledClassNamesValues, isDeprecatedTextDynamicData && 'blink_item')}
+        className={cx(styledClassNamesValues, isDeprecatedTextDynamicData && 'blink_item', 'block')}
         style={{
           width: '100%',
           margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
