@@ -4,11 +4,13 @@ import { capitalize, weightDescription } from 'display/utils/text';
 export const DEFAULT_SECTIONS = {
   typography: {
     title: 'Typography',
-    props: ['fontSize', 'fontWeight', 'textAlign', 'tagName'],
-    summary: ({ fontSize, fontWeight, textAlign, tagName }: any) => {
-      return `${tagName || ''}, ${fontSize || ''}, ${weightDescription(fontWeight)}, ${capitalize(textAlign)}`;
+    props: ['fontFamily', 'fontSize', 'fontWeight', 'textAlign', 'tagName'],
+    summary: ({ fontFamily, fontSize, fontWeight, textAlign, tagName }: any) => {
+      return `${tagName || ''}, ${fontFamily || ''}, ${fontSize || ''}, ${weightDescription(fontWeight)}, ${capitalize(
+        textAlign
+      )}`;
     },
-    items: ['tagName', 'fontSize', 'textAlign', 'fontWeight'],
+    items: ['tagName', 'fontFamily', 'fontSize', 'textAlign', 'fontWeight'],
   },
   margin: {
     title: 'Margin',
@@ -243,9 +245,69 @@ export const DEFAULT_SECTIONS = {
 };
 
 export const DEFAULT_PROP_KEYS = {
+  fontFamily: {
+    propKey: 'fontFamily',
+    type: ['select'],
+    label: 'Font Family',
+    full: true,
+    selectchildren: [
+      {
+        value: 'Arial',
+        label: 'Arial',
+      },
+      {
+        value: 'Times New Roman',
+        label: 'Times New Roman',
+      },
+      {
+        value: 'Helvetica',
+        label: 'Helvetica',
+      },
+      {
+        value: 'Georgia',
+        label: 'Georgia',
+      },
+      {
+        value: 'Courier New',
+        label: 'Courier New',
+      },
+      {
+        value: 'Calibri',
+        label: 'Calibri',
+      },
+      {
+        value: 'Verdana',
+        label: 'Verdana',
+      },
+      {
+        value: 'Tahoma',
+        label: 'Tahoma',
+      },
+      {
+        value: 'Roboto',
+        label: 'Roboto',
+      },
+      {
+        value: 'Open Sans',
+        label: 'Open Sans',
+      },
+      {
+        value: 'Palatino',
+        label: 'Palatino',
+      },
+      {
+        value: 'Garamond',
+        label: 'Garamond',
+      },
+      {
+        value: 'Comic Sans MS',
+        label: 'Comic Sans MS',
+      },
+    ],
+  },
   fontSize: {
     propKey: 'fontSize',
-    type: ['slider', 'text', 'select'],
+    type: ['slider', 'select'],
     label: 'Font Size',
     full: true,
     selectchildren: [
@@ -478,7 +540,6 @@ export const DEFAULT_PROP_KEYS = {
         },
       ],
       themeTypes: [THEME_TYPE_VALUE.NUMBER],
-
     },
   ],
   buttonStyle: {
@@ -613,14 +674,12 @@ export const DEFAULT_PROP_KEYS = {
     type: 'color',
     label: 'Border',
     themeTypes: [THEME_TYPE_VALUE.COLOR],
-
   },
   borderColorFocus: {
     propKey: 'borderColorFocus',
     type: 'color',
     label: 'Border focus',
     themeTypes: [THEME_TYPE_VALUE.COLOR],
-
   },
   type: {
     propKey: 'type',
@@ -735,7 +794,7 @@ export const DEFAULT_PROP_KEYS = {
   },
   tagName: {
     propKey: 'tagName',
-    type: ['text', 'select'],
+    type: ['select'],
     label: 'Tag name',
     selectchildren: [
       {

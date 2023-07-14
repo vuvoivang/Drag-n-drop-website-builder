@@ -5,7 +5,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import { withStyles } from '@material-ui/core/styles';
 import React, { useEffect, useRef, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
-
+import styled from 'styled-components';
 import { ToolbarDropdown } from '../ToolbarDropdown';
 import { ToolbarTextInput } from '../ToolbarTextInput';
 import { ToolbarRadio } from '../ToolbarRadio';
@@ -28,12 +28,18 @@ function usePrevious(value) {
   }, [value]); //this code will run when the value of 'value' changes
   return ref.current; //in the end, return the current ref value.
 }
+const CombinedContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`;
 const SliderStyled = withStyles({
   root: {
     color: _var.secondaryColor,
     height: 2,
     padding: '5px 0',
-    width: '100%',
+    width: '60%',
   },
   thumb: {
     height: 14,
@@ -139,7 +145,10 @@ export const ToolbarPropItem = ({
     }
     return setProp(callbackSetProps, timeout);
   };
-  const { theme, actions: { setTheme, removeReferencedPropKeyOfNodeFromTheme } } = useEditor((_, query) => ({ theme: query.getTheme() }));
+  const {
+    theme,
+    actions: { setTheme, removeReferencedPropKeyOfNodeFromTheme },
+  } = useEditor((_, query) => ({ theme: query.getTheme() }));
   const {
     id: nodeId,
     actions: { setProp },
@@ -156,14 +165,16 @@ export const ToolbarPropItem = ({
   const listType = Array.isArray(inputType) ? inputType : [inputType];
   const listStyledCustomOptions = Array.isArray(styledCustomOptions) ? styledCustomOptions : [styledCustomOptions];
   const arrThemeTypes = Array.isArray(themeTypes) ? themeTypes : [themeTypes];
-  const listThemeOptions = Object.entries(theme).filter(([_, valueTheme]) => arrThemeTypes.includes(valueTheme.type)).map(([id, { key }]) => ({
-    value: {
-      type: 'theme',
-      // key,
-      id: Number(id),
-    },
-    label: camelToTitle(key),
-  }));
+  const listThemeOptions = Object.entries(theme)
+    .filter(([_, valueTheme]) => arrThemeTypes.includes(valueTheme.type))
+    .map(([id, { key }]) => ({
+      value: {
+        type: 'theme',
+        // key,
+        id: Number(id),
+      },
+      label: camelToTitle(key),
+    }));
   const [customStyle, setCustomStyle] = useState<string>(CUSTOM_STYLE.DEFAULT);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const isDisabledDefault = customStyle !== CUSTOM_STYLE.DEFAULT;
@@ -179,7 +190,6 @@ export const ToolbarPropItem = ({
     if (customStyle === CUSTOM_STYLE.DEFAULT || customStyle === CUSTOM_STYLE.THEME) {
       // clear class value
       handleSetPropClassName('');
-
     } else if (customStyle === CUSTOM_STYLE.STYLED_SUGGESTION) {
       // keep state default to switch again
       // and set default value for styled class
@@ -188,7 +198,9 @@ export const ToolbarPropItem = ({
   }, [customStyle]);
 
   useEffect(() => {
-    setCustomStyle(styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : value?.type ? CUSTOM_STYLE.THEME : CUSTOM_STYLE.DEFAULT)
+    setCustomStyle(
+      styledClassNameValue ? CUSTOM_STYLE.STYLED_SUGGESTION : value?.type ? CUSTOM_STYLE.THEME : CUSTOM_STYLE.DEFAULT
+    );
   }, [styledClassNameValue]);
 
   const handleSetPropClassName = (className: string) => {
@@ -241,7 +253,7 @@ export const ToolbarPropItem = ({
     const curPropKey = nestedPropKey ? `${propKey}${nestedPropKey}` : propKey;
     const refPropKey = Array.isArray(propValue) ? `${curPropKey}${index}` : curPropKey;
     return refPropKey;
-  }
+  };
   const handleSetPropTheme = (value) => {
     const { type, id } = JSON.parse(value);
     handleSetPropValue({ type, id }, 'select');
@@ -254,7 +266,7 @@ export const ToolbarPropItem = ({
       newTheme[id].refNodes = { ...newTheme[id].refNodes, [nodeId]: [refPropKey] };
     } else newTheme[id].refNodes[nodeId] = new Set([...currentRefNodesInTheme, refPropKey]);
     setTheme(newTheme);
-  }
+  };
 
   const handleRenderInputSetting = (type) => {
     const normalizedValue = value?.type === 'theme' ? theme[value.id].value : value;
@@ -264,6 +276,7 @@ export const ToolbarPropItem = ({
           <ToolbarTextInput
             {...props}
             type={type}
+            width={'100%'}
             value={normalizedValue}
             disabled={isDisabledDefault}
             onChange={(value) => {
@@ -271,7 +284,7 @@ export const ToolbarPropItem = ({
             }}
           />
         ) : type === 'slider' ? (
-          <>
+          <CombinedContainer>
             <SliderStyled
               disabled={isDisabledDefault}
               value={parseInt(normalizedValue) || 0}
@@ -281,7 +294,17 @@ export const ToolbarPropItem = ({
                 }) as any
               }
             />
-          </>
+            <ToolbarTextInput
+              {...props}
+              type={type}
+              width={'60px'}
+              value={normalizedValue + 'px'}
+              disabled={isDisabledDefault}
+              onChange={(value) => {
+                handleSetPropValue(value, type);
+              }}
+            />
+          </CombinedContainer>
         ) : type === 'radio' ? (
           <>
             <RadioGroup
@@ -356,7 +379,6 @@ export const ToolbarPropItem = ({
                     handleSetPropValue(res?.url, type);
                   }
                 });
-
               } catch (err) {
                 console.log('Err upload image', err);
               }
@@ -492,7 +514,12 @@ export const ToolbarPropItem = ({
                       {...props}
                     >
                       {listThemeOptions?.map((option) => (
-                        <MenuItem key={option.value?.id} value={JSON.stringify(option.value)} disabled={isDisabledTheme} classes={menuItemClasses}>
+                        <MenuItem
+                          key={option.value?.id}
+                          value={JSON.stringify(option.value)}
+                          disabled={isDisabledTheme}
+                          classes={menuItemClasses}
+                        >
                           {option.label}
                         </MenuItem>
                       ))}

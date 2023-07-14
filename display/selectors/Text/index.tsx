@@ -18,6 +18,7 @@ export const craftConfig = {
 export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) => {
   const {
     fontSize,
+    fontFamily,
     textAlign,
     fontWeight,
     fontStyle,
@@ -29,7 +30,7 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
     tagName,
     nestedPropKey = '',
   } = useGetValuesFromReferencedProps(props);
-  
+
   const {
     connectors: { connect },
     setProp,
@@ -38,14 +39,14 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
     enabled: state.options.enabled,
   }));
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
-  const isDeprecatedTextDynamicData = props.text?.type === "dynamic-data" && text === REMOVED_DYNAMIC_DATA_TEXT_INFORM;
+  const isDeprecatedTextDynamicData = props.text?.type === 'dynamic-data' && text === REMOVED_DYNAMIC_DATA_TEXT_INFORM;
   return (
     <ContentEditable
       innerRef={connect}
       html={text} // innerHTML of the editable div
       disabled={!enabled}
       onChange={(e) => {
-        if(e.target.value === text) return;
+        if (e.target.value === text) return;
         setProp((prop) => {
           if (nestedPropKey) {
             prop[nestedPropKey].text = e.target.value;
@@ -65,6 +66,7 @@ export const CraftText: UserComponent<TextProps> = (props: Partial<TextProps>) =
         fontWeight,
         textAlign,
         fontStyle,
+        fontFamily,
       }}
     />
   );

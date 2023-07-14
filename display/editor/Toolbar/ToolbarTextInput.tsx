@@ -12,15 +12,16 @@ const useStyles = makeStyles({
     borderRadius: '100px',
     border: 'none',
     margin: 0,
-    marginTop: 7,
+    // marginTop: 7,
     position: 'relative',
   },
   input: {
     background: _var.primaryLightColor,
-    color: "#ffffff",
+    color: '#ffffff',
     borderRadius: '100px',
     fontSize: '12px',
-    paddingLeft: '28px',
+    paddingLeft: '16px',
+    paddingRight: '8px',
     paddingBottom: '8px',
     paddingTop: '8px',
     margin: 0,
@@ -50,6 +51,7 @@ export type ToolbarTextInputProps = {
   prefix?: string;
   label?: string;
   type: string;
+  width: string;
   disabled?: boolean;
   onChange?: (value: any) => void;
   value?: any;
@@ -61,6 +63,7 @@ export const ToolbarTextInput = ({
   type,
   disabled = false,
   label,
+  width,
   ...props
 }: ToolbarTextInputProps) => {
   const [internalValue, setInternalValue] = useState(value);
@@ -75,7 +78,7 @@ export const ToolbarTextInput = ({
 
   return (
     <div
-      style={{ width: '100%', position: 'relative' }}
+      style={{ width: width ? width : '100%' }}
       onClick={() => {
         if (disabled) return;
         setActive(true);
@@ -107,7 +110,7 @@ export const ToolbarTextInput = ({
         </div>
       ) : null}
       <TextField
-        style={{ margin: 0, width: '100%' }}
+        style={{ margin: 0 }}
         value={internalValue || ''}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {

@@ -21,7 +21,9 @@ export const craftConfig = {
   isResizable: true,
 };
 
-export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (props: WithThemeAndDatabase<ButtonProps>) => {
+export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (
+  props: WithThemeAndDatabase<ButtonProps>
+) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
