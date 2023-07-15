@@ -2,7 +2,7 @@ import { ConfigEvent, renderToolbarSection } from 'display/event/RenderEvent';
 import React from 'react';
 
 const configEvent: ConfigEvent = {
-  sections: ['scrollTo', 'navigate', 'clickTypeAnchor'],
+  sections: ['clickTypeAnchor', 'scrollTo', 'navigate'],
 };
 
 export const AnchorEvents = () => {

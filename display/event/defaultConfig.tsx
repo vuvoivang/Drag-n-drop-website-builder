@@ -24,7 +24,7 @@ export const DEFAULT_SECTIONS = {
   clickTypeAnchor: {
     title: 'Action when click anchor',
     events: ['clickType'],
-    items: ['clickType'],
+    items: ['clickTypeAnchor'],
   },
   showPopup: {
     title: 'Show or Hide pop up',
