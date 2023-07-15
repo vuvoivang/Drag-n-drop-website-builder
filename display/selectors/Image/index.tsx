@@ -20,11 +20,11 @@ export const craftConfig = {
 
 export const CraftImage: UserComponent<WithThemeAndDatabase<ImageProps>> = (props: WithThemeAndDatabase<ImageProps>) => {
   const { width, height, src, alt, className, ...otherProps } = useGetValuesFromReferencedProps(props);
-
+  const imgSrc = src.type === "dynamic-data" ? src.value : src;
   return (
     <StyledImage
       className={cx([className, 'image cursor-pointer'])}
-      src={src}
+      src={imgSrc}
       alt={alt}
       width={'100%'}
       height={'100%'}

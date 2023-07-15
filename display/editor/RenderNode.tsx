@@ -102,6 +102,7 @@ export const RenderNode = ({ render }) => {
     parent,
     actions: { setProp },
     propTextValue,
+    propSrcValue,
     isResizable,
     nodeProps,
   } = useNode((node) => ({
@@ -112,6 +113,7 @@ export const RenderNode = ({ render }) => {
     deletable: query.node(node.id).isDeletable(),
     parent: node.data.parent,
     propTextValue: node.data.props?.text,
+    propSrcValue: node.data.props?.src,
     isResizable: node.data.isResizable,
     nodeProps: node.data.props,
   }));
@@ -172,7 +174,10 @@ export const RenderNode = ({ render }) => {
   const handleConnectData = () => {
     handleCloseDialogConnectData();
     setProp((props) => {
-      props.text = {
+      let dynamicProp = "";
+      if(propTextValue) dynamicProp = "text";
+      if(propSrcValue) dynamicProp = "src";
+      props[dynamicProp] = {
         type: "dynamic-data",
         // value: selectedDocument.label,
         key: selectedDocument.key,
@@ -267,10 +272,10 @@ export const RenderNode = ({ render }) => {
                 <Delete />
               </Btn>
             ) : null}
-            {propTextValue !== undefined ? (
+            {(propTextValue !== undefined || propSrcValue !== undefined) ? (
               <Tooltip title='Connect Data'>
                 <Btn
-                  className={`link cursor-pointer ${propTextValue?.type === "dynamic-data" ? "connected" : ""}`}
+                  className={`link cursor-pointer ${propTextValue?.type === "dynamic-data" || propSrcValue?.type === "dynamic-data" ? "connected" : ""}`}
                   onMouseDown={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     setOpenDialogConnectData(true);
