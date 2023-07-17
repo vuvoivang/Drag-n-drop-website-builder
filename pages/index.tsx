@@ -44,7 +44,7 @@ export default function LandingPage() {
             <main className="grow">
 
                 <PageIllustration />
-                <Hero />
+                <Hero user={user}/>
                 <Features />
                 <Zigzag />
                 <Testimonials />
