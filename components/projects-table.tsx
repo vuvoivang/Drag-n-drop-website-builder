@@ -37,6 +37,9 @@ import {
 
 } from '@material-ui/core';
 import { useRouter } from "next/router";
+import DashboardEmptyImg from 'public/images/dashboard-empty.jpg';
+import Image from "next/image";
+
 interface TablePaginationActionsProps {
     count: number;
     page: number;
@@ -251,7 +254,7 @@ function formatDate(date) {
     return `${padL(dt.getDate())}/${padL(dt.getMonth() + 1)}/${dt.getFullYear()} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`;
 }
 
-export default function ProjectsTable({ projects }) {
+export default function ProjectsTable({ projects, handleClickOpenDialogNewProject }) {
     const [rows, setRows] = useState<PROJECT[]>(projects);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PROJECT>('name');
@@ -383,68 +386,74 @@ export default function ProjectsTable({ projects }) {
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length} />
-                        <TableBody>
-                            {(visibleRows).map((row) => (
-                                <TableRow key={row.id}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{MAPPING_PROJECT_TYPE_TO_STRING[row.type]}</TableCell>
-                                    <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.createdTime)}</TableCell>
-                                    <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.updatedTime)}</TableCell>
 
-                                    <TableCell align="right">
-                                        <Tooltip title='Continue Build' arrow>
+                        {rows.length > 0 ? <>
+                            <TableBody>
+                                {(visibleRows).map((row) => (
+                                    <TableRow key={row.id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{MAPPING_PROJECT_TYPE_TO_STRING[row.type]}</TableCell>
+                                        <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.createdTime)}</TableCell>
+                                        <TableCell align="right">{!Number.isNaN(Number(row.createdTime)) && formatDate(row.updatedTime)}</TableCell>
 
-                                            <IconButton onClick={() => onGoToBuildProject(row)}>
-                                                <CallMissedOutgoingIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                        {/* <Tooltip title='Edit' arrow >
+                                        <TableCell align="right">
+                                            <Tooltip title='Continue Build' arrow>
+
+                                                <IconButton onClick={() => onGoToBuildProject(row)}>
+                                                    <CallMissedOutgoingIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            {/* <Tooltip title='Edit' arrow >
                                             <IconButton onClick={() => onEditProject(row)}>
                                                 <ModeEditIcon />
                                             </IconButton>
                                         </Tooltip> */}
 
-                                        <Tooltip title='Delete' arrow>
+                                            <Tooltip title='Delete' arrow>
 
-                                            <IconButton onClick={() => onDeleteProject(row)}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                                <IconButton onClick={() => onDeleteProject(row)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
 
 
-                                    </TableCell>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 77 * emptyRows }}>
+                                        <TableCell colSpan={5} />
+                                    </TableRow>
+                                )}
+                            </TableBody>
+
+                            <TableFooter>
+                                <TableRow>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 20, { label: 'All', value: -1 }]}
+                                        colSpan={8}
+                                        count={rows.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        SelectProps={{
+                                            inputProps: {
+                                                'aria-label': 'rows per page',
+                                            },
+                                            native: true,
+                                        }}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                        ActionsComponent={TablePaginationActions}
+                                    />
                                 </TableRow>
-                            ))}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 77 * emptyRows }}>
-                                    <TableCell colSpan={5} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-
-                        <TableFooter>
-                            <TableRow>
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10, 20, { label: 'All', value: -1 }]}
-                                    colSpan={8}
-                                    count={rows.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    SelectProps={{
-                                        inputProps: {
-                                            'aria-label': 'rows per page',
-                                        },
-                                        native: true,
-                                    }}
-                                    onPageChange={handleChangePage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                    ActionsComponent={TablePaginationActions}
-                                />
-                            </TableRow>
-                        </TableFooter>
+                            </TableFooter></> : <TableBody><TableRow><TableCell colSpan={5}><div className="w-full mx-auto max-w-none flex flex-col justify-center items-center p-8 cell cell-full">
+                                <Image src={DashboardEmptyImg} width={320} height={210} alt="empty project" />
+                                <h4 className="my-4">No found project.</h4>
+                                <a className="btn text-white bg-rose-500 hover:bg-rose-600 w-full mb-4 sm:w-auto sm:mb-0 cursor-pointer" onClick={handleClickOpenDialogNewProject}>Get started</a>
+                            </div></TableCell></TableRow></TableBody>}
                     </Table>
                 </div>
             </Paper>
