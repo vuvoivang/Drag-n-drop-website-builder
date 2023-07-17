@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import HeroImage from 'public/images/Hero.png'
 
-export default function Hero() {
+export default function Hero({ user }) {
 
   const [videoModalOpen, setVideoModalOpen] = useState<boolean>(false)
 
@@ -34,7 +34,7 @@ export default function Hero() {
             <p className="text-xl text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="200">Effortlessly create your ideal website with Buildify's user-friendly platform</p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="/sign-in">Join now</a>
+                {user?.username ? <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="/dashboard">Build website</a> : <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="/sign-in">Join now</a>}
               </div>
             </div>
           </div>

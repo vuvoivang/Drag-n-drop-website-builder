@@ -100,7 +100,7 @@ export default function DashBoard() {
                     <Button className='btn btn-primary' variant="contained" style={{ color: _var.whiteColor, padding: '8px 16px', backgroundColor: _var.blueDarkColor, paddingLeft: 8 }} color='secondary' onClick={handleClickOpenDialogNewProject}><AddIcon /> <span style={{ marginLeft: 4, textTransform: "capitalize" }}>{' '} New project</span></Button>
                 </div>
                 <div className='mt-8'>
-                    {projects && <ProjectsTable projects={projects} />}
+                    {projects && <ProjectsTable projects={projects} handleClickOpenDialogNewProject={handleClickOpenDialogNewProject}/>}
                 </div>
             </div>
 
