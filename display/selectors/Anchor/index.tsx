@@ -21,7 +21,9 @@ export const craftConfig = {
   },
 };
 
-export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (props: WithThemeAndDatabase<AnchorProps>) => {
+export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (
+  props: WithThemeAndDatabase<AnchorProps>
+) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
@@ -31,13 +33,13 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (pr
   const { enabled: enabledEvent } = useEditor((state) => ({
     enabled: !state.options.enabled,
   }));
-
   const {
     text,
     textComponent,
     color,
     styledClassNames,
     fontSize,
+    fontFamily,
     fontWeight,
     textAlign,
     events,
@@ -64,7 +66,7 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (pr
     <StyledAnchor
       ref={connect}
       className={cx([
-        'rounded w-full px-4 py-2 mt-4',
+        'w-full px-4 py-2 mt-4',
         {
           'shadow-lg': props.anchorStyle === 'full',
         },
@@ -80,6 +82,7 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (pr
         color={color}
         fontSize={fontSize}
         fontWeight={fontWeight}
+        fontFamily={fontFamily}
         textAlign={textAlign}
         nestedPropKey={nestedPropKey}
       />

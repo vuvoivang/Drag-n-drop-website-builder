@@ -40,7 +40,10 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
     padding,
     margin,
     shadow,
-    radius,
+    borderRadius,
+    borderWidth,
+    borderStyle,
+    borderColor,
     styledClassNames,
   } = useGetValuesFromReferencedProps(props);
   const styledClassNamesValues = (Object.values(styledClassNames) as string[]).flat();
@@ -58,7 +61,10 @@ export const CraftContainer: UserComponent<WithThemeAndDatabase<ContainerProps>>
         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
         boxShadow: shadow === 0 ? 'none' : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
-        borderRadius: `${radius}px`,
+        borderWidth: `${borderWidth}px`,
+        borderStyle: `${borderStyle}`,
+        borderColor: `rgba(${Object.values(borderColor)})`,
+        borderRadius: `${borderRadius}px`,
         flex: fillSpace === 'yes' ? 1 : 'unset',
       }}
       id={id}

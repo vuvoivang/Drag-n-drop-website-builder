@@ -21,7 +21,9 @@ export const craftConfig = {
   isResizable: true,
 };
 
-export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (props: WithThemeAndDatabase<ButtonProps>) => {
+export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (
+  props: WithThemeAndDatabase<ButtonProps>
+) => {
   const {
     connectors: { connect },
   } = useNode((node) => ({
@@ -34,6 +36,7 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
     color,
     styledClassNames,
     fontSize,
+    fontFamily,
     fontWeight,
     textAlign,
     events,
@@ -55,7 +58,7 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
     <StyledButton
       ref={connect}
       className={cx([
-        'rounded w-full px-4 py-2',
+        'w-full',
         {
           'shadow-lg': props.buttonStyle === 'full',
         },
@@ -71,6 +74,7 @@ export const CraftButton: UserComponent<WithThemeAndDatabase<ButtonProps>> = (pr
         fontSize={fontSize}
         fontWeight={fontWeight}
         textAlign={textAlign}
+        fontFamily={fontFamily}
         nestedPropKey={nestedPropKey}
       />
     </StyledButton>
