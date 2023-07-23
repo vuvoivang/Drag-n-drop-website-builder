@@ -122,6 +122,7 @@ export const ToolbarEventItem = ({
             {...props}
             type={type}
             value={value}
+            width='100%'
             onChange={(value) => {
               handleSetEventValue(value, type);
             }}
