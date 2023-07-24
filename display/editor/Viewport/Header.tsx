@@ -57,6 +57,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Icon from '@material-ui/core/Icon';
 import { FormTextField } from 'components/form-text-field';
+import GenCodeSuccessImg from 'public/images/gen-code-success.jpg';
+
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -144,6 +146,9 @@ export type Node = {
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
   const [openDialogTheme, setOpenDialogTheme] = useState(false);
+  const [openDialogSourceCode, setOpenDialogSourceCode] = useState(true);
+  const [generatedSourceCodeLink, setGeneratedSourceCodeLink] = useState("");
+
 
   const [addPage, dispatch] = useReducer(addPageReducer, {
     path: '',
@@ -345,7 +350,10 @@ export const Header = () => {
           theme,
         })
         .then((res) => {
-          if (res.url) window.location.href = res.url;
+          if (res.url) {
+            setGeneratedSourceCodeLink(res.url);
+            handleOpenDialogSourceCode();
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -420,6 +428,13 @@ export const Header = () => {
         <DeleteIcon />
       </button>
     );
+  };
+
+  const handleCloseDialogSourceCode = () => {
+    setOpenDialogSourceCode(false);
+  };
+  const handleOpenDialogSourceCode = () => {
+    setOpenDialogSourceCode(true);
   };
   return (
     <HeaderDiv id='header' className='header text-white transition w-full'>
@@ -921,6 +936,43 @@ export const Header = () => {
             </MaterialButton>
           </DialogActions>
         </form>
+      </Dialog>
+
+
+      {/* Dialog add new page infor */}
+
+      <Dialog id='dialog-source-code' open={openDialogSourceCode} onClose={handleCloseDialogNewPage}>
+        <DialogTitle  className="text-center text-green-700	text-2xl" >Generate source code successfully</DialogTitle>
+        <DialogContent style={{ width: 600, height: 460 }}>
+        <div className="w-full mx-auto max-w-none flex flex-col justify-center items-center cell cell-full pl-4">
+          <Image src={GenCodeSuccessImg} width={190} height={150} alt="empty project" />
+
+          <ul className='dialog-new-page'>
+            <li><b><a className="underline cursor-pointer text-sky-600" href={generatedSourceCodeLink}>Download project here.</a></b>
+            </li>
+            <li><b>Start project</b>:
+              <br /> 1. Uncompress file.
+              <br /> 2. Download and install Node.js and npm with guide at <a className="underline cursor-pointer text-sky-600" href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">https://docs.npmjs.com/downloading-and-installing-node-js-and-npm</a>.
+              <br /> 3. Run command: npm install
+              <br /> 4. Run command: npm start</li>
+
+              <li><b>Deploy and Host project with</b>:
+              <br /> 1. Vercel: <a className="underline cursor-pointer text-sky-600" href="https://vercel.com/templates/react/create-react-app">https://vercel.com/templates/react/create-react-app</a>.
+              <br /> 2. Netlify: <a className="underline cursor-pointer text-sky-600" href="https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds">https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds</a>.
+              </li>
+          </ul>
+        </div>
+          
+        </DialogContent>
+        <DialogActions>
+          <MaterialButton
+            onClick={handleCloseDialogSourceCode}
+            color='primary'
+            autoFocus
+          >
+            Done
+          </MaterialButton>
+        </DialogActions>
       </Dialog>
     </HeaderDiv>
   );

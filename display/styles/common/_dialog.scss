@@ -1,20 +1,25 @@
-#form-dialog-connect-data-content{
+#form-dialog-connect-data-content {
     padding-top: 16px;
     min-height: 400px;
-    & > p {
+
+    &>p {
         margin-bottom: 24px;
         font-weight: 500;
     }
-    & > div:nth-child(2){
+
+    &>div:nth-child(2) {
         margin-bottom: 48px;
     }
+
     .MuiFormLabel-root.Mui-focused {
         color: #1976d2 !important;
     }
-    .MuiIconButton-root{
+
+    .MuiIconButton-root {
         padding: 0;
     }
-    .MuiInputBase-root.Mui-disabled{
+
+    .MuiInputBase-root.Mui-disabled {
         color: rgba(0, 0, 0, 0.38);
         cursor: default;
         background-color: #67748347;
@@ -22,35 +27,53 @@
 }
 
 #dialog-new-project {
-    #form-dialog-title{
-        h2{
-            font-size:22px;
+    #form-dialog-title {
+        h2 {
+            font-size: 22px;
         }
     }
-    [type=radio] { 
+
+    [type=radio] {
         position: absolute;
         opacity: 0;
         width: 0;
         height: 0;
-      }
-      
-      [type=radio] + img {
+    }
+
+    [type=radio]+img {
         cursor: pointer;
-      }
-      
-      /* CHECKED STYLES */
-      [type=radio]:checked + img {
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked+img {
         outline: 2px solid rgb(49, 116, 250);
         box-sizing: border-box;
         border-radius: 4px;
-      }
+    }
 }
 
 #dialog-new-theme {
-    #form-dialog-title{
-        h2{
-            font-size:22px;
+    #form-dialog-title {
+        h2 {
+            font-size: 22px;
         }
     }
-    
+
+}
+
+#dialog-source-code {
+    .MuiDialogTitle-root {
+        h2 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+    }
+
+    line-height: 1.5;
+    b {
+        font-size: 16px;
+        a {
+            font-size: 16px;
+        }
+    }
 }

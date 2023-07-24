@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import React, { useEffect, useRef, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import styled from 'styled-components';
-import styled from 'styled-components';
 import { ToolbarDropdown } from '../ToolbarDropdown';
 import { ToolbarTextInput } from '../ToolbarTextInput';
 import { ToolbarRadio } from '../ToolbarRadio';
