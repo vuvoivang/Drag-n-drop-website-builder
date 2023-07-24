@@ -146,7 +146,7 @@ export type Node = {
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
   const [openDialogTheme, setOpenDialogTheme] = useState(false);
-  const [openDialogSourceCode, setOpenDialogSourceCode] = useState(true);
+  const [openDialogSourceCode, setOpenDialogSourceCode] = useState(false);
   const [generatedSourceCodeLink, setGeneratedSourceCodeLink] = useState("");
 
 
