@@ -201,3 +201,6 @@ body {
 .craftjs-renderer{
   height: fit-content;
 }
+.component-selected > span{
+  display: contents;
+}
