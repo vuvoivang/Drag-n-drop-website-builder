@@ -10,6 +10,16 @@ const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
   color: ${_var.secondaryColor};
   overflow: auto;
   display: ${(props) => (props.visible ? `flex` : 'none')};
+  & > div {
+    & > div{
+      &:after{
+        content: "";
+        display: block;
+        height: 70px;
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const Chevron = styled.a<{ visible: boolean }>`
