@@ -31,7 +31,7 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (
   }));
 
   const { enabled: enabledEvent } = useEditor((state) => ({
-    enabled: !state.options.enabled,
+    enabled: state.options.enabled,
   }));
   const {
     text,
@@ -52,7 +52,7 @@ export const CraftAnchor: UserComponent<WithThemeAndDatabase<AnchorProps>> = (
   const { pageNavigate, absoluteUrlNavigate, href, clickType } = events;
 
   const handleNavigate = () => {
-    if (isUsedHref) return;
+    if (enabledEvent || isUsedHref) return;
     if (pageNavigate || absoluteUrlNavigate) {
       const desUrl = pageNavigate || absoluteUrlNavigate;
       window.location.href = desUrl;
