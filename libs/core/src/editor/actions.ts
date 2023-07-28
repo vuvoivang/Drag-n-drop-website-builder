@@ -38,6 +38,7 @@ import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
 import { mappingDocumentsToCollections } from 'display/utils/helper';
 import { cloneDeep } from 'lodash';
+import { getCurrentRootNodeId } from '..';
 
 const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   /** Helper functions */
@@ -112,10 +113,10 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     return parent;
   };
 
-  const deleteNode = (id: NodeId) => {
+  const deleteNode = (id: NodeId) => {    
     const targetNode = state.nodes[id],
       parentNode = state.nodes[targetNode.data.parent];
-
+      if(!targetNode) return;
     if (targetNode.data.nodes) {
       // we deep clone here because otherwise immer will mutate the node
       // object as we remove nodes
@@ -126,15 +127,17 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
       Object.values(targetNode.data.linkedNodes).map((linkedNodeId) => deleteNode(linkedNodeId));
     }
 
-    const isChildNode = parentNode.data.nodes.includes(id);
+    if(parentNode){
+      const isChildNode = parentNode.data.nodes.includes(id);
 
-    if (isChildNode) {
-      const parentChildren = parentNode.data.nodes;
-      parentChildren.splice(parentChildren.indexOf(id), 1);
-    } else {
-      const linkedId = Object.keys(parentNode.data.linkedNodes).find((id) => parentNode.data.linkedNodes[id] === id);
-      if (linkedId) {
-        delete parentNode.data.linkedNodes[linkedId];
+      if (isChildNode) {
+        const parentChildren = parentNode.data.nodes;
+        parentChildren.splice(parentChildren.indexOf(id), 1);
+      } else {
+        const linkedId = Object.keys(parentNode.data.linkedNodes).find((id) => parentNode.data.linkedNodes[id] === id);
+        if (linkedId) {
+          delete parentNode.data.linkedNodes[linkedId];
+        }
       }
     }
 
@@ -511,11 +514,11 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
       if (state.pageOptions.currentPage === removedPage) {
         state.pageOptions.currentPage = state.pageOptions.pages[0]?.path;
       }
-      Object.entries(state.nodes).forEach(([key, value]) => {
-        if (value.data.page === removedPage) {
-          deleteNode(key);
-        }
-      });
+
+      const curRootNodeId = getCurrentRootNodeId(removedPage);
+      // just delete root node, then it itself recursively deletes all children
+      deleteNode(curRootNodeId);
+
     },
     /**
      * Update the events of a Node
