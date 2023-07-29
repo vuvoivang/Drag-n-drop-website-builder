@@ -99,6 +99,9 @@ export const DEFAULT_SECTIONS = {
   buttonDecoration: {
     title: 'Decoration',
     items: ['buttonStyle', 'borderStyle', 'borderWidth', 'borderRadius', 'borderColor'],
+    summary: ({ borderStyle, borderWidth, borderRadius }: any) => {
+      return `${borderStyle}, ${borderWidth || 0}px, ${borderRadius || 0}px`;
+    },
   },
   anchorDecoration: {
     title: 'Decoration',
@@ -112,6 +115,9 @@ export const DEFAULT_SECTIONS = {
     title: 'Decoration',
     props: ['borderStyle', 'borderWidth', 'borderRadius', 'borderColor', 'shadow'],
     items: ['borderStyle', 'borderWidth', 'borderRadius', 'borderColor', 'shadow'],
+    summary: ({ borderStyle, borderWidth, borderRadius }: any) => {
+      return `${borderStyle}, ${borderWidth || 0}px, ${borderRadius || 0}px`;
+    },
   },
   containerAlignment: {
     title: 'Alignment',
