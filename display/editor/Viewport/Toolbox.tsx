@@ -211,7 +211,7 @@ export const Toolbox = () => {
           <ExpandablePanel title={"Component"} Icon={TypeSvg}>
             {/* @ts-ignore */}
             <Menu menuItemStyles={menuItemStyles}>
-              {/* <ComponentMenuItems /> */}
+              <ComponentMenuItems />
             </Menu>
           </ExpandablePanel>
         </Sidebar>

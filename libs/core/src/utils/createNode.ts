@@ -29,7 +29,6 @@ export function createNode(newNode: FreshNode, normalize?: (node: Node) => void)
       nodes: [],
       linkedNodes: {},
       page: undefined,
-      belongToComponent: undefined,
       ...newNode.data,
     },
     related: {},
