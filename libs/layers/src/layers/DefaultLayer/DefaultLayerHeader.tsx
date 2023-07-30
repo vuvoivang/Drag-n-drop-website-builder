@@ -109,7 +109,8 @@ export const DefaultLayerHeader: React.FC = () => {
     actions,
     selected,
     topLevel,
-    isHiddenInCurrentPage: isBelongToCurrentPage,
+    isShownInCurrentPage,
+    isShownInCurrentComponent,
   } = useEditor((state, query) => {
     // TODO: handle multiple selected elements
     const selected = query.getEvent('selected').first() === id;
@@ -118,10 +119,11 @@ export const DefaultLayerHeader: React.FC = () => {
       hidden: state.nodes[id] && state.nodes[id].data.hidden,
       selected,
       topLevel: query.node(id).isTopLevelCanvas(),
-      isHiddenInCurrentPage: !id.startsWith(ROOT_NODE) && state.pageOptions.currentPage !== state.nodes[id].data.page,
+      isShownInCurrentPage: query.isInPage() && state.pageOptions.currentPage === state.nodes[id].data.page,
+      isShownInCurrentComponent: !query.isInPage() && state.componentOptions.currentComponent === state.nodes[id].data.component,
     };
   });
-  if (isBelongToCurrentPage) return null;
+  if (!(isShownInCurrentPage || isShownInCurrentComponent)) return null;
   return (
     <StyledDiv selected={selected} ref={drag} depth={depth}>
       <div className='inner flex items-center'>

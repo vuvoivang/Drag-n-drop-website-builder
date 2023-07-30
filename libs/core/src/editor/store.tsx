@@ -41,6 +41,10 @@ export const editorInitialState: EditorState = {
       },
     ],
   },
+  componentOptions: {
+    components: [],
+    currentComponent: undefined,
+  },
   database: {
     database: {
       collections: [],

@@ -198,7 +198,7 @@ export class DefaultEventHandlers<O = {}> extends CoreEventHandlers<DefaultEvent
       },
       create: (el: HTMLElement, userElement: React.ReactElement, options?: Partial<CreateHandlerOptions>) => {
         el.setAttribute('draggable', 'true');
-
+        // console.log("userElement", userElement);
         const unbindDragStart = this.addCraftEventListener(el, 'dragstart', (e) => {
           e.craft.stopPropagation();
           const tree = store.query.parseReactElement(userElement).toNodeTree();

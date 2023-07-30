@@ -149,6 +149,10 @@ export function QueryMethods(state: EditorState) {
       });
     },
 
+    isInPage() {
+      return state.pageOptions.currentPage;
+    },
+
     parseReactElement: (reactElement: React.ReactElement) => ({
       toNodeTree(normalize?: (node: Node, jsx: React.ReactElement) => void): NodeTree {
         let node = parseNodeFromJSX(reactElement, (node, jsx) => {
@@ -156,7 +160,9 @@ export function QueryMethods(state: EditorState) {
 
           node.data.displayName = node.data.displayName || name;
           node.data.name = name;
-          node.data.page = state.pageOptions.currentPage;
+          if(_().isInPage()){
+            node.data.page = state.pageOptions.currentPage;
+          } else node.data.belongToComponent = state.componentOptions.currentComponent;
           if (normalize) {
             normalize(node, jsx);
           }
@@ -263,5 +269,6 @@ export function QueryMethods(state: EditorState) {
     getTheme() {
       return state.theme;
     },
+
   };
 }

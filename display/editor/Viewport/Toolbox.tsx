@@ -1,5 +1,5 @@
 import { useEditor } from 'libs/core/src';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Sidebar, Menu, useProSidebar } from 'react-pro-sidebar';
 import { DEFAULT_VARIANTS } from 'display/selectors/defaultVariant';
@@ -12,6 +12,9 @@ import Button from '@material-ui/core/Button';
 import { ExpandablePanel } from 'display/shared/components/ExpansionPanel';
 import useResize from 'hooks/useResize';
 type Theme = 'light' | 'dark';
+import TypeSvg from '../../../public/icons/toolbox/text.svg';
+import { ComponentMenuItems } from './ComponentsMenu';
+
 
 const themes = {
   light: {
@@ -173,8 +176,8 @@ export const Toolbox = () => {
   return (
     <div
       style={{
-          marginLeft: enabled ? '0' : '-350px',
-        }}
+        marginLeft: enabled ? '0' : '-350px',
+      }}
       className='relative'
     >
       <div
@@ -201,6 +204,16 @@ export const Toolbox = () => {
               </ExpandablePanel>
             );
           })}
+
+
+          {/* Component Menu  */}
+
+          <ExpandablePanel title={"Component"} Icon={TypeSvg}>
+            {/* @ts-ignore */}
+            <Menu menuItemStyles={menuItemStyles}>
+              {/* <ComponentMenuItems /> */}
+            </Menu>
+          </ExpandablePanel>
         </Sidebar>
       </div>
       <div className='bg-gray-50 collapse-sidebar' onClick={() => collapseSidebar()}>

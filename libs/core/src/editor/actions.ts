@@ -32,13 +32,14 @@ import {
   PageData,
   SerializedData,
   SerializedNode,
+  ComponentData,
 } from '../interfaces';
 import { fromEntries } from '../utils/fromEntries';
 import { getNodesFromSelector } from '../utils/getNodesFromSelector';
 import { removeNodeFromEvents } from '../utils/removeNodeFromEvents';
 import { mappingDocumentsToCollections } from 'display/utils/helper';
 import { cloneDeep } from 'lodash';
-import { getCurrentRootNodeId } from '..';
+import { getCurrentRootNodeIdPage } from '..';
 
 const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethods>) => {
   /** Helper functions */
@@ -47,13 +48,13 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     parentId?: NodeId,
     addNodeType?:
       | {
-          type: 'child';
-          index: number;
-        }
+        type: 'child';
+        index: number;
+      }
       | {
-          type: 'linked';
-          id: string;
-        }
+        type: 'linked';
+        id: string;
+      }
   ) => {
     const iterateChildren = (id: NodeId, parentId?: NodeId) => {
       const node = tree.nodes[id];
@@ -113,10 +114,10 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     return parent;
   };
 
-  const deleteNode = (id: NodeId) => {    
+  const deleteNode = (id: NodeId) => {
     const targetNode = state.nodes[id],
       parentNode = state.nodes[targetNode.data.parent];
-      if(!targetNode) return;
+    if (!targetNode) return;
     if (targetNode.data.nodes) {
       // we deep clone here because otherwise immer will mutate the node
       // object as we remove nodes
@@ -127,7 +128,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
       Object.values(targetNode.data.linkedNodes).map((linkedNodeId) => deleteNode(linkedNodeId));
     }
 
-    if(parentNode){
+    if (parentNode) {
       const isChildNode = parentNode.data.nodes.includes(id);
 
       if (isChildNode) {
@@ -269,6 +270,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
       console.log('dehydratedData', dehydratedData);
       const dehydratedNodes = dehydratedData.nodes;
       const dehydratedPages = dehydratedData.pages;
+      const dehydratedComponents = dehydratedData.components || [];
       const dehydratedTheme = dehydratedData.theme;
       const nodePairs = Object.keys(dehydratedNodes).map((id) => {
         let nodeId = id;
@@ -282,6 +284,7 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
 
       this.replaceNodes(fromEntries(nodePairs));
       this.replacePageOptions(dehydratedPages, ROOT_PATH);
+      this.replaceComponentOptions(dehydratedComponents, undefined);
       this.setTheme(dehydratedTheme);
     },
 
@@ -515,11 +518,69 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
         state.pageOptions.currentPage = state.pageOptions.pages[0]?.path;
       }
 
-      const curRootNodeId = getCurrentRootNodeId(removedPage);
+      const curRootNodeId = getCurrentRootNodeIdPage(removedPage);
       // just delete root node, then it itself recursively deletes all children
       deleteNode(curRootNodeId);
 
     },
+    // Component
+    /**
+     * Replace component options
+     * @param id
+     * @param component
+     */
+    replaceComponentOptions(components: ComponentData[], currentComponent: string) {
+      state.componentOptions = {
+        components,
+        currentComponent,
+      };
+    },
+    /**
+     * Set component of a Node
+     * @param id
+     * @param component
+     */
+    setNodeComponent(id: NodeId, component: string) {
+      state.nodes[id].data.component = component;
+    },
+    /**
+     * Set current component for state
+     * @param component
+     */
+    setCurrentComponent(component: string) {
+      state.componentOptions.currentComponent = component;
+    },
+    /**
+     * Set new list components in componentOptions
+     * @param components
+     */
+    setListComponent(components: ComponentData[]) {
+      state.componentOptions.components = components;
+    },
+    /**
+     * Add new component includes instanceIds and name
+     * @param component
+     */
+    addNewComponent(component: ComponentData) {
+      state.componentOptions.components.push({ ...component, instanceIds: [] });
+    },
+    /**
+     * Delete a component and all nodes in that component
+     * @param removedComponent: instanceIds of component to be deleted
+     */
+    deleteComponent(removedComponent: string) {
+      state.componentOptions.components = state.componentOptions.components.filter((componentData) => componentData.name !== removedComponent);
+      // change to new component if current component is deleted
+      if (state.componentOptions.currentComponent === removedComponent) {
+        state.componentOptions.currentComponent = state.componentOptions.components[0]?.name;
+      }
+
+      const curRootNodeId = getCurrentRootNodeIdPage(removedComponent);
+      // just delete root node, then it itself recursively deletes all children
+      deleteNode(curRootNodeId);
+
+    },
+
     /**
      * Update the events of a Node
      * @param id

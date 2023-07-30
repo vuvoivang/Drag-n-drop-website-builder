@@ -115,6 +115,48 @@ export const serializedPopupNodeForPage: SerializedNode = {
   page: '/',
 };
 
+export const serializedContainerRootNodeForComponent: SerializedNode = {
+  type: {
+    resolvedName: 'CraftContainer',
+  },
+  isCanvas: true,
+  isResizable: false,
+  props: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    fillSpace: 'no',
+    padding: ['40', '40', '40', '40'],
+    margin: ['0', '0', '0', '0'],
+    background: {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1,
+    },
+    color: {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1,
+    },
+    shadow: 0,
+    radius: 0,
+    width: '100%',
+    height: 'auto',
+    styledClassNames: {},
+  },
+  displayName: 'Container',
+  custom: {
+    displayName: 'Component',
+  },
+  hidden: false,
+  nodes: [],
+  parent: undefined,
+  linkedNodes: {},
+  page: undefined,
+};
+
 export enum THEME_TYPE_VALUE {
   COLOR = 'color',
   NUMBER = 'number',

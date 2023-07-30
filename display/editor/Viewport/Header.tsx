@@ -19,7 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import cx from 'classnames';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ROOT_PATH, THEME_TYPE_VALUE, ThemeTypeOptions, serializedContainerRootNodeForPage } from 'libs/utils/src';
+import { ROOT_PATH, THEME_TYPE_VALUE, ThemeTypeOptions, serializedContainerRootNodeForPage, serializedContainerRootNodeForComponent } from 'libs/utils/src';
 
 import axios from 'axios';
 import Checkmark from '../../../public/icons/check.svg';
@@ -34,6 +34,7 @@ import HideSvg from '../../../public/icons/toolbox/hide.svg';
 
 import Logo from '../../../public/images/logo.png';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { LightTooltip } from 'display/shared/components/Tooltip';
 import lz from 'lzutf8';
@@ -55,10 +56,12 @@ import { clearValueThemeAndDynamicData, handleInputAppTitleCase } from 'display/
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
 import Icon from '@material-ui/core/Icon';
 import { FormTextField } from 'components/form-text-field';
 import GenCodeSuccessImg from 'public/images/gen-code-success.jpg';
-
+import LastPageIcon from '@mui/icons-material/LastPage';
 
 const HeaderDiv = styled.div<any>`
   width: 100%;
@@ -108,25 +111,25 @@ const PageFormControl = styled(FormControl)`
   flex-direction: row !important;
 `;
 
-function addPageReducer(state, action) {
-  if (action.type === 'UPDATE_PATH') {
-    return {
-      ...state,
-      path: action.data,
-    };
-  } else if (action.type === 'UPDATE_NAME') {
-    return {
-      ...state,
-      name: action.data,
-    };
-  } else if (action.type === 'RESET') {
-    return {
-      path: '',
-      name: '',
-    };
-  }
-  throw Error('Unknown action.');
-}
+// function addPageReducer(state, action) {
+//   if (action.type === 'UPDATE_PATH') {
+//     return {
+//       ...state,
+//       path: action.data,
+//     };
+//   } else if (action.type === 'UPDATE_NAME') {
+//     return {
+//       ...state,
+//       name: action.data,
+//     };
+//   } else if (action.type === 'RESET') {
+//     return {
+//       path: '',
+//       name: '',
+//     };
+//   }
+//   throw Error('Unknown action.');
+// }
 
 export type PageData = {
   path: string;
@@ -145,22 +148,27 @@ export type Node = {
 
 export const Header = () => {
   const [openDialogNewPage, setOpenDialogNewPage] = useState(false);
+  const [openDialogNewComponent, setOpenDialogNewComponent] = useState(false);
   const [openDialogTheme, setOpenDialogTheme] = useState(false);
   const [openDialogSourceCode, setOpenDialogSourceCode] = useState(false);
   const [generatedSourceCodeLink, setGeneratedSourceCodeLink] = useState("");
 
 
-  const [addPage, dispatch] = useReducer(addPageReducer, {
-    path: '',
-    name: '',
-  });
+  // const [addPage, dispatch] = useReducer(addPageReducer, {
+  //   path: '',
+  //   name: '',
+  // });
   const [openDialogLoadState, setOpenDialogLoadState] = useState(false);
   const [stateToLoad, setStateToLoad] = useState<string>('');
 
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState(false);
+  const [openDialogConfirmDeletePage, setOpenDialogConfirmDeletePage] = useState(false);
+  const [openDialogConfirmDeleteComponent, setOpenDialogConfirmDeleteComponent] = useState(false);
+
   const [loadingGenCode, setLoadingGenCode] = useState(false);
 
   const [deletingPagePath, setDeletingPagePath] = useState('');
+  const [deletingComponentName, setDeletingComponentName] = useState('');
+
 
   //@ts-ignore
   const { project } = useContext(ProjectContext);
@@ -174,7 +182,10 @@ export const Header = () => {
     isShownAllIndicator = false,
     pages,
     currentPage,
+    components,
+    currentComponent,
     theme: themeValues,
+    isInPage,
   } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     canUndo: query.history.canUndo(),
@@ -182,7 +193,10 @@ export const Header = () => {
     isShownAllIndicator: state.options.isShownAllIndicator,
     pages: state.pageOptions.pages,
     currentPage: state.pageOptions.currentPage,
+    components: state.componentOptions.components,
+    currentComponent: state.componentOptions.currentComponent,
     theme: query.getTheme(),
+    isInPage: query.isInPage(),
   }));
   const {
     control,
@@ -223,8 +237,9 @@ export const Header = () => {
     name: 'theme',
   });
 
-  const handleChangePage = (event) => {
-    actions.setCurrentPage(event.target.value as string);
+  const handleChangePage = (value) => {
+    actions.setCurrentPage(value as string);
+    actions.setCurrentComponent(undefined);
   };
 
 
@@ -254,7 +269,7 @@ export const Header = () => {
   const handleCloseDialogNewPage = () => {
     setOpenDialogNewPage(false);
     resetAddPage();
-    dispatch({ type: 'RESET' });
+    // dispatch({ type: 'RESET' });
   };
   const handleAddPage = (body) => {
     handleCloseDialogNewPage();
@@ -278,22 +293,98 @@ export const Header = () => {
 
   useEffect(() => {
     if (deletingPagePath) {
-      handleClickOpenDialogConfirmDelete();
+      handleClickOpenDialogConfirmDeletePage();
     }
   }, [deletingPagePath]);
 
-  const handleClickOpenDialogConfirmDelete = () => {
-    setOpenDialogConfirmDelete(true);
+  const handleClickOpenDialogConfirmDeletePage = () => {
+    setOpenDialogConfirmDeletePage(true);
   };
 
-  const handleCloseDialogConfirmDelete = () => {
-    setOpenDialogConfirmDelete(false);
+  const handleCloseDialogConfirmDeletePage = () => {
+    setOpenDialogConfirmDeletePage(false);
     setDeletingPagePath('');
   };
 
   const handleDeletePageDialog = () => {
     actions.deletePage(deletingPagePath);
-    handleCloseDialogConfirmDelete();
+    handleCloseDialogConfirmDeletePage();
+  };
+
+  const handleChangeComponent = (value) => {
+    actions.setCurrentComponent(value as string);
+    actions.setCurrentPage(undefined);
+  };
+
+
+  const {
+    control: controlAddComponent,
+    handleSubmit: handleSubmitAddComponent,
+    reset: resetAddComponent,
+  } = useForm({
+    mode: 'onChange',
+  });
+
+  const onSubmitAddComponentForm = data => {
+    const body = {
+      name: data['name'],
+    } as any;
+    handleAddComponent(body);
+  };
+
+  const clickOpenDialogAddNewComponent = () => {
+    handleClickOpenDialogNewComponent();
+  };
+
+  const handleClickOpenDialogNewComponent = () => {
+    setOpenDialogNewComponent(true);
+  };
+  const handleCloseDialogNewComponent = () => {
+    setOpenDialogNewComponent(false);
+    resetAddComponent();
+    // dispatch({ type: 'RESET' });
+  };
+  const handleAddComponent = (body) => {
+    handleCloseDialogNewComponent();
+    actions.addNewComponent(body);
+    
+    // add new container root node for new page
+    const newContainerRootNodeInNewComponent = {
+      ...serializedContainerRootNodeForComponent,
+      component: body.name,
+      page: undefined,
+      belongToComponent: body.name,
+    };
+    const rootNodeIdInNewComponent = `ROOT_C_${body.name}`;
+    actions.addNewNodeWithSerializedData(newContainerRootNodeInNewComponent, rootNodeIdInNewComponent);
+
+    setTimeout(() => {
+      actions.setCurrentComponent(body.name);
+      actions.setCurrentPage(undefined);
+    }, 500);
+  };
+  const handleDeleteComponentSelectItem = (name) => {
+    setDeletingComponentName(name);
+  };
+
+  useEffect(() => {
+    if (deletingComponentName) {
+      handleClickOpenDialogConfirmDeleteComponent();
+    }
+  }, [deletingComponentName]);
+
+  const handleClickOpenDialogConfirmDeleteComponent = () => {
+    setOpenDialogConfirmDeleteComponent(true);
+  };
+
+  const handleCloseDialogConfirmDeleteComponent = () => {
+    setOpenDialogConfirmDeleteComponent(false);
+    setDeletingComponentName('');
+  };
+
+  const handleDeleteComponentDialog = () => {
+    actions.deleteComponent(deletingComponentName);
+    handleCloseDialogConfirmDeleteComponent();
   };
 
   const handleGenerateCode = async () => {
@@ -451,15 +542,23 @@ export const Header = () => {
         <PageFormControl className='pt-2'>
           <div className='add-page-container flex items-center'>
             <Select
-              value={currentPage}
-              onChange={handleChangePage}
+              value={isInPage ? currentPage : currentComponent}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (value.startsWith('/')) handleChangePage(value)
+                else handleChangeComponent(value);
+              }}
               inputProps={{
                 name: 'current-page-select',
                 id: 'current-page',
               }}
               className='page-select global-select'
-              renderValue={(value) => pages.find((el) => el.path === value)?.name + ' page'}
+              renderValue={(value) => {
+                if (value.startsWith('/')) return pages.find((el) => el.path === value)?.name + ' page';
+                else return components.find((el) => el.name === value)?.name;
+              }}
             >
+              <ListSubheader>Pages</ListSubheader>
               {pages.map((page) => (
                 <MenuItem key={page.path} value={page.path} className='custom-menu-item'>
                   {page.name}
@@ -476,11 +575,37 @@ export const Header = () => {
                   )}
                 </MenuItem>
               ))}
+                
+              {components?.length > 0 && <>
+                <ListSubheader>Components</ListSubheader>
+              </>}
+              {components.map((component) => (
+                  <MenuItem key={component.name} value={component.name} className='custom-menu-item'>
+                    {component.name}
+                    <RemoveIcon
+                      fontSize='small'
+                      className='rm-icon bg-red-500 hover:bg-red-600'
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteComponentSelectItem(component.name);
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+
             </Select>
             <LightTooltip title='Add new page'>
               <AddCircleIcon
                 className='cursor-pointer ml-2 text-green-500'
                 onClick={clickOpenDialogAddNewPage}
+                fontSize='small'
+              />
+            </LightTooltip>
+
+            <LightTooltip title='Add new component'>
+              <LibraryAddIcon
+                className='cursor-pointer ml-2 text-purple-600'
+                onClick={clickOpenDialogAddNewComponent}
                 fontSize='small'
               />
             </LightTooltip>
@@ -649,9 +774,9 @@ export const Header = () => {
               label='Page Path'
               type='text'
               fullWidth
-              onChange={(e) => {
-                dispatch({ type: 'UPDATE_PATH', data: e.target.value });
-              }}
+              // onChange={(e) => {
+              //   dispatch({ type: 'UPDATE_PATH', data: e.target.value });
+              // }}
               style={{ marginBottom: 20 }}
             />
             <FormTextField
@@ -666,9 +791,9 @@ export const Header = () => {
               label='Page Name'
               type='text'
               fullWidth
-              onChange={(e) => {
-                dispatch({ type: 'UPDATE_NAME', data: e.target.value });
-              }}
+            // onChange={(e) => {
+            //   dispatch({ type: 'UPDATE_NAME', data: e.target.value });
+            // }}
             />
           </Box>
         </DialogContent>
@@ -687,6 +812,60 @@ export const Header = () => {
           </MaterialButton>
           <MaterialButton
             onClick={handleSubmitAddPage(onSubmitAddPageForm)}
+            style={{
+              backgroundColor: _var.greenColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 14px 10px 10px',
+            }}
+          >
+            Done
+          </MaterialButton>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog add new component infor */}
+
+      <Dialog open={openDialogNewComponent} onClose={handleCloseDialogNewComponent} aria-labelledby='form-dialog-title'>
+        <DialogTitle id='form-dialog-title'>New Component Information</DialogTitle>
+        <DialogContent style={{ width: 600, height: 100 }}>
+          {/* <DialogContentText>Enter new path and name for your page:</DialogContentText> */}
+
+          <Box component="form" className='new-component-form' sx={{ mt: 1 }}>
+            <FormTextField
+              control={controlAddComponent}
+              rules={{
+                required: "Name is required",
+                validate: (value) => (components?.length === 0 || !components.find((item) => item.name === value)) || "Name is already existed"
+              }}
+              margin='dense'
+              name="name"
+              id='name'
+              label='Component Name'
+              type='text'
+              fullWidth
+            // onChange={(e) => {
+            //   dispatch({ type: 'UPDATE_NAME', data: e.target.value });
+            // }}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <MaterialButton
+            onClick={handleCloseDialogNewComponent}
+            style={{
+              backgroundColor: _var.redColor,
+              color: _var.whiteColor,
+              padding: '6px',
+              borderRadius: '6px',
+              margin: '10px 0 10px 0',
+            }}
+          >
+            Cancel
+          </MaterialButton>
+          <MaterialButton
+            onClick={handleSubmitAddComponent(onSubmitAddComponentForm)}
             style={{
               backgroundColor: _var.greenColor,
               color: _var.whiteColor,
@@ -733,7 +912,7 @@ export const Header = () => {
       {/* Dialog confirm deleting page */}
 
       <Dialog
-        open={openDialogConfirmDelete}
+        open={openDialogConfirmDeletePage}
         aria-labelledby='delete-page-dialog-title'
         aria-describedby='delete-page-dialog-description'
       >
@@ -747,10 +926,37 @@ export const Header = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <MaterialButton onClick={handleCloseDialogConfirmDelete} color='secondary'>
+          <MaterialButton onClick={handleCloseDialogConfirmDeletePage} color='secondary'>
             Cancel
           </MaterialButton>
           <MaterialButton onClick={handleDeletePageDialog} color='primary'>
+            Sure
+          </MaterialButton>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Dialog confirm deleting page */}
+
+      <Dialog
+        open={openDialogConfirmDeleteComponent}
+        aria-labelledby='delete-page-dialog-title'
+        aria-describedby='delete-page-dialog-description'
+      >
+        <DialogTitle id='delete-page-dialog-title'>
+          Delete {deletingComponentName} component
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='delete-page-dialog-description'>
+            This action cannot be undone. Delete this component will permanently delete all its elements you've designed. Are
+            you sure you want to delete?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <MaterialButton onClick={handleCloseDialogConfirmDeleteComponent} color='secondary'>
+            Cancel
+          </MaterialButton>
+          <MaterialButton onClick={handleDeleteComponentDialog} color='primary'>
             Sure
           </MaterialButton>
         </DialogActions>
@@ -939,30 +1145,30 @@ export const Header = () => {
       </Dialog>
 
 
-      {/* Dialog add new page infor */}
+      {/* Dialog result gen code */}
 
       <Dialog id='dialog-source-code' open={openDialogSourceCode} onClose={handleCloseDialogNewPage}>
-        <DialogTitle  className="text-center text-green-700	text-2xl" >Generate source code successfully</DialogTitle>
+        <DialogTitle className="text-center text-green-700	text-2xl" >Generate source code successfully</DialogTitle>
         <DialogContent style={{ width: 600, height: 460 }}>
-        <div className="w-full mx-auto max-w-none flex flex-col justify-center items-center cell cell-full pl-4">
-          <Image src={GenCodeSuccessImg} width={190} height={150} alt="empty project" />
+          <div className="w-full mx-auto max-w-none flex flex-col justify-center items-center cell cell-full pl-4">
+            <Image src={GenCodeSuccessImg} width={190} height={150} alt="empty project" />
 
-          <ul className='dialog-new-page'>
-            <li><b><a className="underline cursor-pointer text-sky-600" href={generatedSourceCodeLink}>Download project here.</a></b>
-            </li>
-            <li><b>Start project</b>:
-              <br /> 1. Uncompress file.
-              <br /> 2. Download and install Node.js and npm with guide at <a className="underline cursor-pointer text-sky-600" href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">https://docs.npmjs.com/downloading-and-installing-node-js-and-npm</a>.
-              <br /> 3. Run command: npm install
-              <br /> 4. Run command: npm start</li>
+            <ul className='dialog-new-page'>
+              <li><b><a className="underline cursor-pointer text-sky-600" href={generatedSourceCodeLink}>Download project here.</a></b>
+              </li>
+              <li><b>Start project</b>:
+                <br /> 1. Uncompress file.
+                <br /> 2. Download and install Node.js and npm with guide at <a className="underline cursor-pointer text-sky-600" href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">https://docs.npmjs.com/downloading-and-installing-node-js-and-npm</a>.
+                <br /> 3. Run command: npm install
+                <br /> 4. Run command: npm start</li>
 
               <li><b>Deploy and Host project with</b>:
-              <br /> 1. Vercel: <a className="underline cursor-pointer text-sky-600" href="https://vercel.com/templates/react/create-react-app">https://vercel.com/templates/react/create-react-app</a>.
-              <br /> 2. Netlify: <a className="underline cursor-pointer text-sky-600" href="https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds">https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds</a>.
+                <br /> 1. Vercel: <a className="underline cursor-pointer text-sky-600" href="https://vercel.com/templates/react/create-react-app">https://vercel.com/templates/react/create-react-app</a>.
+                <br /> 2. Netlify: <a className="underline cursor-pointer text-sky-600" href="https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds">https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds</a>.
               </li>
-          </ul>
-        </div>
-          
+            </ul>
+          </div>
+
         </DialogContent>
         <DialogActions>
           <MaterialButton

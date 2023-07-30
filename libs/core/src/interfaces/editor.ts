@@ -48,6 +48,7 @@ export type EditorState = {
   pageOptions: PageOptions;
   database: Database;
   theme: Theme;
+  componentOptions: ComponentOptions;
 };
 
 export type ConnectedEditor<S = null> = useInternalEditorReturnType<S>;
@@ -76,3 +77,12 @@ export type Theme = Record<ThemeItemId, {
   key: string;
   refNodes: Record<NodeId, ReferencedPropKey[]>;
 }>;
+
+export interface ComponentOptions {
+  components: ComponentData[];
+  currentComponent: string;
+}
+export type ComponentData = {
+  name: string;
+  instanceIds: NodeId[];
+};

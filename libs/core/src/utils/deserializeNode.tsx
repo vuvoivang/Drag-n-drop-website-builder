@@ -80,7 +80,7 @@ export const deserializeNode = (data: SerializedNode, resolver: Resolver): Omit<
 
   const { type, name, props } = deserializeComp(data, resolver) as unknown as NodeData;
 
-  const { parent, custom, displayName, isCanvas, nodes, hidden, page } = nodeData;
+  const { parent, custom, displayName, isCanvas, nodes, hidden, page, component, belongToComponent } = nodeData;
 
   const linkedNodes = nodeData.linkedNodes || nodeData._childCanvas;
 
@@ -96,5 +96,7 @@ export const deserializeNode = (data: SerializedNode, resolver: Resolver): Omit<
     linkedNodes: linkedNodes || {},
     nodes: nodes || [],
     page: page || ROOT_PATH,
+    component,
+    belongToComponent,
   };
 };

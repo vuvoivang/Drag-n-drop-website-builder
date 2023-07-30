@@ -1,20 +1,20 @@
-import { ROOT_NODE } from '@libs/utils';
 import React from 'react';
 
 import { LayerOptions } from './interfaces';
 import { LayerContextProvider } from './layers/LayerContextProvider';
 import { LayerManagerProvider } from './manager/LayerManagerProvider';
 import { useEditor } from '@libs/hooks';
+import { getCurrentRootNodeId } from '@libs/render';
 export { useLayer } from './layers';
 
 export const Layers: React.FC<Partial<LayerOptions>> = ({ ...options }) => {
-  const { currentPage } = useEditor((state) => ({
-    currentPage: state.pageOptions.currentPage,
+  const { currentRootNodeId } = useEditor((state, query) => ({
+    currentRootNodeId: getCurrentRootNodeId(state,query.isInPage()),
   }));
-  const rootNodeIdThisPage = currentPage.length > 1 ? `ROOT_${currentPage.slice(1)}` : `ROOT`;
   return (
+    // @ts-ignore
     <LayerManagerProvider options={options}>
-      <LayerContextProvider id={rootNodeIdThisPage} depth={0} />
+      <LayerContextProvider id={currentRootNodeId} depth={0} />
     </LayerManagerProvider>
   );
 };

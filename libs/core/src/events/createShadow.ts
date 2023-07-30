@@ -5,7 +5,6 @@ export const createShadow = (e: DragEvent, shadowsToCreate: HTMLElement[], force
   if (shadowsToCreate.length === 1 || forceSingleShadow) {
     const { width, height } = shadowsToCreate[0].getBoundingClientRect();
     const shadow = shadowsToCreate[0].cloneNode(true) as HTMLElement;
-
     shadow.style.position = `fixed`;
     shadow.style.left = `-100%`;
     shadow.style.top = `-100%`;

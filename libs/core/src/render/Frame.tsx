@@ -1,5 +1,5 @@
 import { deprecationWarning, ROOT_NODE } from '@libs/utils';
-import { getCurrentRootNodeId } from '@libs/core';
+import { getCurrentRootNodeIdPage, getCurrentRootNodeIdComponent } from '@libs/core';
 import React, { useEffect, useRef } from 'react';
 
 import { useInternalEditor } from '../editor/useInternalEditor';
@@ -12,19 +12,30 @@ export type Frame = {
   children?: React.ReactNode;
 };
 
+export const getCurrentRootNodeId = (state, isInPage) => {
+  return isInPage ? getCurrentRootNodeIdPage(state.pageOptions.currentPage) : getCurrentRootNodeIdComponent(state.componentOptions.currentComponent)
+}
+
+
+const getCurrentRootNodeHydrationTimestamp = (state, isInPage) => {
+  const currentRootNodeId = getCurrentRootNodeId(state, isInPage);
+  return state.nodes[currentRootNodeId] &&
+  state.nodes[currentRootNodeId]._hydrationTimestamp;
+}
+
 const RenderRootNode = () => {
-  const { currentPageRootNodeId, timestamp } = useInternalEditor((state) => ({
-    currentPageRootNodeId: getCurrentRootNodeId(state.pageOptions.currentPage),
+  const { currentRootNodeId, timestamp } = useInternalEditor((state, query) => ({
+    currentRootNodeId: getCurrentRootNodeId(state,query.isInPage()),
     timestamp:
-      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)] &&
-      state.nodes[getCurrentRootNodeId(state.pageOptions.currentPage)]._hydrationTimestamp,
+    getCurrentRootNodeHydrationTimestamp(state,query.isInPage()),
   }));
+  console.log("hello",currentRootNodeId);
 
   if (!timestamp) {
     return null;
   }
 
-  return <NodeElement id={currentPageRootNodeId} key={timestamp} />;
+  return <NodeElement id={currentRootNodeId} key={timestamp} />;
 };
 
 /**

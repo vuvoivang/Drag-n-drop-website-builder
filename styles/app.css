@@ -184,7 +184,7 @@ body {
   padding: 12px;
 }
 
-.new-page-form input {
+.new-page-form input, .new-component-form input {
   padding: 12px;
 }
 
