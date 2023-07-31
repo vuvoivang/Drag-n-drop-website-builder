@@ -45,7 +45,10 @@ export const handleInputAppTitleCase = (e, MAX_LENGTH = 50) => {
 export const clearValueThemeAndDynamicData = (props) => {
   const clonedNodeProps = JSON.parse(JSON.stringify(props));
   Object.keys(clonedNodeProps).forEach((key) => {
-    if(key === 'children') return;
+    if(key === 'children') {
+      if(clonedNodeProps.children?.length === 0) delete clonedNodeProps[key];
+      return;
+    };
     const currentValue = clonedNodeProps[key];
     if (typeof currentValue === "object" && currentValue !== null) {
       // is not null object
