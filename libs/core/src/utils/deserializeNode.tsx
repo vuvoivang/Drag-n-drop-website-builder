@@ -95,7 +95,7 @@ export const deserializeNode = (data: SerializedNode, resolver: Resolver): Omit<
     parent,
     linkedNodes: linkedNodes || {},
     nodes: nodes || [],
-    page: page || ROOT_PATH,
+    page,
     component,
     belongToComponent,
   };

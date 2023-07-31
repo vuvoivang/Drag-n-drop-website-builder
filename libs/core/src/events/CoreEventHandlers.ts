@@ -1,10 +1,11 @@
 import { DerivedEventHandlers, EventHandlers } from 'libs/utils/src';
 
 import { EditorStore } from '../editor/store';
-import { NodeId, NodeTree } from '../interfaces/nodes';
+import { NodeId, NodeTree, Node } from '../interfaces/nodes';
 
 export interface CreateHandlerOptions {
   onCreate: (nodeTree: NodeTree) => void;
+  onParseReactElement: (node: Node, jsx: React.ReactElement) => void;
 }
 
 export class CoreEventHandlers<O = {}> extends EventHandlers<{ store: EditorStore } & O> {

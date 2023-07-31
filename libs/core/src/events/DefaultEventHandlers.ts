@@ -6,6 +6,7 @@ import { Positioner } from './Positioner';
 import { createShadow } from './createShadow';
 
 import { Indicator, NodeId, DragTarget } from '../interfaces';
+import React from 'react';
 
 export type DefaultEventHandlersOptions = {
   isMultiSelectEnabled: (e: MouseEvent) => boolean;
@@ -198,10 +199,9 @@ export class DefaultEventHandlers<O = {}> extends CoreEventHandlers<DefaultEvent
       },
       create: (el: HTMLElement, userElement: React.ReactElement, options?: Partial<CreateHandlerOptions>) => {
         el.setAttribute('draggable', 'true');
-        // console.log("userElement", userElement);
         const unbindDragStart = this.addCraftEventListener(el, 'dragstart', (e) => {
           e.craft.stopPropagation();
-          const tree = store.query.parseReactElement(userElement).toNodeTree();
+          const tree = store.query.parseReactElement(userElement).toNodeTree(options && options.onParseReactElement);
 
           const dom = e.currentTarget as HTMLElement;
           this.draggedElementShadow = createShadow(e, [dom], DefaultEventHandlers.forceSingleDragShadow);
@@ -235,6 +235,7 @@ export class DefaultEventHandlers<O = {}> extends CoreEventHandlers<DefaultEvent
           unbindDragEnd();
         };
       },
+
     };
   }
 

@@ -227,6 +227,17 @@ export function QueryMethods(state: EditorState) {
       },
     }),
 
+    parseJSXFromRootNodeTreeId(nodeId: NodeId) {
+      const rootNodeTree = state.nodes[nodeId];
+      const { type: ComponentType, props, nodes: childNodes } = rootNodeTree?.data;
+
+      const childrenJsx = childNodes?.map((childId) => {
+        return this.parseJSXFromRootNodeTreeId(childId);
+      });
+
+      return <ComponentType {...props}>{childrenJsx}</ComponentType>;
+    },
+
     createNode(reactElement: React.ReactElement, extras?: any) {
       deprecationWarning(`query.createNode(${reactElement})`, {
         suggest: `query.parseReactElement(${reactElement}).toNodeTree()`,

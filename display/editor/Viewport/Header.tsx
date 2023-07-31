@@ -1,4 +1,4 @@
-import { Theme, useEditor } from 'libs/core/src';
+import { ComponentData, Theme, useEditor } from 'libs/core/src';
 import {
   Tooltip,
   // FormControl,
@@ -144,6 +144,7 @@ export type Node = {
   children: Array<string>;
   linkedNodes: Array<string>;
   pagePath: string;
+  belongToComponent: string;
 };
 
 export const Header = () => {
@@ -391,11 +392,16 @@ export const Header = () => {
     setLoadingGenCode(true);
     try {
       let pages = new Array<PageData>();
+      let components = new Array<ComponentData>();
       let nodes = new Array<Node>();
       let theme: string;
       // get pages info
       for (const page of query.getState().pageOptions.pages) {
         pages.push({ path: page.path, name: page.name });
+      }
+      // get components info
+      for (const component of query.getState().componentOptions.components) {
+        components.push({ name: component.name, instanceIds: [] });
       }
       // get theme
       theme = JSON.stringify(themeValues);
@@ -425,6 +431,7 @@ export const Header = () => {
           linkedNodes: Object.values(serializeNode.linkedNodes),
           children: serializeNode.nodes,
           pagePath: serializeNode.page,
+          belongToComponent: serializeNode.belongToComponent,
         };
 
         nodes.push(node);
@@ -439,6 +446,7 @@ export const Header = () => {
           pages,
           projectId: project?.id,
           theme,
+          components,
         })
         .then((res) => {
           if (res.url) {

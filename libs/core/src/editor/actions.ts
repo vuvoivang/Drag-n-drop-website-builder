@@ -168,6 +168,17 @@ const Methods = (state: EditorState, query: QueryCallbacksFor<typeof QueryMethod
     }
   };
 
+  // const createComponentNodes = (id: NodeId) => {
+  //   const targetNode = state.nodes[id];
+
+  //   const newNode = query.createNode(React.createElement(targetNode.data.type, targetNode.data.props));
+
+  //   if (targetNode.data.nodes) {
+  //     // we deep clone here
+  //     [...targetNode.data.nodes].forEach((childId) => cloneNode(childId, newNode.id));
+  //   }
+  //   return newNode.id;
+  // };
   return {
     /**
      * @private

@@ -1,4 +1,4 @@
-import { getCurrentRootNodeIdComponent, useEditor } from 'libs/core/src';
+import { getCurrentRootNodeIdComponent, Node, useEditor } from 'libs/core/src';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 import _var from '../../styles/common/_var.module.scss';
@@ -17,11 +17,7 @@ export type MenuItemProps = {
   overwritePropsCraft?: any;
   label?: string;
   Icon?: any;
-  subItems?: Array<MenuItemProps & { isSubmenu: boolean }>;
-  isTemplate?: boolean;
 };
-
-
 
 export const renderMenuComponentItems = (subItems: Array<MenuItemProps>, fnCreateCraftItem) => {
   return (
@@ -33,7 +29,7 @@ export const renderMenuComponentItems = (subItems: Array<MenuItemProps>, fnCreat
           icon={<subItem.Icon style={{ fill: 'currentColor', width: '100%', height: '100%' }} />}
           key={subItem.label}
         >
-          {renderComponentSubItems(subItems, fnCreateCraftItem)}
+          {renderComponentSubItems(subItem, fnCreateCraftItem)}
         </SubMenu>
       ))}
     </>
@@ -56,37 +52,40 @@ const RenderViewElement = (props) => {
     <div ref={ref} />
   </Tooltip>;
 }
-const renderComponentSubItems = (subItems: Array<MenuItemProps>, fnCreateCraftItem) => {
+const renderComponentSubItems = (subItem: MenuItemProps, fnCreateCraftItem) => {
+  const {
+    label,
+    CraftElement,
+    ViewElement,
+  } = subItem;
   return (
-    <div className='pl-20'>
-      {Array.isArray(subItems) &&
-        subItems?.map((item, idx) => {
-          const {
-            CraftElement,
-            ViewElement,
-          } = item;
-
-          return (
-            <MenuItem
-              rootStyles={{
-                [`.${menuClasses.button}`]: {
-                  cursor: 'default!important',
-                },
-              }}
-              key={idx}
-            >
-              {' '}
-              <div
-                className='flex justify-center'
-              // ref={(ref) => {
-              //   // fnCreateCraftItem(ref, <CraftElement />);
-              // }}
-              >
-                <RenderViewElement ViewElement={ViewElement} />
-              </div>
-            </MenuItem>
-          );
-        })}
+    <div className='pl-20' 
+     >
+      <MenuItem
+        rootStyles={{
+          [`.${menuClasses.button}`]: {
+            cursor: 'default!important',
+          },
+        }}
+      >
+        {' '}
+        <div
+          className='flex justify-center cursor-move'
+          ref={(ref) => {
+            fnCreateCraftItem(ref, CraftElement, {
+              onParseReactElement: (node: Node, _) => {
+                node.data.belongToComponent = label;
+              }
+            });
+          }}
+          style={{
+            transform: `scale(${0.5})`,
+            transformOrigin: 'top left',
+          }}
+        >
+          <RenderViewElement ViewElement={ViewElement} />
+        </div>
+      </MenuItem>
     </div >
   );
 };
@@ -94,12 +93,14 @@ const renderComponentSubItems = (subItems: Array<MenuItemProps>, fnCreateCraftIt
 export const ComponentMenuItems = () => {
   const {
     components = [],
-    actions,
+    connectors: { create },
     getDomNodeId,
+    parseJSXFromRootNodeTreeId,
   } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     components: state.componentOptions.components,
-    getDomNodeId: (id) => query.node(id).get().dom
+    getDomNodeId: (id) => query.node(id).get().dom,
+    parseJSXFromRootNodeTreeId: query.parseJSXFromRootNodeTreeId,
   }));
   const generatedMenuComponents = components?.map((item) => {
     return {
@@ -107,13 +108,12 @@ export const ComponentMenuItems = () => {
       Icon: LabelSvg,
       subItems: [],
       ViewElement: getDomNodeId(getCurrentRootNodeIdComponent(item.name))?.cloneNode(true),
-      CraftElement: <div>Hello</div>,
+      CraftElement: parseJSXFromRootNodeTreeId(getCurrentRootNodeIdComponent(item.name)),
     }
   })
-  // const shadow = shadowsToCreate[0].cloneNode(true) as HTMLElement;
   return (
     <>
-      {renderMenuComponentItems(generatedMenuComponents, actions.clone)}
+      {renderMenuComponentItems(generatedMenuComponents, create)}
     </>
   );
 };
