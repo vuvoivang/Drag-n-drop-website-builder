@@ -28,7 +28,7 @@ export const RenderNodeToElement: React.FC<RenderNodeToElementType> = ({ render 
 
   // don't display the node since it's hidden
 
-  console.log(currentComponentRootNodeId, isInPage, id);
+  // console.log(currentComponentRootNodeId, isInPage, id);
 
   // except current root, case page, check show
   if ((isInPage && id !== currentPageRootNodeId)

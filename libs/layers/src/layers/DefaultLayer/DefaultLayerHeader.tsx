@@ -120,7 +120,7 @@ export const DefaultLayerHeader: React.FC = () => {
       selected,
       topLevel: query.node(id).isTopLevelCanvas(),
       isShownInCurrentPage: query.isInPage() && state.pageOptions.currentPage === state.nodes[id].data.page,
-      isShownInCurrentComponent: !query.isInPage() && state.componentOptions.currentComponent === state.nodes[id].data.component,
+      isShownInCurrentComponent: !query.isInPage() && state.componentOptions.currentComponent === state.nodes[id].data.belongToComponent,
     };
   });
   if (!(isShownInCurrentPage || isShownInCurrentComponent)) return null;

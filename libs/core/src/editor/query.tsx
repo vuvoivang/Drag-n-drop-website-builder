@@ -146,6 +146,7 @@ export function QueryMethods(state: EditorState) {
         nodes: this.getSerializedNodes(),
         pages: state.pageOptions.pages,
         theme: this.getTheme(),
+        components: state.componentOptions.components,
       });
     },
 
