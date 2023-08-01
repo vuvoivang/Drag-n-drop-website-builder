@@ -79,7 +79,7 @@ const renderComponentSubItems = (subItem: MenuItemProps, fnCreateCraftItem) => {
             });
           }}
           style={{
-            transform: `scale(${0.5})`,
+            transform: `scale(${0.7})`,
             transformOrigin: 'top left',
           }}
         >

@@ -80,8 +80,10 @@ export const Toolbox = () => {
   const {
     enabled,
     connectors: { create },
+    components = [],
   } = useEditor((state) => ({
     enabled: state.options.enabled,
+    components: state.componentOptions.components,
   }));
   const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
   const [theme, setTheme] = React.useState<Theme>('light');
@@ -208,12 +210,13 @@ export const Toolbox = () => {
 
           {/* Component Menu  */}
 
-          <ExpandablePanel title={"Component"} Icon={TypeSvg}>
+          {components.length > 0 && <ExpandablePanel title={"Component"} Icon={TypeSvg}>
             {/* @ts-ignore */}
             <Menu menuItemStyles={menuItemStyles}>
               <ComponentMenuItems />
             </Menu>
-          </ExpandablePanel>
+          </ExpandablePanel>}
+
         </Sidebar>
       </div>
       <div className='bg-gray-50 collapse-sidebar' onClick={() => collapseSidebar()}>
